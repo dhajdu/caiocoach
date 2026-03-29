@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Micro-Sessions — AI Officer Institute</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../shared/styles.css">
+<style>
+  body { background: var(--surface); }
+  .hub-main { margin-left: 0; max-width: 1100px; margin: 0 auto; padding: 80px 56px 100px; }
+
+  .hero { background: var(--navy); border-radius: 14px; padding: 48px 52px; margin-bottom: 56px; }
+  .hero-label { font-size: 11px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: var(--mint); margin-bottom: 12px; }
+  .hero h1 { font-size: 36px; font-weight: 700; color: var(--white); line-height: 1.2; letter-spacing: -0.5px; margin-bottom: 14px; }
+  .hero h1 span { color: var(--mint); }
+  .hero p { font-size: 15px; color: rgba(255,255,255,0.55); max-width: 580px; line-height: 1.7; margin-bottom: 32px; }
+  .hero-stats { display: flex; gap: 36px; }
+  .hero-stat-num { font-size: 28px; font-weight: 700; color: var(--white); font-family: 'JetBrains Mono', monospace; margin-bottom: 2px; }
+  .hero-stat-num b { color: var(--mint); }
+  .hero-stat-label { font-size: 11px; color: rgba(255,255,255,0.35); text-transform: uppercase; letter-spacing: 0.8px; }
+
+  .track-header { display: flex; align-items: center; gap: 14px; margin: 56px 0 24px; }
+  .track-header:first-of-type { margin-top: 0; }
+  .track-pill { display: inline-flex; align-items: center; gap: 8px; font-size: 11px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; padding: 5px 14px; border-radius: 20px; }
+  .track-pill .dot { width: 6px; height: 6px; border-radius: 50%; background: currentColor; }
+  .track-pill.gen { background: rgba(209,69,139,0.1); color: #D1458B; border: 1px solid rgba(209,69,139,0.25); }
+  .track-pill.age { background: rgba(40,123,232,0.1); color: #287BE8; border: 1px solid rgba(40,123,232,0.25); }
+  .track-pill.lead { background: rgba(111,242,193,0.1); color: #1a9e74; border: 1px solid rgba(111,242,193,0.4); }
+  .track-title { font-size: 22px; font-weight: 700; letter-spacing: -0.3px; }
+  .track-count { font-size: 13px; color: var(--text-muted); margin-left: auto; font-family: 'JetBrains Mono', monospace; }
+
+  .mgrid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 16px; }
+  .mcard { background: var(--card-bg); border: 1px solid var(--border); border-radius: 12px; padding: 24px; text-decoration: none; color: inherit; display: flex; flex-direction: column; gap: 10px; transition: box-shadow 0.15s, border-color 0.15s; }
+  .mcard:hover { box-shadow: 0 4px 20px rgba(4,16,45,0.08); border-color: rgba(40,123,232,0.3); }
+  .mcard-top { display: flex; align-items: center; justify-content: space-between; }
+  .mcard-badge { font-family: 'JetBrains Mono', monospace; font-size: 11px; font-weight: 500; padding: 3px 9px; border-radius: 5px; }
+  .mcard-badge.gen { background: rgba(209,69,139,0.1); color: #D1458B; }
+  .mcard-badge.age { background: rgba(40,123,232,0.1); color: #287BE8; }
+  .mcard-badge.lead { background: rgba(26,158,116,0.1); color: #1a9e74; }
+  .mcard-arrow { font-size: 14px; color: var(--text-muted); transition: color 0.15s; }
+  .mcard:hover .mcard-arrow { color: var(--blue); }
+  .mcard-title { font-size: 16px; font-weight: 600; line-height: 1.3; letter-spacing: -0.2px; }
+  .mcard-desc { font-size: 13px; color: var(--text-muted); line-height: 1.55; flex: 1; }
+
+  .hub-footer { margin-top: 64px; padding-top: 24px; border-top: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; color: var(--text-muted); font-size: 13px; }
+  .hub-footer-brand { font-weight: 600; color: var(--text-secondary); }
+  .hub-footer-brand span { color: var(--blue); }
+
+  @media (max-width: 900px) {
+    .hub-main { padding: 70px 20px 80px; }
+    .hero { padding: 32px 24px; }
+    .hero h1 { font-size: 26px; }
+    .mgrid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <a href="../index.html" class="topbar-brand">AI Officer <span>Institute</span></a>
+  <div class="topbar-divider"></div>
+  <nav class="topbar-nav">
+    <a href="../index.html" class="tnav-link">Hub</a>
+    <a href="../generative-ai/index.html" class="tnav-link"><span class="tnav-dot" style="background:#D1458B"></span>Generative AI</a>
+    <a href="../agentic-ai/index.html" class="tnav-link"><span class="tnav-dot" style="background:#287BE8"></span>Agentic AI</a>
+    <a href="index.html" class="tnav-link active"><span class="tnav-dot" style="background:#1a9e74"></span>Micro-Sessions</a>
+  </nav>
+</div>
+
+<div class="layout">
+  <main class="hub-main">
+
+    <div class="hero">
+      <div class="hero-label">AI Officer Institute</div>
+      <h1>Micro-<span>Sessions</span></h1>
+      <p>30-minute hands-on sessions tied to the latest AI developments. Each one earns certification credits toward your series.</p>
+      <div class="hero-stats">
+        <div><div class="hero-stat-num">17</div><div class="hero-stat-label">Sessions</div></div>
+        <div><div class="hero-stat-num">3</div><div class="hero-stat-label">Series</div></div>
+        <div><div class="hero-stat-num">30<b>min</b></div><div class="hero-stat-label">Per Session</div></div>
+      </div>
+    </div>
+
+    <div class="track-header">
+      <span class="track-pill gen"><span class="dot"></span>Generative AI</span>
+      <span class="track-title">Generative AI Essentials</span>
+      <span class="track-count">8 sessions</span>
+    </div>
+    <div class="mgrid">
+      <a href="ai-browsers.html" class="mcard">
+        <div class="mcard-top"><span class="mcard-badge gen">Generative AI</span><span class="mcard-arrow">→</span></div>
+        <div class="mcard-title">AI Browsers: Working Smarter</div>
+        <div class="mcard-desc">How AI-native browsers change the way you research, summarize, and act on information — and what that means for your team.</div>
+      </a>
+      <a href="ai-shopping.html" class="mcard">
+        <div class="mcard-top"><span class="mcard-badge gen">Generative AI</span><span class="mcard-arrow">→</span></div>
+        <div class="mcard-title">AI Shopping: The End of Browse and Click</div>
+        <div class="mcard-desc">AI is replacing the search bar in commerce. Learn what this shift means for revenue strategy and how AI Officers should respond.</div>
+      </a>
+      <a href="build-your-digital-twin.html" class="mcard">
+        <div class="mcard-top"><span class="mcard-badge gen">Generative AI</span><span class="mcard-arrow">→</span></div>
+        <div class="mcard-title">Build Your Digital Twin</div>
+        <div class="mcard-desc">Create an AI version of yourself that can answer questions, draft in your voice, and represent your thinking — without you in the room.</div>
+      </a>
+      <a href="build-your-personal-brand.html" class="mcard">
+        <div class="mcard-top"><span class="mcard-badge gen">Generative AI</span><span class="mcard-arrow">→</span></div>
+        <div class="mcard-title">Build Your Personal Brand Doc</div>
+        <div class="mcard-desc">Use AI to define and document your professional identity so every piece of content sounds like you — consistently.</div>
+      </a>
+      <a href="deep-research.html" class="mcard">
+        <div class="mcard-top"><span class="mcard-badge gen">Generative AI</span><span class="mcard-arrow">→</span></div>
+        <div class="mcard-title">Deep Research</div>
+        <div class="mcard-desc">Go beyond basic search. Use AI to conduct structured research, synthesize sources, and produce briefings your team can act on.</div>
+      </a>
+      <a href="from-one-post-to-every-platform.html" class="mcard">
+        <div class="mcard-top"><span class="mcard-badge gen">Generative AI</span><span class="mcard-arrow">→</span></div>
+        <div class="mcard-title">From One Post To Every Platform</div>
+        <div class="mcard-desc">Write once, distribute everywhere. Build an AI workflow that adapts a single piece of content for LinkedIn, X, email, and more.</div>
+      </a>
+      <a href="prompting-101-video.html" class="mcard">
+        <div class="mcard-top"><span class="mcard-badge gen">Generative AI</span><span class="mcard-arrow">→</span></div>
+        <div class="mcard-title">Prompting 101: Video</div>
+        <div class="mcard-desc">Apply prompting frameworks to video scripts and briefs. Get consistent, on-brand video output from AI tools.</div>
+      </a>
+      <a href="seo-or-geo.html" class="mcard">
+        <div class="mcard-top"><span class="mcard-badge gen">Generative AI</span><span class="mcard-arrow">→</span></div>
+        <div class="mcard-title">SEO or GEO: Write Content AI Will Cite</div>
+        <div class="mcard-desc">Search is changing. Learn how to write content that ranks in both traditional search and AI-generated answers.</div>
+      </a>
+    </div>
+
+    <div class="track-header">
+      <span class="track-pill age"><span class="dot"></span>Agentic AI</span>
+      <span class="track-title">Agentic AI Essentials</span>
+      <span class="track-count">8 sessions</span>
+    </div>
+    <div class="mgrid">
+      <a href="claude-cowork-first-workflow.html" class="mcard">
+        <div class="mcard-top"><span class="mcard-badge age">Agentic AI</span><span class="mcard-arrow">→</span></div>
+        <div class="mcard-title">Your First Cowork Workflow</div>
+        <div class="mcard-desc">Build your first AI-assisted workflow using Claude Cowork — from problem framing to shipping a working automation.</div>
+      </a>
+      <a href="build-your-ai-team-paperclip.html" class="mcard">
+        <div class="mcard-top"><span class="mcard-badge age">Agentic AI</span><span class="mcard-arrow">→</span></div>
+        <div class="mcard-title">Build Your AI Team with Paperclip</div>
+        <div class="mcard-desc">Orchestrate multiple AI agents working in parallel toward a single goal using Paperclip — the open-source tool for building AI teams.</div>
+      </a>
+      <a href="claude-code-for-non-coders.html" class="mcard">
+        <div class="mcard-top"><span class="mcard-badge age">Agentic AI</span><span class="mcard-arrow">→</span></div>
+        <div class="mcard-title">Claude Code for Non-Coders</div>
+        <div class="mcard-desc">You don't need to write code to use Claude Code. Learn how to direct it, review its work, and ship real outputs as a non-technical leader.</div>
+      </a>
+      <a href="claude-dispatch.html" class="mcard">
+        <div class="mcard-top"><span class="mcard-badge age">Agentic AI</span><span class="mcard-arrow">→</span></div>
+        <div class="mcard-title">Claude Dispatch: Build Your Decision Architecture</div>
+        <div class="mcard-desc">Design a system where AI handles routing, triage, and first response — so your team only sees what needs a human decision.</div>
+      </a>
+      <a href="cowork-and-calendar.html" class="mcard">
+        <div class="mcard-top"><span class="mcard-badge age">Agentic AI</span><span class="mcard-arrow">→</span></div>
+        <div class="mcard-title">Cowork + Calendar: Let AI Prep Your Week</div>
+        <div class="mcard-desc">Connect Claude Cowork to your calendar and let it do the prep work — briefings, agendas, and follow-ups — before you even open a meeting.</div>
+      </a>
+      <a href="how-to-brief-an-ai-agent.html" class="mcard">
+        <div class="mcard-top"><span class="mcard-badge age">Agentic AI</span><span class="mcard-arrow">→</span></div>
+        <div class="mcard-title">How to Brief an AI Agent</div>
+        <div class="mcard-desc">Most agent failures start with a bad brief. Learn the structure that gets consistent results from any AI agent you deploy.</div>
+      </a>
+      <a href="paperclip-pipelines.html" class="mcard">
+        <div class="mcard-top"><span class="mcard-badge age">Agentic AI</span><span class="mcard-arrow">→</span></div>
+        <div class="mcard-title">Paperclip Pipelines</div>
+        <div class="mcard-desc">Build a multi-step AI workflow that runs without you — using Paperclip to chain agents, triggers, and outputs into a repeatable pipeline.</div>
+      </a>
+      <a href="the-command-line.html" class="mcard">
+        <div class="mcard-top"><span class="mcard-badge age">Agentic AI</span><span class="mcard-arrow">→</span></div>
+        <div class="mcard-title">The Command Line: The Door to Every Powerful AI Tool</div>
+        <div class="mcard-desc">Understand what the command line is, why it matters for AI Officers, and how to use it to unlock tools your browser can't reach.</div>
+      </a>
+    </div>
+
+    <div class="track-header">
+      <span class="track-pill lead"><span class="dot"></span>Leadership</span>
+      <span class="track-title">Leadership in the AI Era</span>
+      <span class="track-count">1 session</span>
+    </div>
+    <div class="mgrid">
+      <a href="agents-compared.html" class="mcard">
+        <div class="mcard-top"><span class="mcard-badge lead">Leadership</span><span class="mcard-arrow">→</span></div>
+        <div class="mcard-title">Agents Compared: Which Platform Is Right for Your Team?</div>
+        <div class="mcard-desc">A decision framework for evaluating AI agent platforms — so you can make the right call for your organization's maturity, budget, and goals.</div>
+      </a>
+    </div>
+
+    <footer class="hub-footer">
+      <div><span class="hub-footer-brand">AI Officer <span>Institute</span></span></div>
+      <div>Micro-Sessions &mdash; 30 min each &mdash; earn certification credits</div>
+    </footer>
+
+  </main>
+</div>
+
+</body>
+</html>

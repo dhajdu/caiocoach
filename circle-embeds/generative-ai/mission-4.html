@@ -1,0 +1,743 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mission 4: Prompting Perfect Visuals — AI Officer Institute</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/*
+ * AI Officer Institute — Unified Stylesheet
+ * No images, no SVGs, no decorative pseudo-elements.
+ */
+
+/* ── TOKENS ── */
+:root {
+  --navy: #04102D;
+  --white: #FFFFFF;
+  --blue: #287BE8;
+  --magenta: #D1458B;
+  --mint: #6FF2C1;
+  --mint-dark: #1a9e74;
+  --text-primary: #1a1f36;
+  --text-secondary: #4a5068;
+  --text-muted: #6b7194;
+  --border: #d8dce8;
+  --surface: #f4f6fa;
+  --card-bg: #ffffff;
+  --sidebar-bg: #f8f9fc;
+  --sidebar-active: #eef1f8;
+  --sidebar-hover: #f0f2f9;
+}
+
+/* ── RESET ── */
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  font-family: 'DM Sans', sans-serif;
+  background: var(--white);
+  color: var(--text-primary);
+  line-height: 1.7;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ── TOPBAR ── */
+.topbar {
+  position: fixed; top: 0; left: 0; right: 0; height: 56px;
+  background: var(--navy);
+  display: flex; align-items: center;
+  padding: 0 24px; z-index: 100;
+}
+.topbar-brand {
+  font-weight: 700; font-size: 15px; color: var(--white);
+  letter-spacing: -0.2px; text-decoration: none; white-space: nowrap; flex-shrink: 0;
+}
+.topbar-brand span { color: var(--blue); }
+.topbar-divider {
+  width: 1px; height: 24px; background: rgba(255,255,255,0.12);
+  margin: 0 20px; flex-shrink: 0;
+}
+.topbar-course { display: none; }
+
+.topbar-nav { display: flex; align-items: center; gap: 4px; }
+.tnav-link {
+  display: inline-flex; align-items: center; gap: 7px;
+  font-size: 13px; font-weight: 500; color: rgba(255,255,255,0.45);
+  text-decoration: none; padding: 6px 14px; border-radius: 6px;
+  transition: color 0.15s, background 0.15s; white-space: nowrap;
+}
+.tnav-link:hover { color: rgba(255,255,255,0.9); background: rgba(255,255,255,0.07); }
+.tnav-link.active { color: #fff; background: rgba(255,255,255,0.1); }
+.tnav-dot { width: 6px; height: 6px; border-radius: 50%; display: inline-block; flex-shrink: 0; }
+
+/* ── LAYOUT ── */
+.layout { display: flex; margin-top: 56px; min-height: calc(100vh - 56px); }
+
+/* ── SIDEBAR ── */
+.sidebar {
+  width: 272px; min-width: 272px; background: var(--sidebar-bg);
+  border-right: 1px solid var(--border); padding: 24px 0;
+  position: fixed; top: 56px; left: 0; bottom: 0;
+  overflow-y: auto; scrollbar-width: thin;
+}
+.sidebar-section { padding: 0 20px; margin-bottom: 8px; }
+.sidebar-label {
+  font-size: 10px; font-weight: 700; letter-spacing: 1.2px;
+  text-transform: uppercase; color: var(--text-muted); padding: 16px 0 8px;
+}
+.sidebar-item {
+  display: flex; align-items: flex-start; gap: 12px; padding: 10px 12px;
+  border-radius: 8px; cursor: pointer; transition: background 0.15s;
+  text-decoration: none; color: var(--text-secondary); font-size: 14px;
+  font-weight: 400; line-height: 1.4;
+}
+.sidebar-item:hover { background: var(--sidebar-hover); }
+.sidebar-item.active { background: var(--sidebar-active); color: var(--blue); font-weight: 500; }
+.sidebar-num {
+  font-family: 'JetBrains Mono', monospace; font-size: 12px;
+  color: var(--text-muted); min-width: 18px; padding-top: 2px;
+}
+.sidebar-item.active .sidebar-num { color: var(--blue); }
+
+.sidebar-hub {
+  display: flex; align-items: center; gap: 8px;
+  padding: 8px 12px; margin: 0 20px 12px; border-radius: 8px;
+  font-size: 13px; font-weight: 500; color: var(--text-muted);
+  text-decoration: none; border: 1px solid var(--border);
+  transition: background 0.15s, color 0.15s;
+}
+.sidebar-hub:hover { background: var(--sidebar-hover); color: var(--text-primary); }
+
+.sidebar-mission-title { padding: 0 20px; margin-bottom: 16px; }
+.sidebar-mission-title .smt-track {
+  font-size: 10px; font-weight: 700; letter-spacing: 1.2px;
+  text-transform: uppercase; margin-bottom: 4px;
+  display: flex; align-items: center; gap: 6px;
+}
+.sidebar-mission-title .smt-dot { width: 6px; height: 6px; border-radius: 50%; }
+.sidebar-mission-title .smt-name { font-size: 14px; font-weight: 600; color: var(--text-primary); line-height: 1.3; }
+
+/* ── MAIN ── */
+.main { margin-left: 272px; flex: 1; max-width: 800px; padding: 48px 56px 120px; }
+
+/* ── TYPOGRAPHY ── */
+.section-label { font-size: 11px; font-weight: 700; letter-spacing: 1.2px; text-transform: uppercase; color: var(--text-muted); margin-bottom: 8px; }
+.lesson-tag { display: inline-flex; align-items: center; gap: 8px; margin-bottom: 12px; }
+.lesson-tag-num { font-size: 12px; font-weight: 600; color: var(--blue); letter-spacing: 0.5px; text-transform: uppercase; }
+.lesson-tag-type { font-size: 11px; color: var(--text-muted); background: var(--surface); padding: 2px 10px; border-radius: 4px; font-weight: 500; }
+
+h1 { font-size: 32px; font-weight: 700; line-height: 1.2; color: var(--text-primary); margin-bottom: 24px; letter-spacing: -0.5px; }
+h2 { font-size: 22px; font-weight: 700; line-height: 1.3; color: var(--text-primary); margin: 48px 0 16px; letter-spacing: -0.3px; }
+h3 { font-size: 17px; font-weight: 600; color: var(--text-primary); margin: 32px 0 12px; }
+p { font-size: 15.5px; color: var(--text-secondary); margin-bottom: 16px; }
+p strong { color: var(--text-primary); font-weight: 600; }
+
+/* ── CONTENT COMPONENTS ── */
+.video-card { background: var(--navy); border-radius: 12px; padding: 24px 28px; display: flex; align-items: center; gap: 20px; margin-bottom: 32px; }
+.video-play { width: 48px; height: 48px; background: var(--blue); border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+.video-play svg { margin-left: 3px; }
+.video-title { font-size: 16px; font-weight: 600; color: var(--white); }
+.video-sub { font-size: 13px; color: rgba(255,255,255,0.55); margin-top: 4px; }
+
+.goal-list { list-style: none; padding: 0; margin: 0 0 24px; }
+.goal-list li { position: relative; padding: 8px 0 8px 28px; font-size: 15px; color: var(--text-secondary); line-height: 1.6; }
+.goal-list li::before { content: ''; position: absolute; left: 0; top: 16px; width: 8px; height: 8px; border-radius: 2px; background: var(--blue); opacity: 0.7; }
+
+.brief-cards { display: flex; flex-direction: column; gap: 12px; margin: 24px 0; }
+.brief-card { display: flex; align-items: flex-start; gap: 16px; padding: 20px; border: 1px solid var(--border); border-radius: 10px; background: var(--card-bg); transition: border-color 0.15s, box-shadow 0.15s; }
+.brief-card:hover { border-color: var(--blue); box-shadow: 0 2px 12px rgba(40,123,232,0.08); }
+.brief-num { font-family: 'JetBrains Mono', monospace; font-size: 14px; font-weight: 600; color: var(--blue); background: rgba(40,123,232,0.08); width: 32px; height: 32px; border-radius: 8px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+.brief-card-body h4 { font-size: 15px; font-weight: 600; color: var(--text-primary); margin-bottom: 4px; }
+.brief-card-body p { font-size: 13.5px; color: var(--text-muted); margin: 0; line-height: 1.5; }
+
+.time-grid { display: grid; grid-template-columns: 1fr auto; gap: 4px 24px; font-size: 14px; padding: 16px 20px; background: var(--surface); border-radius: 8px; margin: 24px 0; }
+.time-label { color: var(--text-secondary); }
+.time-value { color: var(--text-primary); font-weight: 600; text-align: right; }
+
+.fw-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin: 24px 0; }
+.fw-block { border: 1px solid var(--border); border-radius: 10px; padding: 24px; background: var(--card-bg); }
+.fw-block.full { grid-column: 1 / -1; }
+.fw-name { font-family: 'JetBrains Mono', monospace; font-size: 13px; font-weight: 600; color: var(--blue); letter-spacing: 0.5px; margin-bottom: 4px; }
+.fw-subtitle { font-size: 14px; font-weight: 600; color: var(--text-primary); margin-bottom: 16px; }
+.fw-letters { display: flex; flex-direction: column; gap: 10px; }
+.fw-letter { display: flex; align-items: flex-start; gap: 12px; }
+.fw-letter-char { font-family: 'JetBrains Mono', monospace; font-size: 14px; font-weight: 700; color: var(--white); background: var(--navy); width: 28px; height: 28px; border-radius: 6px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+.fw-letter-text { font-size: 14px; color: var(--text-secondary); padding-top: 3px; line-height: 1.5; }
+.fw-letter-text strong { color: var(--text-primary); }
+
+.insight { border-left: 3px solid var(--blue); padding: 16px 20px; background: rgba(40,123,232,0.04); border-radius: 0 8px 8px 0; margin: 28px 0; }
+.insight-label { font-size: 11px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: var(--blue); margin-bottom: 6px; }
+.insight p { font-size: 14.5px; color: var(--text-primary); margin: 0; line-height: 1.6; }
+
+.compare-block { margin: 24px 0; display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.compare-side { padding: 20px; border-radius: 10px; border: 1px solid var(--border); }
+.compare-side.without { background: var(--surface); }
+.compare-side.with { background: rgba(40,123,232,0.04); border-color: var(--blue); }
+.compare-side h4 { font-size: 13px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.8px; margin-bottom: 8px; }
+.compare-side.without h4 { color: var(--text-muted); }
+.compare-side.with h4 { color: var(--blue); }
+.compare-side p { font-size: 14px; color: var(--text-secondary); margin: 0; line-height: 1.6; }
+.compare-without { background: var(--surface); }
+.compare-with { background: rgba(40,123,232,0.04); border: 1px solid var(--blue); }
+.compare-header { font-size: 13px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.8px; margin-bottom: 12px; }
+.compare-without .compare-header { color: var(--text-muted); }
+.compare-with .compare-header { color: var(--blue); }
+
+.pro-tip { background: var(--navy); border-radius: 10px; padding: 20px 24px; margin: 28px 0; }
+.pro-tip-label { font-size: 11px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: var(--mint); margin-bottom: 6px; }
+.pro-tip p { font-size: 14px; color: rgba(255,255,255,0.8); margin: 0; line-height: 1.6; }
+
+.rules-table { width: 100%; border-collapse: collapse; margin: 20px 0; font-size: 14px; }
+.rules-table th { text-align: left; padding: 10px 16px; background: var(--surface); color: var(--text-muted); font-size: 11px; font-weight: 700; letter-spacing: 0.8px; text-transform: uppercase; border-bottom: 1px solid var(--border); }
+.rules-table td { padding: 12px 16px; border-bottom: 1px solid var(--border); color: var(--text-secondary); vertical-align: top; line-height: 1.5; }
+.rules-table td:first-child { font-weight: 600; color: var(--text-primary); white-space: nowrap; }
+.rules-table td code { font-family: 'JetBrains Mono', monospace; font-size: 12.5px; background: var(--surface); padding: 2px 8px; border-radius: 4px; color: var(--magenta); }
+
+.checklist { list-style: none; padding: 0; margin: 16px 0; counter-reset: step; }
+.checklist li { counter-increment: step; display: flex; align-items: flex-start; gap: 14px; padding: 10px 0; font-size: 14.5px; color: var(--text-secondary); line-height: 1.5; border-bottom: 1px solid rgba(0,0,0,0.04); }
+.checklist li::before { content: counter(step); font-family: 'JetBrains Mono', monospace; font-size: 12px; font-weight: 600; color: var(--white); background: var(--navy); width: 24px; height: 24px; border-radius: 6px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 1px; }
+
+.cta-block { border: 2px solid var(--blue); border-radius: 12px; padding: 32px; text-align: center; margin: 40px 0; background: rgba(40,123,232,0.02); }
+.cta-block h3 { margin: 0 0 8px; font-size: 20px; }
+.cta-block p { font-size: 14.5px; color: var(--text-muted); margin-bottom: 20px; }
+.cta-btn { display: inline-flex; align-items: center; gap: 8px; background: var(--blue); color: var(--white); font-size: 15px; font-weight: 600; padding: 14px 32px; border-radius: 8px; text-decoration: none; transition: background 0.15s, transform 0.1s; }
+.cta-btn:hover { background: #1d6ad4; transform: translateY(-1px); }
+.cta-btn svg { flex-shrink: 0; }
+.cta-btn-final { background: var(--navy); }
+.cta-btn-final:hover { background: #0a1e4a; }
+
+.challenge-cards { display: flex; flex-direction: column; gap: 10px; margin: 20px 0; }
+.challenge-card { display: flex; align-items: flex-start; gap: 14px; padding: 16px 20px; border: 1px solid var(--border); border-radius: 10px; background: var(--card-bg); }
+.challenge-num { font-family: 'JetBrains Mono', monospace; font-size: 13px; font-weight: 600; color: var(--blue); background: rgba(40,123,232,0.08); width: 28px; height: 28px; border-radius: 7px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+.challenge-body { flex: 1; }
+.challenge-body h4 { font-size: 14.5px; font-weight: 600; color: var(--text-primary); margin-bottom: 2px; }
+.challenge-body p { font-size: 13px; color: var(--text-muted); margin: 0; line-height: 1.5; }
+.challenge-time { font-family: 'JetBrains Mono', monospace; font-size: 12px; color: var(--text-muted); background: var(--surface); padding: 4px 10px; border-radius: 5px; white-space: nowrap; flex-shrink: 0; margin-top: 2px; }
+
+.final-project { margin-top: 48px; padding-top: 40px; border-top: 2px solid var(--navy); }
+.final-project-badge { display: inline-block; font-size: 11px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: var(--white); background: var(--magenta); padding: 5px 14px; border-radius: 5px; margin-bottom: 16px; }
+.final-project h2 { margin-top: 0; }
+.final-cards { display: flex; flex-direction: column; gap: 16px; margin: 24px 0; }
+.final-card { border: 2px solid var(--navy); border-radius: 12px; padding: 24px; background: var(--card-bg); }
+.final-card-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px; }
+.final-card-label { font-family: 'JetBrains Mono', monospace; font-size: 11px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: var(--white); background: var(--navy); padding: 4px 12px; border-radius: 5px; }
+.final-card h3 { margin: 0 0 8px; font-size: 18px; }
+.final-card p { font-size: 14px; color: var(--text-secondary); margin: 0; line-height: 1.6; }
+.final-cta { border-color: var(--navy); background: rgba(4,16,45,0.02); }
+
+.takeaway-list { list-style: none; padding: 0; margin: 20px 0; }
+.takeaway-list li { padding: 16px 0; border-bottom: 1px solid rgba(0,0,0,0.05); }
+.takeaway-list li:last-child { border-bottom: none; }
+.takeaway-list li strong { display: block; font-size: 15px; color: var(--text-primary); margin-bottom: 4px; }
+.takeaway-list li span { font-size: 14px; color: var(--text-muted); line-height: 1.5; }
+.takeaway-title { font-size: 15px; font-weight: 600; color: var(--text-primary); display: block; margin-bottom: 4px; }
+.takeaway-desc { font-size: 14px; color: var(--text-muted); }
+
+.cert-card { background: var(--navy); border-radius: 14px; padding: 40px; text-align: center; margin: 48px 0 0; }
+.cert-card h2 { color: var(--white); margin: 0 0 8px; font-size: 22px; }
+.cert-card .subtitle, .cert-subtitle { color: rgba(255,255,255,0.5); font-size: 13px; font-weight: 500; letter-spacing: 0.5px; margin-bottom: 20px; }
+.cert-card p { color: rgba(255,255,255,0.7); font-size: 14.5px; line-height: 1.6; max-width: 520px; margin: 0 auto 28px; }
+.cert-progress { display: flex; justify-content: center; gap: 12px; margin-bottom: 24px; }
+.cert-dot { width: 48px; height: 48px; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-family: 'JetBrains Mono', monospace; font-size: 13px; font-weight: 700; }
+.cert-dot.done { background: rgba(111,242,193,0.15); color: var(--mint); }
+.cert-dot.current { background: var(--blue); color: var(--white); }
+.cert-dot.upcoming { background: rgba(255,255,255,0.08); color: rgba(255,255,255,0.35); }
+.cert-next { display: inline-flex; align-items: center; gap: 6px; color: var(--mint); font-size: 14px; font-weight: 600; text-decoration: none; }
+.cert-next:hover { opacity: 0.85; }
+
+.divider { height: 1px; background: var(--border); margin: 40px 0; }
+
+/* ── AGENT TEAM GRID ── */
+.agent-grid { display: flex; flex-direction: column; gap: 12px; margin: 24px 0; }
+.agent-card { display: flex; align-items: flex-start; gap: 16px; padding: 20px; border: 1px solid var(--border); border-radius: 10px; background: var(--card-bg); }
+.agent-icon { width: 40px; height: 40px; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-family: 'JetBrains Mono', monospace; font-size: 13px; font-weight: 700; flex-shrink: 0; }
+.agent-icon.research { background: rgba(40,123,232,0.1); color: var(--blue); }
+.agent-icon.copy { background: rgba(209,69,139,0.1); color: var(--magenta); }
+.agent-icon.analytics { background: rgba(111,242,193,0.15); color: #0a8a5e; }
+.agent-body h4 { font-size: 15px; font-weight: 600; color: var(--text-primary); margin-bottom: 4px; }
+.agent-body p { font-size: 13.5px; color: var(--text-muted); margin: 0; }
+.agent-role-tag { font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.6px; padding: 2px 8px; border-radius: 4px; margin-left: 8px; }
+.agent-role-tag.research { background: rgba(40,123,232,0.1); color: var(--blue); }
+.agent-role-tag.copy { background: rgba(209,69,139,0.1); color: var(--magenta); }
+.agent-role-tag.analytics { background: rgba(111,242,193,0.2); color: #0a8a5e; }
+
+/* ── EXERCISE BLOCK ── */
+.exercise-block { background: linear-gradient(135deg, rgba(209,69,139,0.04), rgba(40,123,232,0.04)); border: 1px solid rgba(209,69,139,0.2); border-radius: 12px; padding: 28px 32px; margin: 32px 0; }
+.exercise-label { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.8px; color: var(--magenta); margin-bottom: 12px; }
+.exercise-block h3 { margin: 0 0 12px; }
+.exercise-block p { font-size: 14.5px; margin-bottom: 8px; }
+.exercise-block p:last-child { margin-bottom: 0; }
+
+.ai-buddy-prompt { background: rgba(40,123,232,0.05); border: 1px solid rgba(40,123,232,0.2); border-radius: 8px; padding: 14px 18px; margin: 20px 0; font-size: 14px; color: var(--text-secondary); }
+.ai-buddy-prompt strong { color: var(--blue); }
+
+.prompt-block { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 20px 24px; margin: 24px 0; }
+.prompt-block-label { font-size: 11px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: var(--blue); margin-bottom: 10px; }
+.prompt-block pre { font-family: 'JetBrains Mono', monospace; font-size: 13px; color: var(--text-secondary); white-space: pre-wrap; line-height: 1.6; margin: 0; }
+
+.time-grid-row { display: contents; }
+.time-grid-row:not(:last-child) .tg-label, .time-grid-row:not(:last-child) .tg-val { border-bottom: 1px solid var(--border); }
+.tg-label { padding: 12px 20px; font-size: 14px; color: var(--text-secondary); }
+.tg-val { padding: 12px 20px; font-size: 14px; font-weight: 600; color: var(--text-primary); text-align: right; }
+
+/* ── PREV / NEXT ── */
+.page-nav { display: flex; gap: 16px; margin-top: 64px; padding-top: 32px; border-top: 1px solid var(--border); }
+.page-nav-link { flex: 1; display: flex; flex-direction: column; gap: 6px; padding: 20px 24px; border: 1px solid var(--border); border-radius: 12px; text-decoration: none; background: var(--card-bg); transition: border-color 0.15s, box-shadow 0.15s, transform 0.1s; }
+.page-nav-link:hover { border-color: var(--blue); box-shadow: 0 4px 16px rgba(40,123,232,0.08); transform: translateY(-1px); }
+.page-nav-link.next { text-align: right; align-items: flex-end; }
+.page-nav-dir { font-size: 11px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: var(--text-muted); }
+.page-nav-title { font-size: 15px; font-weight: 600; color: var(--text-primary); }
+.page-nav-track { font-size: 12px; color: var(--text-muted); }
+
+/* ── RESPONSIVE ── */
+@media (max-width: 900px) {
+  .sidebar { display: none; }
+  .main { margin-left: 0; padding: 32px 24px 80px; }
+  .fw-grid, .compare-block { grid-template-columns: 1fr; }
+  .topbar-nav { display: none; }
+}
+
+
+/* ── Circle embed overrides ── */
+body {
+  margin: 0;
+  padding: 0;
+  background: #ffffff;
+}
+.main {
+  margin-left: 0 !important;
+  max-width: 780px;
+  padding: 32px 24px 80px;
+  margin: 0 auto;
+}
+
+</style>
+</head>
+<body>
+<div class="main">
+<section id="welcome">
+      <div class="section-label">Introduction</div>
+      <div class="lesson-tag">
+        <span class="lesson-tag-num">Lesson 1</span>
+        <span class="lesson-tag-type">Video</span>
+      </div>
+
+      <h1>Welcome to Prompting Perfect Visuals</h1>
+
+      <div class="video-card">
+        <div class="video-play">
+          <svg width="18" height="20" viewBox="0 0 18 20" fill="none"><polygon points="0,0 18,10 0,20" fill="white"/></svg>
+        </div>
+        <div>
+          <div class="video-title">Mission 4: Prompting Perfect Visuals</div>
+          <div class="video-sub">Watch the intro video to get oriented before diving in.</div>
+        </div>
+      </div>
+
+      <p>Welcome, Cadets.</p>
+
+      <p>In Mission 1 you learned the other 50%. In Mission 2 you fixed the fuel. In Mission 3 you built the logic - stacking frameworks to produce professional deliverables your leadership trusts.</p>
+
+      <p>Now you make it visual.</p>
+
+      <p>You have a complete go-to-market brief. You have a content pack with 11 deliverables. Leadership approved the strategy. But none of it goes to market without visuals. And Buddy's Bevs doesn't have a design team. Dana can't wait three weeks for a freelancer.</p>
+
+      <p>This is where the AI Officer builds a visual system. Not one image at a time. <strong>A system - with style rules, structured prompts, and templates anyone on the team can follow without asking you a single question.</strong></p>
+
+      <h2>Mission Goal</h2>
+      <p>This is where you turn your content into visuals. Not by typing "make me a picture" and hoping for the best. By building a structured, repeatable visual system your team can run without you in the room.</p>
+
+      <p>By the end of this mission, you'll be able to:</p>
+      <ul class="goal-list">
+        <li>Use the 5-Element Framework to direct any AI image with precision</li>
+        <li>Use the VISION Framework to create video content from a controlled starting image</li>
+        <li>Build a Style DNA document that locks your brand's visual identity across every output</li>
+        <li>Generate structured .json prompts that anyone on your team can reuse</li>
+        <li>Produce a complete visual campaign for BOLT mapped to the Four Offices</li>
+      </ul>
+    </section>
+
+    <div class="divider"></div>
+
+    <section id="briefs-overview">
+      <div class="lesson-tag">
+        <span class="lesson-tag-num">Lesson 2</span>
+      </div>
+
+      <h1>Mission Briefs</h1>
+
+      <p>Welcome to your mission briefing, Cadet. You're about to discover why most AI-generated visuals look generic, and exactly how to build a system that produces visuals your brand can trust.</p>
+
+      <div class="brief-cards">
+        <div class="brief-card">
+          <div class="brief-num">1</div>
+          <div class="brief-card-body">
+            <h4>From Ideas to Visuals</h4>
+            <p>The gap between "make me an image" and a professional visual. The 5-Element Framework that closes it.</p>
+          </div>
+        </div>
+        <div class="brief-card">
+          <div class="brief-num">2</div>
+          <div class="brief-card-body">
+            <h4>The VISION Framework for Video</h4>
+            <p>Video starts with a controlled image. Six elements that turn a still frame into motion with purpose.</p>
+          </div>
+        </div>
+        <div class="brief-card">
+          <div class="brief-num">3</div>
+          <div class="brief-card-body">
+            <h4>Tools of the Trade</h4>
+            <p>Three types of visual AI tools. When to use each and why most apps are just wrappers around the same models.</p>
+          </div>
+        </div>
+        <div class="brief-card">
+          <div class="brief-num">4</div>
+          <div class="brief-card-body">
+            <h4>Consistency at Scale: Style DNA</h4>
+            <p>How to lock your brand's visual identity so every image and video feels like it came from the same team.</p>
+          </div>
+        </div>
+        <div class="brief-card">
+          <div class="brief-num">5</div>
+          <div class="brief-card-body">
+            <h4>The BOLT Visual Campaign</h4>
+            <p>Everything from Missions 1-3 becomes visual. 11 images, 2 videos, one complete system.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="time-grid">
+        <span class="time-label">Core Learning (Briefs 1-4)</span>
+        <span class="time-value">~45 minutes</span>
+        <span class="time-label">Final Build (Brief 5)</span>
+        <span class="time-value">60-90 minutes</span>
+      </div>
+    </section>
+
+    <div class="divider"></div>
+
+    <section id="learning-guide">
+      <div class="lesson-tag">
+        <span class="lesson-tag-num">Lesson 3</span>
+      </div>
+
+      <h1>Learning Guide</h1>
+
+      <p><strong>You already have everything you need.</strong> Every visual you build in this mission comes from content you already created. The press release, the blog post, the social posts, the training docs. You're not starting from scratch. You're turning existing deliverables into visuals.</p>
+
+      <p><strong>Two frameworks, same discipline.</strong> The 5-Element Framework is for still images. The VISION Framework is for video. Both follow the same workflow: describe, apply the framework, let AI write the structured prompt, review, run.</p>
+
+      <p><strong>Ask AI to teach you options.</strong> This is the Mission 3 skill showing up again. You have the framework. But you might not know what "Style" options exist. Ask AI. Let AI teach you so you can decide.</p>
+
+      <h2>How to Get the Most Out of This Session</h2>
+
+      <ul class="goal-list">
+        <li><strong>Complete the image workflow before video:</strong> VISION builds on 5-Element. Do them in order.</li>
+        <li><strong>Build your Style DNA before the final campaign:</strong> Skip it and your 11 images look like 11 different companies.</li>
+        <li><strong>Use .json prompts for everything:</strong> Structured prompts are repeatable. Freeform prompts are one-time shots.</li>
+        <li><strong>Save everything:</strong> Your .json templates and Style DNA document are the deliverables your team will actually use.</li>
+      </ul>
+
+      <div class="pro-tip">
+        <div class="pro-tip-label">Pro Tip</div>
+        <p>Open your Mission 3 content pack before you start. Every image and video in this mission maps to a specific deliverable from that pack. Having it open means you're never guessing what the visual needs to communicate.</p>
+      </div>
+    </section>
+
+    <div class="divider"></div>
+
+    <section id="brief1">
+      <div class="section-label">Mission Briefs</div>
+      <div class="lesson-tag">
+        <span class="lesson-tag-num">Brief 1</span>
+      </div>
+
+      <h1>From Ideas to Visuals</h1>
+
+      <p>Most people open an AI image tool, type "professional product photo of an energy drink," and get something that looks like a stock photo from 2019. The gap between a generic AI image and a professional visual is the same gap you closed in Mission 3. Structure wins.</p>
+
+      <h2>The 5-Element Framework</h2>
+
+      <div class="fw-grid">
+        <div class="fw-block full">
+          <div class="fw-name">5-Element</div>
+          <div class="fw-subtitle">Direct any AI image with precision</div>
+          <div class="fw-letters">
+            <div class="fw-letter"><div class="fw-letter-char">S</div><div class="fw-letter-text"><strong>Subject</strong> - What is in the image? Be specific, not generic.</div></div>
+            <div class="fw-letter"><div class="fw-letter-char">S</div><div class="fw-letter-text"><strong>Style</strong> - Photorealistic, editorial, flat illustration, cinematic? Ask AI for options.</div></div>
+            <div class="fw-letter"><div class="fw-letter-char">E</div><div class="fw-letter-text"><strong>Environment</strong> - Where is this? Studio, outdoor, minimalist desk, neon-lit bar?</div></div>
+            <div class="fw-letter"><div class="fw-letter-char">L</div><div class="fw-letter-text"><strong>Lighting &amp; Mood</strong> - The single biggest lever for changing the feel of an image.</div></div>
+            <div class="fw-letter"><div class="fw-letter-char">D</div><div class="fw-letter-text"><strong>Details &amp; Enhancements</strong> - Depth of field, grain, camera angle, text overlay space.</div></div>
+          </div>
+        </div>
+      </div>
+
+      <h2>Worked Example: Bare Prompt vs. 5-Element</h2>
+
+      <div class="compare-block">
+        <div class="compare-side without">
+          <h4>Bare Prompt</h4>
+          <p>"Create an image of an energy drink." Generic can, generic background, generic lighting. You'd never put this on a landing page.</p>
+        </div>
+        <div class="compare-side with">
+          <h4>5-Element Prompt</h4>
+          <p>Subject: BOLT can, matte black, electric blue accent, condensation. Style: photorealistic. Environment: dark studio, single spotlight. Lighting: dramatic, high contrast. Details: shallow depth of field, reflection below. Looks like a professional photo shoot.</p>
+        </div>
+      </div>
+
+      <div class="insight">
+        <div class="insight-label">Key Insight</div>
+        <p>AI doesn't know what good looks like unless you tell it. The 5-Element Framework is how you tell it. Five decisions, defined before you generate, produce results that look professional instead of generic. Same principle from every mission: your input drives the output.</p>
+      </div>
+    </section>
+
+    <div class="divider"></div>
+
+    <section id="brief2">
+      <div class="lesson-tag">
+        <span class="lesson-tag-num">Brief 2</span>
+      </div>
+
+      <h1>The VISION Framework for Video</h1>
+
+      <p>Video starts with a controlled image. You don't describe a video from scratch. You take an image you already generated and extend it into motion with purpose.</p>
+
+      <h2>VISION: Six Elements</h2>
+
+      <div class="fw-grid">
+        <div class="fw-block full">
+          <div class="fw-name">VISION</div>
+          <div class="fw-subtitle">Turn a still frame into motion with purpose</div>
+          <div class="fw-letters">
+            <div class="fw-letter"><div class="fw-letter-char">V</div><div class="fw-letter-text"><strong>Visual Anchor</strong> - Your starting image. Frame one. Must be controlled and on-brand.</div></div>
+            <div class="fw-letter"><div class="fw-letter-char">I</div><div class="fw-letter-text"><strong>Intention</strong> - What emotion or message must land? Product reveal? Lifestyle moment?</div></div>
+            <div class="fw-letter"><div class="fw-letter-char">S</div><div class="fw-letter-text"><strong>Sequence</strong> - The movement, step by step. Camera pulls back. Hand reaches. Define it.</div></div>
+            <div class="fw-letter"><div class="fw-letter-char">I</div><div class="fw-letter-text"><strong>Immersion</strong> - The sensory layer. Lighting shifts, sound cues, texture. What stops the scroll?</div></div>
+            <div class="fw-letter"><div class="fw-letter-char">O</div><div class="fw-letter-text"><strong>Orbit</strong> - Camera motion. Static, slow zoom, pan, orbit, first-person POV.</div></div>
+            <div class="fw-letter"><div class="fw-letter-char">N</div><div class="fw-letter-text"><strong>Narrative Arc</strong> - Beginning, shift, end. Even in 6 seconds, there's a story.</div></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="insight">
+        <div class="insight-label">Key Insight</div>
+        <p>Video without structure is just moving noise. VISION gives you six decisions to make before you generate, so the output has purpose. Same discipline: define the elements, let AI write the structured prompt, review it, run it. The AI Officer builds repeatable visual systems, not one-off clips.</p>
+      </div>
+    </section>
+
+    <div class="divider"></div>
+
+    <section id="brief3">
+      <div class="lesson-tag">
+        <span class="lesson-tag-num">Brief 3</span>
+      </div>
+
+      <h1>Tools of the Trade</h1>
+
+      <p>You need to know what's under the hood. Not to become a designer. To make the right tool decision for your program.</p>
+
+      <h2>Three Types of Visual AI Tools</h2>
+      <p><strong>LLMs with image generation.</strong> ChatGPT (DALL-E), Claude, Gemini (Imagen, Nano Banana). You're already using these. Good for most business visuals.</p>
+      <p><strong>Embedded AI.</strong> Canva, Figma, Adobe - AI built into design tools. Good when you need AI inside an existing workflow.</p>
+      <p><strong>Purpose-built tools.</strong> Midjourney for artistic images. Runway for video. Google Flow for video generation. Use these when the LLMs can't give you what you need.</p>
+
+      <div class="insight">
+        <div class="insight-label">Key Insight</div>
+        <p>99% of visual AI apps are just wrappers around the same models. Before your team signs up for another $20/month tool, ask what's under the hood. If it's DALL-E with a pretty interface, you can do the same thing for free in ChatGPT. The AI Officer knows the difference.</p>
+      </div>
+    </section>
+
+    <div class="divider"></div>
+
+    <section id="brief4">
+      <div class="lesson-tag">
+        <span class="lesson-tag-num">Brief 4</span>
+      </div>
+
+      <h1>Consistency at Scale: Style DNA</h1>
+
+      <p>One good image is easy. Eleven images and two videos that all look like they came from the same brand? That's a system.</p>
+
+      <h2>What Is Style DNA?</h2>
+      <p>A document that locks your brand's visual identity. It defines what stays <strong>fixed</strong> across every visual (colors, typography style, overall mood) and what <strong>varies</strong> by audience and platform (composition, environment, energy level).</p>
+
+      <h2>Fixed vs. Variable</h2>
+
+      <div class="compare-block">
+        <div class="compare-side without">
+          <h4>Fixed Elements</h4>
+          <p>Color palette, typography style, logo treatment, overall mood, quality level. Same across every image and video.</p>
+        </div>
+        <div class="compare-side with">
+          <h4>Variable Elements</h4>
+          <p>Composition, environment, energy level, camera angle, aspect ratio. Shift by audience and platform while staying on-brand.</p>
+        </div>
+      </div>
+
+      <div class="insight">
+        <div class="insight-label">Key Insight</div>
+        <p>The leadership test is not "can you make a good image?" It's "could Dana hand this entire visual system to a new associate on day one and get consistent, on-brand visuals without a single meeting?" If yes, you built a system. If not, you made some pictures.</p>
+      </div>
+    </section>
+
+    <div class="divider"></div>
+
+    <section id="bolt-brief">
+      <div class="lesson-tag">
+        <span class="lesson-tag-num">Brief 5</span>
+      </div>
+
+      <h1>The BOLT Visual Campaign</h1>
+
+      <p>Everything from Missions 1 through 3 becomes visual. Dana has the strategy, the data, the brief, and the content pack. Now she needs the visuals to take BOLT to market.</p>
+
+      <h2>Practice Challenges</h2>
+      <p>Each challenge builds a skill toward the final campaign. Complete all four before the final build.</p>
+
+      <div class="challenge-cards">
+        <div class="challenge-card">
+          <div class="challenge-num">1</div>
+          <div class="challenge-body">
+            <h4>Bare Prompt vs. 5-Element</h4>
+            <p>Generate the same image twice. See the difference structure makes.</p>
+          </div>
+          <span class="challenge-time">10 min</span>
+        </div>
+        <div class="challenge-card">
+          <div class="challenge-num">2</div>
+          <div class="challenge-body">
+            <h4>Structured Image Build</h4>
+            <p>Use the full image workflow to create a professional BOLT product shot. .json prompt required.</p>
+          </div>
+          <span class="challenge-time">15 min</span>
+        </div>
+        <div class="challenge-card">
+          <div class="challenge-num">3</div>
+          <div class="challenge-body">
+            <h4>VISION Video Build</h4>
+            <p>Take your Challenge 2 image and extend it into a 6-second video using VISION and Google Flow.</p>
+          </div>
+          <span class="challenge-time">15 min</span>
+        </div>
+        <div class="challenge-card">
+          <div class="challenge-num">4</div>
+          <div class="challenge-body">
+            <h4>Build BOLT's Style DNA</h4>
+            <p>Create the Style DNA document. Define fixed and variable elements. Map to personas and platforms.</p>
+          </div>
+          <span class="challenge-time">15 min</span>
+        </div>
+      </div>
+
+      <div class="cta-block">
+        <h3>Start the Practice Challenges</h3>
+        <p>Head to the AIO Lab to work through Challenges 1-4 in your AI Buddy.</p>
+        <a href="https://lab.ai-officer.com/program/785403/mission/2267521" target="_blank" class="cta-btn">
+          Open the AIO Lab
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </a>
+      </div>
+
+      <div class="final-project">
+        <div class="final-project-badge">Required for Certification</div>
+        <h2>Final Project: The BOLT Visual Campaign</h2>
+        <p>This is the capstone. Everything from four missions comes together here. Produce the complete visual package for BOLT.</p>
+
+        <div class="final-cards">
+          <div class="final-card">
+            <div class="final-card-header">
+              <span class="final-card-label">Final Challenge</span>
+              <span class="challenge-time">60-90 min</span>
+            </div>
+            <h3>Complete Visual Campaign</h3>
+            <p>11 images across the Four Offices, 2 video clips, all governed by your Style DNA document and delivered as structured .json prompts.</p>
+            <ul class="goal-list" style="margin-top:12px;">
+              <li><strong>Revenue (6 images)</strong> - Press release hero, blog graphic, LinkedIn, Instagram, Facebook, TikTok/X</li>
+              <li><strong>Talent (2 images)</strong> - Training doc header, team memo header</li>
+              <li><strong>Innovation (2 images)</strong> - Storyboard scene, user story concept</li>
+              <li><strong>Operations (1 image)</strong> - Complaint catalog header</li>
+              <li><strong>Videos (2 clips)</strong> - Blog post and internal training, both using VISION + Google Flow</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="pro-tip" style="margin-top:24px;">
+          <div class="pro-tip-label">Before You Submit</div>
+          <p>Three questions. Does every visual stay within BOLT's Style DNA? Does every visual feel right for its specific audience? Could Dana hand this entire package to a new associate and get on-brand visuals without a single meeting?</p>
+        </div>
+
+        <div class="cta-block final-cta">
+          <h3>Start the Final Project</h3>
+          <p>Complete the campaign to earn your Mission 4 certification and your AI Specialist Certificate.</p>
+          <a href="https://lab.ai-officer.com/program/785403/mission/2267521" target="_blank" class="cta-btn cta-btn-final">
+            Launch Final Project
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <div class="divider"></div>
+
+    <section id="takeaways">
+      <div class="section-label">Wrap-Up</div>
+      <div class="lesson-tag">
+        <span class="lesson-tag-num">Lesson 9</span>
+      </div>
+
+      <h1>Key Takeaways</h1>
+
+      <ul class="takeaway-list">
+        <li>
+          <strong>AI doesn't know what good looks like unless you tell it.</strong>
+          <span>5-Element for images. VISION for video. Five decisions for stills. Six for motion. Defined before you generate.</span>
+        </li>
+        <li>
+          <strong>Your input drives the output. Every mission.</strong>
+          <span>Mission 1: mindset. Mission 2: data. Mission 3: logic. Mission 4: visuals. The discipline is always the same.</span>
+        </li>
+        <li>
+          <strong>One good image is easy. A system is leadership.</strong>
+          <span>Style DNA produces consistent visuals across platforms, audiences, and team members without you in the room.</span>
+        </li>
+        <li>
+          <strong>The AI Officer builds systems, not images.</strong>
+          <span>The test is never "can I make something good?" It's "can someone else follow my system and get the same quality?"</span>
+        </li>
+        <li>
+          <strong>You just completed Generative AI Essentials.</strong>
+          <span>Four missions. Mindset. Data. Logic. Visuals. Next: the Agentic AI series, where you scale it to your team.</span>
+        </li>
+      </ul>
+
+      <h2>Your Commitment</h2>
+      <p>Before you close out: name one habit you will start, stop, or continue this week. Not a tool. A behavior. Something your manager would notice.</p>
+    </section>
+
+    <div class="divider"></div>
+
+    <section id="certificate">
+      <div class="cert-card">
+        <div class="subtitle">AI Essentials Program: Prompting Perfect Visuals</div>
+        <h2>AI Specialist Certification Earned</h2>
+        <p>Outstanding work, Cadet. You've completed all four missions of Generative AI Essentials. Mission 1: the other 50%. Mission 2: the fuel. Mission 3: the logic. Mission 4: the visuals.</p>
+        <p>You now have the personal foundation for leading AI programs. The mindset, the data discipline, the logic frameworks, and the visual systems. Next: the Agentic AI series, where you stop leading yourself and start leading your team.</p>
+        <div class="cert-progress">
+          <div class="cert-dot done">01</div>
+          <div class="cert-dot done">02</div>
+          <div class="cert-dot done">03</div>
+          <div class="cert-dot current">04</div>
+        </div>
+        <a href="#" class="cert-next">
+          Your Next Step: Agentic AI Series &rarr;
+        </a>
+      </div>
+
+      <p style="text-align:center; font-size:12px; color:var(--text-muted); margin-top:24px;">
+        Issued by AI Officer Institute &middot; Instructors: Dave Hajdu &amp; David Nilssen<br>
+        dave@ai-officer.com &middot; ai-officer.com
+      </p>
+    </section>
+</div>
+</body>
+</html>

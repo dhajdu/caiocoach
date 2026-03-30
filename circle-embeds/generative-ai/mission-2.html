@@ -1,0 +1,837 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mission 2: Clean Data — AI Officer Institute</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/*
+ * AI Officer Institute — Unified Stylesheet
+ * No images, no SVGs, no decorative pseudo-elements.
+ */
+
+/* ── TOKENS ── */
+:root {
+  --navy: #04102D;
+  --white: #FFFFFF;
+  --blue: #287BE8;
+  --magenta: #D1458B;
+  --mint: #6FF2C1;
+  --mint-dark: #1a9e74;
+  --text-primary: #1a1f36;
+  --text-secondary: #4a5068;
+  --text-muted: #6b7194;
+  --border: #d8dce8;
+  --surface: #f4f6fa;
+  --card-bg: #ffffff;
+  --sidebar-bg: #f8f9fc;
+  --sidebar-active: #eef1f8;
+  --sidebar-hover: #f0f2f9;
+}
+
+/* ── RESET ── */
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  font-family: 'DM Sans', sans-serif;
+  background: var(--white);
+  color: var(--text-primary);
+  line-height: 1.7;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ── TOPBAR ── */
+.topbar {
+  position: fixed; top: 0; left: 0; right: 0; height: 56px;
+  background: var(--navy);
+  display: flex; align-items: center;
+  padding: 0 24px; z-index: 100;
+}
+.topbar-brand {
+  font-weight: 700; font-size: 15px; color: var(--white);
+  letter-spacing: -0.2px; text-decoration: none; white-space: nowrap; flex-shrink: 0;
+}
+.topbar-brand span { color: var(--blue); }
+.topbar-divider {
+  width: 1px; height: 24px; background: rgba(255,255,255,0.12);
+  margin: 0 20px; flex-shrink: 0;
+}
+.topbar-course { display: none; }
+
+.topbar-nav { display: flex; align-items: center; gap: 4px; }
+.tnav-link {
+  display: inline-flex; align-items: center; gap: 7px;
+  font-size: 13px; font-weight: 500; color: rgba(255,255,255,0.45);
+  text-decoration: none; padding: 6px 14px; border-radius: 6px;
+  transition: color 0.15s, background 0.15s; white-space: nowrap;
+}
+.tnav-link:hover { color: rgba(255,255,255,0.9); background: rgba(255,255,255,0.07); }
+.tnav-link.active { color: #fff; background: rgba(255,255,255,0.1); }
+.tnav-dot { width: 6px; height: 6px; border-radius: 50%; display: inline-block; flex-shrink: 0; }
+
+/* ── LAYOUT ── */
+.layout { display: flex; margin-top: 56px; min-height: calc(100vh - 56px); }
+
+/* ── SIDEBAR ── */
+.sidebar {
+  width: 272px; min-width: 272px; background: var(--sidebar-bg);
+  border-right: 1px solid var(--border); padding: 24px 0;
+  position: fixed; top: 56px; left: 0; bottom: 0;
+  overflow-y: auto; scrollbar-width: thin;
+}
+.sidebar-section { padding: 0 20px; margin-bottom: 8px; }
+.sidebar-label {
+  font-size: 10px; font-weight: 700; letter-spacing: 1.2px;
+  text-transform: uppercase; color: var(--text-muted); padding: 16px 0 8px;
+}
+.sidebar-item {
+  display: flex; align-items: flex-start; gap: 12px; padding: 10px 12px;
+  border-radius: 8px; cursor: pointer; transition: background 0.15s;
+  text-decoration: none; color: var(--text-secondary); font-size: 14px;
+  font-weight: 400; line-height: 1.4;
+}
+.sidebar-item:hover { background: var(--sidebar-hover); }
+.sidebar-item.active { background: var(--sidebar-active); color: var(--blue); font-weight: 500; }
+.sidebar-num {
+  font-family: 'JetBrains Mono', monospace; font-size: 12px;
+  color: var(--text-muted); min-width: 18px; padding-top: 2px;
+}
+.sidebar-item.active .sidebar-num { color: var(--blue); }
+
+.sidebar-hub {
+  display: flex; align-items: center; gap: 8px;
+  padding: 8px 12px; margin: 0 20px 12px; border-radius: 8px;
+  font-size: 13px; font-weight: 500; color: var(--text-muted);
+  text-decoration: none; border: 1px solid var(--border);
+  transition: background 0.15s, color 0.15s;
+}
+.sidebar-hub:hover { background: var(--sidebar-hover); color: var(--text-primary); }
+
+.sidebar-mission-title { padding: 0 20px; margin-bottom: 16px; }
+.sidebar-mission-title .smt-track {
+  font-size: 10px; font-weight: 700; letter-spacing: 1.2px;
+  text-transform: uppercase; margin-bottom: 4px;
+  display: flex; align-items: center; gap: 6px;
+}
+.sidebar-mission-title .smt-dot { width: 6px; height: 6px; border-radius: 50%; }
+.sidebar-mission-title .smt-name { font-size: 14px; font-weight: 600; color: var(--text-primary); line-height: 1.3; }
+
+/* ── MAIN ── */
+.main { margin-left: 272px; flex: 1; max-width: 800px; padding: 48px 56px 120px; }
+
+/* ── TYPOGRAPHY ── */
+.section-label { font-size: 11px; font-weight: 700; letter-spacing: 1.2px; text-transform: uppercase; color: var(--text-muted); margin-bottom: 8px; }
+.lesson-tag { display: inline-flex; align-items: center; gap: 8px; margin-bottom: 12px; }
+.lesson-tag-num { font-size: 12px; font-weight: 600; color: var(--blue); letter-spacing: 0.5px; text-transform: uppercase; }
+.lesson-tag-type { font-size: 11px; color: var(--text-muted); background: var(--surface); padding: 2px 10px; border-radius: 4px; font-weight: 500; }
+
+h1 { font-size: 32px; font-weight: 700; line-height: 1.2; color: var(--text-primary); margin-bottom: 24px; letter-spacing: -0.5px; }
+h2 { font-size: 22px; font-weight: 700; line-height: 1.3; color: var(--text-primary); margin: 48px 0 16px; letter-spacing: -0.3px; }
+h3 { font-size: 17px; font-weight: 600; color: var(--text-primary); margin: 32px 0 12px; }
+p { font-size: 15.5px; color: var(--text-secondary); margin-bottom: 16px; }
+p strong { color: var(--text-primary); font-weight: 600; }
+
+/* ── CONTENT COMPONENTS ── */
+.video-card { background: var(--navy); border-radius: 12px; padding: 24px 28px; display: flex; align-items: center; gap: 20px; margin-bottom: 32px; }
+.video-play { width: 48px; height: 48px; background: var(--blue); border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+.video-play svg { margin-left: 3px; }
+.video-title { font-size: 16px; font-weight: 600; color: var(--white); }
+.video-sub { font-size: 13px; color: rgba(255,255,255,0.55); margin-top: 4px; }
+
+.goal-list { list-style: none; padding: 0; margin: 0 0 24px; }
+.goal-list li { position: relative; padding: 8px 0 8px 28px; font-size: 15px; color: var(--text-secondary); line-height: 1.6; }
+.goal-list li::before { content: ''; position: absolute; left: 0; top: 16px; width: 8px; height: 8px; border-radius: 2px; background: var(--blue); opacity: 0.7; }
+
+.brief-cards { display: flex; flex-direction: column; gap: 12px; margin: 24px 0; }
+.brief-card { display: flex; align-items: flex-start; gap: 16px; padding: 20px; border: 1px solid var(--border); border-radius: 10px; background: var(--card-bg); transition: border-color 0.15s, box-shadow 0.15s; }
+.brief-card:hover { border-color: var(--blue); box-shadow: 0 2px 12px rgba(40,123,232,0.08); }
+.brief-num { font-family: 'JetBrains Mono', monospace; font-size: 14px; font-weight: 600; color: var(--blue); background: rgba(40,123,232,0.08); width: 32px; height: 32px; border-radius: 8px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+.brief-card-body h4 { font-size: 15px; font-weight: 600; color: var(--text-primary); margin-bottom: 4px; }
+.brief-card-body p { font-size: 13.5px; color: var(--text-muted); margin: 0; line-height: 1.5; }
+
+.time-grid { display: grid; grid-template-columns: 1fr auto; gap: 4px 24px; font-size: 14px; padding: 16px 20px; background: var(--surface); border-radius: 8px; margin: 24px 0; }
+.time-label { color: var(--text-secondary); }
+.time-value { color: var(--text-primary); font-weight: 600; text-align: right; }
+
+.fw-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin: 24px 0; }
+.fw-block { border: 1px solid var(--border); border-radius: 10px; padding: 24px; background: var(--card-bg); }
+.fw-block.full { grid-column: 1 / -1; }
+.fw-name { font-family: 'JetBrains Mono', monospace; font-size: 13px; font-weight: 600; color: var(--blue); letter-spacing: 0.5px; margin-bottom: 4px; }
+.fw-subtitle { font-size: 14px; font-weight: 600; color: var(--text-primary); margin-bottom: 16px; }
+.fw-letters { display: flex; flex-direction: column; gap: 10px; }
+.fw-letter { display: flex; align-items: flex-start; gap: 12px; }
+.fw-letter-char { font-family: 'JetBrains Mono', monospace; font-size: 14px; font-weight: 700; color: var(--white); background: var(--navy); width: 28px; height: 28px; border-radius: 6px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+.fw-letter-text { font-size: 14px; color: var(--text-secondary); padding-top: 3px; line-height: 1.5; }
+.fw-letter-text strong { color: var(--text-primary); }
+
+.insight { border-left: 3px solid var(--blue); padding: 16px 20px; background: rgba(40,123,232,0.04); border-radius: 0 8px 8px 0; margin: 28px 0; }
+.insight-label { font-size: 11px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: var(--blue); margin-bottom: 6px; }
+.insight p { font-size: 14.5px; color: var(--text-primary); margin: 0; line-height: 1.6; }
+
+.compare-block { margin: 24px 0; display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.compare-side { padding: 20px; border-radius: 10px; border: 1px solid var(--border); }
+.compare-side.without { background: var(--surface); }
+.compare-side.with { background: rgba(40,123,232,0.04); border-color: var(--blue); }
+.compare-side h4 { font-size: 13px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.8px; margin-bottom: 8px; }
+.compare-side.without h4 { color: var(--text-muted); }
+.compare-side.with h4 { color: var(--blue); }
+.compare-side p { font-size: 14px; color: var(--text-secondary); margin: 0; line-height: 1.6; }
+.compare-without { background: var(--surface); }
+.compare-with { background: rgba(40,123,232,0.04); border: 1px solid var(--blue); }
+.compare-header { font-size: 13px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.8px; margin-bottom: 12px; }
+.compare-without .compare-header { color: var(--text-muted); }
+.compare-with .compare-header { color: var(--blue); }
+
+.pro-tip { background: var(--navy); border-radius: 10px; padding: 20px 24px; margin: 28px 0; }
+.pro-tip-label { font-size: 11px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: var(--mint); margin-bottom: 6px; }
+.pro-tip p { font-size: 14px; color: rgba(255,255,255,0.8); margin: 0; line-height: 1.6; }
+
+.rules-table { width: 100%; border-collapse: collapse; margin: 20px 0; font-size: 14px; }
+.rules-table th { text-align: left; padding: 10px 16px; background: var(--surface); color: var(--text-muted); font-size: 11px; font-weight: 700; letter-spacing: 0.8px; text-transform: uppercase; border-bottom: 1px solid var(--border); }
+.rules-table td { padding: 12px 16px; border-bottom: 1px solid var(--border); color: var(--text-secondary); vertical-align: top; line-height: 1.5; }
+.rules-table td:first-child { font-weight: 600; color: var(--text-primary); white-space: nowrap; }
+.rules-table td code { font-family: 'JetBrains Mono', monospace; font-size: 12.5px; background: var(--surface); padding: 2px 8px; border-radius: 4px; color: var(--magenta); }
+
+.checklist { list-style: none; padding: 0; margin: 16px 0; counter-reset: step; }
+.checklist li { counter-increment: step; display: flex; align-items: flex-start; gap: 14px; padding: 10px 0; font-size: 14.5px; color: var(--text-secondary); line-height: 1.5; border-bottom: 1px solid rgba(0,0,0,0.04); }
+.checklist li::before { content: counter(step); font-family: 'JetBrains Mono', monospace; font-size: 12px; font-weight: 600; color: var(--white); background: var(--navy); width: 24px; height: 24px; border-radius: 6px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 1px; }
+
+.cta-block { border: 2px solid var(--blue); border-radius: 12px; padding: 32px; text-align: center; margin: 40px 0; background: rgba(40,123,232,0.02); }
+.cta-block h3 { margin: 0 0 8px; font-size: 20px; }
+.cta-block p { font-size: 14.5px; color: var(--text-muted); margin-bottom: 20px; }
+.cta-btn { display: inline-flex; align-items: center; gap: 8px; background: var(--blue); color: var(--white); font-size: 15px; font-weight: 600; padding: 14px 32px; border-radius: 8px; text-decoration: none; transition: background 0.15s, transform 0.1s; }
+.cta-btn:hover { background: #1d6ad4; transform: translateY(-1px); }
+.cta-btn svg { flex-shrink: 0; }
+.cta-btn-final { background: var(--navy); }
+.cta-btn-final:hover { background: #0a1e4a; }
+
+.challenge-cards { display: flex; flex-direction: column; gap: 10px; margin: 20px 0; }
+.challenge-card { display: flex; align-items: flex-start; gap: 14px; padding: 16px 20px; border: 1px solid var(--border); border-radius: 10px; background: var(--card-bg); }
+.challenge-num { font-family: 'JetBrains Mono', monospace; font-size: 13px; font-weight: 600; color: var(--blue); background: rgba(40,123,232,0.08); width: 28px; height: 28px; border-radius: 7px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+.challenge-body { flex: 1; }
+.challenge-body h4 { font-size: 14.5px; font-weight: 600; color: var(--text-primary); margin-bottom: 2px; }
+.challenge-body p { font-size: 13px; color: var(--text-muted); margin: 0; line-height: 1.5; }
+.challenge-time { font-family: 'JetBrains Mono', monospace; font-size: 12px; color: var(--text-muted); background: var(--surface); padding: 4px 10px; border-radius: 5px; white-space: nowrap; flex-shrink: 0; margin-top: 2px; }
+
+.final-project { margin-top: 48px; padding-top: 40px; border-top: 2px solid var(--navy); }
+.final-project-badge { display: inline-block; font-size: 11px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: var(--white); background: var(--magenta); padding: 5px 14px; border-radius: 5px; margin-bottom: 16px; }
+.final-project h2 { margin-top: 0; }
+.final-cards { display: flex; flex-direction: column; gap: 16px; margin: 24px 0; }
+.final-card { border: 2px solid var(--navy); border-radius: 12px; padding: 24px; background: var(--card-bg); }
+.final-card-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px; }
+.final-card-label { font-family: 'JetBrains Mono', monospace; font-size: 11px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: var(--white); background: var(--navy); padding: 4px 12px; border-radius: 5px; }
+.final-card h3 { margin: 0 0 8px; font-size: 18px; }
+.final-card p { font-size: 14px; color: var(--text-secondary); margin: 0; line-height: 1.6; }
+.final-cta { border-color: var(--navy); background: rgba(4,16,45,0.02); }
+
+.takeaway-list { list-style: none; padding: 0; margin: 20px 0; }
+.takeaway-list li { padding: 16px 0; border-bottom: 1px solid rgba(0,0,0,0.05); }
+.takeaway-list li:last-child { border-bottom: none; }
+.takeaway-list li strong { display: block; font-size: 15px; color: var(--text-primary); margin-bottom: 4px; }
+.takeaway-list li span { font-size: 14px; color: var(--text-muted); line-height: 1.5; }
+.takeaway-title { font-size: 15px; font-weight: 600; color: var(--text-primary); display: block; margin-bottom: 4px; }
+.takeaway-desc { font-size: 14px; color: var(--text-muted); }
+
+.cert-card { background: var(--navy); border-radius: 14px; padding: 40px; text-align: center; margin: 48px 0 0; }
+.cert-card h2 { color: var(--white); margin: 0 0 8px; font-size: 22px; }
+.cert-card .subtitle, .cert-subtitle { color: rgba(255,255,255,0.5); font-size: 13px; font-weight: 500; letter-spacing: 0.5px; margin-bottom: 20px; }
+.cert-card p { color: rgba(255,255,255,0.7); font-size: 14.5px; line-height: 1.6; max-width: 520px; margin: 0 auto 28px; }
+.cert-progress { display: flex; justify-content: center; gap: 12px; margin-bottom: 24px; }
+.cert-dot { width: 48px; height: 48px; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-family: 'JetBrains Mono', monospace; font-size: 13px; font-weight: 700; }
+.cert-dot.done { background: rgba(111,242,193,0.15); color: var(--mint); }
+.cert-dot.current { background: var(--blue); color: var(--white); }
+.cert-dot.upcoming { background: rgba(255,255,255,0.08); color: rgba(255,255,255,0.35); }
+.cert-next { display: inline-flex; align-items: center; gap: 6px; color: var(--mint); font-size: 14px; font-weight: 600; text-decoration: none; }
+.cert-next:hover { opacity: 0.85; }
+
+.divider { height: 1px; background: var(--border); margin: 40px 0; }
+
+/* ── AGENT TEAM GRID ── */
+.agent-grid { display: flex; flex-direction: column; gap: 12px; margin: 24px 0; }
+.agent-card { display: flex; align-items: flex-start; gap: 16px; padding: 20px; border: 1px solid var(--border); border-radius: 10px; background: var(--card-bg); }
+.agent-icon { width: 40px; height: 40px; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-family: 'JetBrains Mono', monospace; font-size: 13px; font-weight: 700; flex-shrink: 0; }
+.agent-icon.research { background: rgba(40,123,232,0.1); color: var(--blue); }
+.agent-icon.copy { background: rgba(209,69,139,0.1); color: var(--magenta); }
+.agent-icon.analytics { background: rgba(111,242,193,0.15); color: #0a8a5e; }
+.agent-body h4 { font-size: 15px; font-weight: 600; color: var(--text-primary); margin-bottom: 4px; }
+.agent-body p { font-size: 13.5px; color: var(--text-muted); margin: 0; }
+.agent-role-tag { font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.6px; padding: 2px 8px; border-radius: 4px; margin-left: 8px; }
+.agent-role-tag.research { background: rgba(40,123,232,0.1); color: var(--blue); }
+.agent-role-tag.copy { background: rgba(209,69,139,0.1); color: var(--magenta); }
+.agent-role-tag.analytics { background: rgba(111,242,193,0.2); color: #0a8a5e; }
+
+/* ── EXERCISE BLOCK ── */
+.exercise-block { background: linear-gradient(135deg, rgba(209,69,139,0.04), rgba(40,123,232,0.04)); border: 1px solid rgba(209,69,139,0.2); border-radius: 12px; padding: 28px 32px; margin: 32px 0; }
+.exercise-label { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.8px; color: var(--magenta); margin-bottom: 12px; }
+.exercise-block h3 { margin: 0 0 12px; }
+.exercise-block p { font-size: 14.5px; margin-bottom: 8px; }
+.exercise-block p:last-child { margin-bottom: 0; }
+
+.ai-buddy-prompt { background: rgba(40,123,232,0.05); border: 1px solid rgba(40,123,232,0.2); border-radius: 8px; padding: 14px 18px; margin: 20px 0; font-size: 14px; color: var(--text-secondary); }
+.ai-buddy-prompt strong { color: var(--blue); }
+
+.prompt-block { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 20px 24px; margin: 24px 0; }
+.prompt-block-label { font-size: 11px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: var(--blue); margin-bottom: 10px; }
+.prompt-block pre { font-family: 'JetBrains Mono', monospace; font-size: 13px; color: var(--text-secondary); white-space: pre-wrap; line-height: 1.6; margin: 0; }
+
+.time-grid-row { display: contents; }
+.time-grid-row:not(:last-child) .tg-label, .time-grid-row:not(:last-child) .tg-val { border-bottom: 1px solid var(--border); }
+.tg-label { padding: 12px 20px; font-size: 14px; color: var(--text-secondary); }
+.tg-val { padding: 12px 20px; font-size: 14px; font-weight: 600; color: var(--text-primary); text-align: right; }
+
+/* ── PREV / NEXT ── */
+.page-nav { display: flex; gap: 16px; margin-top: 64px; padding-top: 32px; border-top: 1px solid var(--border); }
+.page-nav-link { flex: 1; display: flex; flex-direction: column; gap: 6px; padding: 20px 24px; border: 1px solid var(--border); border-radius: 12px; text-decoration: none; background: var(--card-bg); transition: border-color 0.15s, box-shadow 0.15s, transform 0.1s; }
+.page-nav-link:hover { border-color: var(--blue); box-shadow: 0 4px 16px rgba(40,123,232,0.08); transform: translateY(-1px); }
+.page-nav-link.next { text-align: right; align-items: flex-end; }
+.page-nav-dir { font-size: 11px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: var(--text-muted); }
+.page-nav-title { font-size: 15px; font-weight: 600; color: var(--text-primary); }
+.page-nav-track { font-size: 12px; color: var(--text-muted); }
+
+/* ── RESPONSIVE ── */
+@media (max-width: 900px) {
+  .sidebar { display: none; }
+  .main { margin-left: 0; padding: 32px 24px 80px; }
+  .fw-grid, .compare-block { grid-template-columns: 1fr; }
+  .topbar-nav { display: none; }
+}
+
+
+/* ── Circle embed overrides ── */
+body {
+  margin: 0;
+  padding: 0;
+  background: #ffffff;
+}
+.main {
+  margin-left: 0 !important;
+  max-width: 780px;
+  padding: 32px 24px 80px;
+  margin: 0 auto;
+}
+
+</style>
+</head>
+<body>
+<div class="main">
+<!-- ════════════════════════════════════ -->
+    <!-- LESSON 1: WELCOME -->
+    <!-- ════════════════════════════════════ -->
+    <section id="welcome">
+      <div class="section-label">Introduction</div>
+      <div class="lesson-tag">
+        <span class="lesson-tag-num">Lesson 1</span>
+        <span class="lesson-tag-type">Video</span>
+      </div>
+
+      <h1>Welcome to Clean Data</h1>
+
+      <div class="video-card">
+        <div class="video-play">
+          <svg width="18" height="20" viewBox="0 0 18 20" fill="none"><polygon points="0,0 18,10 0,20" fill="white"/></svg>
+        </div>
+        <div>
+          <div class="video-title">Mission 2: Clean Data</div>
+          <div class="video-sub">Watch the intro video to get oriented before diving in.</div>
+        </div>
+      </div>
+
+      <p>Welcome, Cadets.</p>
+
+      <p>In Mission 1 you learned the other 50% - what it means to lead AI, not just use it. You built your mindset. You learned RACE and the AI Interview. You proved that your input drives AI output.</p>
+
+      <p>Now here's the problem. <strong>None of that matters if the data is wrong.</strong></p>
+
+      <p>Remember why 95% of AI programs fail? It's not the technology. It's not the prompts. It's the fuel. Companies are feeding AI messy, scattered, unorganized data and wondering why the output is wrong. The model is fine. The data isn't.</p>
+
+      <p>This is where leading AI gets real. Mindset was the starting point. Data is the first operational decision. What data does your program need? Where does it live? Is it clean enough for AI to use? Is it safe to share? These are leadership questions, not technical ones. And they're the questions most organizations skip.</p>
+
+      <p><strong>Fix the fuel before you build the program. That is exactly what this mission teaches you.</strong></p>
+
+      <h2>Mission Goal</h2>
+      <p>This is where you learn to spot bad data, clean it, and make sure the numbers you hand to leadership are ones you'd bet your reputation on. Not just for a single prompt, but for the AI programs you'll lead.</p>
+
+      <p>By the end of this mission, you'll be able to:</p>
+      <ul class="goal-list">
+        <li>Explain why 95% of AI programs fail and what the AI Officer does differently</li>
+        <li>Identify the three layers of AI and why the data layer is where results are made or broken</li>
+        <li>Clean a messy dataset and verify AI's work before trusting it</li>
+        <li>Evaluate AI tools based on the four things that actually matter</li>
+        <li>Make governance decisions about data safety before anything gets pasted</li>
+      </ul>
+    </section>
+
+    <div class="divider"></div>
+
+    <!-- ════════════════════════════════════ -->
+    <!-- LESSON 2: MISSION BRIEFS OVERVIEW -->
+    <!-- ════════════════════════════════════ -->
+    <section id="briefs-overview">
+      <div class="lesson-tag">
+        <span class="lesson-tag-num">Lesson 2</span>
+      </div>
+
+      <h1>Mission Briefs</h1>
+
+      <p>Welcome to your mission briefing, Cadet. You're about to discover why AI gives confident, professional, completely wrong answers, and exactly how to fix that.</p>
+
+      <div class="brief-cards">
+        <div class="brief-card">
+          <div class="brief-num">1</div>
+          <div class="brief-card-body">
+            <h4>The Truth About AI Failure</h4>
+            <p>Why 95% of AI programs fail, and it's not the technology. The root cause, real examples, and why the AI Officer fixes the fuel first.</p>
+          </div>
+        </div>
+        <div class="brief-card">
+          <div class="brief-num">2</div>
+          <div class="brief-card-body">
+            <h4>How AI Actually Processes Your Data</h4>
+            <p>The three-layer sandwich. Three layers of data. Why AI doesn't know you. And why your company's data is the competitive advantage nobody else can buy.</p>
+          </div>
+        </div>
+        <div class="brief-card">
+          <div class="brief-num">3</div>
+          <div class="brief-card-body">
+            <h4>Implementation &amp; Safety</h4>
+            <p>The three tiers of AI privacy. Why data safety is a governance decision, not a personal preference. How to check your settings before you paste anything.</p>
+          </div>
+        </div>
+        <div class="brief-card">
+          <div class="brief-num">4</div>
+          <div class="brief-card-body">
+            <h4>The Right AI for the Right Job</h4>
+            <p>The four things that matter when choosing an AI tool for a program. The AI Kingdoms. Why the model you choose matters less than the data behind it.</p>
+          </div>
+        </div>
+        <div class="brief-card">
+          <div class="brief-num">5</div>
+          <div class="brief-card-body">
+            <h4>The BOLT Data Challenge</h4>
+            <p>Dana needs clean data before the BOLT launch moves forward. Three challenges that take you from messy inputs to an analysis report leadership can trust.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="time-grid">
+        <span class="time-label">Core Learning (Briefs 1-4)</span>
+        <span class="time-value">~45 minutes</span>
+        <span class="time-label">Final Build (Brief 5)</span>
+        <span class="time-value">60 minutes</span>
+      </div>
+    </section>
+
+    <div class="divider"></div>
+
+    <!-- ════════════════════════════════════ -->
+    <!-- LESSON 3: LEARNING GUIDE -->
+    <!-- ════════════════════════════════════ -->
+    <section id="learning-guide">
+      <div class="lesson-tag">
+        <span class="lesson-tag-num">Lesson 3</span>
+      </div>
+
+      <h1>Learning Guide</h1>
+
+      <p>Alright Cadets, before you jump in, here's how to make this mission actually work for you.</p>
+
+      <p><strong>Know the difference between the tool and the fuel.</strong> Most people obsess over which AI tool is smarter or which interface is prettier. The AI Officer obsesses over the data. The model knows how to think. The app remembers who you are. But the data you feed it right now is what determines whether you get something useful or something wrong. Today you learn to control the fuel.</p>
+
+      <p><strong>Do every challenge.</strong> They're not practice exercises. Each one proves a concept you'll use every time you lead an AI program. Skip one and you'll have a gap in your foundation.</p>
+
+      <p><strong>Think about your own organization as you read.</strong> Every brief in this mission connects to how you'll evaluate data, tools, and safety for the programs you lead. The BOLT storyline is the practice ground. Your company is where it gets real.</p>
+
+      <p><strong>Check your settings before you paste anything.</strong> This is not optional. Once your data is out there, you can't take it back.</p>
+
+      <h2>How to Get the Most Out of This Session</h2>
+
+      <ul class="goal-list">
+        <li><strong>Read the briefs in order:</strong> Each one builds on the last. AI failure leads to understanding data, which leads to safety, which leads to tool selection.</li>
+        <li><strong>Use your AI Buddy to go deeper:</strong> Every brief has prompts to explore concepts in your own industry. Use them.</li>
+        <li><strong>Apply it to your organization:</strong> The BOLT challenges are practice. The real work is asking "how does this apply to my team?"</li>
+        <li><strong>Save your cleaned dataset:</strong> You'll use it in Mission 3 and Mission 4.</li>
+      </ul>
+
+      <div class="pro-tip">
+        <div class="pro-tip-label">Pro Tip</div>
+        <p>Before you start Challenge 1, open the messy BOLT dataset and just look at it. Don't clean it. Don't analyze it. Just look. Notice what jumps out. That instinct is worth developing because it's the same instinct you'll use when evaluating data for an AI program at your company.</p>
+      </div>
+
+      <h2>The Data Checklist: Four Things That Make Data AI-Ready</h2>
+      <p>Use this every time you're preparing data for an AI program. If it's not all four, it's not ready.</p>
+
+      <ol class="checklist">
+        <li><strong>Consistent.</strong> Same format, same labels, same structure throughout. "New York" and "NY" and "new york" are three different things to AI.</li>
+        <li><strong>Complete.</strong> No missing fields where data should exist. Gaps create blind spots AI won't flag.</li>
+        <li><strong>Labeled.</strong> Every column, every category, every field has a clear name. If a human can't tell what it means, AI definitely can't.</li>
+        <li><strong>Connected.</strong> Related data is linked so the story makes sense. Sales data connected to customer feedback connected to product updates is when AI starts seeing patterns you can't.</li>
+      </ol>
+
+      <h2>Rules of the Road: Using Data Safely</h2>
+
+      <table class="rules-table">
+        <thead>
+          <tr><th>Rule</th><th>What to do</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Never use free tools for work</td><td>Your data is training someone else's model. Paid tier minimum.</td></tr>
+          <tr><td>Know your tier</td><td>Free, paid, or enterprise. If you don't know, find out today.</td></tr>
+          <tr><td>Check your settings</td><td>Chat history, training data opt-in, file storage. Find them before you paste.</td></tr>
+          <tr><td>Lock the numbers</td><td><code>"Do not make up numbers."</code> AI fills in blanks confidently. Don't let it.</td></tr>
+          <tr><td>Ask what's real</td><td><code>"Only use information from the attached file."</code> Prevents hallucinations with datasets.</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <div class="divider"></div>
+
+    <!-- ════════════════════════════════════ -->
+    <!-- LESSON 4: BRIEF 1 -->
+    <!-- ════════════════════════════════════ -->
+    <section id="brief1">
+      <div class="section-label">Mission Briefs</div>
+      <div class="lesson-tag">
+        <span class="lesson-tag-num">Brief 1</span>
+      </div>
+
+      <h1>The Truth About AI Failure</h1>
+
+      <p>AI isn't failing because of the technology. It's failing because leadership doesn't understand it, workflows aren't documented, and data isn't organized. That's the real story behind the 95% failure rate. And that's the problem the AI Officer is trained to fix.</p>
+
+      <p>It fails quietly. Someone buys a tool, plugs in their data, the output looks wrong, they blame the tool, try another tool, same result, give up. The problem was never the tool. It was the data they were feeding it. And nobody in the room was trained to check that first.</p>
+
+      <h2>The Numbers Don't Lie</h2>
+      <p>Despite $30-40 billion in enterprise investment into GenAI, MIT found that 95% of organizations are getting zero return. Not because AI doesn't work. Because they skipped the data. They bought the Ferrari and filled it with swamp water. The engine is fine. The fuel is the problem.</p>
+
+      <h2>Three Examples You'll Recognize</h2>
+      <p>A company drops fifty thousand dollars on AI tools. Marketing is excited. But they still can't track campaign ROI because the data feeding the tool is fragmented across five platforms with different naming conventions.</p>
+      <p>A team builds an AI chatbot for customer service. Customers hate it. The responses are generic, robotic, useless. Why? The chatbot was trained on a messy FAQ document full of outdated answers.</p>
+      <p>HR uses AI to screen resumes. But it keeps missing great candidates because the training data had inconsistent job titles and departments, so the model learned the wrong patterns.</p>
+      <p>Same story every time. The tool worked. The data didn't.</p>
+
+      <h2>Worked Example: What Bad Data Actually Does</h2>
+      <p>In Challenge 1, you'll feed the messy BOLT taste test data straight to AI and ask for an analysis. Watch what comes back.</p>
+      <p>AI will give you a confident, professional summary. Charts, trends, recommendations. It looks great. But the data has duplicates, inconsistent ratings, missing fields, and a phone number where a score should be. AI doesn't flag any of it. It just works with what you gave it and delivers a polished answer built on garbage.</p>
+      <p>Now imagine that analysis goes to Dana. She presents it to leadership. Someone asks about the sample size. The numbers don't add up because three respondents appear twice. Someone asks about the rating scale. It's inconsistent because the intern mixed up 1-5 and 1-10. <strong>Dana's credibility takes the hit. Yours too.</strong></p>
+      <p>That's what bad data does. It doesn't break the tool. It breaks the trust.</p>
+
+      <div class="insight">
+        <div class="insight-label">Key Insight</div>
+        <p>The AI Officer fixes the fuel first. This is not a technical skill. This is a leadership decision. The root cause of AI failure is not bad technology. It's that nobody in the room was trained to check the data before building the program. Everyone says AI is working, but without clean data, there's no return on investment. That's the gap you're learning to fill.</p>
+      </div>
+    </section>
+
+    <div class="divider"></div>
+
+    <!-- ════════════════════════════════════ -->
+    <!-- LESSON 5: BRIEF 2 -->
+    <!-- ════════════════════════════════════ -->
+    <section id="brief2">
+      <div class="lesson-tag">
+        <span class="lesson-tag-num">Brief 2</span>
+      </div>
+
+      <h1>How AI Actually Processes Your Data</h1>
+
+      <p>You need to understand what happens under the hood. Not to become an engineer. To make better leadership decisions about which data matters, where it goes, and why your organization's data is the one advantage nobody else can buy.</p>
+
+      <h2>The Three-Layer Sandwich</h2>
+
+      <div class="fw-grid">
+        <div class="fw-block full">
+          <div class="fw-name">Three Layers</div>
+          <div class="fw-subtitle">How AI actually works</div>
+          <div class="fw-letters">
+            <div class="fw-letter"><div class="fw-letter-char">1</div><div class="fw-letter-text"><strong>User Interface</strong> - The front door. Where prompts go in and results come out. Also where your history and uploads get stored.</div></div>
+            <div class="fw-letter"><div class="fw-letter-char">2</div><div class="fw-letter-text"><strong>LLM</strong> - The brain. Reads patterns and predicts what comes next. The better the data, the better the output.</div></div>
+            <div class="fw-letter"><div class="fw-letter-char">3</div><div class="fw-letter-text"><strong>Data</strong> - The fuel. What you feed it right now. This is the layer the AI Officer obsesses over.</div></div>
+          </div>
+        </div>
+      </div>
+
+      <h2>Three Layers of Data</h2>
+
+      <div class="fw-grid">
+        <div class="fw-block full">
+          <div class="fw-name">Data Layers</div>
+          <div class="fw-subtitle">What AI is actually working with</div>
+          <div class="fw-letters">
+            <div class="fw-letter"><div class="fw-letter-char">T</div><div class="fw-letter-text"><strong>Training Data</strong> - The massive dataset the LLM was built on. You can't change it.</div></div>
+            <div class="fw-letter"><div class="fw-letter-char">A</div><div class="fw-letter-text"><strong>Application Memory</strong> - The app remembers you. The AI model doesn't. Big difference.</div></div>
+            <div class="fw-letter"><div class="fw-letter-char">Y</div><div class="fw-letter-text"><strong>Your Data</strong> - What you feed it right now. The layer you control. The one that matters most.</div></div>
+          </div>
+        </div>
+      </div>
+
+      <h2>AI Doesn't Know You</h2>
+      <p>The AI model does not know you. It doesn't remember your last conversation. It doesn't know your company, your customers, your goals. Every single time you open a new chat, you're starting from zero.</p>
+      <p>It means it's your job to bring the context every time. And when you're building AI programs for your organization, you're figuring out what data across your entire operation needs to be organized, cleaned, and ready so that AI can deliver results at scale. <strong>That's the difference between using AI and leading it.</strong></p>
+
+      <h2>Worked Example: Building Your Data Moat</h2>
+      <p>Think about everything Dana's team has for the BOLT launch. Emails, market research, customer feedback, brand guidelines, competitor pricing, internal strategy docs. All of that is AI fuel. And none of it is useful if it's scattered across five tools and buried in someone's inbox.</p>
+      <p>Now imagine Dana's team organized it. Every piece of customer feedback tagged by segment. Every competitor priced and positioned in a clean spreadsheet. Every brand guideline in one document AI can reference. That organized data is their data moat. <strong>Anyone can buy the same AI tools. But nobody else has Buddy's Bevs' data.</strong></p>
+      <p>There are four steps: Capture it before it disappears. Clean it so AI can read it. Connect it so the story makes sense. Reuse it so every program gets sharper.</p>
+
+      <div class="insight">
+        <div class="insight-label">Key Insight</div>
+        <p>Your advantage isn't the AI you buy. It's the data moat you build. Anyone can access the same models. Nobody else has your company's data. The AI Officer's job is to find it, organize it, connect it, and make it the foundation of every AI program. This is the AI side of the 50/50 era: workflows, data, and logic. Most leaders have never been trained on this side. You're being trained on it right now.</p>
+      </div>
+    </section>
+
+    <div class="divider"></div>
+
+    <!-- ════════════════════════════════════ -->
+    <!-- LESSON 6: BRIEF 3 -->
+    <!-- ════════════════════════════════════ -->
+    <section id="brief3">
+      <div class="lesson-tag">
+        <span class="lesson-tag-num">Brief 3</span>
+      </div>
+
+      <h1>Implementation &amp; Safety</h1>
+
+      <p>You've learned why data matters and how AI processes it. Before you feed AI anything else, you need to know where that data actually goes. <strong>This is a governance decision, not a personal preference.</strong> When you're leading an AI program, you don't just pick the smartest model. You pick the one that handles your data the way your organization requires.</p>
+
+      <h2>The Three Tiers</h2>
+
+      <div class="fw-grid">
+        <div class="fw-block full">
+          <div class="fw-name">Data Safety Tiers</div>
+          <div class="fw-subtitle">Know where your data goes</div>
+          <div class="fw-letters">
+            <div class="fw-letter"><div class="fw-letter-char" style="background:var(--magenta);">!</div><div class="fw-letter-text"><strong>Free Tier</strong> - Never use for work. Your data is very likely training the model. Your company's data is making someone else's product better.</div></div>
+            <div class="fw-letter"><div class="fw-letter-char" style="background:var(--blue);">$</div><div class="fw-letter-text"><strong>Paid Tier</strong> - Minimum for work. Most tools stop using your data for training. Still going through their servers.</div></div>
+            <div class="fw-letter"><div class="fw-letter-char" style="background:var(--mint); color:var(--navy);">E</div><div class="fw-letter-text"><strong>Enterprise Tier</strong> - Where sensitive data belongs. Contracts about handling, storage, and data agreements.</div></div>
+          </div>
+        </div>
+      </div>
+
+      <h2>Worked Example: The Settings Audit</h2>
+      <p>Open whatever AI tool you've been using. Go into the settings and find the section on privacy or data.</p>
+      <p>In ChatGPT, go to Settings > Data Controls. You'll find toggles for "Improve the model for everyone" and options for chat history. In Claude, check Settings > Privacy. In Gemini, look under Activity Controls in your Google account.</p>
+      <p>If you can't find it, that tells you something. Because if you don't know where your settings are, you definitely don't know what you're sharing. And if you're leading an AI program for your organization, <strong>this is the first audit you run</strong>: what tools are people using, what tier are they on, and what are their settings.</p>
+
+      <div class="insight">
+        <div class="insight-label">Key Insight</div>
+        <p>Data safety is a governance decision, not a personal preference. The AI Officer doesn't just use tools. The AI Officer decides which tools are safe for which data, and sets the standard for the team. This is one of the first things you'll do when leading an AI program: audit the tools, check the tiers, and make the call. If your team is using free tools for work, that stops today.</p>
+      </div>
+    </section>
+
+    <div class="divider"></div>
+
+    <!-- ════════════════════════════════════ -->
+    <!-- LESSON 7: BRIEF 4 -->
+    <!-- ════════════════════════════════════ -->
+    <section id="brief4">
+      <div class="lesson-tag">
+        <span class="lesson-tag-num">Brief 4</span>
+      </div>
+
+      <h1>The Right AI for the Right Job</h1>
+
+      <p>When you're designing an AI program for your organization, tool selection is not about personal preference. It's about matching the right capabilities to the right outcomes. Forget the marketing and forget the hype. It comes down to four things.</p>
+
+      <h2>The AI Kingdoms</h2>
+
+      <div class="fw-grid">
+        <div class="fw-block">
+          <div class="fw-name">ChatGPT</div>
+          <div class="fw-subtitle">The All-Rounder</div>
+          <p style="font-size:13.5px; color:var(--text-muted); margin:0; line-height:1.6;">Funded by Microsoft. Great for writing, daily tasks, and business workflows. The one most people start with.</p>
+        </div>
+        <div class="fw-block">
+          <div class="fw-name">Gemini</div>
+          <div class="fw-subtitle">The Producer</div>
+          <p style="font-size:13.5px; color:var(--text-muted); margin:0; line-height:1.6;">Google's unmatched visual data. Veo 3 for video, Nano Banana for images. Deep Google Workspace integration.</p>
+        </div>
+        <div class="fw-block full">
+          <div class="fw-name">Claude</div>
+          <div class="fw-subtitle">The Thoughtful Pro</div>
+          <p style="font-size:13.5px; color:var(--text-muted); margin:0; line-height:1.6;">Best at writing and coding. Data advantage from the world's largest bookstore and cloud computing platform.</p>
+        </div>
+      </div>
+
+      <h2>Four Things That Matter</h2>
+      <ol class="checklist">
+        <li><strong>The data behind the model.</strong> Follow the money behind the data. Each kingdom has a different data advantage. Match it to your program.</li>
+        <li><strong>The user interface features.</strong> Context window, multilingual, integrations. Start with what your program needs, then find the tool.</li>
+        <li><strong>The safety controls.</strong> Training data opt-out, access management, enterprise agreements, audit trail. If the controls don't fit, the tool doesn't fit.</li>
+        <li><strong>The apps it integrates with.</strong> CRM, project management, email, docs. If it doesn't integrate, you're creating more manual work.</li>
+      </ol>
+
+      <h2>Worked Example: Choosing a Tool for a Program</h2>
+      <p>Imagine you're leading an AI program to automate monthly reporting. Before you pick a tool, run through the four criteria.</p>
+      <p><strong>Data:</strong> Financial data, customer metrics, internal documents. You need a model that handles structured data well. Claude and ChatGPT both work. Gemini is strong if your data lives in Google Sheets.</p>
+      <p><strong>Interface:</strong> Large Excel uploads, formatted outputs, saved custom instructions for consistency month to month.</p>
+      <p><strong>Safety:</strong> Financial data is sensitive. Free tier is out immediately. If reports include salary or revenue data, enterprise tier is the right call.</p>
+      <p><strong>Integration:</strong> Google Workspace team? Gemini is already inside your tools. Slack and Notion? ChatGPT has plugins. Deep document analysis? Claude's project feature.</p>
+      <p>The answer isn't "which AI is best." <strong>The answer is "which AI fits this program."</strong></p>
+
+      <div class="insight">
+        <div class="insight-label">Key Insight</div>
+        <p>The AI Officer doesn't ask "what's the best AI?" The AI Officer asks "what's the best AI for this program?" Tool selection is a design decision, not a personal preference. Match the data advantage to the outcome you need. Follow the money behind the data. This same evaluation scales: one tool for one program today, a portfolio of tools across your organization tomorrow.</p>
+      </div>
+    </section>
+
+    <div class="divider"></div>
+
+    <!-- ════════════════════════════════════ -->
+    <!-- LESSON 8: THE BOLT DATA CHALLENGE -->
+    <!-- ════════════════════════════════════ -->
+    <section id="bolt-brief">
+      <div class="lesson-tag">
+        <span class="lesson-tag-num">Brief 5</span>
+      </div>
+
+      <h1>The BOLT Data Challenge</h1>
+
+      <p>Dana liked your work in Mission 1. She's bringing you onto the BOLT launch. But before we build anything, the data needs to be cleaned.</p>
+
+      <p>An intern collected taste test feedback from 25 college students across three universities. It's a mess. Your job is to fix it.</p>
+
+      <!-- ── PART A: PRACTICE CHALLENGES ── -->
+      <h2>Practice Challenges</h2>
+      <p>Each challenge proves a concept from this mission and builds toward the final deliverable. Complete both before moving to the final build.</p>
+
+      <div class="challenge-cards">
+        <div class="challenge-card">
+          <div class="challenge-num">1</div>
+          <div class="challenge-body">
+            <h4>Garbage In, Garbage Out</h4>
+            <p>Feed the messy data straight to AI. Watch it give you a confident, completely wrong answer.</p>
+          </div>
+          <span class="challenge-time">5 min</span>
+        </div>
+        <div class="challenge-card">
+          <div class="challenge-num">2</div>
+          <div class="challenge-body">
+            <h4>Become a Data Detective</h4>
+            <p>Go through the data row by row. Find every problem. Categorize what you find.</p>
+          </div>
+          <span class="challenge-time">10 min</span>
+        </div>
+      </div>
+
+      <div class="cta-block">
+        <h3>Start the Practice Challenges</h3>
+        <p>Head to the AIO Lab to work through Challenges 1-2 in your AI Buddy. Each one builds toward the final project.</p>
+        <a href="https://lab.ai-officer.com/program/785403/mission/2267519" target="_blank" class="cta-btn">
+          Open the AIO Lab
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </a>
+      </div>
+
+      <!-- ── PART B: FINAL PROJECT ── -->
+      <div class="final-project">
+        <div class="final-project-badge">Required for Certification</div>
+        <h2>Final Project</h2>
+        <p>This is the work that earns your Mission 2 certification. One deliverable that uses everything you learned in this mission. This is not a practice exercise. It is a professional deliverable Dana could take to leadership.</p>
+
+        <div class="final-cards">
+          <div class="final-card">
+            <div class="final-card-header">
+              <span class="final-card-label">Final Challenge</span>
+              <span class="challenge-time">60 min</span>
+            </div>
+            <h3>Clean at Scale</h3>
+            <p>The full 100-response survey just came in. Use AI to clean it, verify its work, and deliver an analysis report Dana can take to leadership.</p>
+            <ul class="goal-list" style="margin-top:12px;">
+              <li><strong>Clean the full dataset</strong> - fix duplicates, standardize formats, fill gaps, flag anything you can't fix</li>
+              <li><strong>Verify AI's work</strong> - don't trust the first pass. Check the numbers. Surface the assumptions.</li>
+              <li><strong>Deliver the analysis</strong> - write a summary Dana can read in two minutes</li>
+              <li><strong>Run your own quality check</strong> - would you bet your reputation on these numbers?</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="pro-tip" style="margin-top:24px;">
+          <div class="pro-tip-label">Before You Submit</div>
+          <p>Check every number. AI will clean confidently and incorrectly if you let it. Verify the row count, check for remaining duplicates, and make sure the rating scales are consistent. Only submit when you'd be comfortable if Dana sent this analysis to leadership with your name on it.</p>
+        </div>
+
+        <div class="cta-block final-cta">
+          <h3>Start the Final Project</h3>
+          <p>Complete the challenge to earn your Mission 2 certification. This is where the data skills become real.</p>
+          <a href="https://lab.ai-officer.com/program/785403/mission/2267519" target="_blank" class="cta-btn cta-btn-final">
+            Launch Final Project
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <div class="divider"></div>
+
+    <!-- ════════════════════════════════════ -->
+    <!-- LESSON 9: KEY TAKEAWAYS -->
+    <!-- ════════════════════════════════════ -->
+    <section id="takeaways">
+      <div class="section-label">Wrap-Up</div>
+      <div class="lesson-tag">
+        <span class="lesson-tag-num">Lesson 9</span>
+      </div>
+
+      <h1>Key Takeaways</h1>
+
+      <ul class="takeaway-list">
+        <li>
+          <strong>AI isn't failing because of the technology.</strong>
+          <span>It's failing because leadership doesn't understand it, workflows aren't documented, and data isn't organized. The AI Officer fixes the fuel first.</span>
+        </li>
+        <li>
+          <strong>AI doesn't check your data.</strong>
+          <span>It uses whatever you give it and delivers a confident answer, right or wrong. Garbage in, garbage out. The AI Officer catches what AI won't.</span>
+        </li>
+        <li>
+          <strong>Clean data means four things.</strong>
+          <span>Consistent, complete, labeled, and connected. If it's not all four, it's not ready. And if the data isn't ready, neither is your program.</span>
+        </li>
+        <li>
+          <strong>Your company's data is your competitive advantage.</strong>
+          <span>Anyone can buy the same tools. Nobody else has your data. Build your data moat: Capture, Clean, Connect, Reuse.</span>
+        </li>
+        <li>
+          <strong>Data safety is a governance decision.</strong>
+          <span>Not a personal preference. Never use free AI tools for work. Know your tier. Check your settings. The AI Officer sets the standard for the team.</span>
+        </li>
+        <li>
+          <strong>Think in programs, not prompts.</strong>
+          <span>Every challenge today builds toward an analysis Dana could put in front of leadership. That is what leading an AI program looks like.</span>
+        </li>
+      </ul>
+
+      <h2>Your Commitment</h2>
+      <p>Before you close out: name one habit you will start, stop, or continue this week. Not a tool. A behavior. Something your manager would notice.</p>
+    </section>
+
+    <div class="divider"></div>
+
+    <!-- ════════════════════════════════════ -->
+    <!-- LESSON 10: CERTIFICATE -->
+    <!-- ════════════════════════════════════ -->
+    <section id="certificate">
+      <div class="cert-card">
+        <div class="subtitle">AI Essentials Program: Clean Data</div>
+        <h2>Mission Two Checkpoint Reached</h2>
+        <p>Solid work, Cadet. You've completed Mission 2 of Generative AI Essentials and learned the foundational skill that separates AI programs that deliver from ones that burn budget: fixing the fuel first.</p>
+        <p>You now know that AI failure is a leadership problem, not a technology problem. You've built the habit of checking the data before trusting the output. And you've started thinking like someone who leads AI, not just someone who uses it. Keep going. Two more missions stand between you and the AI Specialist Certification.</p>
+        <div class="cert-progress">
+          <div class="cert-dot done">01</div>
+          <div class="cert-dot current">02</div>
+          <div class="cert-dot upcoming">03</div>
+          <div class="cert-dot upcoming">04</div>
+        </div>
+        <a href="#" class="cert-next">
+          Your Next Mission: Advanced Prompt Frameworks &rarr;
+        </a>
+      </div>
+
+      <p style="text-align:center; font-size:12px; color:var(--text-muted); margin-top:24px;">
+        Issued by AI Officer Institute &middot; Instructors: Dave Hajdu &amp; David Nilssen<br>
+        hello@ai-officer.com &middot; ai-officer.com
+      </p>
+    </section>
+</div>
+</body>
+</html>

@@ -1,0 +1,611 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mission 3: Wire the Workflow — AI Officer Institute</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../shared/styles.css">
+</head>
+<body>
+
+<div class="topbar">
+  <a href="../index.html" class="topbar-brand">AI Officer <span>Institute</span></a>
+  <div class="topbar-divider"></div>
+  <nav class="topbar-nav">
+      <a href="../index.html" class="tnav-link">Hub</a>
+      <a href="../generative-ai/mission-1.html" class="tnav-link"><span class="tnav-dot" style="background:#D1458B"></span>Generative AI</a>
+      <a href="../agentic-ai/mission-1.html" class="tnav-link active"><span class="tnav-dot" style="background:#287BE8"></span>Agentic AI</a>
+      <a href="../micro-sessions/cowork-first-workflow.html" class="tnav-link"><span class="tnav-dot" style="background:#1a9e74"></span>Micro-Sessions</a>
+  </nav>
+</div>
+<div class="layout">
+  <nav class="sidebar">
+
+    <a href="../index.html" class="sidebar-hub">&larr; Back to Hub
+    </a>
+    <div class="sidebar-mission-title">
+      <div class="smt-track" style="color: #287BE8">
+        <span class="smt-dot" style="background: #287BE8"></span>
+        Agentic AI
+      </div>
+    </div>
+    <div class="sidebar-section">
+      <div class="sidebar-label">Introduction</div>
+      <a href="#welcome" class="sidebar-item"><span class="sidebar-num">01</span>Welcome to Wire the Workflow</a>
+      <a href="#briefs-overview" class="sidebar-item"><span class="sidebar-num">02</span>Mission Briefs</a>
+      <a href="#learning-guide" class="sidebar-item"><span class="sidebar-num">03</span>Learning Guide</a>
+    </div>
+    <div class="sidebar-section">
+      <div class="sidebar-label">Mission Briefs</div>
+      <a href="#brief1" class="sidebar-item"><span class="sidebar-num">04</span>Brief 1: Why You're Still the Bottleneck</a>
+      <a href="#brief2" class="sidebar-item"><span class="sidebar-num">05</span>Brief 2: The 5-Part Workflow Blueprint</a>
+      <a href="#brief3" class="sidebar-item"><span class="sidebar-num">06</span>Brief 3: Build Your Trigger and Data Layer</a>
+      <a href="#brief4" class="sidebar-item"><span class="sidebar-num">07</span>Brief 4: Wire the AI Step and Action</a>
+      <a href="#brief5" class="sidebar-item"><span class="sidebar-num">08</span>Brief 5: Log, Test, and Ship</a>
+    </div>
+    <div class="sidebar-section">
+      <div class="sidebar-label">Wrap-Up</div>
+      <a href="#takeaways" class="sidebar-item"><span class="sidebar-num">09</span>Key Takeaways</a>
+      <a href="#certificate" class="sidebar-item"><span class="sidebar-num">10</span>Certificate of Completion</a>
+    </div>
+
+  </nav>
+  <main class="main">
+<!-- LESSON 1: WELCOME -->
+    <section id="welcome">
+      <div class="section-label">Introduction</div>
+      <div class="lesson-tag">
+        <span class="lesson-tag-num">Lesson 1</span>
+      </div>
+      <h1>Welcome to Wire the Workflow</h1>
+
+      <div class="video-card">
+        <div class="video-play">
+          <svg width="18" height="20" viewBox="0 0 18 20" fill="none"><polygon points="0,0 18,10 0,20" fill="white"/></svg>
+        </div>
+        <div>
+          <div class="video-title">Mission 3: Wire the Workflow</div>
+          <div class="video-sub">Watch the intro before you start.</div>
+        </div>
+      </div>
+
+      <p>You built a Packaged AI tool in Mission 2. It works. You press the button, it generates output, and the quality is good.</p>
+
+      <p>But then what happens? You become the connector. You manually paste input. You wait for output. You copy it. You switch to email or Slack or a document. You paste it again. You check the formatting. You send it. You log it somewhere, or you don't, and now there's no record.</p>
+
+      <p>The AI is fast. Three seconds per response. You are slow. Five minutes of connector work per response.</p>
+
+      <p>This mission fixes that. You're about to wire your Packaged AI into a workflow. A system where data flows automatically, your AI processes it, and output lands where it needs to go without you manually connecting the dots.</p>
+
+      <p>The difference: Before today, you are the middleware. After today, the workflow is.</p>
+
+      <h2>Mission Goals</h2>
+      <p>By the end of this mission you will be able to:</p>
+      <ul class="goal-list">
+        <li>Identify where you're the bottleneck in your manual process</li>
+        <li>Map a complete workflow using the 5-Part Workflow Blueprint</li>
+        <li>Build a working automated workflow on Make.com or your automation platform</li>
+        <li>Test and diagnose errors when workflows break</li>
+        <li>Ship a production workflow that removes you as the connector</li>
+      </ul>
+    </section>
+
+    <div class="divider"></div>
+
+    <!-- LESSON 2: MISSION BRIEFS -->
+    <section id="briefs-overview">
+      <div class="lesson-tag">
+        <span class="lesson-tag-num">Lesson 2</span>
+      </div>
+      <h1>Mission Briefs</h1>
+
+      <p>Every brief in this mission builds on the previous one. You'll move from understanding the problem, to designing the pattern, to building and shipping a real workflow. Work through them in order.</p>
+
+      <div class="brief-cards">
+        <div class="brief-card">
+          <div class="brief-num">1</div>
+          <div class="brief-card-body">
+            <h4>Why You're Still the Bottleneck</h4>
+            <p>You built the Packaged AI tool. Now you're the connector. This brief shows you why that's a problem and how workflows fix it.</p>
+          </div>
+        </div>
+        <div class="brief-card">
+          <div class="brief-num">2</div>
+          <div class="brief-card-body">
+            <h4>The 5-Part Workflow Blueprint</h4>
+            <p>Every automation platform speaks the same language. Learn the pattern once. Apply it everywhere. Trigger, Data, AI Step, Action, Log.</p>
+          </div>
+        </div>
+        <div class="brief-card">
+          <div class="brief-num">3</div>
+          <div class="brief-card-body">
+            <h4>Build Your Trigger and Data Layer</h4>
+            <p>Start with the foundation. Get your trigger working. Extract your data cleanly. Everything else depends on these two steps working perfectly.</p>
+          </div>
+        </div>
+        <div class="brief-card">
+          <div class="brief-num">4</div>
+          <div class="brief-card-body">
+            <h4>Wire the AI Step and Action</h4>
+            <p>Connect your Packaged AI from Mission 2 into a live workflow. Send the output where it needs to go. Remove yourself from the loop.</p>
+          </div>
+        </div>
+        <div class="brief-card">
+          <div class="brief-num">5</div>
+          <div class="brief-card-body">
+            <h4>Log, Test, and Ship</h4>
+            <p>Add the logging that gives your system memory. Test the complete workflow. Handle errors. Ship something that works at scale.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="time-grid">
+        <span class="time-label">Core Learning (Briefs 1-4)</span>
+        <span class="time-value">~80 minutes</span>
+        <span class="time-label">Final Build (Brief 5)</span>
+        <span class="time-value">~40 minutes</span>
+      </div>
+    </section>
+
+    <div class="divider"></div>
+
+    <!-- LESSON 3: LEARNING GUIDE -->
+    <section id="learning-guide">
+      <div class="lesson-tag">
+        <span class="lesson-tag-num">Lesson 3</span>
+      </div>
+      <h1>Learning Guide</h1>
+
+      <p><strong>Design before you build.</strong> Spend 15 minutes mapping your 5-part workflow on paper. This saves an hour of confused building later.</p>
+
+      <p><strong>Test with real data.</strong> Don't test with examples. Use actual inputs from your work. Real data surfaces real problems immediately.</p>
+
+      <p><strong>Start with the trigger.</strong> If the trigger doesn't fire, nothing else happens. Get this right first before moving to any other step.</p>
+
+      <p><strong>Embrace the errors.</strong> When something breaks, click the error. Read it. Most fixes are obvious once you understand what went wrong.</p>
+
+      <h2>Rules of the Road</h2>
+      <ul class="checklist">
+        <li>Design your 5-part workflow before you touch any automation platform.</li>
+        <li>Test your trigger first. If it doesn't fire, fix it before moving forward.</li>
+        <li>Use real data from your work, not fake examples.</li>
+        <li>Log everything. Your logs become the system's memory.</li>
+        <li>A workflow that works 90% of the time is ship-ready. Perfect is the enemy of shipped.</li>
+        <li>When something breaks, diagnose and fix, don't start over.</li>
+      </ul>
+
+      <div class="pro-tip">
+        <div class="pro-tip-label">Pro Tip</div>
+        <p>Before you log into any automation platform, spend 15 minutes writing down your complete 5-part workflow. Describe each step in 2-3 sentences. What triggers it? What data comes in? What does the AI do? Where does output go? What gets logged? This clarity saves you hours of confused building.</p>
+      </div>
+    </section>
+
+    <div class="divider"></div>
+
+    <!-- BRIEF 1: THE BOTTLENECK -->
+    <section id="brief1">
+      <div class="section-label">Mission Briefs</div>
+      <div class="lesson-tag">
+        <span class="lesson-tag-num">Brief 1</span>
+        <span class="lesson-tag-type">Teaching</span>
+      </div>
+      <h1>Why You're Still the Bottleneck</h1>
+
+      <p>In Mission 2, you built a Packaged AI tool. It works. You press the button, it generates output, and the quality is good. But then what happens?</p>
+
+      <p>You become the connector. You manually paste input. You wait for output. You copy it. You switch to email or Slack or a document. You paste it. You check the formatting. You might add context. You send it. You log it somewhere, or you don't, and now there's no record. You repeat this every single day.</p>
+
+      <p>The AI is fast. Three seconds per response. You are slow. Five minutes of manual work per response. When you add a second workflow, you're now the bottleneck for both. When you add a third, three. The tool scales. You don't.</p>
+
+      <p>This is called the 95 percent problem. MIT Sloan research shows that 95 percent of organizations investing in AI get zero return. Not because the AI doesn't work. Because they bolt AI onto broken processes and automate chaos. Process excellence comes before AI, every single time.</p>
+
+      <p>The solution isn't a better AI tool. It's a workflow. A system where data flows automatically, AI processes it, and output lands where it needs to go without you manually connecting the dots.</p>
+
+      <h2>Before and After: The Worked Example</h2>
+
+      <div class="compare-block">
+        <div class="compare-side without">
+          <h4>Before: Manual Process</h4>
+          <p>Monday morning. 15 customer emails arrived overnight with feedback. You open email (2 min), copy the first feedback (1 min), open your Packaged AI tool (30 sec), paste feedback (30 sec), submit and wait (1 min), copy response (30 sec), open Gmail (30 sec), click reply (30 sec), paste response (30 sec), edit it (2 min), send (30 sec), open spreadsheet (1 min), log it (1 min). Then repeat for the next email.</p>
+          <p style="margin-top: 8px;"><strong>Total: 4 hours for 15 responses. AI did 5 minutes of work. You did 3 hours 55 minutes of connector work.</strong></p>
+        </div>
+        <div class="compare-side with">
+          <h4>After: Automated Workflow</h4>
+          <p>The trigger watches your email inbox. New feedback arrives. The workflow fires automatically. Data pulls from the email. Your Packaged AI processes it (5 minutes of actual work for all 15 responses). The response lands directly in the customer's inbox. Everything logs automatically.</p>
+          <p style="margin-top: 8px;"><strong>Total: 10 minutes for you to monitor and verify. Everything else happens while you work on something else.</strong></p>
+        </div>
+      </div>
+
+      <div class="insight">
+        <div class="insight-label">Key Insight</div>
+        <p>The AI is fast. You are slow. The workflow fixes that. Stop being the middleware.</p>
+      </div>
+
+      <div class="ai-buddy-prompt"><strong>Want to map your bottleneck? Ask your AI Buddy:</strong> "I currently do this work manually: [describe your process]. Every time I do it, here's what I do step by step: [list the steps]. Where am I doing the connector work? Where is the AI tool sitting unused between my manual steps?"</div>
+    </section>
+
+    <div class="divider"></div>
+
+    <!-- BRIEF 2: THE 5-PART BLUEPRINT -->
+    <section id="brief2">
+      <div class="lesson-tag">
+        <span class="lesson-tag-num">Brief 2</span>
+        <span class="lesson-tag-type">Framework</span>
+      </div>
+      <h1>The 5-Part Workflow Blueprint</h1>
+
+      <p>There are five parts to every workflow that automates business processes. Every platform uses them. Make.com, Zapier, n8n, Power Automate. They all speak the same language.</p>
+
+      <div class="fw-grid">
+        <div class="fw-block">
+          <div class="fw-name">1. TRIGGER</div>
+          <div class="fw-subtitle">What Starts It</div>
+          <p style="font-size:14px; color:var(--text-secondary); margin:0;">The trigger is the starting signal. Something happens that kicks off the workflow. Triggers can be time-based (every Monday at 9 AM), event-based (new email, form submission, spreadsheet row), or manual (you click a button).</p>
+        </div>
+        <div class="fw-block">
+          <div class="fw-name">2. DATA</div>
+          <div class="fw-subtitle">The Fuel</div>
+          <p style="font-size:14px; color:var(--text-secondary); margin:0;">Data is what the workflow operates on. Sometimes the trigger brings it (the email includes customer name, content, date). Sometimes you fetch it (pull customer record from CRM for context). Sometimes you transform it (clean messy data).</p>
+        </div>
+        <div class="fw-block">
+          <div class="fw-name">3. AI STEP</div>
+          <div class="fw-subtitle">What AI Does With It</div>
+          <p style="font-size:14px; color:var(--text-secondary); margin:0;">This is where your Packaged AI from Mission 2 lives, now inside a system instead of in a chat window. Data flows to it automatically. It processes and produces output.</p>
+        </div>
+        <div class="fw-block">
+          <div class="fw-name">4. ACTION</div>
+          <div class="fw-subtitle">Where Output Goes</div>
+          <p style="font-size:14px; color:var(--text-secondary); margin:0;">The action is where the output lands. Send an email. Create a task. Post a message. Update a spreadsheet. This step replaces you as the manual connector.</p>
+        </div>
+        <div class="fw-block full">
+          <div class="fw-name">5. LOG</div>
+          <div class="fw-subtitle">The System's Memory</div>
+          <p style="font-size:14px; color:var(--text-secondary); margin:0;">AI doesn't remember. Your logs become the system's memory. Every time the workflow runs, log: timestamp, input that triggered it, AI output generated, action status. When something breaks, your log tells you where and what happened.</p>
+        </div>
+      </div>
+
+      <h2>Complete Example: Customer Feedback Workflow</h2>
+
+      <div class="pro-tip">
+        <div class="pro-tip-label">Jordan's 5-Part Workflow</div>
+        <p><strong>Trigger:</strong> New email arrives in feedback inbox. <strong>Data:</strong> Extract sender email, name, subject, body, timestamp. Look up sender in CRM. <strong>AI Step:</strong> Use Packaged AI with system prompt: "You are a customer success specialist. Use customer history to personalize. Be warm, specific, acknowledge their concern, offer a solution." <strong>Action:</strong> Send AI-generated response as reply via Gmail. <strong>Log:</strong> Write timestamp, customer name, feedback received, AI response, email sent status to feedback log spreadsheet.</p>
+      </div>
+
+      <div class="insight">
+        <div class="insight-label">Key Insight</div>
+        <p>The platform is the tool. The pattern is the skill. Learn it once, build on any platform.</p>
+      </div>
+
+      <div class="ai-buddy-prompt"><strong>Want to design your workflow? Ask your AI Buddy:</strong> "I want to automate this work: [describe it]. My Packaged AI from Mission 2 is: [describe it]. Using the 5-Part Workflow Blueprint, help me design each part. Be specific about what happens at each step."</div>
+    </section>
+
+    <div class="divider"></div>
+
+    <!-- BRIEF 3: BUILD TRIGGER AND DATA LAYER -->
+    <section id="brief3">
+      <div class="lesson-tag">
+        <span class="lesson-tag-num">Brief 3</span>
+        <span class="lesson-tag-type">Build</span>
+      </div>
+      <h1>Build Your Trigger and Data Layer</h1>
+
+      <p>Now you execute. Before you start, you have three things: your Packaged AI tool from Mission 2 (working and tested), your workflow design from Brief 2 (your 5-part blueprint written out), and access to an automation platform (Make.com account created).</p>
+
+      <h2>Step 1: Create Your Scenario and Set Your Trigger</h2>
+
+      <p>Log into Make.com. Click "Create a new scenario." Name it something clear: "Customer Feedback Response" or "Lead Qualification Workflow" or whatever your workflow does. Don't use generic names.</p>
+
+      <p>Select your trigger app. For a customer feedback workflow, it's Gmail. For a lead qualification workflow, it might be a form submission app. For a content review workflow, it might be a Slack channel. Configure the trigger: which inbox to watch, which form to monitor, which channel to listen to.</p>
+
+      <p>Test the trigger. Add a test input. Does the trigger fire? You should see it in the workflow run history. If yes, move to step 2. If no, check: Is the account connected correctly? Is the trigger looking at the right inbox or form or channel? Fix it and test again.</p>
+
+      <div class="insight">
+        <div class="insight-label">Key Point</div>
+        <p>Don't move forward until the trigger is working. Everything else depends on it.</p>
+      </div>
+
+      <h2>Step 2: Extract and Prepare Data</h2>
+
+      <p>Add a second module to your workflow. This is the Data step. Depending on your trigger, you might use a Gmail module to extract email content, a spreadsheet module to get row data, a form module to extract submission fields, or a Slack module to extract message content.</p>
+
+      <p>Configure it to capture all the data your AI step needs. If you need data from outside the trigger (customer history from your CRM, context from a previous interaction), add another module to fetch it.</p>
+
+      <p>Test with real data. Does the extracted data look right? Are the fields mapped correctly? If you see messy data, note it - you might need to clean it with a formatter step.</p>
+
+      <div class="insight">
+        <div class="insight-label">Key Point</div>
+        <p>Pay attention to data quality. What looks small here becomes a big problem at the AI step. Garbage in, garbage out.</p>
+      </div>
+
+      <div class="challenge-cards">
+        <div class="challenge-card">
+          <div class="challenge-num">1</div>
+          <div class="challenge-body">
+            <h4>Map Your Workflow on Paper</h4>
+            <p>Before you touch Make.com, map your workflow on paper. Draw or write: What triggers it? What data comes in? What does your AI do? Where does output go? What gets logged?</p>
+          </div>
+          <div class="challenge-time">15 min</div>
+        </div>
+        <div class="challenge-card">
+          <div class="challenge-num">2</div>
+          <div class="challenge-body">
+            <h4>Set Up Your Trigger</h4>
+            <p>Open Make.com. Create a new scenario. Select your trigger app. Configure the trigger. Add a test input. Does it fire? You're done when you see it in the workflow history.</p>
+          </div>
+          <div class="challenge-time">10 min</div>
+        </div>
+        <div class="challenge-card">
+          <div class="challenge-num">3</div>
+          <div class="challenge-body">
+            <h4>Build Your Data Layer</h4>
+            <p>Add your data extraction module. Test with real data. Does the extracted data look right? Are the fields mapped correctly?</p>
+          </div>
+          <div class="challenge-time">10 min</div>
+        </div>
+      </div>
+
+      <div class="pro-tip">
+        <div class="pro-tip-label">Pro Tip</div>
+        <p>The 15-minute paper map saves you an hour of confused building. Don't skip it.</p>
+      </div>
+    </section>
+
+    <div class="divider"></div>
+
+    <!-- BRIEF 4: WIRE AI STEP AND ACTION -->
+    <section id="brief4">
+      <div class="lesson-tag">
+        <span class="lesson-tag-num">Brief 4</span>
+        <span class="lesson-tag-type">Build</span>
+      </div>
+      <h1>Wire the AI Step and Action</h1>
+
+      <p>You have your trigger and data layer working. Now you connect your Packaged AI into a live workflow. This is where you remove yourself from the loop.</p>
+
+      <h2>Step 3: Connect Your Packaged AI</h2>
+
+      <p>Add your AI step. This is where your Packaged AI tool from Mission 2 comes in. If your Packaged AI lives in ChatGPT or Claude with a system prompt, use the OpenAI or Anthropic API module. Map your data fields to the prompt input.</p>
+
+      <p>If your Packaged AI is a custom tool (built in another platform), use an HTTP module to call it. You'll need the API endpoint and any authentication keys.</p>
+
+      <p>Feed your extracted data into the AI step. Include all context the AI needs to do its job well. Test with real data. Does the AI output look right? Is it personalized? Is it the quality you expect from Mission 2?</p>
+
+      <p>If the output is generic or wrong, the problem is usually the data (garbage in, garbage out) or the AI prompt needs refinement.</p>
+
+      <div class="insight">
+        <div class="insight-label">Key Point</div>
+        <p>This is where you might refine your Mission 2 Packaged AI. Real workflow data sometimes teaches you things your testing didn't.</p>
+      </div>
+
+      <h2>Step 4: Configure the Action</h2>
+
+      <p>Add your action step. This is where the output lands. If the action is send an email, use a Gmail module mapped to the customer's email address with the AI output as the body. If it's create a task, use Asana or similar with AI output as the task description. If it's update a spreadsheet, use Google Sheets with AI output in a specific column. If it's post a message, use Slack with AI output as the message content.</p>
+
+      <p>Map your fields carefully. The AI output field should go to the right place. Customer name or ID should go to the right recipient or record.</p>
+
+      <p>Test the action. Does the output arrive where it should? Check your email. Check the sheet. Check the app. Does it look right? Is the formatting correct? Is anything missing?</p>
+
+      <div class="insight">
+        <div class="insight-label">Key Point</div>
+        <p>This is where you remove yourself from the loop. Before today, you did this manually. Now the system does.</p>
+      </div>
+
+      <div class="challenge-cards">
+        <div class="challenge-card">
+          <div class="challenge-num">1</div>
+          <div class="challenge-body">
+            <h4>Connect Your AI Step</h4>
+            <p>Add your data extraction step. Add your AI step. Feed the extracted data into the AI. Test with real data. Does the AI output look right?</p>
+          </div>
+          <div class="challenge-time">10 min</div>
+        </div>
+        <div class="challenge-card">
+          <div class="challenge-num">2</div>
+          <div class="challenge-body">
+            <h4>Build Your Action Step</h4>
+            <p>Add your action module (email, task, message, spreadsheet). Map the AI output to the right place. Test. Does the output arrive correctly?</p>
+          </div>
+          <div class="challenge-time">10 min</div>
+        </div>
+      </div>
+    </section>
+
+    <div class="divider"></div>
+
+    <!-- BRIEF 5: LOG TEST AND SHIP -->
+    <section id="brief5">
+      <div class="lesson-tag">
+        <span class="lesson-tag-num">Brief 5</span>
+        <span class="lesson-tag-type">Build</span>
+      </div>
+      <h1>Log, Test, and Ship</h1>
+
+      <p>You have your trigger, data, AI step, and action all working. Now add the logging that gives your system memory. Then test the complete workflow. Then ship it.</p>
+
+      <h2>Step 5: Log Everything</h2>
+
+      <p>Add your log step. This is usually a spreadsheet or database module where you write back the results. Create columns for: Timestamp (when the workflow ran), Input (what triggered it - customer name, feedback content, lead source, etc.), AI Output (what the AI generated), Action Status (sent, failed, pending, etc.), and any other metadata you want to track.</p>
+
+      <p>Configure the module to write back to your spreadsheet or database. Map each field correctly. Test the log. Run the workflow and check: does the spreadsheet row get populated? Does the timestamp capture correctly? Does the AI output get recorded?</p>
+
+      <div class="insight">
+        <div class="insight-label">Key Point</div>
+        <p>Logs are how you build system memory. Skip this step and you lose visibility. Don't skip it.</p>
+      </div>
+
+      <h2>Full Workflow Test</h2>
+
+      <p>Now run the entire workflow end to end with real data. Add a test input to your trigger. Go check the workflow run history. Did the trigger fire? Did the data extract correctly? Did the AI step complete and look right? Did the action complete? Did the log capture everything? If all steps work, you just built a real automated workflow. Celebrate.</p>
+
+      <p>If something breaks, click the error. Read it. Most problems are simple: Connection expired? Re-authorize the app. Field mapping wrong? Fix the field mapping. Missing data? Check the data step. Permissions issue? Grant the necessary permissions. Rate limit hit? Wait or adjust the API call.</p>
+
+      <div class="insight">
+        <div class="insight-label">Key Point</div>
+        <p>Don't panic. Don't start over. Diagnose and fix.</p>
+      </div>
+
+      <h2>Testing for Happy Path and Edge Cases</h2>
+
+      <p>The happy path is the ideal scenario. New feedback arrives. The workflow triggers. Data extracts cleanly. AI generates a great response. Email sends successfully. Everything logs correctly.</p>
+
+      <p>But real data is messy. Not all inputs are ideal. Some feedback is unclear. Some emails are incomplete. Some customer records are missing. Test with real messy inputs. Feedback with special characters. Incomplete customer records. Missing data. Unusual scenarios. For each one, does the workflow handle it or break? If it breaks, note the error and fix it.</p>
+
+      <p>You don't need perfect. You need working. A workflow that handles 90 percent of your inputs well is ship-ready. It saves you time on 90 percent of cases. For the remaining 10 percent, you manually handle and log that it failed. You can improve it later.</p>
+
+      <div class="insight">
+        <div class="insight-label">Key Point</div>
+        <p>The enemy of shipped is perfect.</p>
+      </div>
+
+      <div class="challenge-cards">
+        <div class="challenge-card">
+          <div class="challenge-num">1</div>
+          <div class="challenge-body">
+            <h4>Add Your Log Step</h4>
+            <p>Add your log module. Create columns for timestamp, input, AI output, action status. Test the log. Does the spreadsheet row populate correctly?</p>
+          </div>
+          <div class="challenge-time">10 min</div>
+        </div>
+        <div class="challenge-card">
+          <div class="challenge-num">2</div>
+          <div class="challenge-body">
+            <h4>Run Full End-to-End Test</h4>
+            <p>Add a test input. Check: trigger fires, data extracts, AI responds, action completes, log updates. All five steps working together.</p>
+          </div>
+          <div class="challenge-time">10 min</div>
+        </div>
+        <div class="challenge-card">
+          <div class="challenge-num">3</div>
+          <div class="challenge-body">
+            <h4>Test with Real Messy Data</h4>
+            <p>Test with real inputs that don't match your ideal scenario. Incomplete data. Special characters. Missing fields. Does the workflow handle it or break? Fix any errors.</p>
+          </div>
+          <div class="challenge-time">15 min</div>
+        </div>
+        <div class="challenge-card">
+          <div class="challenge-num">4</div>
+          <div class="challenge-body">
+            <h4>Ship It</h4>
+            <p>Your workflow works. It handles 90% of your inputs. It saves you time. Turn it on. Let it run. You're done.</p>
+          </div>
+          <div class="challenge-time">5 min</div>
+        </div>
+      </div>
+
+      <div class="final-project">
+        <div class="final-project-badge">Mission Project</div>
+
+        <h2>Your Complete Automated Workflow</h2>
+        <p>Submit all four parts to your AI Buddy for feedback. Your AI Buddy grades whether the workflow actually runs and saves time.</p>
+
+        <div class="final-cards">
+          <div class="final-card">
+            <div class="final-card-header">
+              <div class="final-card-label">Part 1</div>
+            </div>
+            <h3>Your Workflow Map</h3>
+            <p>Describe all five parts of your workflow: trigger, data, AI step, action, log. Write it clearly enough that someone else could follow it and understand every step.</p>
+          </div>
+          <div class="final-card">
+            <div class="final-card-header">
+              <div class="final-card-label">Part 2</div>
+            </div>
+            <h3>Live Workflow Evidence</h3>
+            <p>Screenshot of your completed workflow in Make.com, Zapier, n8n, or Power Automate. Screenshot of the workflow run history showing it actually ran. Screenshot of the log spreadsheet showing multiple runs with timestamps and results.</p>
+          </div>
+          <div class="final-card">
+            <div class="final-card-header">
+              <div class="final-card-label">Part 3</div>
+            </div>
+            <h3>Error Log and Fix</h3>
+            <p>Document at least one error you encountered and how you fixed it. What error did you get? What step broke? How did you diagnose it? How did you fix it?</p>
+          </div>
+          <div class="final-card">
+            <div class="final-card-header">
+              <div class="final-card-label">Part 4</div>
+            </div>
+            <h3>Impact on Your FAST Goal</h3>
+            <p>How does this workflow bring you closer to your Mission 1 FAST goal? Write 2-3 sentences showing how the automated workflow changes your timeline or outcome.</p>
+          </div>
+        </div>
+
+        <div class="pro-tip">
+          <div class="pro-tip-label">Before You Submit</div>
+          <p>Your workflow map is clear and complete. The workflow runs and has run history proof. You've logged at least one real error and how you fixed it. You've documented the impact on your FAST goal from Mission 1.</p>
+        </div>
+      </div>
+    </section>
+
+    <div class="divider"></div>
+
+    <!-- TAKEAWAYS -->
+    <section id="takeaways">
+      <div class="section-label">Wrap-Up</div>
+      <div class="lesson-tag">
+        <span class="lesson-tag-num">Lesson 9</span>
+      </div>
+      <h1>Key Takeaways</h1>
+
+      <ul class="takeaway-list">
+        <li>
+          <strong>You are not doing the work. You are designing the system.</strong>
+          <span>Before today, you were the middleware manually connecting pieces. Your job now is to design a system where the connections happen automatically.</span>
+        </li>
+        <li>
+          <strong>95 percent of companies fail at AI not because the tools don't work, but because they don't have workflows figured out.</strong>
+          <span>A better AI tool doesn't help if a human still has to manually move the output around. Workflows remove you from the loop.</span>
+        </li>
+        <li>
+          <strong>The 5-Part Blueprint works on any platform. Learn the pattern, not the tool.</strong>
+          <span>Make.com, Zapier, n8n, Power Automate. Different buttons. Same five parts: Trigger, Data, AI Step, Action, Log. When you move to a new platform, you already know how to build.</span>
+        </li>
+        <li>
+          <strong>A good trigger means you don't have to remember. Set it and forget it.</strong>
+          <span>Triggers are what make automation actually automatic. The best triggers are the ones that fire without you thinking about them.</span>
+        </li>
+        <li>
+          <strong>Your logs become the system's memory. Skip the log and you're flying blind.</strong>
+          <span>AI doesn't remember. When your workflow runs 100 times, your log has to remember what happened all 100 times. Without logs, you have no visibility into what your system is actually doing.</span>
+        </li>
+        <li>
+          <strong>Things will break. Click the error. Read it. Most fixes are obvious.</strong>
+          <span>Every workflow you build will break at least once. This is normal. The skill isn't building perfect workflows. The skill is diagnosing the errors you get and fixing them.</span>
+        </li>
+      </ul>
+
+      <div class="pro-tip">
+        <div class="pro-tip-label">Your Commitment</div>
+        <p>This week, identify one workflow you can ship. Not someday. This week. It could be your Mission 1 selected item wired into the workflow you just built. Whatever it is, the test is: Does it work? Can someone else on your team use it? Does it save time? Write it down. Commit to shipping one workflow by Friday.</p>
+      </div>
+    </section>
+
+    <div class="divider"></div>
+
+    <!-- CERTIFICATE -->
+    <section id="certificate">
+      <div class="cert-card">
+        <h2>Mission 3 Complete</h2>
+        <p class="subtitle">AGENTIC AI ESSENTIALS</p>
+        <p>You took your Packaged AI from Mission 2 and wired it into a complete workflow. You built the trigger. You extracted and prepared data. You connected your AI step. You configured the action. You added logging. You tested everything. You shipped a system that removes you as the bottleneck.</p>
+
+        <div class="cert-progress">
+          <div class="cert-dot done">M1</div>
+          <div class="cert-dot done">M2</div>
+          <div class="cert-dot current">M3</div>
+          <div class="cert-dot upcoming">M4</div>
+          <div class="cert-dot upcoming">M5</div>
+        </div>
+
+        <a href="https://lab.ai-officer.com" class="cert-next">
+          Up next: Mission 4 - Teach Your Workflow to Decide
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M6 3L11 8L6 13" stroke="#6FF2C1" stroke-width="2" stroke-linecap="round"/></svg>
+        </a>
+      </div>
+    </section>
+  </main>
+</div>
+
+<script src="../shared/nav.js"></script>
+</body>
+</html>

@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI Buddy — AIO Labs</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="shared/styles.css">
+<style>
+  :root {
+    --radius: 10px;
+    --ease: cubic-bezier(0.4, 0, 0.2, 1);
+    --shadow-sm: 0 1px 3px rgba(4,16,45,0.07);
+    --border-hover: #b0b6cc;
+  }
+
+  body { background: var(--surface); display: flex; flex-direction: column; height: 100vh; overflow: hidden; }
+
+  /* ── Topbar ── */
+  .topbar { justify-content: space-between; padding: 0 28px; gap: 16px; }
+  .topbar-nav { margin-left: 8px; }
+  .topbar-right { display: flex; align-items: center; gap: 10px; margin-left: auto; flex-shrink: 0; }
+  .topbar-stat { display: flex; align-items: center; gap: 5px; font-size: 13px; font-weight: 600; color: rgba(255,255,255,0.7); font-family: 'JetBrains Mono', monospace; }
+  .topbar-divider { width: 1px; height: 24px; background: rgba(255,255,255,0.12); }
+  .topbar-avatar { width: 30px; height: 30px; border-radius: 50%; background: linear-gradient(135deg,#287BE8,#1A9E74); display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 700; color: white; }
+
+  /* ── Chat layout ── */
+  .chat-wrap {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    max-width: 780px;
+    width: 100%;
+    margin: 0 auto;
+    padding: 0 24px 24px;
+    overflow: hidden;
+    margin-top: 56px; /* clear topbar */
+  }
+
+  /* ── Chat header ── */
+  .chat-header {
+    padding: 28px 0 20px;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    flex-shrink: 0;
+  }
+  .chat-header-avatar {
+    width: 44px; height: 44px; border-radius: 50%;
+    background: linear-gradient(135deg, #287BE8, #1A9E74);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 20px; flex-shrink: 0;
+  }
+  .chat-header-info { flex: 1; }
+  .chat-header-name {
+    font-size: 17px; font-weight: 700; color: var(--text-primary);
+    letter-spacing: -0.2px;
+  }
+  .chat-header-status {
+    font-size: 12px; color: #1A9E74; font-weight: 500;
+    display: flex; align-items: center; gap: 5px;
+  }
+  .chat-header-status::before {
+    content: '';
+    width: 6px; height: 6px; border-radius: 50%;
+    background: #1A9E74; flex-shrink: 0;
+  }
+
+  /* ── Messages area ── */
+  .chat-msgs {
+    flex: 1;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    padding: 8px 0 16px;
+    scroll-behavior: smooth;
+  }
+  .chat-msgs::-webkit-scrollbar { width: 4px; }
+  .chat-msgs::-webkit-scrollbar-track { background: transparent; }
+  .chat-msgs::-webkit-scrollbar-thumb { background: var(--border); border-radius: 4px; }
+
+  /* Messages */
+  .msg {
+    display: flex;
+    gap: 10px;
+    align-items: flex-end;
+    max-width: 82%;
+    animation: msg-in 0.18s var(--ease);
+  }
+  @keyframes msg-in {
+    from { opacity: 0; transform: translateY(6px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  .msg.from-buddy { align-self: flex-start; }
+  .msg.from-user  { align-self: flex-end; flex-direction: row-reverse; }
+
+  .msg-avatar {
+    width: 28px; height: 28px; border-radius: 50%;
+    background: linear-gradient(135deg, #287BE8, #1A9E74);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 13px; flex-shrink: 0; margin-bottom: 2px;
+  }
+  .msg.from-user .msg-avatar {
+    background: var(--navy);
+    font-size: 11px; font-weight: 700; color: white;
+  }
+
+  .msg-bubble {
+    padding: 11px 15px;
+    border-radius: 16px;
+    font-size: 14px;
+    line-height: 1.6;
+    color: var(--text-primary);
+  }
+  .msg.from-buddy .msg-bubble {
+    background: white;
+    border: 1px solid var(--border);
+    border-bottom-left-radius: 4px;
+    box-shadow: var(--shadow-sm);
+  }
+  .msg.from-user .msg-bubble {
+    background: var(--navy);
+    color: rgba(255,255,255,0.92);
+    border-bottom-right-radius: 4px;
+  }
+
+  /* ── Starters ── */
+  .starters {
+    display: flex;
+    gap: 10px;
+    padding: 4px 0 16px;
+    flex-shrink: 0;
+  }
+  .starter-btn {
+    flex: 1;
+    background: white;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 12px 16px;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--text-primary);
+    font-family: 'DM Sans', sans-serif;
+    cursor: pointer;
+    text-align: left;
+    transition: all 0.15s var(--ease);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    box-shadow: var(--shadow-sm);
+  }
+  .starter-btn:hover {
+    border-color: rgba(40,123,232,0.4);
+    box-shadow: 0 4px 14px rgba(4,16,45,0.09);
+    transform: translateY(-1px);
+    color: var(--blue);
+  }
+  .starter-btn:hover .starter-icon { transform: scale(1.12); }
+  .starter-icon { font-size: 17px; transition: transform 0.15s; }
+  .starter-label { font-size: 10px; font-weight: 700; letter-spacing: 0.6px; text-transform: uppercase; color: var(--text-muted); margin-bottom: 2px; }
+  .starter-title { font-size: 13px; font-weight: 700; color: var(--text-primary); }
+  .starter-btn:hover .starter-title { color: var(--blue); }
+
+  /* ── Input bar ── */
+  .chat-input-bar {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: white;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 10px 12px 10px 16px;
+    box-shadow: 0 2px 10px rgba(4,16,45,0.07);
+    flex-shrink: 0;
+    transition: border-color 0.15s, box-shadow 0.15s;
+  }
+  .chat-input-bar:focus-within {
+    border-color: rgba(40,123,232,0.5);
+    box-shadow: 0 0 0 3px rgba(40,123,232,0.08), 0 2px 10px rgba(4,16,45,0.07);
+  }
+  .chat-field {
+    flex: 1;
+    border: none;
+    background: transparent;
+    font-size: 14px;
+    font-family: 'DM Sans', sans-serif;
+    color: var(--text-primary);
+    outline: none;
+    resize: none;
+    max-height: 120px;
+    line-height: 1.5;
+  }
+  .chat-field::placeholder { color: var(--text-muted); }
+  .chat-send {
+    width: 36px; height: 36px;
+    background: var(--navy);
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    color: white;
+    font-size: 15px;
+    flex-shrink: 0;
+    transition: background 0.15s, transform 0.1s;
+  }
+  .chat-send:hover { background: #287BE8; }
+  .chat-send:active { transform: scale(0.93); }
+  .chat-send:disabled { background: var(--border); cursor: not-allowed; }
+
+  /* ── Typing indicator ── */
+  .typing-indicator {
+    display: none;
+    gap: 10px;
+    align-items: flex-end;
+    align-self: flex-start;
+  }
+  .typing-indicator.visible { display: flex; }
+  .typing-dots {
+    background: white;
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    border-bottom-left-radius: 4px;
+    padding: 12px 16px;
+    display: flex;
+    gap: 4px;
+    align-items: center;
+    box-shadow: var(--shadow-sm);
+  }
+  .typing-dot {
+    width: 6px; height: 6px; border-radius: 50%;
+    background: var(--border);
+    animation: typing-bounce 1.2s infinite;
+  }
+  .typing-dot:nth-child(2) { animation-delay: 0.2s; }
+  .typing-dot:nth-child(3) { animation-delay: 0.4s; }
+  @keyframes typing-bounce {
+    0%, 60%, 100% { transform: translateY(0); background: var(--border); }
+    30% { transform: translateY(-5px); background: #287BE8; }
+  }
+
+  @media (max-width: 700px) {
+    .chat-wrap { padding: 0 16px 16px; }
+    .starters { flex-direction: column; }
+    .topbar-nav { display: none; }
+    .topbar-right { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <a href="index.html" class="topbar-brand">AIO <span>Labs</span></a>
+  <nav class="topbar-nav">
+    <a href="certification.html" class="tnav-link"><span class="tnav-dot" style="background:#287BE8"></span> Certification</a>
+    <a href="coaching.html" class="tnav-link"><span class="tnav-dot" style="background:#287BE8"></span> Coaching</a>
+    <a href="micro-sessions/index.html" class="tnav-link"><span class="tnav-dot" style="background:#1A9E74"></span> Micro-Sessions</a>
+    <a href="blog/index.html" class="tnav-link"><span class="tnav-dot" style="background:#6FF2C1"></span> Blog</a>
+    <a href="my-team.html" class="tnav-link"><span class="tnav-dot" style="background:#8b91ac"></span> My Team</a>
+  </nav>
+  <div class="topbar-right">
+    <a href="ai-buddy.html" class="buddy-launch-btn">🤖 AI Buddy</a>
+    <div class="topbar-divider"></div>
+    <div class="topbar-avatar">DH</div>
+  </div>
+</div>
+
+<div class="chat-wrap">
+
+  <div class="chat-header">
+    <div class="chat-header-avatar">🤖</div>
+    <div class="chat-header-info">
+      <div class="chat-header-name">AI Buddy</div>
+      <div class="chat-header-status">Online · Your learning assistant</div>
+    </div>
+  </div>
+
+  <div class="chat-msgs" id="chatMsgs">
+
+    <div class="msg from-buddy">
+      <div class="msg-avatar">🤖</div>
+      <div class="msg-bubble">Hey Dave! 👋 I'm your AI Buddy — here to help you through your coursework, explain concepts, and keep you moving forward.<br><br>What can I help you with today?</div>
+    </div>
+
+  </div>
+
+  <div class="typing-indicator" id="typingIndicator">
+    <div class="msg-avatar">🤖</div>
+    <div class="typing-dots">
+      <div class="typing-dot"></div>
+      <div class="typing-dot"></div>
+      <div class="typing-dot"></div>
+    </div>
+  </div>
+
+  <div class="starters" id="starters">
+    <button class="starter-btn" onclick="sendStarter('Start a Challenge')">
+      <span class="starter-icon">⚡</span>
+      <div>
+        <div class="starter-label">Ready to practise?</div>
+        <div class="starter-title">Start a Challenge</div>
+      </div>
+    </button>
+    <button class="starter-btn" onclick="sendStarter('Learn About AI')">
+      <span class="starter-icon">🧠</span>
+      <div>
+        <div class="starter-label">Curious about something?</div>
+        <div class="starter-title">Learn About AI</div>
+      </div>
+    </button>
+  </div>
+
+  <div class="chat-input-bar">
+    <textarea class="chat-field" id="chatField" placeholder="Ask your AI Buddy…" rows="1"
+      onkeydown="handleKey(event)" oninput="autoResize(this)"></textarea>
+    <button class="chat-send" id="sendBtn" onclick="sendMsg()" title="Send">➔</button>
+  </div>
+
+</div>
+
+<script>
+  const msgs    = document.getElementById('chatMsgs');
+  const field   = document.getElementById('chatField');
+  const starters = document.getElementById('starters');
+  const typing  = document.getElementById('typingIndicator');
+
+  function autoResize(el) {
+    el.style.height = 'auto';
+    el.style.height = Math.min(el.scrollHeight, 120) + 'px';
+  }
+
+  function handleKey(e) {
+    if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); sendMsg(); }
+  }
+
+  function appendMsg(text, fromUser) {
+    const wrap = document.createElement('div');
+    wrap.className = 'msg ' + (fromUser ? 'from-user' : 'from-buddy');
+    const avatar = document.createElement('div');
+    avatar.className = 'msg-avatar';
+    avatar.textContent = fromUser ? 'DH' : '🤖';
+    const bubble = document.createElement('div');
+    bubble.className = 'msg-bubble';
+    bubble.innerHTML = text.replace(/\n/g, '<br>');
+    wrap.appendChild(avatar);
+    wrap.appendChild(bubble);
+    msgs.appendChild(wrap);
+    msgs.scrollTop = msgs.scrollHeight;
+  }
+
+  function showTyping() {
+    typing.classList.add('visible');
+    msgs.scrollTop = msgs.scrollHeight;
+  }
+
+  function hideTyping() {
+    typing.classList.remove('visible');
+  }
+
+  function sendStarter(label) {
+    starters.style.display = 'none';
+    appendMsg(label, true);
+    showTyping();
+    setTimeout(() => {
+      hideTyping();
+      if (label === 'Start a Challenge') {
+        appendMsg("Great — let's run a quick challenge! 🎯\n\nYou're on <strong>Mission 3 — Advanced Prompt Frameworks</strong>.\n\nHere's your challenge: Write a prompt that uses the <em>CRISPE</em> framework to ask an AI to help you create a social media content calendar for a small business. Think about Capacity, Role, Insight, Statement, Personality, and Experiment.\n\nTake a shot at it and paste your prompt here — I'll give you feedback!", false);
+      } else {
+        appendMsg("Happy to help you learn! 🧠\n\nYou can ask me about anything in the AIO curriculum — prompt engineering, AI agents, automation workflows, or general AI concepts.\n\nWhat topic would you like to explore?", false);
+      }
+    }, 1200);
+  }
+
+  function sendMsg() {
+    const text = field.value.trim();
+    if (!text) return;
+    starters.style.display = 'none';
+    appendMsg(text, true);
+    field.value = '';
+    field.style.height = 'auto';
+    showTyping();
+    setTimeout(() => {
+      hideTyping();
+      appendMsg("Thanks for your message! Full AI responses are coming soon — your AI Buddy will be able to answer questions, run challenges, and tutor you through every mission. Stay tuned! 🚀", false);
+    }, 1400);
+  }
+</script>
+</body>
+</html>

@@ -1,0 +1,772 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Prompting 101: Video — AI Officer Institute</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --navy: #04102D;
+    --light-gray: #EAEEF2;
+    --white: #FFFFFF;
+    --blue: #287BE8;
+    --magenta: #D1458B;
+    --mint: #6FF2C1;
+    --text-primary: #1a1f36;
+    --text-secondary: #4a5068;
+    --text-muted: #6b7194;
+    --border: #d8dce8;
+    --surface: #f4f6fa;
+    --card-bg: #ffffff;
+    --sidebar-bg: #f8f9fc;
+    --sidebar-active: #eef1f8;
+    --sidebar-hover: #f0f2f9;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--white);
+    color: var(--text-primary);
+    line-height: 1.7;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* TOP BAR */
+  .topbar {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    height: 56px;
+    background: var(--navy);
+    display: flex;
+    align-items: center;
+    padding: 0 28px;
+    z-index: 100;
+    gap: 16px;
+  }
+  .topbar-brand { font-weight: 700; font-size: 15px; color: var(--white); letter-spacing: -0.2px; }
+  .topbar-brand span { color: var(--blue); }
+  .topbar-divider { width: 1px; height: 20px; background: rgba(255,255,255,0.2); }
+  .topbar-course { font-size: 13px; color: rgba(255,255,255,0.6); font-weight: 400; }
+
+  /* LAYOUT */
+  .layout { display: flex; margin-top: 56px; min-height: calc(100vh - 56px); }
+
+  /* SIDEBAR */
+  .sidebar {
+    width: 272px; min-width: 272px;
+    background: var(--sidebar-bg);
+    border-right: 1px solid var(--border);
+    padding: 24px 0;
+    position: fixed;
+    top: 56px; left: 0; bottom: 0;
+    overflow-y: auto;
+    scrollbar-width: thin;
+  }
+  .sidebar-section { padding: 0 20px; margin-bottom: 8px; }
+  .sidebar-label {
+    font-size: 10px; font-weight: 700; letter-spacing: 1.2px;
+    text-transform: uppercase; color: var(--text-muted);
+    padding: 16px 0 8px;
+  }
+  .sidebar-item {
+    display: flex; align-items: flex-start; gap: 12px;
+    padding: 10px 12px; border-radius: 8px; cursor: pointer;
+    transition: background 0.15s; text-decoration: none;
+    color: var(--text-secondary); font-size: 14px; font-weight: 400; line-height: 1.4;
+  }
+  .sidebar-item:hover { background: var(--sidebar-hover); }
+  .sidebar-item.active { background: var(--sidebar-active); color: var(--blue); font-weight: 500; }
+  .sidebar-num {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px; color: var(--text-muted);
+    min-width: 18px; padding-top: 2px;
+  }
+  .sidebar-item.active .sidebar-num { color: var(--blue); }
+
+  /* MAIN */
+  .main { margin-left: 272px; flex: 1; max-width: 800px; padding: 48px 56px 120px; }
+
+  /* SECTION LABEL */
+  .section-label {
+    font-size: 11px; font-weight: 700; letter-spacing: 1.2px;
+    text-transform: uppercase; color: var(--text-muted); margin-bottom: 8px;
+  }
+
+  /* LESSON TAG */
+  .lesson-tag { display: inline-flex; align-items: center; gap: 8px; margin-bottom: 12px; }
+  .lesson-tag-num { font-size: 12px; font-weight: 600; color: var(--blue); letter-spacing: 0.5px; text-transform: uppercase; }
+  .lesson-tag-type { font-size: 11px; color: var(--text-muted); background: var(--surface); padding: 2px 10px; border-radius: 4px; font-weight: 500; }
+
+  /* HEADINGS */
+  h1 { font-size: 32px; font-weight: 700; line-height: 1.2; color: var(--text-primary); margin-bottom: 24px; letter-spacing: -0.5px; }
+  h2 { font-size: 22px; font-weight: 700; line-height: 1.3; color: var(--text-primary); margin: 48px 0 16px; letter-spacing: -0.3px; }
+  h3 { font-size: 17px; font-weight: 600; color: var(--text-primary); margin: 32px 0 12px; }
+  p { font-size: 15.5px; color: var(--text-secondary); margin-bottom: 16px; }
+  p strong { color: var(--text-primary); font-weight: 600; }
+
+  /* VIDEO CARD */
+  .video-card {
+    background: var(--navy); border-radius: 12px; padding: 24px 28px;
+    display: flex; align-items: center; gap: 20px; margin-bottom: 32px;
+  }
+  .video-play {
+    width: 48px; height: 48px; background: var(--blue); border-radius: 50%;
+    display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+  }
+  .video-play svg { margin-left: 3px; }
+  .video-title { font-size: 16px; font-weight: 600; color: var(--white); }
+  .video-sub { font-size: 13px; color: rgba(255,255,255,0.55); margin-top: 4px; }
+
+  /* GOAL LIST */
+  .goal-list { list-style: none; padding: 0; margin: 0 0 24px; }
+  .goal-list li {
+    position: relative; padding: 8px 0 8px 28px;
+    font-size: 15px; color: var(--text-secondary); line-height: 1.6;
+  }
+  .goal-list li::before {
+    content: ''; position: absolute; left: 0; top: 16px;
+    width: 8px; height: 8px; border-radius: 2px;
+    background: var(--blue); opacity: 0.7;
+  }
+
+  /* BRIEF CARDS */
+  .brief-cards { display: flex; flex-direction: column; gap: 12px; margin: 24px 0; }
+  .brief-card {
+    display: flex; align-items: flex-start; gap: 16px; padding: 20px;
+    border: 1px solid var(--border); border-radius: 10px; background: var(--card-bg);
+    transition: border-color 0.15s, box-shadow 0.15s;
+  }
+  .brief-card:hover { border-color: var(--blue); box-shadow: 0 2px 12px rgba(40,123,232,0.08); }
+  .brief-num {
+    font-family: 'JetBrains Mono', monospace; font-size: 14px; font-weight: 600;
+    color: var(--blue); background: rgba(40,123,232,0.08);
+    width: 32px; height: 32px; border-radius: 8px;
+    display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+  }
+  .brief-card-body h4 { font-size: 15px; font-weight: 600; color: var(--text-primary); margin-bottom: 4px; }
+  .brief-card-body p { font-size: 13.5px; color: var(--text-muted); margin: 0; }
+
+  /* TIME GRID */
+  .time-grid {
+    display: grid; grid-template-columns: 1fr auto;
+    background: var(--surface); border-radius: 8px; overflow: hidden; margin: 24px 0;
+  }
+  .time-grid-row { display: contents; }
+  .time-grid-row:not(:last-child) .tg-label,
+  .time-grid-row:not(:last-child) .tg-val { border-bottom: 1px solid var(--border); }
+  .tg-label { padding: 12px 20px; font-size: 14px; color: var(--text-secondary); }
+  .tg-val { padding: 12px 20px; font-size: 14px; font-weight: 600; color: var(--text-primary); text-align: right; }
+
+  /* FRAMEWORK BLOCK */
+  .fw-grid { display: flex; flex-direction: column; gap: 4px; margin: 24px 0; }
+  .fw-row {
+    display: flex; align-items: flex-start; gap: 0;
+    border: 1px solid var(--border); border-radius: 8px; overflow: hidden;
+  }
+  .fw-letter {
+    font-family: 'JetBrains Mono', monospace; font-size: 18px; font-weight: 700;
+    color: var(--white); background: var(--navy);
+    width: 52px; min-width: 52px; padding: 16px 0;
+    display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+  }
+  .fw-content { padding: 14px 20px; }
+  .fw-content strong { font-size: 14px; font-weight: 700; color: var(--text-primary); display: block; margin-bottom: 2px; }
+  .fw-content span { font-size: 13.5px; color: var(--text-muted); }
+
+  /* INSIGHT */
+  .insight {
+    border-left: 3px solid var(--blue); padding: 16px 20px;
+    background: rgba(40,123,232,0.04); border-radius: 0 8px 8px 0; margin: 24px 0;
+  }
+  .insight-label { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.8px; color: var(--blue); margin-bottom: 6px; }
+  .insight p { font-size: 14.5px; color: var(--text-primary); margin: 0; }
+
+  /* COMPARE BLOCK */
+  .compare-block { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin: 24px 0; }
+  .compare-side { padding: 20px; border-radius: 10px; }
+  .compare-without { background: var(--surface); }
+  .compare-with { background: rgba(40,123,232,0.04); border: 1px solid var(--blue); }
+  .compare-header { font-size: 13px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.8px; margin-bottom: 12px; }
+  .compare-without .compare-header { color: var(--text-muted); }
+  .compare-with .compare-header { color: var(--blue); }
+  .compare-side p { font-size: 14px; color: var(--text-secondary); margin: 0; line-height: 1.6; }
+
+  /* PRO TIP */
+  .pro-tip { background: var(--navy); border-radius: 10px; padding: 20px 24px; margin: 24px 0; }
+  .pro-tip-label { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.8px; color: var(--mint); margin-bottom: 8px; }
+  .pro-tip p { font-size: 14px; color: rgba(255,255,255,0.8); margin: 0; line-height: 1.6; }
+
+  /* CHECKLIST */
+  .checklist { list-style: none; padding: 0; margin: 24px 0; counter-reset: checklist; }
+  .checklist li {
+    display: flex; align-items: flex-start; gap: 14px; padding: 14px 0;
+    border-bottom: 1px solid rgba(0,0,0,0.04); font-size: 14.5px; color: var(--text-secondary);
+    counter-increment: checklist;
+  }
+  .checklist li::before {
+    content: counter(checklist);
+    font-family: 'JetBrains Mono', monospace; font-size: 12px; font-weight: 600;
+    color: var(--white); background: var(--navy);
+    width: 24px; height: 24px; border-radius: 6px;
+    display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+  }
+
+  /* CHALLENGE CARDS */
+  .challenge-cards { display: flex; flex-direction: column; gap: 10px; margin: 24px 0; }
+  .challenge-card {
+    display: flex; align-items: flex-start; gap: 16px; padding: 16px 20px;
+    border: 1px solid var(--border); border-radius: 10px; background: var(--card-bg);
+  }
+  .challenge-num {
+    font-family: 'JetBrains Mono', monospace; font-size: 13px; font-weight: 600;
+    color: var(--blue); background: rgba(40,123,232,0.08);
+    width: 28px; height: 28px; border-radius: 7px;
+    display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+  }
+  .challenge-body { flex: 1; }
+  .challenge-body h4 { font-size: 14.5px; font-weight: 600; color: var(--text-primary); margin-bottom: 4px; }
+  .challenge-body p { font-size: 13px; color: var(--text-muted); margin: 0; }
+  .challenge-time {
+    font-family: 'JetBrains Mono', monospace; font-size: 12px; color: var(--text-muted);
+    background: var(--surface); padding: 4px 10px; border-radius: 5px; white-space: nowrap; align-self: center;
+  }
+
+  /* CTA BLOCK */
+  .cta-block {
+    border: 2px solid var(--blue); border-radius: 12px; padding: 32px;
+    text-align: center; background: linear-gradient(135deg, rgba(40,123,232,0.03), rgba(209,69,139,0.03));
+    margin: 40px 0;
+  }
+  .cta-block h3 { font-size: 20px; margin: 0 0 8px; }
+  .cta-block p { font-size: 14.5px; color: var(--text-muted); margin: 0 0 20px; }
+  .cta-btn {
+    display: inline-flex; align-items: center; background: var(--blue); color: var(--white);
+    font-size: 15px; font-weight: 600; padding: 14px 32px; border-radius: 8px;
+    text-decoration: none; transition: opacity 0.15s;
+  }
+  .cta-btn:hover { opacity: 0.88; }
+
+  /* TAKEAWAY LIST */
+  .takeaway-list { list-style: none; padding: 0; margin: 24px 0; }
+  .takeaway-list li { padding: 16px 0; border-bottom: 1px solid rgba(0,0,0,0.05); }
+  .takeaway-list li:last-child { border-bottom: none; }
+  .takeaway-title { font-size: 15px; font-weight: 600; color: var(--text-primary); display: block; margin-bottom: 4px; }
+  .takeaway-desc { font-size: 14px; color: var(--text-muted); }
+
+  /* CERT CARD */
+  .cert-card {
+    background: var(--navy); border-radius: 14px; padding: 40px;
+    text-align: center; margin: 48px 0;
+  }
+  .cert-subtitle { font-size: 13px; color: rgba(255,255,255,0.5); letter-spacing: 0.5px; margin-bottom: 12px; }
+  .cert-card h2 { font-size: 22px; color: var(--white); margin: 0 0 16px; }
+  .cert-card p { font-size: 14.5px; color: rgba(255,255,255,0.7); max-width: 520px; margin: 0 auto 28px; }
+  .cert-progress { display: flex; justify-content: center; gap: 8px; margin-bottom: 24px; }
+  .cert-dot {
+    width: 48px; height: 48px; border-radius: 10px;
+    font-family: 'JetBrains Mono', monospace; font-size: 13px; font-weight: 700;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .cert-dot.done { background: rgba(111,242,193,0.15); color: var(--mint); }
+  .cert-dot.current { background: var(--blue); color: var(--white); }
+  .cert-dot.upcoming { background: rgba(255,255,255,0.08); color: rgba(255,255,255,0.35); }
+  .cert-next { font-size: 14px; font-weight: 600; color: var(--mint); text-decoration: none; }
+  .cert-next:hover { opacity: 0.85; }
+
+  /* DIVIDER */
+  .divider { height: 1px; background: var(--border); margin: 40px 0; }
+
+  /* RESPONSIVE */
+  @media (max-width: 900px) {
+    .sidebar { display: none; }
+    .main { margin-left: 0; padding: 32px 24px 80px; }
+    .compare-block { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<!-- TOP BAR -->
+<div class="topbar">
+  <div class="topbar-brand"><span>AI Officer</span> Institute</div>
+  <div class="topbar-divider"></div>
+  <div class="topbar-course">Generative AI Essentials</div>
+</div>
+
+<div class="layout">
+
+  <!-- SIDEBAR -->
+  <nav class="sidebar">
+    <div class="sidebar-section">
+      <div class="sidebar-label">Introduction</div>
+      <a class="sidebar-item active" href="#welcome">
+        <span class="sidebar-num">01</span>Welcome
+      </a>
+      <a class="sidebar-item" href="#session-guide">
+        <span class="sidebar-num">02</span>Session Guide
+      </a>
+    </div>
+    <div class="sidebar-section">
+      <div class="sidebar-label">Session</div>
+      <a class="sidebar-item" href="#why-video">
+        <span class="sidebar-num">03</span>Why Video Now
+      </a>
+      <a class="sidebar-item" href="#vision-framework">
+        <span class="sidebar-num">04</span>The VISION Framework
+      </a>
+      <a class="sidebar-item" href="#exercise-image">
+        <span class="sidebar-num">05</span>Exercise: Reference Image
+      </a>
+      <a class="sidebar-item" href="#exercise-video">
+        <span class="sidebar-num">06</span>Exercise: Frames to Video
+      </a>
+      <a class="sidebar-item" href="#leadership-layer">
+        <span class="sidebar-num">07</span>The Leadership Layer
+      </a>
+    </div>
+    <div class="sidebar-section">
+      <div class="sidebar-label">Wrap-Up</div>
+      <a class="sidebar-item" href="#challenge">
+        <span class="sidebar-num">08</span>Your Challenge
+      </a>
+      <a class="sidebar-item" href="#takeaways">
+        <span class="sidebar-num">09</span>Key Takeaways
+      </a>
+      <a class="sidebar-item" href="#try-this-week">
+        <span class="sidebar-num">10</span>Try This Week
+      </a>
+      <a class="sidebar-item" href="#certificate">
+        <span class="sidebar-num">11</span>Credit Earned
+      </a>
+    </div>
+  </nav>
+
+  <!-- MAIN CONTENT -->
+  <main class="main">
+
+    <!-- SECTION 1: INTRODUCTION -->
+    <section id="welcome">
+      <div class="section-label">Introduction</div>
+      <div class="lesson-tag">
+        <span class="lesson-tag-num">Micro Session</span>
+        <span class="lesson-tag-type">Generative AI Essentials</span>
+      </div>
+      <h1>Prompting 101: Video</h1>
+      <p>Turn your image skills into motion. One framework. Production-quality results.</p>
+
+      <div class="video-card">
+        <div class="video-play">
+          <svg width="16" height="18" viewBox="0 0 16 18" fill="none">
+            <path d="M1 1L15 9L1 17V1Z" fill="white"/>
+          </svg>
+        </div>
+        <div>
+          <div class="video-title">Welcome to Prompting 101: Video</div>
+          <div class="video-sub">30 minutes - Micro Session - Generative AI Essentials</div>
+        </div>
+      </div>
+
+      <h3>What you will do in this session</h3>
+      <ul class="goal-list">
+        <li>Learn the VISION framework - the six-part structure for directing AI video</li>
+        <li>Create a reference image using the 5-element framework from last session</li>
+        <li>Use Google Flow to turn your image into a real video clip</li>
+        <li>Leave with a challenge you can complete this week</li>
+      </ul>
+
+      <div class="time-grid">
+        <div class="time-grid-row">
+          <div class="tg-label">Why Video Now</div>
+          <div class="tg-val">3 min</div>
+        </div>
+        <div class="time-grid-row">
+          <div class="tg-label">The VISION Framework</div>
+          <div class="tg-val">5 min</div>
+        </div>
+        <div class="time-grid-row">
+          <div class="tg-label">Exercise: Reference Image</div>
+          <div class="tg-val">7 min</div>
+        </div>
+        <div class="time-grid-row">
+          <div class="tg-label">Exercise: Frames to Video</div>
+          <div class="tg-val">12 min</div>
+        </div>
+        <div class="time-grid-row">
+          <div class="tg-label">Challenge + Wrap-Up</div>
+          <div class="tg-val">3 min</div>
+        </div>
+      </div>
+    </section>
+
+    <div class="divider"></div>
+
+    <!-- SESSION GUIDE -->
+    <section id="session-guide">
+      <div class="lesson-tag">
+        <span class="lesson-tag-num">02</span>
+        <span class="lesson-tag-type">Guide</span>
+      </div>
+      <h2>Session Guide</h2>
+      <p>This session builds on last week. You made images. Now you make them move. Here is how to get the most out of the next 30 minutes.</p>
+
+      <ul class="checklist">
+        <li>Open Google Gemini, ChatGPT, or any image tool you have used before. You will need to create one image during the session.</li>
+        <li>Open Google Flow at lab.google.com/flow. You need a free Google account. Create a new project before the session starts.</li>
+        <li>Have one real work scenario in mind. A team announcement, a product demo, a training clip. You will use it during the exercise.</li>
+        <li>Participate out loud. Post your image in the chat. The best results come when you see what others are making.</li>
+        <li>Complete the challenge this week. Your first AI video is always the hardest. After that, you build them in minutes.</li>
+      </ul>
+    </section>
+
+    <div class="divider"></div>
+
+    <!-- WHY VIDEO NOW -->
+    <section id="why-video">
+      <div class="section-label">Session</div>
+      <div class="lesson-tag">
+        <span class="lesson-tag-num">03</span>
+        <span class="lesson-tag-type">Concept</span>
+      </div>
+      <h2>Why Video Now</h2>
+      <p>Forrester Research found that one minute of video is worth 1.8 million words. That sounds extreme until you think about your last five days of work communication.</p>
+      <p>How much of it was a long document nobody read? How much was a status update buried in a thread? Video cuts through. It is the format people actually watch. And until recently, making it cost hundreds of dollars and days of back-and-forth with a production team.</p>
+
+      <div class="compare-block">
+        <div class="compare-side compare-without">
+          <div class="compare-header">Before</div>
+          <p>A 400-word update. Your manager skims the first paragraph. The key message is in paragraph three. Nobody reads paragraph three.</p>
+        </div>
+        <div class="compare-side compare-with">
+          <div class="compare-header">Now</div>
+          <p>A 30-second video. Your face, your message, your energy. The whole thing in the time it takes to read one paragraph. And they actually watch it.</p>
+        </div>
+      </div>
+
+      <div class="insight">
+        <div class="insight-label">Key Insight</div>
+        <p>The leaders who figure out AI video first will change how their teams communicate. Not just for marketing - for every message that matters. That shift starts with one framework.</p>
+      </div>
+    </section>
+
+    <div class="divider"></div>
+
+    <!-- VISION FRAMEWORK -->
+    <section id="vision-framework">
+      <div class="lesson-tag">
+        <span class="lesson-tag-num">04</span>
+        <span class="lesson-tag-type">Framework</span>
+      </div>
+      <h2>The VISION Framework</h2>
+      <p>Perfect AI video is not magic. It is structure. The VISION framework gives you six elements that turn a vague idea into a prompt a video model can actually follow.</p>
+
+      <div class="fw-grid">
+        <div class="fw-row">
+          <div class="fw-letter">V</div>
+          <div class="fw-content">
+            <strong>Visual anchor</strong>
+            <span>Lock identity with a reference image. Character, set, brand cues - everything the model needs to stay consistent across every frame.</span>
+          </div>
+        </div>
+        <div class="fw-row">
+          <div class="fw-letter">I</div>
+          <div class="fw-content">
+            <strong>Intention</strong>
+            <span>What is this scene for? An announcement, a demo, a mood piece, a CTA? Define the purpose before you describe the motion.</span>
+          </div>
+        </div>
+        <div class="fw-row">
+          <div class="fw-letter">S</div>
+          <div class="fw-content">
+            <strong>Sequence (beats)</strong>
+            <span>List 3 to 5 micro-actions in order. Not "things happen" - specific beats. Beat one, beat two, beat three. This is your shot list.</span>
+          </div>
+        </div>
+        <div class="fw-row">
+          <div class="fw-letter">I</div>
+          <div class="fw-content">
+            <strong>Immersion</strong>
+            <span>Lighting, time of day, texture, ambient sound, pace of cuts. This is the sensory layer - what does it feel like to be in this scene?</span>
+          </div>
+        </div>
+        <div class="fw-row">
+          <div class="fw-letter">O</div>
+          <div class="fw-content">
+            <strong>Orbit (camera)</strong>
+            <span>How the camera moves. Pan, dolly-in, tilt, rack focus, slow zoom, static wide shot. Name the movement and you control the energy.</span>
+          </div>
+        </div>
+        <div class="fw-row">
+          <div class="fw-letter">N</div>
+          <div class="fw-content">
+            <strong>Narrative</strong>
+            <span>One sentence. What changes from the opening frame to the closing frame? That is your story arc.</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="pro-tip">
+        <div class="pro-tip-label">Director's tip</div>
+        <p>Write the beats first. Generate. Then adjust one lever at a time - orbit, then lighting, then emotion. That is how directors iterate. One variable at a time until it is right.</p>
+      </div>
+    </section>
+
+    <div class="divider"></div>
+
+    <!-- EXERCISE 1 -->
+    <section id="exercise-image">
+      <div class="lesson-tag">
+        <span class="lesson-tag-num">05</span>
+        <span class="lesson-tag-type">Exercise</span>
+      </div>
+      <h2>Exercise: Build Your Reference Image</h2>
+      <p>Everyone does this right now. Five minutes.</p>
+      <p>Open any image tool - Google Gemini, ChatGPT, or whatever you used last week. Design your ultimate dream workspace. Use the 5-element framework: subject, style, setting, composition, and details. One image. Save it. That image is the first frame of your video.</p>
+
+      <div class="compare-block">
+        <div class="compare-side compare-without">
+          <div class="compare-header">Basic prompt</div>
+          <p>"A nice office with a window view."</p>
+        </div>
+        <div class="compare-side compare-with">
+          <div class="compare-header">5-element prompt</div>
+          <p>"A young professional at a modern standing desk (subject), photorealistic editorial style (style), floor-to-ceiling windows overlooking Boracay (setting), medium wide shot centered on the desk (composition), warm golden light, plants, laptop open (details)."</p>
+        </div>
+      </div>
+
+      <div class="insight">
+        <div class="insight-label">Why the reference image matters</div>
+        <p>The reference image is your visual anchor - the V in VISION. Without it, AI video models drift. Characters change. Settings shift. With it, your brand, your character, your scene stay consistent from the first frame to the last.</p>
+      </div>
+    </section>
+
+    <div class="divider"></div>
+
+    <!-- EXERCISE 2 -->
+    <section id="exercise-video">
+      <div class="lesson-tag">
+        <span class="lesson-tag-num">06</span>
+        <span class="lesson-tag-type">Exercise</span>
+      </div>
+      <h2>Exercise: Frames to Video in Google Flow</h2>
+      <p>You have your reference image. Now you make it move.</p>
+
+      <div class="brief-cards">
+        <div class="brief-card">
+          <div class="brief-num">1</div>
+          <div class="brief-card-body">
+            <h4>Open Google Flow</h4>
+            <p>Go to lab.google.com/flow. Create a new project. Choose Frames to Video - not text to video. You will see two boxes appear.</p>
+          </div>
+        </div>
+        <div class="brief-card">
+          <div class="brief-num">2</div>
+          <div class="brief-card-body">
+            <h4>Upload your reference image</h4>
+            <p>Upload your workspace image in the first box. This is your first frame. It locks your scene for the entire clip.</p>
+          </div>
+        </div>
+        <div class="brief-card">
+          <div class="brief-num">3</div>
+          <div class="brief-card-body">
+            <h4>Paste your VISION prompt</h4>
+            <p>Use the prompt from the chat or write your own. Add one line: "Use the reference image in the first frame as the anchor." This keeps everything consistent.</p>
+          </div>
+        </div>
+        <div class="brief-card">
+          <div class="brief-num">4</div>
+          <div class="brief-card-body">
+            <h4>Set to two variations, landscape</h4>
+            <p>Choose 2 variations so you can compare results. Keep the aspect ratio landscape. Hit generate. It takes about 30 seconds.</p>
+          </div>
+        </div>
+        <div class="brief-card">
+          <div class="brief-num">5</div>
+          <div class="brief-card-body">
+            <h4>Review and share</h4>
+            <p>Download your clip. Drop it in the chat. Look at what others made. Notice what the reference image kept consistent - and what it did not.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="insight">
+        <div class="insight-label">What just happened</div>
+        <p>You just did what used to require a production team and a budget. The reference image kept your scene consistent. The beats gave it a story. The orbit gave it motion. One framework, one session. That is a real new skill.</p>
+      </div>
+    </section>
+
+    <div class="divider"></div>
+
+    <!-- LEADERSHIP LAYER -->
+    <section id="leadership-layer">
+      <div class="lesson-tag">
+        <span class="lesson-tag-num">07</span>
+        <span class="lesson-tag-type">Leadership</span>
+      </div>
+      <h2>The Leadership Layer</h2>
+      <p>Here is the shift that turns this from a cool tool into a leadership capability.</p>
+      <p>When you can make a 30-second video in 10 minutes, you stop asking the marketing team for assets. You stop waiting for the production schedule. You make the thing and send it. Your message moves faster. Your team stays aligned. Your ideas look professional from day one.</p>
+
+      <div class="compare-block">
+        <div class="compare-side compare-without">
+          <div class="compare-header">Before this skill</div>
+          <p>You write an update. Wait for design. Wait for production. Three days later, the moment has passed and the message is stale.</p>
+        </div>
+        <div class="compare-side compare-with">
+          <div class="compare-header">After this skill</div>
+          <p>You write a VISION prompt. Generate the clip. Send it in the meeting. Real-time communication that looks like it cost a lot of money.</p>
+        </div>
+      </div>
+
+      <div class="insight">
+        <div class="insight-label">AI Officer Lens</div>
+        <p>A leader who controls their own video production changes how fast their ideas travel. When you can tell a visual story in 10 minutes instead of three days, you become the person in the room who moves things. That is the compounding advantage of building this skill now.</p>
+      </div>
+    </section>
+
+    <div class="divider"></div>
+
+    <!-- WRAP-UP -->
+    <section id="challenge">
+      <div class="section-label">Wrap-Up</div>
+      <div class="lesson-tag">
+        <span class="lesson-tag-num">08</span>
+        <span class="lesson-tag-type">Challenge</span>
+      </div>
+      <h2>Your Challenge</h2>
+      <p>Create a 5-second AI video for a real work scenario. Write your VISION prompt. Generate your clip. Submit to your AI Buddy.</p>
+
+      <div class="challenge-cards">
+        <div class="challenge-card">
+          <div class="challenge-num">1</div>
+          <div class="challenge-body">
+            <h4>Build your reference image</h4>
+            <p>Use the 5-element framework in any image tool. Save the image as your first frame.</p>
+          </div>
+          <div class="challenge-time">3 min</div>
+        </div>
+        <div class="challenge-card">
+          <div class="challenge-num">2</div>
+          <div class="challenge-body">
+            <h4>Write a full VISION prompt</h4>
+            <p>All six elements, labeled - V, I, S, I, O, N. The sequence must have at least 3 specific beats. The orbit must name the camera movement.</p>
+          </div>
+          <div class="challenge-time">4 min</div>
+        </div>
+        <div class="challenge-card">
+          <div class="challenge-num">3</div>
+          <div class="challenge-body">
+            <h4>Generate and review in Google Flow</h4>
+            <p>Upload your reference image, paste your prompt, generate two variations. Choose the best one and export it.</p>
+          </div>
+          <div class="challenge-time">3 min</div>
+        </div>
+      </div>
+
+      <div class="cta-block">
+        <h3>Submit Your Challenge</h3>
+        <p>Your AI Buddy will review your VISION prompt for structure, beat specificity, camera language, and real-world grounding.</p>
+        <a href="#" class="cta-btn">Open Challenge in AIO Labs</a>
+      </div>
+    </section>
+
+    <div class="divider"></div>
+
+    <section id="takeaways">
+      <div class="lesson-tag">
+        <span class="lesson-tag-num">09</span>
+        <span class="lesson-tag-type">Recap</span>
+      </div>
+      <h2>Key Takeaways</h2>
+      <ul class="takeaway-list">
+        <li>
+          <span class="takeaway-title">The reference image is the most important ingredient</span>
+          <span class="takeaway-desc">Without a visual anchor, AI video drifts. Characters change. Scenes lose consistency. The reference image is what keeps your brand and identity locked across every frame.</span>
+        </li>
+        <li>
+          <span class="takeaway-title">Beats turn vague prompts into reliable sequences</span>
+          <span class="takeaway-desc">The S in VISION is where most people cut corners. List the actions step by step. Three specific beats produce a real story. One vague sentence produces noise.</span>
+        </li>
+        <li>
+          <span class="takeaway-title">Camera language gives you director-level control</span>
+          <span class="takeaway-desc">Pan, dolly-in, rack focus, slow zoom. Learn five camera terms and you gain control over the entire energy of a clip. This is the orbit element.</span>
+        </li>
+        <li>
+          <span class="takeaway-title">Iterate one variable at a time</span>
+          <span class="takeaway-desc">Generate first, then adjust one thing - orbit, then lighting, then emotion. That is how directors work. One lever at a time until the output is right.</span>
+        </li>
+        <li>
+          <span class="takeaway-title">Video is now a leadership communication tool</span>
+          <span class="takeaway-desc">When you can make professional-quality video in 10 minutes, your ideas travel faster than everyone around you. That is not a design skill. That is a leadership advantage.</span>
+        </li>
+      </ul>
+    </section>
+
+    <div class="divider"></div>
+
+    <section id="try-this-week">
+      <div class="lesson-tag">
+        <span class="lesson-tag-num">10</span>
+        <span class="lesson-tag-type">Action</span>
+      </div>
+      <h2>Try This Week</h2>
+      <p>Pick one piece of communication you send regularly - a status update, a team announcement, a message to a client. Write it as a VISION prompt instead. Make the clip in Google Flow. Send it instead of text.</p>
+      <p>Watch how people respond. Do they watch it? Do they react faster? Do they respond differently than they do to a long document? That data is yours. Nobody else will tell you this about your specific audience and your specific role.</p>
+      <p>Once you have one clip that works, save the VISION prompt. That is your template. The next one takes half the time.</p>
+
+      <div class="pro-tip">
+        <div class="pro-tip-label">Your commitment</div>
+        <p>Before you close this page - write down one thing. Start, stop, or continue. What will you do differently next week because of this session? Write it somewhere you will see it.</p>
+      </div>
+    </section>
+
+    <div class="divider"></div>
+
+    <!-- CERTIFICATE -->
+    <section id="certificate">
+      <div class="cert-card">
+        <div class="cert-subtitle">Generative AI Essentials - Micro Session Credit</div>
+        <h2>Prompting 101: Video</h2>
+        <p>Complete the challenge to earn credit toward your Generative AI Essentials certification. You need 4 micro session credits to certify.</p>
+        <div class="cert-progress">
+          <div class="cert-dot current">1</div>
+          <div class="cert-dot upcoming">2</div>
+          <div class="cert-dot upcoming">3</div>
+          <div class="cert-dot upcoming">4</div>
+        </div>
+        <a href="#" class="cert-next">Submit your challenge to earn this credit -&gt;</a>
+      </div>
+    </section>
+
+  </main>
+</div>
+
+<script>
+  const items = document.querySelectorAll('.sidebar-item');
+  const sections = document.querySelectorAll('section[id]');
+
+  items.forEach(item => {
+    item.addEventListener('click', e => {
+      e.preventDefault();
+      const target = document.querySelector(item.getAttribute('href'));
+      if (target) target.scrollIntoView({ behavior: 'smooth' });
+    });
+  });
+
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        items.forEach(item => item.classList.remove('active'));
+        const active = document.querySelector(`.sidebar-item[href="#${entry.target.id}"]`);
+        if (active) active.classList.add('active');
+      }
+    });
+  }, { rootMargin: '-20% 0px -70% 0px' });
+
+  sections.forEach(section => observer.observe(section));
+</script>
+
+</body>
+</html>

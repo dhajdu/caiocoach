@@ -1,0 +1,567 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mission 3: Advanced Prompt Frameworks — AI Officer Institute</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../shared/styles.css">
+</head>
+<body>
+
+<div class="topbar">
+  <a href="../index.html" class="topbar-brand">AI Officer <span>Institute</span></a>
+  <div class="topbar-divider"></div>
+  <nav class="topbar-nav">
+      <a href="../index.html" class="tnav-link">Hub</a>
+      <a href="../generative-ai/mission-1.html" class="tnav-link active"><span class="tnav-dot" style="background:#D1458B"></span>Generative AI</a>
+      <a href="../agentic-ai/mission-1.html" class="tnav-link"><span class="tnav-dot" style="background:#287BE8"></span>Agentic AI</a>
+      <a href="../micro-sessions/cowork-first-workflow.html" class="tnav-link"><span class="tnav-dot" style="background:#1a9e74"></span>Micro-Sessions</a>
+  </nav>
+</div>
+<div class="layout">
+  <nav class="sidebar">
+
+    <a href="../index.html" class="sidebar-hub">&larr; Back to Hub
+    </a>
+    <div class="sidebar-mission-title">
+      <div class="smt-track" style="color: #D1458B">
+        <span class="smt-dot" style="background: #D1458B"></span>
+        Generative AI
+      </div>
+    </div>
+    <div class="sidebar-section">
+      <div class="sidebar-label">Introduction</div>
+      <a href="#welcome" class="sidebar-item"><span class="sidebar-num">01</span>Welcome to the Framework Arsenal</a>
+      <a href="#briefs-overview" class="sidebar-item"><span class="sidebar-num">02</span>Mission Briefs</a>
+      <a href="#learning-guide" class="sidebar-item"><span class="sidebar-num">03</span>Learning Guide</a>
+    </div>
+    <div class="sidebar-section">
+      <div class="sidebar-label">Mission Briefs</div>
+      <a href="#brief1" class="sidebar-item"><span class="sidebar-num">04</span>Brief 1: Stack Your Frameworks</a>
+      <a href="#brief2" class="sidebar-item"><span class="sidebar-num">05</span>Brief 2: The AI Interview</a>
+      <a href="#brief3" class="sidebar-item"><span class="sidebar-num">06</span>Brief 3: Let AI Teach You</a>
+      <a href="#brief4" class="sidebar-item"><span class="sidebar-num">07</span>Brief 4: Check Before You Send</a>
+      <a href="#bolt-brief" class="sidebar-item"><span class="sidebar-num">08</span>The BOLT Brief</a>
+    </div>
+    <div class="sidebar-section">
+      <div class="sidebar-label">Wrap-Up</div>
+      <a href="#takeaways" class="sidebar-item"><span class="sidebar-num">09</span>Key Takeaways</a>
+      <a href="#certificate" class="sidebar-item"><span class="sidebar-num">10</span>Certificate of Completion</a>
+    </div>
+
+  </nav>
+  <main class="main">
+
+    <!-- ════════════════════════════════════ -->
+    <!-- LESSON 1: WELCOME -->
+    <!-- ════════════════════════════════════ -->
+    <section id="welcome">
+      <div class="section-label">Introduction</div>
+      <div class="lesson-tag">
+        <span class="lesson-tag-num">Lesson 1</span>
+        <span class="lesson-tag-type">Video</span>
+      </div>
+
+      <h1>Welcome to the Framework Arsenal</h1>
+
+      <div class="video-card">
+        <div class="video-play">
+          <svg width="18" height="20" viewBox="0 0 18 20" fill="none"><polygon points="0,0 18,10 0,20" fill="white"/></svg>
+        </div>
+        <div>
+          <div class="video-title">Mission 3: Advanced Prompt Frameworks</div>
+          <div class="video-sub">Watch the intro video to get oriented before diving in.</div>
+        </div>
+      </div>
+
+      <p>Welcome, Cadets.</p>
+
+      <p>In Mission 1 you learned the other 50% - what it means to lead AI, not just use it. In Mission 2 you fixed the fuel - you learned why data is the first operational decision and how to clean it before AI touches it.</p>
+
+      <p>Now you put both together and build something real: a complete go-to-market brief. The kind of output your manager would put in front of leadership with your name on it.</p>
+
+      <p>Most people open an AI tool, type a quick question, and get a passable answer. That works for personal tasks. But the moment your output is going to your manager, your team, or a client, <strong>passable is not enough.</strong> The people who learn how to get professional-grade output from AI are the ones who get noticed. That is exactly what this session teaches you.</p>
+
+      <h2>Mission Goal</h2>
+      <p>This is where you turn prompts into professional deliverables. You'll master the frameworks that guide quality AI output, learn to co-write prompts with your AI Buddy, and stack techniques that produce output your boss trusts.</p>
+
+      <p>By the end of this mission, you'll be able to:</p>
+      <ul class="goal-list">
+        <li>Stack RACE and CRA to take a first draft to something worth sending</li>
+        <li>Use the AI Interview to find the gaps in your thinking before you write a single word</li>
+        <li>Ask AI to teach you any framework on demand and apply it immediately</li>
+        <li>Run VRC to evaluate any output before your name goes on it</li>
+        <li>Assemble a complete go-to-market brief using everything from this session</li>
+      </ul>
+    </section>
+
+    <div class="divider"></div>
+
+    <!-- ════════════════════════════════════ -->
+    <!-- LESSON 2: MISSION BRIEFS OVERVIEW -->
+    <!-- ════════════════════════════════════ -->
+    <section id="briefs-overview">
+      <div class="lesson-tag">
+        <span class="lesson-tag-num">Lesson 2</span>
+      </div>
+
+      <h1>Mission Briefs</h1>
+
+      <p>Welcome to your mission briefing, Cadet. You're about to discover why your AI output still sounds like it could have come from anyone, and exactly how to change that.</p>
+
+      <div class="brief-cards">
+        <div class="brief-card">
+          <div class="brief-num">1</div>
+          <div class="brief-card-body">
+            <h4>Stack Your Frameworks: RACE + CRA</h4>
+            <p>Learn how RACE and CRA work as a two-pass system. RACE gets you 70% there. CRA gets you something your boss can actually use.</p>
+          </div>
+        </div>
+        <div class="brief-card">
+          <div class="brief-num">2</div>
+          <div class="brief-card-body">
+            <h4>The AI Interview: The Master Skill</h4>
+            <p>Stop guessing what AI needs. Tell AI your goal and let AI ask you the questions. The output stops being generic and starts being yours.</p>
+          </div>
+        </div>
+        <div class="brief-card">
+          <div class="brief-num">3</div>
+          <div class="brief-card-body">
+            <h4>Let AI Teach You Frameworks On Demand</h4>
+            <p>You don't need to memorize frameworks. You need the habit of asking AI to teach you the right one for the problem in front of you.</p>
+          </div>
+        </div>
+        <div class="brief-card">
+          <div class="brief-num">4</div>
+          <div class="brief-card-body">
+            <h4>VRC: Check Before You Send</h4>
+            <p>Creating output is only half the job. VRC is your quality gate: run it before you put your name on anything.</p>
+          </div>
+        </div>
+        <div class="brief-card">
+          <div class="brief-num">5</div>
+          <div class="brief-card-body">
+            <h4>Live Build: The BOLT Go-To-Market Brief</h4>
+            <p>Every brief today builds one piece of Dana's go-to-market package. Brief 5 is the assembly: a seven-section brief she could walk into a leadership meeting and present.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="time-grid">
+        <span class="time-label">Core Learning (Briefs 1-4)</span>
+        <span class="time-value">~45 minutes</span>
+        <span class="time-label">Final Build (Brief 5)</span>
+        <span class="time-value">60-90 minutes</span>
+      </div>
+    </section>
+
+    <div class="divider"></div>
+
+    <!-- ════════════════════════════════════ -->
+    <!-- LESSON 3: LEARNING GUIDE -->
+    <!-- ════════════════════════════════════ -->
+    <section id="learning-guide">
+      <div class="lesson-tag">
+        <span class="lesson-tag-num">Lesson 3</span>
+      </div>
+
+      <h1>Learning Guide</h1>
+
+      <p>Alright Cadets, before you jump in, here's how to make this mission actually work for you.</p>
+
+      <p><strong>Know when to use a structured prompt.</strong> You don't need a perfect prompt every time. A quick casual question gets you what you need most of the time. But the moment your output is going to your manager or a leadership meeting, that's when structured prompting matters. Today you learn how to build structured prompts. You'll always know when to use them.</p>
+
+      <p><strong>Do every challenge.</strong> They're not practice exercises. Each one produces a real deliverable that goes directly into your BOLT go-to-market brief. Skip one and Brief 5 has a hole in it.</p>
+
+      <p><strong>Use the AI Interview before writing any prompt.</strong> It is the highest-leverage thing you will learn today. Tell AI what you want, ask it to ask you questions first, and answer honestly. The more honest your answers, the better the output.</p>
+
+      <p><strong>Run VRC before you send anything.</strong> Creating output is only half the job. The other half is deciding whether it's ready to send. Every AI Officer runs VRC before putting anything in front of their manager.</p>
+
+      <h2>How to Get the Most Out of This Session</h2>
+
+      <ul class="goal-list">
+        <li><strong>Stack your frameworks:</strong> RACE first, then CRA on top. Two passes, not two separate processes.</li>
+        <li><strong>Never skip the AI Interview:</strong> It finds the gaps you didn't know were there.</li>
+        <li><strong>Let AI teach you:</strong> Every session is a chance to learn a framework you didn't know before.</li>
+        <li><strong>Always run VRC:</strong> Send it, fix it, or start over. Decide before anyone else sees it.</li>
+        <li><strong>Save your work:</strong> Everything you build in Briefs 1-4 is raw material for Brief 5.</li>
+      </ul>
+
+      <div class="pro-tip">
+        <div class="pro-tip-label">Pro Tip</div>
+        <p>Start a new project or thread for this session. Upload your cleaned BOLT dataset from Mission 2 at the top. That way every challenge has clean context and you're not copying and pasting between tabs.</p>
+      </div>
+
+      <h2>The Perfect Prompt: 8-Step Checklist</h2>
+      <p>Use all eight steps when your output has your name on it. For everyday work, a quick prompt is fine. But when it matters, this is the sequence:</p>
+
+      <ol class="checklist">
+        <li>Start a new thread or project. Clean context every time.</li>
+        <li>Upload your data. Real inputs, not placeholders.</li>
+        <li>Tell your AI Buddy what you want to accomplish. Goal first.</li>
+        <li>Ask your AI Buddy to ask you questions. This is the AI Interview.</li>
+        <li>Get a recommended framework. Let AI suggest the structure.</li>
+        <li>Ask your AI Buddy to write the prompt. Then review it.</li>
+        <li>Check it yourself. Lock numbers, audit math, surface assumptions.</li>
+        <li>Run it. Then evaluate with VRC before sending.</li>
+      </ol>
+
+      <h2>Rules of the Road: Using Data Correctly</h2>
+
+      <table class="rules-table">
+        <thead>
+          <tr><th>Rule</th><th>What to say</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Lock the numbers</td><td><code>"Do not make up numbers."</code> AI fills in the blanks confidently. Don't let it.</td></tr>
+          <tr><td>Audit the math</td><td><code>"Check all computations."</code> AI makes errors and presents them like facts.</td></tr>
+          <tr><td>Surface assumptions</td><td><code>"List every assumption you made."</code> AI makes decisions you didn't authorize.</td></tr>
+          <tr><td>Cite the source</td><td><code>"Only use information from the attached file."</code> Prevents hallucinations.</td></tr>
+          <tr><td>Ask for gaps</td><td><code>"If something is missing, ask before assuming."</code> Don't let AI fill blanks with guesses.</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <div class="divider"></div>
+
+    <!-- ════════════════════════════════════ -->
+    <!-- LESSON 4: BRIEF 1 -->
+    <!-- ════════════════════════════════════ -->
+    <section id="brief1">
+      <div class="section-label">Mission Briefs</div>
+      <div class="lesson-tag">
+        <span class="lesson-tag-num">Brief 1</span>
+      </div>
+
+      <h1>Stack Your Frameworks: RACE + CRA</h1>
+
+      <p>You already have RACE from Mission 1. Today you add CRA, and learn how stacking them transforms a decent result into something you'd actually send.</p>
+
+      <h2>Frameworks Overview</h2>
+
+      <div class="fw-grid">
+        <div class="fw-block">
+          <div class="fw-name">RACE</div>
+          <div class="fw-subtitle">Defines the task</div>
+          <p style="font-size:13px; color:var(--text-muted); margin-bottom:16px;">Use whenever you want AI to perform something specific.</p>
+          <div class="fw-letters">
+            <div class="fw-letter"><div class="fw-letter-char">R</div><div class="fw-letter-text"><strong>Role</strong> &mdash; Who is the AI acting as?</div></div>
+            <div class="fw-letter"><div class="fw-letter-char">A</div><div class="fw-letter-text"><strong>Action</strong> &mdash; What should it do?</div></div>
+            <div class="fw-letter"><div class="fw-letter-char">C</div><div class="fw-letter-text"><strong>Context</strong> &mdash; What's the situation?</div></div>
+            <div class="fw-letter"><div class="fw-letter-char">E</div><div class="fw-letter-text"><strong>Example</strong> &mdash; What does "good" look like?</div></div>
+          </div>
+        </div>
+        <div class="fw-block">
+          <div class="fw-name">CRA</div>
+          <div class="fw-subtitle">Locks the quality</div>
+          <p style="font-size:13px; color:var(--text-muted); margin-bottom:16px;">Use as a quality control layer on top of your RACE draft.</p>
+          <div class="fw-letters">
+            <div class="fw-letter"><div class="fw-letter-char">C</div><div class="fw-letter-text"><strong>Constraints</strong> &mdash; What are the limits?</div></div>
+            <div class="fw-letter"><div class="fw-letter-char">R</div><div class="fw-letter-text"><strong>Requirements</strong> &mdash; What must be included?</div></div>
+            <div class="fw-letter"><div class="fw-letter-char">A</div><div class="fw-letter-text"><strong>Acceptance Criteria</strong> &mdash; How do you know it's good enough?</div></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="insight">
+        <div class="insight-label">Key Insight</div>
+        <p>RACE alone gets you 70% there. RACE + CRA gets you something your boss can use. Think of them as two passes, not two separate processes. First pass gets the content. Second pass tightens it to the standard you need. If you can't define what "good" looks like before you start, you'll never know if AI got there.</p>
+      </div>
+    </section>
+
+    <div class="divider"></div>
+
+    <!-- ════════════════════════════════════ -->
+    <!-- LESSON 5: BRIEF 2 -->
+    <!-- ════════════════════════════════════ -->
+    <section id="brief2">
+      <div class="lesson-tag">
+        <span class="lesson-tag-num">Brief 2</span>
+      </div>
+
+      <h1>The AI Interview: The Master Skill</h1>
+
+      <p>This is the most important thing you will learn today. Not the most important thing in this brief. The most important thing in the entire session.</p>
+
+      <h2>What Is the AI Interview?</h2>
+      <p>Instead of trying to write the perfect prompt, you tell AI what you want to accomplish and say: <strong>"Before you start, ask me every question you need answered."</strong></p>
+
+      <p>AI asks you questions. You answer them. AI uses your answers to build something specific to your situation. Not generic. Yours.</p>
+
+      <h2>Why This Changes Everything</h2>
+
+      <div class="compare-block">
+        <div class="compare-side without">
+          <h4>Without It</h4>
+          <p>You guess what AI needs. Output is generic. It could have come from anyone.</p>
+        </div>
+        <div class="compare-side with">
+          <h4>With It</h4>
+          <p>AI finds the gaps you didn't know you had. Output sounds like it came from someone who actually knows your business.</p>
+        </div>
+      </div>
+
+      <p>The AI Interview flips the whole process. Instead of you anticipating everything AI needs to know, AI asks you the questions you didn't think to answer: who is the audience, what tone, what to avoid, what has already been tried.</p>
+
+      <div class="insight">
+        <div class="insight-label">Key Insight</div>
+        <p>The gap between what you would have written and what AI asks. That is exactly what makes this the master skill. AI finds what you didn't know was missing.</p>
+      </div>
+    </section>
+
+    <div class="divider"></div>
+
+    <!-- ════════════════════════════════════ -->
+    <!-- LESSON 6: BRIEF 3 -->
+    <!-- ════════════════════════════════════ -->
+    <section id="brief3">
+      <div class="lesson-tag">
+        <span class="lesson-tag-num">Brief 3</span>
+      </div>
+
+      <h1>Let AI Teach You Frameworks On Demand</h1>
+
+      <p>You don't need to memorize frameworks. You need to know how to ask for the right one.</p>
+
+      <p>There are hundreds of business frameworks. You will never memorize them all and you don't need to. What you need is the habit of asking AI to teach you the right one for the problem in front of you, and then applying it immediately.</p>
+
+      <h2>The AI Officer Doesn't Memorize. The AI Officer Asks.</h2>
+
+      <ol class="checklist">
+        <li>Ask AI: "What framework should I use for this problem?"</li>
+        <li>Ask AI: "Explain it simply, then apply it to my situation."</li>
+        <li>You learn the framework and get the deliverable at the same time.</li>
+      </ol>
+
+      <div class="insight">
+        <div class="insight-label">Key Insight</div>
+        <p>Every time you use AI, you have the opportunity to learn something. The AI Officer who asks "what framework should I use for this?" and then applies it immediately is learning faster than anyone in a traditional training program. This skill compounds. Every session you leave knowing something new.</p>
+      </div>
+    </section>
+
+    <div class="divider"></div>
+
+    <!-- ════════════════════════════════════ -->
+    <!-- LESSON 7: BRIEF 4 -->
+    <!-- ════════════════════════════════════ -->
+    <section id="brief4">
+      <div class="lesson-tag">
+        <span class="lesson-tag-num">Brief 4</span>
+      </div>
+
+      <h1>VRC: Check Before You Send</h1>
+
+      <p>You've learned to create. Now you learn to evaluate. This is the section that separates people who generate from people who lead.</p>
+
+      <h2>VRC: Value, Risk, Checkpoint</h2>
+      <p>Run VRC before you put your name on anything. Especially before sending to your manager, a client, or a leadership meeting.</p>
+
+      <div class="fw-grid">
+        <div class="fw-block full">
+          <div class="fw-name">VRC</div>
+          <div class="fw-subtitle">Checks it before you send</div>
+          <div class="fw-letters">
+            <div class="fw-letter"><div class="fw-letter-char">V</div><div class="fw-letter-text"><strong>Value</strong> &mdash; Where does the benefit come from? Is the payoff clear?</div></div>
+            <div class="fw-letter"><div class="fw-letter-char">R</div><div class="fw-letter-text"><strong>Risk</strong> &mdash; What are the top two ways this fails?</div></div>
+            <div class="fw-letter"><div class="fw-letter-char">C</div><div class="fw-letter-text"><strong>Checkpoint</strong> &mdash; What's the early signal it's working, before you're too far in?</div></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="insight">
+        <div class="insight-label">Key Insight</div>
+        <p>RACE and CRA help you create. VRC helps you decide. Should you trust this output? What could go wrong? Every AI Officer runs VRC before putting anything in front of their manager. The question is always: send it, fix it, or start over.</p>
+      </div>
+    </section>
+
+    <div class="divider"></div>
+
+    <!-- ════════════════════════════════════ -->
+    <!-- LESSON 8: THE BOLT BRIEF -->
+    <!-- ════════════════════════════════════ -->
+    <section id="bolt-brief">
+      <div class="lesson-tag">
+        <span class="lesson-tag-num">Brief 5</span>
+      </div>
+
+      <h1>The BOLT Go-To-Market Brief</h1>
+
+      <p>Everything you've learned in this mission comes together here. Dana Reyes needs the complete go-to-market package before leadership finalizes the BOLT launch plan. This is not a practice run. This is the job.</p>
+
+      <!-- ── PART A: PRACTICE CHALLENGES ── -->
+      <h2>Practice Challenges</h2>
+      <p>Each challenge applies one framework from this mission and produces a building block for the final project. Complete all four before moving to the final build.</p>
+
+      <div class="challenge-cards">
+        <div class="challenge-card">
+          <div class="challenge-num">1</div>
+          <div class="challenge-body">
+            <h4>Stack Your Frameworks</h4>
+            <p>Use RACE to draft a competitor analysis for BOLT, then apply CRA to tighten it.</p>
+          </div>
+          <span class="challenge-time">10 min</span>
+        </div>
+        <div class="challenge-card">
+          <div class="challenge-num">2</div>
+          <div class="challenge-body">
+            <h4>The AI Interview</h4>
+            <p>Build BOLT customer profiles by letting AI interview you first. No structured prompt.</p>
+          </div>
+          <span class="challenge-time">15 min</span>
+        </div>
+        <div class="challenge-card">
+          <div class="challenge-num">3</div>
+          <div class="challenge-body">
+            <h4>Let AI Teach You a Framework</h4>
+            <p>Ask AI to recommend and teach you the right brand positioning framework, then apply it to BOLT.</p>
+          </div>
+          <span class="challenge-time">10 min</span>
+        </div>
+        <div class="challenge-card">
+          <div class="challenge-num">4</div>
+          <div class="challenge-body">
+            <h4>The Decision Filter: VRC</h4>
+            <p>Pick your best output from Challenges 1-3 and run VRC. Then decide: send it, fix it, or start over.</p>
+          </div>
+          <span class="challenge-time">10 min</span>
+        </div>
+      </div>
+
+      <div class="cta-block">
+        <h3>Start the Practice Challenges</h3>
+        <p>Head to the AIO Lab to work through Challenges 1-4 in your AI Buddy. Each one feeds directly into the final project.</p>
+        <a href="https://lab.ai-officer.com/program/785403/mission/2267520" target="_blank" class="cta-btn">
+          Open the AIO Lab
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </a>
+      </div>
+
+      <!-- ── PART B: FINAL PROJECT ── -->
+      <div class="final-project">
+        <div class="final-project-badge">Required for Certification</div>
+        <h2>Final Project</h2>
+        <p>This is the work that earns your Mission 3 certification. Two deliverables, each built using every framework from this session. These are not practice exercises. They are professional deliverables Dana could present to leadership.</p>
+
+        <div class="final-cards">
+          <div class="final-card">
+            <div class="final-card-header">
+              <span class="final-card-label">Part 1</span>
+              <span class="challenge-time">60-90 min</span>
+            </div>
+            <h3>The Go-To-Market Brief</h3>
+            <p>Assemble a complete seven-section brief for BOLT using your cleaned dataset and every framework from this mission.</p>
+            <ul class="goal-list" style="margin-top:12px;">
+              <li><strong>Executive summary</strong> &mdash; the brief in under one page</li>
+              <li><strong>Market opportunity</strong> &mdash; the case for BOLT</li>
+              <li><strong>Competitor analysis</strong> &mdash; using RACE + CRA</li>
+              <li><strong>Customer profiles</strong> &mdash; built through the AI Interview</li>
+              <li><strong>Brand positioning</strong> &mdash; framework learned on demand</li>
+              <li><strong>Risks</strong> &mdash; VRC applied at scale</li>
+              <li><strong>Next steps</strong> &mdash; what leadership needs to decide</li>
+            </ul>
+          </div>
+          <div class="final-card">
+            <div class="final-card-header">
+              <span class="final-card-label">Part 2</span>
+              <span class="challenge-time">60-90 min</span>
+            </div>
+            <h3>The BOLT Content Pack</h3>
+            <p>Turn your go-to-market brief into a content package ready for execution. Everything Dana's team needs to take BOLT to market.</p>
+          </div>
+        </div>
+
+        <div class="pro-tip" style="margin-top:24px;">
+          <div class="pro-tip-label">Before You Submit</div>
+          <p>Run VRC on the full brief, not just individual sections. Ask yourself: where does the value come from, what are the top two ways this fails, and what's the early signal it's working? Only submit when you'd be comfortable if Dana sent this to leadership with your name on it.</p>
+        </div>
+
+        <div class="cta-block final-cta">
+          <h3>Start the Final Project</h3>
+          <p>Complete both parts to earn your Mission 3 certification. This is where the frameworks become real.</p>
+          <a href="https://lab.ai-officer.com/program/785403/mission/2267520" target="_blank" class="cta-btn cta-btn-final">
+            Launch Final Project
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <div class="divider"></div>
+
+    <!-- ════════════════════════════════════ -->
+    <!-- LESSON 9: KEY TAKEAWAYS -->
+    <!-- ════════════════════════════════════ -->
+    <section id="takeaways">
+      <div class="section-label">Wrap-Up</div>
+      <div class="lesson-tag">
+        <span class="lesson-tag-num">Lesson 9</span>
+      </div>
+
+      <h1>Key Takeaways</h1>
+
+      <ul class="takeaway-list">
+        <li>
+          <strong>Anyone can type a prompt.</strong>
+          <span>Not everyone can produce something worth trusting. That's the difference between using AI and leading with it.</span>
+        </li>
+        <li>
+          <strong>Stack your frameworks.</strong>
+          <span>Use RACE to define tasks, CRA to lock quality, VRC to evaluate impact. They work as a system.</span>
+        </li>
+        <li>
+          <strong>The AI Interview is the master skill.</strong>
+          <span>Tell AI your goal. Let AI ask you the questions. The gap between what you would have written and what AI asks is where the value lives.</span>
+        </li>
+        <li>
+          <strong>You don't need to memorize frameworks.</strong>
+          <span>You need the habit of asking for the right one. AI is your instructor. This skill compounds every session.</span>
+        </li>
+        <li>
+          <strong>Evaluate before you send.</strong>
+          <span>Creating output is only half the job. VRC is the habit that earns trust.</span>
+        </li>
+        <li>
+          <strong>Think in deliverables, not prompts.</strong>
+          <span>Every challenge today builds one piece of a brief Dana could put in front of leadership. That is what professional-grade AI output looks like.</span>
+        </li>
+      </ul>
+
+      <h2>Your Commitment</h2>
+      <p>Before you close out: name one habit you will start, stop, or continue this week. Not a tool. A behavior. Something your manager would notice.</p>
+    </section>
+
+    <div class="divider"></div>
+
+    <!-- ════════════════════════════════════ -->
+    <!-- LESSON 10: CERTIFICATE -->
+    <!-- ════════════════════════════════════ -->
+    <section id="certificate">
+      <div class="cert-card">
+        <div class="subtitle">AI Essentials Program: Advanced Prompt Frameworks</div>
+        <h2>Mission Three Checkpoint Reached</h2>
+        <p>Solid work, Cadet. You've completed Mission 3 of Generative AI Essentials and built the skills that separate prompt writers from professionals: frameworks that guide quality output, the AI Interview that finds your blind spots, and VRC that tells you whether to trust what you've made.</p>
+        <p>You now know how to produce output your manager trusts. Output that has your name on it and deserves to. Keep going. One more mission stands between you and the AI Specialist Certification.</p>
+        <div class="cert-progress">
+          <div class="cert-dot done">01</div>
+          <div class="cert-dot done">02</div>
+          <div class="cert-dot current">03</div>
+          <div class="cert-dot upcoming">04</div>
+        </div>
+        <a href="#" class="cert-next">
+          Your Next Mission: Prompting Perfect Visuals &rarr;
+        </a>
+      </div>
+
+      <p style="text-align:center; font-size:12px; color:var(--text-muted); margin-top:24px;">
+        Issued by AI Officer Institute &middot; Instructors: Dave Hajdu &amp; David Nilssen<br>
+        hello@ai-officer.com &middot; ai-officer.com
+      </p>
+    </section>
+
+  </main>
+</div>
+
+<script src="../shared/nav.js"></script>
+</body>
+</html>

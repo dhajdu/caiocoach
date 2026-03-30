@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Agentic AI Essentials — AI Officer Institute</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../shared/styles.css">
+<style>
+  body { background: var(--surface); }
+  .hub-main { margin-left: 0; max-width: 1100px; margin: 0 auto; padding: 80px 56px 100px; }
+
+  .hero { background: var(--navy); border-radius: 14px; padding: 48px 52px; margin-bottom: 56px; }
+  .hero-label { font-size: 11px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: var(--blue); margin-bottom: 12px; }
+  .hero h1 { font-size: 36px; font-weight: 700; color: var(--white); line-height: 1.2; letter-spacing: -0.5px; margin-bottom: 14px; }
+  .hero h1 span { color: var(--blue); }
+  .hero p { font-size: 15px; color: rgba(255,255,255,0.55); max-width: 580px; line-height: 1.7; margin-bottom: 32px; }
+  .hero-stats { display: flex; gap: 36px; }
+  .hero-stat-num { font-size: 28px; font-weight: 700; color: var(--white); font-family: 'JetBrains Mono', monospace; margin-bottom: 2px; }
+  .hero-stat-num b { color: var(--blue); }
+  .hero-stat-label { font-size: 11px; color: rgba(255,255,255,0.35); text-transform: uppercase; letter-spacing: 0.8px; }
+
+  .track-header { display: flex; align-items: center; gap: 14px; margin: 56px 0 24px; }
+  .track-header:first-of-type { margin-top: 0; }
+  .track-title { font-size: 22px; font-weight: 700; letter-spacing: -0.3px; }
+
+  .mgrid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 16px; }
+  .mcard { background: var(--card-bg); border: 1px solid var(--border); border-radius: 12px; padding: 24px; text-decoration: none; color: inherit; display: flex; flex-direction: column; gap: 10px; transition: box-shadow 0.15s, border-color 0.15s; }
+  .mcard:hover { box-shadow: 0 4px 20px rgba(4,16,45,0.08); border-color: rgba(40,123,232,0.35); }
+  .mcard-top { display: flex; align-items: center; justify-content: space-between; }
+  .mcard-badge { font-family: 'JetBrains Mono', monospace; font-size: 11px; font-weight: 500; padding: 3px 9px; border-radius: 5px; background: rgba(40,123,232,0.1); color: #287BE8; }
+  .mcard-arrow { font-size: 14px; color: var(--text-muted); transition: color 0.15s; }
+  .mcard:hover .mcard-arrow { color: var(--blue); }
+  .mcard-title { font-size: 16px; font-weight: 600; line-height: 1.3; letter-spacing: -0.2px; }
+  .mcard-desc { font-size: 13px; color: var(--text-muted); line-height: 1.55; flex: 1; }
+  .mcard-briefs { display: flex; flex-direction: column; gap: 3px; border-top: 1px solid var(--surface); padding-top: 12px; margin-top: 4px; }
+  .mcard-brief { display: flex; align-items: baseline; gap: 8px; font-size: 12px; color: var(--text-muted); }
+  .mcard-brief-num { font-family: 'JetBrains Mono', monospace; font-size: 10px; color: var(--border); min-width: 14px; }
+
+  .hub-footer { margin-top: 64px; padding-top: 24px; border-top: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; color: var(--text-muted); font-size: 13px; }
+  .hub-footer-brand { font-weight: 600; color: var(--text-secondary); }
+  .hub-footer-brand span { color: var(--blue); }
+
+  @media (max-width: 900px) {
+    .hub-main { padding: 70px 20px 80px; }
+    .hero { padding: 32px 24px; }
+    .hero h1 { font-size: 26px; }
+    .mgrid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <a href="../index.html" class="topbar-brand">AI Officer <span>Institute</span></a>
+  <div class="topbar-divider"></div>
+  <nav class="topbar-nav">
+    <a href="../index.html" class="tnav-link">Hub</a>
+    <a href="../generative-ai/index.html" class="tnav-link"><span class="tnav-dot" style="background:#D1458B"></span>Generative AI</a>
+    <a href="index.html" class="tnav-link active"><span class="tnav-dot" style="background:#287BE8"></span>Agentic AI</a>
+    <a href="../micro-sessions/index.html" class="tnav-link"><span class="tnav-dot" style="background:#1a9e74"></span>Micro-Sessions</a>
+  </nav>
+</div>
+
+<div class="layout">
+  <main class="hub-main">
+
+    <div class="hero">
+      <div class="hero-label">Agentic AI Essentials</div>
+      <h1>Agentic AI <span>Essentials</span></h1>
+      <p>Move from prompts to programs. Build agents, wire workflows, and lead AI systems that run without you in the room.</p>
+      <div class="hero-stats">
+        <div><div class="hero-stat-num">5</div><div class="hero-stat-label">Missions</div></div>
+        <div><div class="hero-stat-num">25<b>+</b></div><div class="hero-stat-label">Briefs</div></div>
+        <div><div class="hero-stat-num">8</div><div class="hero-stat-label">Credits Required</div></div>
+      </div>
+    </div>
+
+    <div class="track-header">
+      <span class="track-title">Missions</span>
+    </div>
+    <div class="mgrid">
+      <a href="mission-1.html" class="mcard">
+        <div class="mcard-top">
+          <span class="mcard-badge">Mission 01</span>
+          <span class="mcard-arrow">→</span>
+        </div>
+        <div class="mcard-title">AI Program Planning</div>
+        <div class="mcard-desc">Map your AI landscape, set FAST goals, and build a strategic roadmap.</div>
+        <div class="mcard-briefs">
+          <div class="mcard-brief"><span class="mcard-brief-num">B1</span>Brief 1: The Four Offices</div>
+          <div class="mcard-brief"><span class="mcard-brief-num">B2</span>Brief 2: Three Types of AI</div>
+          <div class="mcard-brief"><span class="mcard-brief-num">B3</span>Brief 3: The 5D Framework</div>
+          <div class="mcard-brief"><span class="mcard-brief-num">B4</span>Brief 4: FAST Goals and ROI</div>
+          <div class="mcard-brief"><span class="mcard-brief-num">B5</span>Brief 5: Build Your Roadmap</div>
+        </div>
+      </a>
+      <a href="mission-2.html" class="mcard">
+        <div class="mcard-top">
+          <span class="mcard-badge">Mission 02</span>
+          <span class="mcard-arrow">→</span>
+        </div>
+        <div class="mcard-title">From Prompts to Packaged AI</div>
+        <div class="mcard-desc">Transform ad-hoc prompts into repeatable, packaged AI processes for your team.</div>
+        <div class="mcard-briefs">
+          <div class="mcard-brief"><span class="mcard-brief-num">B1</span>The Setup Time Problem</div>
+          <div class="mcard-brief"><span class="mcard-brief-num">B2</span>Anatomy of Packaged AI</div>
+          <div class="mcard-brief"><span class="mcard-brief-num">B3</span>Platform Options</div>
+          <div class="mcard-brief"><span class="mcard-brief-num">B4</span>Build Your Prototype</div>
+          <div class="mcard-brief"><span class="mcard-brief-num">B5</span>Test and Ship</div>
+        </div>
+      </a>
+      <a href="mission-3.html" class="mcard">
+        <div class="mcard-top">
+          <span class="mcard-badge">Mission 03</span>
+          <span class="mcard-arrow">→</span>
+        </div>
+        <div class="mcard-title">Wire the Workflow</div>
+        <div class="mcard-desc">Design and connect multi-step AI workflows using triggers and action nodes.</div>
+        <div class="mcard-briefs">
+          <div class="mcard-brief"><span class="mcard-brief-num">B1</span>Brief 1: Why You're Still the Bottleneck</div>
+          <div class="mcard-brief"><span class="mcard-brief-num">B2</span>Brief 2: The 5-Part Workflow Blueprint</div>
+          <div class="mcard-brief"><span class="mcard-brief-num">B3</span>Brief 3: Build Your Trigger and Data Layer</div>
+          <div class="mcard-brief"><span class="mcard-brief-num">B4</span>Brief 4: Wire the AI Step and Action</div>
+          <div class="mcard-brief"><span class="mcard-brief-num">B5</span>Brief 5: Log, Test, and Ship</div>
+        </div>
+      </a>
+      <a href="mission-4.html" class="mcard">
+        <div class="mcard-top">
+          <span class="mcard-badge">Mission 04</span>
+          <span class="mcard-arrow">→</span>
+        </div>
+        <div class="mcard-title">Teach Your Workflow to Decide</div>
+        <div class="mcard-desc">Add logic and conditional routing so your workflows classify, decide, and respond.</div>
+        <div class="mcard-briefs">
+          <div class="mcard-brief"><span class="mcard-brief-num">B1</span>Brief 1: The Linear Workflow Problem</div>
+          <div class="mcard-brief"><span class="mcard-brief-num">B2</span>Brief 2: Classify, Route, Respond</div>
+          <div class="mcard-brief"><span class="mcard-brief-num">B3</span>Brief 3: The Tiny Decision Canvas</div>
+          <div class="mcard-brief"><span class="mcard-brief-num">B4</span>Brief 4: Build the Logic Layer</div>
+          <div class="mcard-brief"><span class="mcard-brief-num">B5</span>Brief 5: Test and Validate</div>
+        </div>
+      </a>
+      <a href="mission-5.html" class="mcard">
+        <div class="mcard-top">
+          <span class="mcard-badge">Mission 05</span>
+          <span class="mcard-arrow">→</span>
+        </div>
+        <div class="mcard-title">Unleash the Agent</div>
+        <div class="mcard-desc">Build your first true AI agent — one that loops, reasons, and uses tools.</div>
+        <div class="mcard-briefs">
+          <div class="mcard-brief"><span class="mcard-brief-num">B1</span>Brief 1: The Ceiling of Logic</div>
+          <div class="mcard-brief"><span class="mcard-brief-num">B2</span>Brief 2: The Agent Loop</div>
+          <div class="mcard-brief"><span class="mcard-brief-num">B3</span>Brief 3: Agent Anatomy</div>
+          <div class="mcard-brief"><span class="mcard-brief-num">B4</span>Brief 4: Build Your First Agent</div>
+          <div class="mcard-brief"><span class="mcard-brief-num">B5</span>Brief 5: Guardrails and Human in the Loop</div>
+        </div>
+      </a>
+    </div>
+
+    <footer class="hub-footer">
+      <div><span class="hub-footer-brand">AI Officer <span>Institute</span></span></div>
+      <div><a href="../micro-sessions/index.html" style="color:var(--blue);text-decoration:none;">Earn credits with Micro-Sessions →</a></div>
+    </footer>
+
+  </main>
+</div>
+
+</body>
+</html>

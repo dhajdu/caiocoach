@@ -1,0 +1,637 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mission 5: Unleash the Agent — AI Officer Institute</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../shared/styles.css">
+</head>
+<body>
+
+<div class="topbar">
+  <a href="../index.html" class="topbar-brand">AI Officer <span>Institute</span></a>
+  <div class="topbar-divider"></div>
+  <nav class="topbar-nav">
+      <a href="../index.html" class="tnav-link">Hub</a>
+      <a href="../generative-ai/mission-1.html" class="tnav-link"><span class="tnav-dot" style="background:#D1458B"></span>Generative AI</a>
+      <a href="../agentic-ai/mission-1.html" class="tnav-link active"><span class="tnav-dot" style="background:#287BE8"></span>Agentic AI</a>
+      <a href="../micro-sessions/cowork-first-workflow.html" class="tnav-link"><span class="tnav-dot" style="background:#1a9e74"></span>Micro-Sessions</a>
+  </nav>
+</div>
+<div class="layout">
+  <nav class="sidebar">
+
+    <a href="../index.html" class="sidebar-hub">&larr; Back to Hub
+    </a>
+    <div class="sidebar-mission-title">
+      <div class="smt-track" style="color: #287BE8">
+        <span class="smt-dot" style="background: #287BE8"></span>
+        Agentic AI
+      </div>
+    </div>
+    <div class="sidebar-section">
+      <div class="sidebar-label">Introduction</div>
+      <a href="#welcome" class="sidebar-item"><span class="sidebar-num">01</span>Welcome to Unleash the Agent</a>
+      <a href="#briefs-overview" class="sidebar-item"><span class="sidebar-num">02</span>Mission Briefs</a>
+      <a href="#learning-guide" class="sidebar-item"><span class="sidebar-num">03</span>Learning Guide</a>
+    </div>
+    <div class="sidebar-section">
+      <div class="sidebar-label">Mission Briefs</div>
+      <a href="#brief1" class="sidebar-item"><span class="sidebar-num">04</span>Brief 1: The Ceiling of Logic</a>
+      <a href="#brief2" class="sidebar-item"><span class="sidebar-num">05</span>Brief 2: The Agent Loop</a>
+      <a href="#brief3" class="sidebar-item"><span class="sidebar-num">06</span>Brief 3: Agent Anatomy</a>
+      <a href="#brief4" class="sidebar-item"><span class="sidebar-num">07</span>Brief 4: Build Your First Agent</a>
+      <a href="#brief5" class="sidebar-item"><span class="sidebar-num">08</span>Brief 5: Guardrails and Human in the Loop</a>
+    </div>
+    <div class="sidebar-section">
+      <div class="sidebar-label">Wrap-Up</div>
+      <a href="#takeaways" class="sidebar-item"><span class="sidebar-num">09</span>Key Takeaways</a>
+      <a href="#certificate" class="sidebar-item"><span class="sidebar-num">10</span>Certificate of Completion</a>
+    </div>
+
+  </nav>
+  <main class="main">
+<!-- WELCOME -->
+    <section id="welcome">
+      <div class="section-label">Introduction</div>
+      <h1>Welcome to Unleash the Agent</h1>
+
+      <p>You've completed four sessions. You identified opportunities. You packaged AI. You wired workflows. You taught your system to decide.</p>
+
+      <p>Now comes the part that turns that work into something powerful. You're about to shift from designer of branches to designer of goals. You're about to unleash the agent.</p>
+
+      <h2>Mission Goals</h2>
+      <p>By the end of this mission you will be able to:</p>
+      <ul class="goal-list">
+        <li>Understand when decision logic breaks and why agents are the answer</li>
+        <li>Design an agent using the Think-Plan-Act-Reflect loop</li>
+        <li>Build a working agent with mission, instructions, guardrails, and escalation criteria</li>
+        <li>Test and validate your agent with success metrics</li>
+        <li>Apply human-in-the-loop design patterns to keep control and scale autonomy</li>
+      </ul>
+    </section>
+
+    <div class="divider"></div>
+
+    <!-- MISSION BRIEFS OVERVIEW -->
+    <section id="briefs-overview">
+      <div class="lesson-tag">
+        <span class="lesson-tag-num">Lesson 2</span>
+      </div>
+      <h1>Mission Briefs</h1>
+
+      <p>Five briefs will walk you through agents from the ground up. Work through them in order. Everything you build becomes the foundation for Mission 6.</p>
+
+      <div class="brief-cards">
+        <div class="brief-card">
+          <div class="brief-num">1</div>
+          <div class="brief-card-body">
+            <h4>The Ceiling of Logic</h4>
+            <p>Where decision trees break and why agents are the answer. Learn to recognize when you need an agent instead of more rules.</p>
+          </div>
+        </div>
+        <div class="brief-card">
+          <div class="brief-num">2</div>
+          <div class="brief-card-body">
+            <h4>The Agent Loop</h4>
+            <p>How Think-Plan-Act-Reflect works. Brain, Tools, Memory. The anatomy of an agent and how it pursues goals.</p>
+          </div>
+        </div>
+        <div class="brief-card">
+          <div class="brief-num">3</div>
+          <div class="brief-card-body">
+            <h4>Agent Anatomy</h4>
+            <p>The three components every agent needs. Brain (LLM), Tools (capabilities), Memory (context). What each one does and why all three matter.</p>
+          </div>
+        </div>
+        <div class="brief-card">
+          <div class="brief-num">4</div>
+          <div class="brief-card-body">
+            <h4>Build Your First Agent</h4>
+            <p>Step-by-step walkthrough of building your first working agent. Mission statement, instructions, guardrails, escalation criteria.</p>
+          </div>
+        </div>
+        <div class="brief-card">
+          <div class="brief-num">5</div>
+          <div class="brief-card-body">
+            <h4>Guardrails and Human in the Loop</h4>
+            <p>Testing patterns, success metrics, and human-in-the-loop design. Your agent plus human judgment. That's the finish line.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="time-grid">
+        <span class="time-label">Core Learning (Briefs 1-3)</span>
+        <span class="time-value">~50 minutes</span>
+        <span class="time-label">Build & Validate (Briefs 4-5)</span>
+        <span class="time-value">~70 minutes</span>
+      </div>
+    </section>
+
+    <div class="divider"></div>
+
+    <!-- LEARNING GUIDE -->
+    <section id="learning-guide">
+      <div class="lesson-tag">
+        <span class="lesson-tag-num">Lesson 3</span>
+      </div>
+      <h1>Learning Guide</h1>
+
+      <p><strong>Bring your Mission 4 workflow.</strong> You have a logic layer that works for predictable cases. Somewhere in that logic, there's an edge case that makes the rules more complicated. That's where your agent lives.</p>
+
+      <p><strong>Work from your real system.</strong> The agent you design here is for your actual workflow. Not a hypothetical. Not a practice example. The problem you're solving is real.</p>
+
+      <p><strong>Design first, build second.</strong> Before you code anything, design your agent. Mission statement. Instructions. Guardrails. Escalation criteria. The design is 80% of the work.</p>
+
+      <p><strong>Guardrails are non-negotiable.</strong> An agent without guardrails is a liability. Define what it can access, what it can promise, when it escalates. Be specific.</p>
+
+      <h2>Rules of the Road</h2>
+      <ul class="checklist">
+        <li>Start with a clear agent mission. One sentence. What is it trying to achieve?</li>
+        <li>Identify brain, tools, and memory before you build. What does your agent need to know and do?</li>
+        <li>Test your agent three ways: happy path, edge case, adversarial. Does it hold its guardrails?</li>
+        <li>Define success metrics before you deploy. What's the baseline? What's your target?</li>
+        <li>Design human-in-the-loop from the start. Agent handles routine. Human handles judgment.</li>
+      </ul>
+
+      <div class="pro-tip">
+        <div class="pro-tip-label">Pro Tip</div>
+        <p>Use one Claude Project for all five briefs. Start with your Mission 4 workflow context. Ask Claude: "I want to build an agent for [your situation]. Where does my decision logic break?" Let Claude help you identify the agent opportunity before you start designing.</p>
+      </div>
+    </section>
+
+    <div class="divider"></div>
+
+    <!-- BRIEF 1: THE CEILING OF LOGIC -->
+    <section id="brief1">
+      <div class="section-label">Mission Briefs</div>
+      <div class="lesson-tag">
+        <span class="lesson-tag-num">Brief 1</span>
+        <span class="lesson-tag-type">Teaching</span>
+      </div>
+      <h1>The Ceiling of Logic</h1>
+
+      <p>Decision trees are powerful tools for handling predictable inputs. You define the rules. You design the branches. "If input is X, do Y." This works great when you can predict every input variation. But the moment inputs become too varied, too complex, or too unpredictable for your decision tree, you hit the ceiling of logic.</p>
+
+      <p>The shift from logic to agents is not a question of "which is better." It's a question of "which tool is right for this problem."</p>
+
+      <h2>When Decision Logic Excels</h2>
+      <ul class="goal-list">
+        <li>Well-defined inputs with predictable variations</li>
+        <li>Clear categorization rules</li>
+        <li>Limited edge cases</li>
+        <li>Cost-sensitive operations</li>
+        <li>Fully predictable workflows</li>
+      </ul>
+
+      <h2>When Decision Logic Breaks</h2>
+      <ul class="goal-list">
+        <li>Inputs are too varied or unpredictable</li>
+        <li>Nuance matters more than categorization</li>
+        <li>Edge cases outnumber standard cases</li>
+        <li>Human judgment is required</li>
+        <li>The decision tree becomes harder to maintain than doing the work manually</li>
+      </ul>
+
+      <h2>The Shift</h2>
+      <p>Instead of telling the system what to do in every situation (decision logic), you tell it what to achieve (agent goal). The system figures out how to get there.</p>
+
+      <h2>Worked Example: Customer Support</h2>
+      <p>Imagine you have a customer support workflow. A customer submits feedback. Your logic layer classifies it based on keywords:</p>
+      <ul class="goal-list">
+        <li>If it contains "broken" and "product," route to Product Team</li>
+        <li>If it contains "billing," route to Finance Team</li>
+        <li>If it's grateful language, send thank you</li>
+      </ul>
+
+      <p>The Happy Path: This works for 80% of inputs.</p>
+
+      <p>The Edge Cases: What about the customer who says "I love your product but can't afford the pricing"? That's both a compliment and a concern. The categorization breaks. What about the customer who reports a bug that also involves a billing dispute? Multiple teams. What about the customer whose frustration is implied but not explicit? The rule fails.</p>
+
+      <div class="compare-block">
+        <div class="compare-side without">
+          <h4>Without an Agent</h4>
+          <p>You add more branches. You complicate the tree. Each new edge case is another rule to manage. Maintenance becomes unbearable.</p>
+        </div>
+        <div class="compare-side with">
+          <h4>With an Agent</h4>
+          <p>You define the goal: "Understand this customer's core concern and route them to the right team." The agent figures out that this is a pricing concern, not a bug. Reads between the lines. Prioritizes by urgency. Handles ambiguity.</p>
+        </div>
+      </div>
+
+      <div class="insight">
+        <div class="insight-label">Key Insight</div>
+        <p>Decision logic is for problems you can fully predict. Agents are for the ones you can't. Rules follow paths. Agents find solutions.</p>
+      </div>
+
+      <h2>Starter Prompt for Your Work</h2>
+      <p>"Look at your Mission 4 workflow and the logic layer you built. Which inputs or situations made that logic complicated? Which required you to add extra branches? Which edge cases did you have to design around? Those are your agent opportunities."</p>
+    </section>
+
+    <div class="divider"></div>
+
+    <!-- BRIEF 2: THE AGENT LOOP -->
+    <section id="brief2">
+      <div class="section-label">Mission Briefs</div>
+      <div class="lesson-tag">
+        <span class="lesson-tag-num">Brief 2</span>
+        <span class="lesson-tag-type">Teaching</span>
+      </div>
+      <h1>The Agent Loop: Think-Plan-Act-Reflect</h1>
+
+      <p>The agent loop is the cycle that allows agents to handle complexity. It's not a simple input-to-output. It's iterative. It allows for course-correction. It allows the agent to reflect on whether it achieved the goal.</p>
+
+      <div class="fw-grid">
+        <div class="fw-block">
+          <div class="fw-name">T</div>
+          <div class="fw-subtitle">Think</div>
+          <p>The agent reads the input and understands what's being asked. What is the user trying to accomplish? What are the constraints? What does success look like? The agent builds a mental model of the problem.</p>
+        </div>
+        <div class="fw-block">
+          <div class="fw-name">P</div>
+          <div class="fw-subtitle">Plan</div>
+          <p>Based on that understanding, the agent decides what steps to take. What data does it need? What tools should it use? In what order? What's the strategy? The agent creates a plan to achieve the goal.</p>
+        </div>
+        <div class="fw-block">
+          <div class="fw-name">A</div>
+          <div class="fw-subtitle">Act</div>
+          <p>The agent executes the plan. It uses the tools. It gathers the information. It takes action. It moves toward the goal.</p>
+        </div>
+        <div class="fw-block">
+          <div class="fw-name">R</div>
+          <div class="fw-subtitle">Reflect</div>
+          <p>The agent evaluates the output. Did it work? Is the goal achieved? Is the output good enough? If yes, it's done. If not, it loops back. It adjusts the plan. It tries a different approach.</p>
+        </div>
+      </div>
+
+      <p>This loop is why agents can handle complexity that would break a decision tree. A decision tree follows a single path. An agent finds a solution. It can course-correct. It can try again. It can handle the unexpected because it's not rigidly following a branch - it's pursuing a goal.</p>
+
+      <h2>Worked Example: Customer Support Agent Using the Loop</h2>
+      <p><strong>Customer submits:</strong> "We've been using your product for 2 years. Last week the reports feature stopped working. Our reports are mission-critical. We need this fixed today."</p>
+
+      <p><strong>Think:</strong> The agent understands: (1) Long-term, valuable customer. (2) Critical feature broken. (3) Time-sensitive. (4) Likely technical issue requiring investigation. (5) High escalation priority.</p>
+
+      <p><strong>Plan:</strong> The agent decides: (1) Retrieve customer account history to understand their usage. (2) Search the knowledge base for known issues with reports. (3) Check if there's a recent system update that might have caused this. (4) If no quick fix, prepare escalation to engineering with all context.</p>
+
+      <p><strong>Act:</strong> The agent queries the customer database. Finds they're a VIP account. Searches the knowledge base. Finds a post about a recent update and a workaround. Tries the workaround. Realizes it won't work for their use case. Prepares escalation documentation.</p>
+
+      <p><strong>Reflect:</strong> The agent checks its output. Is the goal (resolve or properly escalate) achieved? Yes. The customer has a workaround path and a clear escalation if that doesn't work. If the reflection revealed the goal wasn't achieved, the loop would restart.</p>
+
+      <div class="insight">
+        <div class="insight-label">Key Insight</div>
+        <p>A decision tree follows a path. An agent finds a solution. The loop enables the search.</p>
+      </div>
+    </section>
+
+    <div class="divider"></div>
+
+    <!-- BRIEF 3: AGENT ANATOMY -->
+    <section id="brief3">
+      <div class="section-label">Mission Briefs</div>
+      <div class="lesson-tag">
+        <span class="lesson-tag-num">Brief 3</span>
+        <span class="lesson-tag-type">Teaching</span>
+      </div>
+      <h1>Agent Anatomy: Brain + Tools + Memory</h1>
+
+      <p>Every agent has three components. All three must be strong for the agent to work.</p>
+
+      <div class="fw-grid">
+        <div class="fw-block">
+          <div class="fw-name">BRAIN</div>
+          <div class="fw-subtitle">The LLM</div>
+          <p>The underlying intelligence. Claude. GPT. The language model that does the thinking, planning, and reflecting. The better the brain, the better the reasoning. The more powerful the brain, the more complex the problems it can handle.</p>
+        </div>
+        <div class="fw-block">
+          <div class="fw-name">TOOLS</div>
+          <div class="fw-subtitle">Capabilities</div>
+          <p>What the agent can do beyond thinking. Web search, API connections, file access, calculations, database queries, email sending. An agent without tools is just a chatbot. It can think, but it can't do anything. Tools are what let it act.</p>
+        </div>
+        <div class="fw-block">
+          <div class="fw-name">MEMORY</div>
+          <div class="fw-subtitle">Context & Knowledge</div>
+          <p>The data the agent draws from. Reference documents, conversation history, customer data, rules and guardrails. The more complete and accurate the memory, the better the agent's output.</p>
+        </div>
+        <div class="fw-block full">
+          <div class="fw-name">ALL THREE</div>
+          <div class="fw-subtitle">Working Together</div>
+          <p>A great brain with weak tools can think but not act. Great tools with poor memory make mistakes. Poor memory combined with weak reasoning leads to confidently wrong answers. All three must be strong.</p>
+        </div>
+      </div>
+
+      <h2>Worked Example: Anatomy Check</h2>
+      <p><strong>Agent Mission:</strong> "Understand customer technical issues, gather information, diagnose common problems, and escalate complex cases to the right specialist with full context."</p>
+
+      <p><strong>Brain:</strong> Claude 3.5 Sonnet. Good reasoning for diagnosis and prioritization.</p>
+
+      <p><strong>Tools:</strong> (1) Search knowledge base for known solutions. (2) Retrieve customer account history. (3) Check system status and recent updates. (4) Send escalations to engineering.</p>
+
+      <p><strong>Memory:</strong> (1) Knowledge base with known issues and solutions. (2) Customer database with account types and history. (3) System documentation and recent changes. (4) Escalation protocols and specialist contact info.</p>
+
+      <div class="insight">
+        <div class="insight-label">Key Insight</div>
+        <p>Your agent is only as good as its weakest component. A brilliant brain with no access to data is a wasted brain. Access to tools without guardrails is dangerous. Memory without context is noise.</p>
+      </div>
+    </section>
+
+    <div class="divider"></div>
+
+    <!-- BRIEF 4: BUILD YOUR FIRST AGENT -->
+    <section id="brief4">
+      <div class="section-label">Mission Briefs</div>
+      <div class="lesson-tag">
+        <span class="lesson-tag-num">Brief 4</span>
+        <span class="lesson-tag-type">Build</span>
+      </div>
+      <h1>Build Your First Agent</h1>
+
+      <h2>Step-by-Step Agent Build</h2>
+
+      <div class="challenge-cards">
+        <div class="challenge-card">
+          <div class="challenge-num">1</div>
+          <div class="challenge-body">
+            <h4>Define Your Mission (5 min)</h4>
+            <p>Write one sentence. What is your agent's goal? Who is the user? What does success look like? Template: "This agent helps [user] achieve [specific goal] by [main method]."</p>
+          </div>
+          <span class="challenge-time">5 min</span>
+        </div>
+        <div class="challenge-card">
+          <div class="challenge-num">2</div>
+          <div class="challenge-body">
+            <h4>Write the Instructions (5 min)</h4>
+            <p>How should it behave? What tone? What should it always do? What should it never do? These are your guardrails embedded in instructions.</p>
+          </div>
+          <span class="challenge-time">5 min</span>
+        </div>
+        <div class="challenge-card">
+          <div class="challenge-num">3</div>
+          <div class="challenge-body">
+            <h4>Identify Your Knowledge Base (5 min)</h4>
+            <p>What data does your agent need? Process documents? FAQ? Customer data? Product information? Your agent is only as good as what it knows.</p>
+          </div>
+          <span class="challenge-time">5 min</span>
+        </div>
+        <div class="challenge-card">
+          <div class="challenge-num">4</div>
+          <div class="challenge-body">
+            <h4>Add Your Tools (5 min)</h4>
+            <p>What does your agent need to do? Search knowledge base? Retrieve data? Calculate? Connect to systems? Be specific about what each tool can access.</p>
+          </div>
+          <span class="challenge-time">5 min</span>
+        </div>
+        <div class="challenge-card">
+          <div class="challenge-num">5</div>
+          <div class="challenge-body">
+            <h4>Write Your Guardrails (5 min)</h4>
+            <p>What is off-limits? Data access, decisions, communications, tone. Write specific guardrails for each category. These are non-negotiable.</p>
+          </div>
+          <span class="challenge-time">5 min</span>
+        </div>
+      </div>
+
+      <h2>Worked Example: Complete Build</h2>
+
+      <p><strong>Selected Item:</strong> Lead Qualification for Sales</p>
+
+      <p><strong>Mission:</strong> "This agent qualifies inbound leads for the sales team by analyzing their company profile, engagement level, and fit with our target customer profile, then routing them to the right sales representative."</p>
+
+      <p><strong>Instructions:</strong></p>
+      <ul class="goal-list">
+        <li>Read every lead inquiry carefully. Understand what the prospect needs.</li>
+        <li>Check our target customer profile in the knowledge base.</li>
+        <li>Analyze: company size, industry, growth stage, problem fit, engagement level.</li>
+        <li>Use a professional and helpful tone. These are potential customers.</li>
+        <li>Ask clarifying questions if the fit isn't clear.</li>
+        <li>Document your analysis as you go.</li>
+      </ul>
+
+      <p><strong>Tools:</strong></p>
+      <ul class="goal-list">
+        <li>Search knowledge base for customer profile and targeting rules</li>
+        <li>Retrieve prospect company data from LinkedIn API</li>
+        <li>Calculate fit score based on target customer profile</li>
+        <li>Access sales CRM to find the right sales rep</li>
+      </ul>
+
+      <p><strong>Guardrails:</strong></p>
+      <ul class="goal-list">
+        <li>Never tell a prospect our pricing without checking with sales</li>
+        <li>Never promise timelines or features</li>
+        <li>Can access company information but not personal data</li>
+        <li>Never share our customer list or target customer profile with prospects</li>
+      </ul>
+
+      <p><strong>Escalation Criteria:</strong></p>
+      <ul class="goal-list">
+        <li>If the prospect asks about pricing, escalate to sales</li>
+        <li>If the prospect is a competitor, escalate to management</li>
+        <li>If fit score is below 30%, ask for human review before routing</li>
+        <li>If the inquiry is about a partnership or integration, escalate to partnerships</li>
+      </ul>
+
+      <div class="insight">
+        <div class="insight-label">Key Insight</div>
+        <p>You are not doing the work. You are designing the system. Supervisor, not spectator.</p>
+      </div>
+    </section>
+
+    <div class="divider"></div>
+
+    <!-- BRIEF 5: GUARDRAILS AND HUMAN IN THE LOOP -->
+    <section id="brief5">
+      <div class="section-label">Mission Briefs</div>
+      <div class="lesson-tag">
+        <span class="lesson-tag-num">Brief 5</span>
+        <span class="lesson-tag-type">Validation</span>
+      </div>
+      <h1>Guardrails and Human in the Loop</h1>
+
+      <h2>How to Test an Agent</h2>
+      <p>Testing an agent is different from testing a workflow. You're not checking if the agent follows a path. You're checking if it achieves the goal within the guardrails.</p>
+
+      <p><strong>Happy Path Testing:</strong> Give it a straightforward request that fits your agent's mission perfectly. Does it do what you designed it to do? Does it produce good output?</p>
+
+      <p><strong>Edge Case Testing:</strong> Give it a request that's not in your data, or partially in your data. A request that's ambiguous or contradictory. Does the agent handle it gracefully? Does it ask for clarification? Does it escalate appropriately?</p>
+
+      <p><strong>Adversarial Testing:</strong> Try to break it. Ask it to violate its guardrails. Give it conflicting instructions. Attempt to trick it into sharing information it shouldn't. Does it hold its guardrails? Does it escalate when it should?</p>
+
+      <div class="pro-tip">
+        <div class="pro-tip-label">Pro Tip</div>
+        <p>Guardrails are non-negotiable. Test them relentlessly. If your agent can be tricked into violating a guardrail, adjust the guardrail language or add additional safety checks. A guardrail that fails under adversarial testing is not actually a guardrail.</p>
+      </div>
+
+      <h2>Success Metrics (Determine Phase)</h2>
+      <p>Before you deploy, you need to know what success looks like. This is the Determine phase of the 5D Framework. You're determining your success metrics before you go live.</p>
+
+      <p><strong>Success metrics are not vanity metrics.</strong> They're the weekly numbers you'll review to know if the agent is working.</p>
+
+      <p><strong>Example bad metrics:</strong> "Agent is live." "Lots of people are using it."</p>
+
+      <p><strong>Example good metrics:</strong></p>
+      <ul class="goal-list">
+        <li>Support escalation time reduced from 2 hours to 30 minutes</li>
+        <li>Correct diagnosis on first attempt: 75% of cases</li>
+        <li>Customer satisfaction for agent-resolved issues: 4.2/5 or higher</li>
+        <li>Human escalations reduced by 40%</li>
+        <li>Agent-to-human ratio improved from 30/70 to 60/40</li>
+      </ul>
+
+      <p><strong>The Determine Phase Questions:</strong></p>
+      <ol class="goal-list">
+        <li>What is the current baseline for this process (before the agent)?</li>
+        <li>What improvement are you targeting? (Faster? More accurate? Better experience?)</li>
+        <li>How will you measure that improvement?</li>
+        <li>What are your weekly metrics?</li>
+        <li>What's your acceptable variance? (Is 70% success enough, or do you need 85%?)</li>
+        <li>When do you escalate the agent for retraining? (If success drops below X%, you adjust guardrails or knowledge base.)</li>
+      </ol>
+
+      <h2>Human-in-the-Loop Design Patterns</h2>
+      <p>Design your human-in-the-loop workflow before you deploy. Choose the pattern that fits your risk tolerance and scalability needs.</p>
+
+      <div class="fw-grid">
+        <div class="fw-block">
+          <div class="fw-name">PATTERN 1</div>
+          <div class="fw-subtitle">Agent Drafts, Human Approves</div>
+          <p>The agent produces output (email, analysis, recommendation). A human reviews and approves before it goes live. Good for high-stakes decisions or customer-facing communications.</p>
+        </div>
+        <div class="fw-block">
+          <div class="fw-name">PATTERN 2</div>
+          <div class="fw-subtitle">Agent Routine, Human Edge Cases</div>
+          <p>The agent manages standard cases (80% of requests). When the agent detects an edge case or is unsure, it escalates to a human. Good for scalability.</p>
+        </div>
+        <div class="fw-block">
+          <div class="fw-name">PATTERN 3</div>
+          <div class="fw-subtitle">Agent Research, Human Decides</div>
+          <p>The agent gathers information and presents options. The human makes the decision. Good for complex decisions requiring human judgment.</p>
+        </div>
+        <div class="fw-block">
+          <div class="fw-name">PATTERN 4</div>
+          <div class="fw-subtitle">Agent Monitors, Human Acts</div>
+          <p>The agent monitors for issues or opportunities. When it finds one, it alerts a human, who takes action. Good for continuous improvement.</p>
+        </div>
+      </div>
+
+      <div class="insight">
+        <div class="insight-label">Key Insight</div>
+        <p>The agent doesn't work alone. Agent handles routine, human handles judgment. Agent drafts, human decides. This is the 50/50 era. Not agent-only automation. Agent plus human working together.</p>
+      </div>
+
+      <h2>Final Project: Your Agent + Success Metrics</h2>
+
+      <div class="final-project">
+        <span class="final-project-badge">Required for Completion</span>
+
+        <div class="final-cards">
+          <div class="final-card">
+            <div class="final-card-header">
+              <h3>Part 1: Agent Design Doc</h3>
+              <span class="final-card-label">Design</span>
+            </div>
+            <p>Mission statement (one sentence), Instructions (how it behaves), Guardrails (what it can't do), Escalation criteria (when it hands off).</p>
+          </div>
+
+          <div class="final-card">
+            <div class="final-card-header">
+              <h3>Part 2: Test Results</h3>
+              <span class="final-card-label">Validate</span>
+            </div>
+            <p>Happy path test case and output, Edge case test case and output, Adversarial test case and output, What you learned and what guardrails you adjusted.</p>
+          </div>
+
+          <div class="final-card">
+            <div class="final-card-header">
+              <h3>Part 3: Success Metrics</h3>
+              <span class="final-card-label">Measure</span>
+            </div>
+            <p>Current baseline for this process, Target improvement, How you'll measure it, Weekly metrics you'll track, Escalation thresholds (when you retrain or adjust).</p>
+          </div>
+
+          <div class="final-card">
+            <div class="final-card-header">
+              <h3>Part 4: Human-in-the-Loop Design</h3>
+              <span class="final-card-label">Deploy</span>
+            </div>
+            <p>What does the agent handle autonomously? What triggers escalation? What is the approval process? What is the feedback loop for continuous improvement?</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="divider"></div>
+
+    <!-- KEY TAKEAWAYS -->
+    <section id="takeaways">
+      <div class="lesson-tag">
+        <span class="lesson-tag-num">Lesson 9</span>
+      </div>
+      <h1>Key Takeaways</h1>
+
+      <ul class="takeaway-list">
+        <li>
+          <strong>Decision logic solves predictable problems. Agents solve variable ones.</strong>
+          <span>Decision trees work when you can predict the inputs. Agents work when you can't. Know which problem you're solving.</span>
+        </li>
+        <li>
+          <strong>The Think-Plan-Act-Reflect loop is why agents work.</strong>
+          <span>They don't follow a single path. They pursue a goal. They course-correct. They try again. That's how they handle complexity.</span>
+        </li>
+        <li>
+          <strong>Agent anatomy: Brain (LLM) + Tools (capabilities) + Memory (data).</strong>
+          <span>Every agent needs all three. A great brain with no tools is a chatbot. Tools without guardrails are dangerous. Memory shapes every decision.</span>
+        </li>
+        <li>
+          <strong>Guardrails are how you stay in control.</strong>
+          <span>An agent without guardrails will make decisions you never authorized. Define what it can access, what it can promise, when it escalates. Non-negotiable.</span>
+        </li>
+        <li>
+          <strong>Escalation is not failure. It's by design.</strong>
+          <span>The agent handles routine. Humans handle judgment. Agent drafts, human decides. This is the 50/50 era. Not agent-only. Not human-only. Both.</span>
+        </li>
+        <li>
+          <strong>Your role is designer, not executor.</strong>
+          <span>You design the mission, guardrails, and escalation rules. The agent executes. You supervise the system, not the work. That's the leadership shift.</span>
+        </li>
+        <li>
+          <strong>Success metrics matter more than the agent itself.</strong>
+          <span>Before you deploy, know what success looks like. What's the baseline? What's your target? How will you measure it weekly? That's your Determine phase.</span>
+        </li>
+        <li>
+          <strong>You've built the full stack.</strong>
+          <span>From problem statement to packaged AI to workflow to logic to agent. Mission 6 is the final step: the production brief. That's what takes this from your laptop to your organization.</span>
+        </li>
+      </ul>
+    </section>
+
+    <div class="divider"></div>
+
+    <!-- CERTIFICATE -->
+    <section id="certificate">
+      <div class="cert-card">
+        <h2>Mission 5 Complete</h2>
+        <p class="subtitle">AGENTIC AI ESSENTIALS</p>
+        <p>You've shifted from designer of branches to designer of goals. You've mastered the Think-Plan-Act-Reflect loop. You've designed agents with mission, guardrails, and escalation. You've tested them. You've set success metrics. You've built the full stack from problem to agent. Now comes the final step: taking it to production.</p>
+
+        <div class="cert-progress">
+          <div class="cert-dot done">M1</div>
+          <div class="cert-dot done">M2</div>
+          <div class="cert-dot done">M3</div>
+          <div class="cert-dot done">M4</div>
+          <div class="cert-dot current">M5</div>
+          <div class="cert-dot upcoming">M6</div>
+        </div>
+
+        <a href="https://lab.ai-officer.com" class="cert-next">
+          Up next: Mission 6 - From Prototype to Production
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M6 3L11 8L6 13" stroke="#6FF2C1" stroke-width="2" stroke-linecap="round"/></svg>
+        </a>
+      </div>
+    </section>
+  </main>
+</div>
+
+<script src="../shared/nav.js"></script>
+</body>
+</html>

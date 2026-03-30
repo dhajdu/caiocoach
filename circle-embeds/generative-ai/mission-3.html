@@ -1,0 +1,825 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mission 3: Advanced Prompt Frameworks — AI Officer Institute</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/*
+ * AI Officer Institute — Unified Stylesheet
+ * No images, no SVGs, no decorative pseudo-elements.
+ */
+
+/* ── TOKENS ── */
+:root {
+  --navy: #04102D;
+  --white: #FFFFFF;
+  --blue: #287BE8;
+  --magenta: #D1458B;
+  --mint: #6FF2C1;
+  --mint-dark: #1a9e74;
+  --text-primary: #1a1f36;
+  --text-secondary: #4a5068;
+  --text-muted: #6b7194;
+  --border: #d8dce8;
+  --surface: #f4f6fa;
+  --card-bg: #ffffff;
+  --sidebar-bg: #f8f9fc;
+  --sidebar-active: #eef1f8;
+  --sidebar-hover: #f0f2f9;
+}
+
+/* ── RESET ── */
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  font-family: 'DM Sans', sans-serif;
+  background: var(--white);
+  color: var(--text-primary);
+  line-height: 1.7;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ── TOPBAR ── */
+.topbar {
+  position: fixed; top: 0; left: 0; right: 0; height: 56px;
+  background: var(--navy);
+  display: flex; align-items: center;
+  padding: 0 24px; z-index: 100;
+}
+.topbar-brand {
+  font-weight: 700; font-size: 15px; color: var(--white);
+  letter-spacing: -0.2px; text-decoration: none; white-space: nowrap; flex-shrink: 0;
+}
+.topbar-brand span { color: var(--blue); }
+.topbar-divider {
+  width: 1px; height: 24px; background: rgba(255,255,255,0.12);
+  margin: 0 20px; flex-shrink: 0;
+}
+.topbar-course { display: none; }
+
+.topbar-nav { display: flex; align-items: center; gap: 4px; }
+.tnav-link {
+  display: inline-flex; align-items: center; gap: 7px;
+  font-size: 13px; font-weight: 500; color: rgba(255,255,255,0.45);
+  text-decoration: none; padding: 6px 14px; border-radius: 6px;
+  transition: color 0.15s, background 0.15s; white-space: nowrap;
+}
+.tnav-link:hover { color: rgba(255,255,255,0.9); background: rgba(255,255,255,0.07); }
+.tnav-link.active { color: #fff; background: rgba(255,255,255,0.1); }
+.tnav-dot { width: 6px; height: 6px; border-radius: 50%; display: inline-block; flex-shrink: 0; }
+
+/* ── LAYOUT ── */
+.layout { display: flex; margin-top: 56px; min-height: calc(100vh - 56px); }
+
+/* ── SIDEBAR ── */
+.sidebar {
+  width: 272px; min-width: 272px; background: var(--sidebar-bg);
+  border-right: 1px solid var(--border); padding: 24px 0;
+  position: fixed; top: 56px; left: 0; bottom: 0;
+  overflow-y: auto; scrollbar-width: thin;
+}
+.sidebar-section { padding: 0 20px; margin-bottom: 8px; }
+.sidebar-label {
+  font-size: 10px; font-weight: 700; letter-spacing: 1.2px;
+  text-transform: uppercase; color: var(--text-muted); padding: 16px 0 8px;
+}
+.sidebar-item {
+  display: flex; align-items: flex-start; gap: 12px; padding: 10px 12px;
+  border-radius: 8px; cursor: pointer; transition: background 0.15s;
+  text-decoration: none; color: var(--text-secondary); font-size: 14px;
+  font-weight: 400; line-height: 1.4;
+}
+.sidebar-item:hover { background: var(--sidebar-hover); }
+.sidebar-item.active { background: var(--sidebar-active); color: var(--blue); font-weight: 500; }
+.sidebar-num {
+  font-family: 'JetBrains Mono', monospace; font-size: 12px;
+  color: var(--text-muted); min-width: 18px; padding-top: 2px;
+}
+.sidebar-item.active .sidebar-num { color: var(--blue); }
+
+.sidebar-hub {
+  display: flex; align-items: center; gap: 8px;
+  padding: 8px 12px; margin: 0 20px 12px; border-radius: 8px;
+  font-size: 13px; font-weight: 500; color: var(--text-muted);
+  text-decoration: none; border: 1px solid var(--border);
+  transition: background 0.15s, color 0.15s;
+}
+.sidebar-hub:hover { background: var(--sidebar-hover); color: var(--text-primary); }
+
+.sidebar-mission-title { padding: 0 20px; margin-bottom: 16px; }
+.sidebar-mission-title .smt-track {
+  font-size: 10px; font-weight: 700; letter-spacing: 1.2px;
+  text-transform: uppercase; margin-bottom: 4px;
+  display: flex; align-items: center; gap: 6px;
+}
+.sidebar-mission-title .smt-dot { width: 6px; height: 6px; border-radius: 50%; }
+.sidebar-mission-title .smt-name { font-size: 14px; font-weight: 600; color: var(--text-primary); line-height: 1.3; }
+
+/* ── MAIN ── */
+.main { margin-left: 272px; flex: 1; max-width: 800px; padding: 48px 56px 120px; }
+
+/* ── TYPOGRAPHY ── */
+.section-label { font-size: 11px; font-weight: 700; letter-spacing: 1.2px; text-transform: uppercase; color: var(--text-muted); margin-bottom: 8px; }
+.lesson-tag { display: inline-flex; align-items: center; gap: 8px; margin-bottom: 12px; }
+.lesson-tag-num { font-size: 12px; font-weight: 600; color: var(--blue); letter-spacing: 0.5px; text-transform: uppercase; }
+.lesson-tag-type { font-size: 11px; color: var(--text-muted); background: var(--surface); padding: 2px 10px; border-radius: 4px; font-weight: 500; }
+
+h1 { font-size: 32px; font-weight: 700; line-height: 1.2; color: var(--text-primary); margin-bottom: 24px; letter-spacing: -0.5px; }
+h2 { font-size: 22px; font-weight: 700; line-height: 1.3; color: var(--text-primary); margin: 48px 0 16px; letter-spacing: -0.3px; }
+h3 { font-size: 17px; font-weight: 600; color: var(--text-primary); margin: 32px 0 12px; }
+p { font-size: 15.5px; color: var(--text-secondary); margin-bottom: 16px; }
+p strong { color: var(--text-primary); font-weight: 600; }
+
+/* ── CONTENT COMPONENTS ── */
+.video-card { background: var(--navy); border-radius: 12px; padding: 24px 28px; display: flex; align-items: center; gap: 20px; margin-bottom: 32px; }
+.video-play { width: 48px; height: 48px; background: var(--blue); border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+.video-play svg { margin-left: 3px; }
+.video-title { font-size: 16px; font-weight: 600; color: var(--white); }
+.video-sub { font-size: 13px; color: rgba(255,255,255,0.55); margin-top: 4px; }
+
+.goal-list { list-style: none; padding: 0; margin: 0 0 24px; }
+.goal-list li { position: relative; padding: 8px 0 8px 28px; font-size: 15px; color: var(--text-secondary); line-height: 1.6; }
+.goal-list li::before { content: ''; position: absolute; left: 0; top: 16px; width: 8px; height: 8px; border-radius: 2px; background: var(--blue); opacity: 0.7; }
+
+.brief-cards { display: flex; flex-direction: column; gap: 12px; margin: 24px 0; }
+.brief-card { display: flex; align-items: flex-start; gap: 16px; padding: 20px; border: 1px solid var(--border); border-radius: 10px; background: var(--card-bg); transition: border-color 0.15s, box-shadow 0.15s; }
+.brief-card:hover { border-color: var(--blue); box-shadow: 0 2px 12px rgba(40,123,232,0.08); }
+.brief-num { font-family: 'JetBrains Mono', monospace; font-size: 14px; font-weight: 600; color: var(--blue); background: rgba(40,123,232,0.08); width: 32px; height: 32px; border-radius: 8px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+.brief-card-body h4 { font-size: 15px; font-weight: 600; color: var(--text-primary); margin-bottom: 4px; }
+.brief-card-body p { font-size: 13.5px; color: var(--text-muted); margin: 0; line-height: 1.5; }
+
+.time-grid { display: grid; grid-template-columns: 1fr auto; gap: 4px 24px; font-size: 14px; padding: 16px 20px; background: var(--surface); border-radius: 8px; margin: 24px 0; }
+.time-label { color: var(--text-secondary); }
+.time-value { color: var(--text-primary); font-weight: 600; text-align: right; }
+
+.fw-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin: 24px 0; }
+.fw-block { border: 1px solid var(--border); border-radius: 10px; padding: 24px; background: var(--card-bg); }
+.fw-block.full { grid-column: 1 / -1; }
+.fw-name { font-family: 'JetBrains Mono', monospace; font-size: 13px; font-weight: 600; color: var(--blue); letter-spacing: 0.5px; margin-bottom: 4px; }
+.fw-subtitle { font-size: 14px; font-weight: 600; color: var(--text-primary); margin-bottom: 16px; }
+.fw-letters { display: flex; flex-direction: column; gap: 10px; }
+.fw-letter { display: flex; align-items: flex-start; gap: 12px; }
+.fw-letter-char { font-family: 'JetBrains Mono', monospace; font-size: 14px; font-weight: 700; color: var(--white); background: var(--navy); width: 28px; height: 28px; border-radius: 6px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+.fw-letter-text { font-size: 14px; color: var(--text-secondary); padding-top: 3px; line-height: 1.5; }
+.fw-letter-text strong { color: var(--text-primary); }
+
+.insight { border-left: 3px solid var(--blue); padding: 16px 20px; background: rgba(40,123,232,0.04); border-radius: 0 8px 8px 0; margin: 28px 0; }
+.insight-label { font-size: 11px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: var(--blue); margin-bottom: 6px; }
+.insight p { font-size: 14.5px; color: var(--text-primary); margin: 0; line-height: 1.6; }
+
+.compare-block { margin: 24px 0; display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.compare-side { padding: 20px; border-radius: 10px; border: 1px solid var(--border); }
+.compare-side.without { background: var(--surface); }
+.compare-side.with { background: rgba(40,123,232,0.04); border-color: var(--blue); }
+.compare-side h4 { font-size: 13px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.8px; margin-bottom: 8px; }
+.compare-side.without h4 { color: var(--text-muted); }
+.compare-side.with h4 { color: var(--blue); }
+.compare-side p { font-size: 14px; color: var(--text-secondary); margin: 0; line-height: 1.6; }
+.compare-without { background: var(--surface); }
+.compare-with { background: rgba(40,123,232,0.04); border: 1px solid var(--blue); }
+.compare-header { font-size: 13px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.8px; margin-bottom: 12px; }
+.compare-without .compare-header { color: var(--text-muted); }
+.compare-with .compare-header { color: var(--blue); }
+
+.pro-tip { background: var(--navy); border-radius: 10px; padding: 20px 24px; margin: 28px 0; }
+.pro-tip-label { font-size: 11px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: var(--mint); margin-bottom: 6px; }
+.pro-tip p { font-size: 14px; color: rgba(255,255,255,0.8); margin: 0; line-height: 1.6; }
+
+.rules-table { width: 100%; border-collapse: collapse; margin: 20px 0; font-size: 14px; }
+.rules-table th { text-align: left; padding: 10px 16px; background: var(--surface); color: var(--text-muted); font-size: 11px; font-weight: 700; letter-spacing: 0.8px; text-transform: uppercase; border-bottom: 1px solid var(--border); }
+.rules-table td { padding: 12px 16px; border-bottom: 1px solid var(--border); color: var(--text-secondary); vertical-align: top; line-height: 1.5; }
+.rules-table td:first-child { font-weight: 600; color: var(--text-primary); white-space: nowrap; }
+.rules-table td code { font-family: 'JetBrains Mono', monospace; font-size: 12.5px; background: var(--surface); padding: 2px 8px; border-radius: 4px; color: var(--magenta); }
+
+.checklist { list-style: none; padding: 0; margin: 16px 0; counter-reset: step; }
+.checklist li { counter-increment: step; display: flex; align-items: flex-start; gap: 14px; padding: 10px 0; font-size: 14.5px; color: var(--text-secondary); line-height: 1.5; border-bottom: 1px solid rgba(0,0,0,0.04); }
+.checklist li::before { content: counter(step); font-family: 'JetBrains Mono', monospace; font-size: 12px; font-weight: 600; color: var(--white); background: var(--navy); width: 24px; height: 24px; border-radius: 6px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 1px; }
+
+.cta-block { border: 2px solid var(--blue); border-radius: 12px; padding: 32px; text-align: center; margin: 40px 0; background: rgba(40,123,232,0.02); }
+.cta-block h3 { margin: 0 0 8px; font-size: 20px; }
+.cta-block p { font-size: 14.5px; color: var(--text-muted); margin-bottom: 20px; }
+.cta-btn { display: inline-flex; align-items: center; gap: 8px; background: var(--blue); color: var(--white); font-size: 15px; font-weight: 600; padding: 14px 32px; border-radius: 8px; text-decoration: none; transition: background 0.15s, transform 0.1s; }
+.cta-btn:hover { background: #1d6ad4; transform: translateY(-1px); }
+.cta-btn svg { flex-shrink: 0; }
+.cta-btn-final { background: var(--navy); }
+.cta-btn-final:hover { background: #0a1e4a; }
+
+.challenge-cards { display: flex; flex-direction: column; gap: 10px; margin: 20px 0; }
+.challenge-card { display: flex; align-items: flex-start; gap: 14px; padding: 16px 20px; border: 1px solid var(--border); border-radius: 10px; background: var(--card-bg); }
+.challenge-num { font-family: 'JetBrains Mono', monospace; font-size: 13px; font-weight: 600; color: var(--blue); background: rgba(40,123,232,0.08); width: 28px; height: 28px; border-radius: 7px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+.challenge-body { flex: 1; }
+.challenge-body h4 { font-size: 14.5px; font-weight: 600; color: var(--text-primary); margin-bottom: 2px; }
+.challenge-body p { font-size: 13px; color: var(--text-muted); margin: 0; line-height: 1.5; }
+.challenge-time { font-family: 'JetBrains Mono', monospace; font-size: 12px; color: var(--text-muted); background: var(--surface); padding: 4px 10px; border-radius: 5px; white-space: nowrap; flex-shrink: 0; margin-top: 2px; }
+
+.final-project { margin-top: 48px; padding-top: 40px; border-top: 2px solid var(--navy); }
+.final-project-badge { display: inline-block; font-size: 11px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: var(--white); background: var(--magenta); padding: 5px 14px; border-radius: 5px; margin-bottom: 16px; }
+.final-project h2 { margin-top: 0; }
+.final-cards { display: flex; flex-direction: column; gap: 16px; margin: 24px 0; }
+.final-card { border: 2px solid var(--navy); border-radius: 12px; padding: 24px; background: var(--card-bg); }
+.final-card-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px; }
+.final-card-label { font-family: 'JetBrains Mono', monospace; font-size: 11px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: var(--white); background: var(--navy); padding: 4px 12px; border-radius: 5px; }
+.final-card h3 { margin: 0 0 8px; font-size: 18px; }
+.final-card p { font-size: 14px; color: var(--text-secondary); margin: 0; line-height: 1.6; }
+.final-cta { border-color: var(--navy); background: rgba(4,16,45,0.02); }
+
+.takeaway-list { list-style: none; padding: 0; margin: 20px 0; }
+.takeaway-list li { padding: 16px 0; border-bottom: 1px solid rgba(0,0,0,0.05); }
+.takeaway-list li:last-child { border-bottom: none; }
+.takeaway-list li strong { display: block; font-size: 15px; color: var(--text-primary); margin-bottom: 4px; }
+.takeaway-list li span { font-size: 14px; color: var(--text-muted); line-height: 1.5; }
+.takeaway-title { font-size: 15px; font-weight: 600; color: var(--text-primary); display: block; margin-bottom: 4px; }
+.takeaway-desc { font-size: 14px; color: var(--text-muted); }
+
+.cert-card { background: var(--navy); border-radius: 14px; padding: 40px; text-align: center; margin: 48px 0 0; }
+.cert-card h2 { color: var(--white); margin: 0 0 8px; font-size: 22px; }
+.cert-card .subtitle, .cert-subtitle { color: rgba(255,255,255,0.5); font-size: 13px; font-weight: 500; letter-spacing: 0.5px; margin-bottom: 20px; }
+.cert-card p { color: rgba(255,255,255,0.7); font-size: 14.5px; line-height: 1.6; max-width: 520px; margin: 0 auto 28px; }
+.cert-progress { display: flex; justify-content: center; gap: 12px; margin-bottom: 24px; }
+.cert-dot { width: 48px; height: 48px; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-family: 'JetBrains Mono', monospace; font-size: 13px; font-weight: 700; }
+.cert-dot.done { background: rgba(111,242,193,0.15); color: var(--mint); }
+.cert-dot.current { background: var(--blue); color: var(--white); }
+.cert-dot.upcoming { background: rgba(255,255,255,0.08); color: rgba(255,255,255,0.35); }
+.cert-next { display: inline-flex; align-items: center; gap: 6px; color: var(--mint); font-size: 14px; font-weight: 600; text-decoration: none; }
+.cert-next:hover { opacity: 0.85; }
+
+.divider { height: 1px; background: var(--border); margin: 40px 0; }
+
+/* ── AGENT TEAM GRID ── */
+.agent-grid { display: flex; flex-direction: column; gap: 12px; margin: 24px 0; }
+.agent-card { display: flex; align-items: flex-start; gap: 16px; padding: 20px; border: 1px solid var(--border); border-radius: 10px; background: var(--card-bg); }
+.agent-icon { width: 40px; height: 40px; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-family: 'JetBrains Mono', monospace; font-size: 13px; font-weight: 700; flex-shrink: 0; }
+.agent-icon.research { background: rgba(40,123,232,0.1); color: var(--blue); }
+.agent-icon.copy { background: rgba(209,69,139,0.1); color: var(--magenta); }
+.agent-icon.analytics { background: rgba(111,242,193,0.15); color: #0a8a5e; }
+.agent-body h4 { font-size: 15px; font-weight: 600; color: var(--text-primary); margin-bottom: 4px; }
+.agent-body p { font-size: 13.5px; color: var(--text-muted); margin: 0; }
+.agent-role-tag { font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.6px; padding: 2px 8px; border-radius: 4px; margin-left: 8px; }
+.agent-role-tag.research { background: rgba(40,123,232,0.1); color: var(--blue); }
+.agent-role-tag.copy { background: rgba(209,69,139,0.1); color: var(--magenta); }
+.agent-role-tag.analytics { background: rgba(111,242,193,0.2); color: #0a8a5e; }
+
+/* ── EXERCISE BLOCK ── */
+.exercise-block { background: linear-gradient(135deg, rgba(209,69,139,0.04), rgba(40,123,232,0.04)); border: 1px solid rgba(209,69,139,0.2); border-radius: 12px; padding: 28px 32px; margin: 32px 0; }
+.exercise-label { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.8px; color: var(--magenta); margin-bottom: 12px; }
+.exercise-block h3 { margin: 0 0 12px; }
+.exercise-block p { font-size: 14.5px; margin-bottom: 8px; }
+.exercise-block p:last-child { margin-bottom: 0; }
+
+.ai-buddy-prompt { background: rgba(40,123,232,0.05); border: 1px solid rgba(40,123,232,0.2); border-radius: 8px; padding: 14px 18px; margin: 20px 0; font-size: 14px; color: var(--text-secondary); }
+.ai-buddy-prompt strong { color: var(--blue); }
+
+.prompt-block { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 20px 24px; margin: 24px 0; }
+.prompt-block-label { font-size: 11px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: var(--blue); margin-bottom: 10px; }
+.prompt-block pre { font-family: 'JetBrains Mono', monospace; font-size: 13px; color: var(--text-secondary); white-space: pre-wrap; line-height: 1.6; margin: 0; }
+
+.time-grid-row { display: contents; }
+.time-grid-row:not(:last-child) .tg-label, .time-grid-row:not(:last-child) .tg-val { border-bottom: 1px solid var(--border); }
+.tg-label { padding: 12px 20px; font-size: 14px; color: var(--text-secondary); }
+.tg-val { padding: 12px 20px; font-size: 14px; font-weight: 600; color: var(--text-primary); text-align: right; }
+
+/* ── PREV / NEXT ── */
+.page-nav { display: flex; gap: 16px; margin-top: 64px; padding-top: 32px; border-top: 1px solid var(--border); }
+.page-nav-link { flex: 1; display: flex; flex-direction: column; gap: 6px; padding: 20px 24px; border: 1px solid var(--border); border-radius: 12px; text-decoration: none; background: var(--card-bg); transition: border-color 0.15s, box-shadow 0.15s, transform 0.1s; }
+.page-nav-link:hover { border-color: var(--blue); box-shadow: 0 4px 16px rgba(40,123,232,0.08); transform: translateY(-1px); }
+.page-nav-link.next { text-align: right; align-items: flex-end; }
+.page-nav-dir { font-size: 11px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: var(--text-muted); }
+.page-nav-title { font-size: 15px; font-weight: 600; color: var(--text-primary); }
+.page-nav-track { font-size: 12px; color: var(--text-muted); }
+
+/* ── RESPONSIVE ── */
+@media (max-width: 900px) {
+  .sidebar { display: none; }
+  .main { margin-left: 0; padding: 32px 24px 80px; }
+  .fw-grid, .compare-block { grid-template-columns: 1fr; }
+  .topbar-nav { display: none; }
+}
+
+
+/* ── Circle embed overrides ── */
+body {
+  margin: 0;
+  padding: 0;
+  background: #ffffff;
+}
+.main {
+  margin-left: 0 !important;
+  max-width: 780px;
+  padding: 32px 24px 80px;
+  margin: 0 auto;
+}
+
+</style>
+</head>
+<body>
+<div class="main">
+<!-- ════════════════════════════════════ -->
+    <!-- LESSON 1: WELCOME -->
+    <!-- ════════════════════════════════════ -->
+    <section id="welcome">
+      <div class="section-label">Introduction</div>
+      <div class="lesson-tag">
+        <span class="lesson-tag-num">Lesson 1</span>
+        <span class="lesson-tag-type">Video</span>
+      </div>
+
+      <h1>Welcome to the Framework Arsenal</h1>
+
+      <div class="video-card">
+        <div class="video-play">
+          <svg width="18" height="20" viewBox="0 0 18 20" fill="none"><polygon points="0,0 18,10 0,20" fill="white"/></svg>
+        </div>
+        <div>
+          <div class="video-title">Mission 3: Advanced Prompt Frameworks</div>
+          <div class="video-sub">Watch the intro video to get oriented before diving in.</div>
+        </div>
+      </div>
+
+      <p>Welcome, Cadets.</p>
+
+      <p>In Mission 1 you learned the other 50% - what it means to lead AI, not just use it. In Mission 2 you fixed the fuel - you learned why data is the first operational decision and how to clean it before AI touches it.</p>
+
+      <p>Now you put both together and build something real: a complete go-to-market brief. The kind of output your manager would put in front of leadership with your name on it.</p>
+
+      <p>Most people open an AI tool, type a quick question, and get a passable answer. That works for personal tasks. But the moment your output is going to your manager, your team, or a client, <strong>passable is not enough.</strong> The people who learn how to get professional-grade output from AI are the ones who get noticed. That is exactly what this session teaches you.</p>
+
+      <h2>Mission Goal</h2>
+      <p>This is where you turn prompts into professional deliverables. You'll master the frameworks that guide quality AI output, learn to co-write prompts with your AI Buddy, and stack techniques that produce output your boss trusts.</p>
+
+      <p>By the end of this mission, you'll be able to:</p>
+      <ul class="goal-list">
+        <li>Stack RACE and CRA to take a first draft to something worth sending</li>
+        <li>Use the AI Interview to find the gaps in your thinking before you write a single word</li>
+        <li>Ask AI to teach you any framework on demand and apply it immediately</li>
+        <li>Run VRC to evaluate any output before your name goes on it</li>
+        <li>Assemble a complete go-to-market brief using everything from this session</li>
+      </ul>
+    </section>
+
+    <div class="divider"></div>
+
+    <!-- ════════════════════════════════════ -->
+    <!-- LESSON 2: MISSION BRIEFS OVERVIEW -->
+    <!-- ════════════════════════════════════ -->
+    <section id="briefs-overview">
+      <div class="lesson-tag">
+        <span class="lesson-tag-num">Lesson 2</span>
+      </div>
+
+      <h1>Mission Briefs</h1>
+
+      <p>Welcome to your mission briefing, Cadet. You're about to discover why your AI output still sounds like it could have come from anyone, and exactly how to change that.</p>
+
+      <div class="brief-cards">
+        <div class="brief-card">
+          <div class="brief-num">1</div>
+          <div class="brief-card-body">
+            <h4>Stack Your Frameworks: RACE + CRA</h4>
+            <p>Learn how RACE and CRA work as a two-pass system. RACE gets you 70% there. CRA gets you something your boss can actually use.</p>
+          </div>
+        </div>
+        <div class="brief-card">
+          <div class="brief-num">2</div>
+          <div class="brief-card-body">
+            <h4>The AI Interview: The Master Skill</h4>
+            <p>Stop guessing what AI needs. Tell AI your goal and let AI ask you the questions. The output stops being generic and starts being yours.</p>
+          </div>
+        </div>
+        <div class="brief-card">
+          <div class="brief-num">3</div>
+          <div class="brief-card-body">
+            <h4>Let AI Teach You Frameworks On Demand</h4>
+            <p>You don't need to memorize frameworks. You need the habit of asking AI to teach you the right one for the problem in front of you.</p>
+          </div>
+        </div>
+        <div class="brief-card">
+          <div class="brief-num">4</div>
+          <div class="brief-card-body">
+            <h4>VRC: Check Before You Send</h4>
+            <p>Creating output is only half the job. VRC is your quality gate: run it before you put your name on anything.</p>
+          </div>
+        </div>
+        <div class="brief-card">
+          <div class="brief-num">5</div>
+          <div class="brief-card-body">
+            <h4>Live Build: The BOLT Go-To-Market Brief</h4>
+            <p>Every brief today builds one piece of Dana's go-to-market package. Brief 5 is the assembly: a seven-section brief she could walk into a leadership meeting and present.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="time-grid">
+        <span class="time-label">Core Learning (Briefs 1-4)</span>
+        <span class="time-value">~45 minutes</span>
+        <span class="time-label">Final Build (Brief 5)</span>
+        <span class="time-value">60-90 minutes</span>
+      </div>
+    </section>
+
+    <div class="divider"></div>
+
+    <!-- ════════════════════════════════════ -->
+    <!-- LESSON 3: LEARNING GUIDE -->
+    <!-- ════════════════════════════════════ -->
+    <section id="learning-guide">
+      <div class="lesson-tag">
+        <span class="lesson-tag-num">Lesson 3</span>
+      </div>
+
+      <h1>Learning Guide</h1>
+
+      <p>Alright Cadets, before you jump in, here's how to make this mission actually work for you.</p>
+
+      <p><strong>Know when to use a structured prompt.</strong> You don't need a perfect prompt every time. A quick casual question gets you what you need most of the time. But the moment your output is going to your manager or a leadership meeting, that's when structured prompting matters. Today you learn how to build structured prompts. You'll always know when to use them.</p>
+
+      <p><strong>Do every challenge.</strong> They're not practice exercises. Each one produces a real deliverable that goes directly into your BOLT go-to-market brief. Skip one and Brief 5 has a hole in it.</p>
+
+      <p><strong>Use the AI Interview before writing any prompt.</strong> It is the highest-leverage thing you will learn today. Tell AI what you want, ask it to ask you questions first, and answer honestly. The more honest your answers, the better the output.</p>
+
+      <p><strong>Run VRC before you send anything.</strong> Creating output is only half the job. The other half is deciding whether it's ready to send. Every AI Officer runs VRC before putting anything in front of their manager.</p>
+
+      <h2>How to Get the Most Out of This Session</h2>
+
+      <ul class="goal-list">
+        <li><strong>Stack your frameworks:</strong> RACE first, then CRA on top. Two passes, not two separate processes.</li>
+        <li><strong>Never skip the AI Interview:</strong> It finds the gaps you didn't know were there.</li>
+        <li><strong>Let AI teach you:</strong> Every session is a chance to learn a framework you didn't know before.</li>
+        <li><strong>Always run VRC:</strong> Send it, fix it, or start over. Decide before anyone else sees it.</li>
+        <li><strong>Save your work:</strong> Everything you build in Briefs 1-4 is raw material for Brief 5.</li>
+      </ul>
+
+      <div class="pro-tip">
+        <div class="pro-tip-label">Pro Tip</div>
+        <p>Start a new project or thread for this session. Upload your cleaned BOLT dataset from Mission 2 at the top. That way every challenge has clean context and you're not copying and pasting between tabs.</p>
+      </div>
+
+      <h2>The Perfect Prompt: 8-Step Checklist</h2>
+      <p>Use all eight steps when your output has your name on it. For everyday work, a quick prompt is fine. But when it matters, this is the sequence:</p>
+
+      <ol class="checklist">
+        <li>Start a new thread or project. Clean context every time.</li>
+        <li>Upload your data. Real inputs, not placeholders.</li>
+        <li>Tell your AI Buddy what you want to accomplish. Goal first.</li>
+        <li>Ask your AI Buddy to ask you questions. This is the AI Interview.</li>
+        <li>Get a recommended framework. Let AI suggest the structure.</li>
+        <li>Ask your AI Buddy to write the prompt. Then review it.</li>
+        <li>Check it yourself. Lock numbers, audit math, surface assumptions.</li>
+        <li>Run it. Then evaluate with VRC before sending.</li>
+      </ol>
+
+      <h2>Rules of the Road: Using Data Correctly</h2>
+
+      <table class="rules-table">
+        <thead>
+          <tr><th>Rule</th><th>What to say</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Lock the numbers</td><td><code>"Do not make up numbers."</code> AI fills in the blanks confidently. Don't let it.</td></tr>
+          <tr><td>Audit the math</td><td><code>"Check all computations."</code> AI makes errors and presents them like facts.</td></tr>
+          <tr><td>Surface assumptions</td><td><code>"List every assumption you made."</code> AI makes decisions you didn't authorize.</td></tr>
+          <tr><td>Cite the source</td><td><code>"Only use information from the attached file."</code> Prevents hallucinations.</td></tr>
+          <tr><td>Ask for gaps</td><td><code>"If something is missing, ask before assuming."</code> Don't let AI fill blanks with guesses.</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <div class="divider"></div>
+
+    <!-- ════════════════════════════════════ -->
+    <!-- LESSON 4: BRIEF 1 -->
+    <!-- ════════════════════════════════════ -->
+    <section id="brief1">
+      <div class="section-label">Mission Briefs</div>
+      <div class="lesson-tag">
+        <span class="lesson-tag-num">Brief 1</span>
+      </div>
+
+      <h1>Stack Your Frameworks: RACE + CRA</h1>
+
+      <p>You already have RACE from Mission 1. Today you add CRA, and learn how stacking them transforms a decent result into something you'd actually send.</p>
+
+      <h2>Frameworks Overview</h2>
+
+      <div class="fw-grid">
+        <div class="fw-block">
+          <div class="fw-name">RACE</div>
+          <div class="fw-subtitle">Defines the task</div>
+          <p style="font-size:13px; color:var(--text-muted); margin-bottom:16px;">Use whenever you want AI to perform something specific.</p>
+          <div class="fw-letters">
+            <div class="fw-letter"><div class="fw-letter-char">R</div><div class="fw-letter-text"><strong>Role</strong> &mdash; Who is the AI acting as?</div></div>
+            <div class="fw-letter"><div class="fw-letter-char">A</div><div class="fw-letter-text"><strong>Action</strong> &mdash; What should it do?</div></div>
+            <div class="fw-letter"><div class="fw-letter-char">C</div><div class="fw-letter-text"><strong>Context</strong> &mdash; What's the situation?</div></div>
+            <div class="fw-letter"><div class="fw-letter-char">E</div><div class="fw-letter-text"><strong>Example</strong> &mdash; What does "good" look like?</div></div>
+          </div>
+        </div>
+        <div class="fw-block">
+          <div class="fw-name">CRA</div>
+          <div class="fw-subtitle">Locks the quality</div>
+          <p style="font-size:13px; color:var(--text-muted); margin-bottom:16px;">Use as a quality control layer on top of your RACE draft.</p>
+          <div class="fw-letters">
+            <div class="fw-letter"><div class="fw-letter-char">C</div><div class="fw-letter-text"><strong>Constraints</strong> &mdash; What are the limits?</div></div>
+            <div class="fw-letter"><div class="fw-letter-char">R</div><div class="fw-letter-text"><strong>Requirements</strong> &mdash; What must be included?</div></div>
+            <div class="fw-letter"><div class="fw-letter-char">A</div><div class="fw-letter-text"><strong>Acceptance Criteria</strong> &mdash; How do you know it's good enough?</div></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="insight">
+        <div class="insight-label">Key Insight</div>
+        <p>RACE alone gets you 70% there. RACE + CRA gets you something your boss can use. Think of them as two passes, not two separate processes. First pass gets the content. Second pass tightens it to the standard you need. If you can't define what "good" looks like before you start, you'll never know if AI got there.</p>
+      </div>
+    </section>
+
+    <div class="divider"></div>
+
+    <!-- ════════════════════════════════════ -->
+    <!-- LESSON 5: BRIEF 2 -->
+    <!-- ════════════════════════════════════ -->
+    <section id="brief2">
+      <div class="lesson-tag">
+        <span class="lesson-tag-num">Brief 2</span>
+      </div>
+
+      <h1>The AI Interview: The Master Skill</h1>
+
+      <p>This is the most important thing you will learn today. Not the most important thing in this brief. The most important thing in the entire session.</p>
+
+      <h2>What Is the AI Interview?</h2>
+      <p>Instead of trying to write the perfect prompt, you tell AI what you want to accomplish and say: <strong>"Before you start, ask me every question you need answered."</strong></p>
+
+      <p>AI asks you questions. You answer them. AI uses your answers to build something specific to your situation. Not generic. Yours.</p>
+
+      <h2>Why This Changes Everything</h2>
+
+      <div class="compare-block">
+        <div class="compare-side without">
+          <h4>Without It</h4>
+          <p>You guess what AI needs. Output is generic. It could have come from anyone.</p>
+        </div>
+        <div class="compare-side with">
+          <h4>With It</h4>
+          <p>AI finds the gaps you didn't know you had. Output sounds like it came from someone who actually knows your business.</p>
+        </div>
+      </div>
+
+      <p>The AI Interview flips the whole process. Instead of you anticipating everything AI needs to know, AI asks you the questions you didn't think to answer: who is the audience, what tone, what to avoid, what has already been tried.</p>
+
+      <div class="insight">
+        <div class="insight-label">Key Insight</div>
+        <p>The gap between what you would have written and what AI asks. That is exactly what makes this the master skill. AI finds what you didn't know was missing.</p>
+      </div>
+    </section>
+
+    <div class="divider"></div>
+
+    <!-- ════════════════════════════════════ -->
+    <!-- LESSON 6: BRIEF 3 -->
+    <!-- ════════════════════════════════════ -->
+    <section id="brief3">
+      <div class="lesson-tag">
+        <span class="lesson-tag-num">Brief 3</span>
+      </div>
+
+      <h1>Let AI Teach You Frameworks On Demand</h1>
+
+      <p>You don't need to memorize frameworks. You need to know how to ask for the right one.</p>
+
+      <p>There are hundreds of business frameworks. You will never memorize them all and you don't need to. What you need is the habit of asking AI to teach you the right one for the problem in front of you, and then applying it immediately.</p>
+
+      <h2>The AI Officer Doesn't Memorize. The AI Officer Asks.</h2>
+
+      <ol class="checklist">
+        <li>Ask AI: "What framework should I use for this problem?"</li>
+        <li>Ask AI: "Explain it simply, then apply it to my situation."</li>
+        <li>You learn the framework and get the deliverable at the same time.</li>
+      </ol>
+
+      <div class="insight">
+        <div class="insight-label">Key Insight</div>
+        <p>Every time you use AI, you have the opportunity to learn something. The AI Officer who asks "what framework should I use for this?" and then applies it immediately is learning faster than anyone in a traditional training program. This skill compounds. Every session you leave knowing something new.</p>
+      </div>
+    </section>
+
+    <div class="divider"></div>
+
+    <!-- ════════════════════════════════════ -->
+    <!-- LESSON 7: BRIEF 4 -->
+    <!-- ════════════════════════════════════ -->
+    <section id="brief4">
+      <div class="lesson-tag">
+        <span class="lesson-tag-num">Brief 4</span>
+      </div>
+
+      <h1>VRC: Check Before You Send</h1>
+
+      <p>You've learned to create. Now you learn to evaluate. This is the section that separates people who generate from people who lead.</p>
+
+      <h2>VRC: Value, Risk, Checkpoint</h2>
+      <p>Run VRC before you put your name on anything. Especially before sending to your manager, a client, or a leadership meeting.</p>
+
+      <div class="fw-grid">
+        <div class="fw-block full">
+          <div class="fw-name">VRC</div>
+          <div class="fw-subtitle">Checks it before you send</div>
+          <div class="fw-letters">
+            <div class="fw-letter"><div class="fw-letter-char">V</div><div class="fw-letter-text"><strong>Value</strong> &mdash; Where does the benefit come from? Is the payoff clear?</div></div>
+            <div class="fw-letter"><div class="fw-letter-char">R</div><div class="fw-letter-text"><strong>Risk</strong> &mdash; What are the top two ways this fails?</div></div>
+            <div class="fw-letter"><div class="fw-letter-char">C</div><div class="fw-letter-text"><strong>Checkpoint</strong> &mdash; What's the early signal it's working, before you're too far in?</div></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="insight">
+        <div class="insight-label">Key Insight</div>
+        <p>RACE and CRA help you create. VRC helps you decide. Should you trust this output? What could go wrong? Every AI Officer runs VRC before putting anything in front of their manager. The question is always: send it, fix it, or start over.</p>
+      </div>
+    </section>
+
+    <div class="divider"></div>
+
+    <!-- ════════════════════════════════════ -->
+    <!-- LESSON 8: THE BOLT BRIEF -->
+    <!-- ════════════════════════════════════ -->
+    <section id="bolt-brief">
+      <div class="lesson-tag">
+        <span class="lesson-tag-num">Brief 5</span>
+      </div>
+
+      <h1>The BOLT Go-To-Market Brief</h1>
+
+      <p>Everything you've learned in this mission comes together here. Dana Reyes needs the complete go-to-market package before leadership finalizes the BOLT launch plan. This is not a practice run. This is the job.</p>
+
+      <!-- ── PART A: PRACTICE CHALLENGES ── -->
+      <h2>Practice Challenges</h2>
+      <p>Each challenge applies one framework from this mission and produces a building block for the final project. Complete all four before moving to the final build.</p>
+
+      <div class="challenge-cards">
+        <div class="challenge-card">
+          <div class="challenge-num">1</div>
+          <div class="challenge-body">
+            <h4>Stack Your Frameworks</h4>
+            <p>Use RACE to draft a competitor analysis for BOLT, then apply CRA to tighten it.</p>
+          </div>
+          <span class="challenge-time">10 min</span>
+        </div>
+        <div class="challenge-card">
+          <div class="challenge-num">2</div>
+          <div class="challenge-body">
+            <h4>The AI Interview</h4>
+            <p>Build BOLT customer profiles by letting AI interview you first. No structured prompt.</p>
+          </div>
+          <span class="challenge-time">15 min</span>
+        </div>
+        <div class="challenge-card">
+          <div class="challenge-num">3</div>
+          <div class="challenge-body">
+            <h4>Let AI Teach You a Framework</h4>
+            <p>Ask AI to recommend and teach you the right brand positioning framework, then apply it to BOLT.</p>
+          </div>
+          <span class="challenge-time">10 min</span>
+        </div>
+        <div class="challenge-card">
+          <div class="challenge-num">4</div>
+          <div class="challenge-body">
+            <h4>The Decision Filter: VRC</h4>
+            <p>Pick your best output from Challenges 1-3 and run VRC. Then decide: send it, fix it, or start over.</p>
+          </div>
+          <span class="challenge-time">10 min</span>
+        </div>
+      </div>
+
+      <div class="cta-block">
+        <h3>Start the Practice Challenges</h3>
+        <p>Head to the AIO Lab to work through Challenges 1-4 in your AI Buddy. Each one feeds directly into the final project.</p>
+        <a href="https://lab.ai-officer.com/program/785403/mission/2267520" target="_blank" class="cta-btn">
+          Open the AIO Lab
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </a>
+      </div>
+
+      <!-- ── PART B: FINAL PROJECT ── -->
+      <div class="final-project">
+        <div class="final-project-badge">Required for Certification</div>
+        <h2>Final Project</h2>
+        <p>This is the work that earns your Mission 3 certification. Two deliverables, each built using every framework from this session. These are not practice exercises. They are professional deliverables Dana could present to leadership.</p>
+
+        <div class="final-cards">
+          <div class="final-card">
+            <div class="final-card-header">
+              <span class="final-card-label">Part 1</span>
+              <span class="challenge-time">60-90 min</span>
+            </div>
+            <h3>The Go-To-Market Brief</h3>
+            <p>Assemble a complete seven-section brief for BOLT using your cleaned dataset and every framework from this mission.</p>
+            <ul class="goal-list" style="margin-top:12px;">
+              <li><strong>Executive summary</strong> &mdash; the brief in under one page</li>
+              <li><strong>Market opportunity</strong> &mdash; the case for BOLT</li>
+              <li><strong>Competitor analysis</strong> &mdash; using RACE + CRA</li>
+              <li><strong>Customer profiles</strong> &mdash; built through the AI Interview</li>
+              <li><strong>Brand positioning</strong> &mdash; framework learned on demand</li>
+              <li><strong>Risks</strong> &mdash; VRC applied at scale</li>
+              <li><strong>Next steps</strong> &mdash; what leadership needs to decide</li>
+            </ul>
+          </div>
+          <div class="final-card">
+            <div class="final-card-header">
+              <span class="final-card-label">Part 2</span>
+              <span class="challenge-time">60-90 min</span>
+            </div>
+            <h3>The BOLT Content Pack</h3>
+            <p>Turn your go-to-market brief into a content package ready for execution. Everything Dana's team needs to take BOLT to market.</p>
+          </div>
+        </div>
+
+        <div class="pro-tip" style="margin-top:24px;">
+          <div class="pro-tip-label">Before You Submit</div>
+          <p>Run VRC on the full brief, not just individual sections. Ask yourself: where does the value come from, what are the top two ways this fails, and what's the early signal it's working? Only submit when you'd be comfortable if Dana sent this to leadership with your name on it.</p>
+        </div>
+
+        <div class="cta-block final-cta">
+          <h3>Start the Final Project</h3>
+          <p>Complete both parts to earn your Mission 3 certification. This is where the frameworks become real.</p>
+          <a href="https://lab.ai-officer.com/program/785403/mission/2267520" target="_blank" class="cta-btn cta-btn-final">
+            Launch Final Project
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <div class="divider"></div>
+
+    <!-- ════════════════════════════════════ -->
+    <!-- LESSON 9: KEY TAKEAWAYS -->
+    <!-- ════════════════════════════════════ -->
+    <section id="takeaways">
+      <div class="section-label">Wrap-Up</div>
+      <div class="lesson-tag">
+        <span class="lesson-tag-num">Lesson 9</span>
+      </div>
+
+      <h1>Key Takeaways</h1>
+
+      <ul class="takeaway-list">
+        <li>
+          <strong>Anyone can type a prompt.</strong>
+          <span>Not everyone can produce something worth trusting. That's the difference between using AI and leading with it.</span>
+        </li>
+        <li>
+          <strong>Stack your frameworks.</strong>
+          <span>Use RACE to define tasks, CRA to lock quality, VRC to evaluate impact. They work as a system.</span>
+        </li>
+        <li>
+          <strong>The AI Interview is the master skill.</strong>
+          <span>Tell AI your goal. Let AI ask you the questions. The gap between what you would have written and what AI asks is where the value lives.</span>
+        </li>
+        <li>
+          <strong>You don't need to memorize frameworks.</strong>
+          <span>You need the habit of asking for the right one. AI is your instructor. This skill compounds every session.</span>
+        </li>
+        <li>
+          <strong>Evaluate before you send.</strong>
+          <span>Creating output is only half the job. VRC is the habit that earns trust.</span>
+        </li>
+        <li>
+          <strong>Think in deliverables, not prompts.</strong>
+          <span>Every challenge today builds one piece of a brief Dana could put in front of leadership. That is what professional-grade AI output looks like.</span>
+        </li>
+      </ul>
+
+      <h2>Your Commitment</h2>
+      <p>Before you close out: name one habit you will start, stop, or continue this week. Not a tool. A behavior. Something your manager would notice.</p>
+    </section>
+
+    <div class="divider"></div>
+
+    <!-- ════════════════════════════════════ -->
+    <!-- LESSON 10: CERTIFICATE -->
+    <!-- ════════════════════════════════════ -->
+    <section id="certificate">
+      <div class="cert-card">
+        <div class="subtitle">AI Essentials Program: Advanced Prompt Frameworks</div>
+        <h2>Mission Three Checkpoint Reached</h2>
+        <p>Solid work, Cadet. You've completed Mission 3 of Generative AI Essentials and built the skills that separate prompt writers from professionals: frameworks that guide quality output, the AI Interview that finds your blind spots, and VRC that tells you whether to trust what you've made.</p>
+        <p>You now know how to produce output your manager trusts. Output that has your name on it and deserves to. Keep going. One more mission stands between you and the AI Specialist Certification.</p>
+        <div class="cert-progress">
+          <div class="cert-dot done">01</div>
+          <div class="cert-dot done">02</div>
+          <div class="cert-dot current">03</div>
+          <div class="cert-dot upcoming">04</div>
+        </div>
+        <a href="#" class="cert-next">
+          Your Next Mission: Prompting Perfect Visuals &rarr;
+        </a>
+      </div>
+
+      <p style="text-align:center; font-size:12px; color:var(--text-muted); margin-top:24px;">
+        Issued by AI Officer Institute &middot; Instructors: Dave Hajdu &amp; David Nilssen<br>
+        hello@ai-officer.com &middot; ai-officer.com
+      </p>
+    </section>
+</div>
+</body>
+</html>

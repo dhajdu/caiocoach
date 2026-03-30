@@ -1,0 +1,554 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mission 5 Briefs — Unleash the Agent — AI Officer Institute</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../shared/styles.css">
+<style>
+  :root {
+    --royal: #287BE8;
+    --ease: cubic-bezier(0.4, 0, 0.2, 1);
+    --radius: 12px;
+    --shadow-sm: 0 1px 3px rgba(4,16,45,0.07);
+    --shadow-hover: 0 6px 24px rgba(4,16,45,0.10);
+    --text-tertiary: #8b91ac;
+    --border-hover: #b0b6cc;
+  }
+  body { background: var(--surface); }
+
+  .page-wrap { display: grid; grid-template-columns: 240px 1fr; min-height: 100vh; padding-top: 56px; }
+  .tb-sidebar { position: sticky; top: 56px; height: calc(100vh - 56px); overflow-y: auto; background: white; border-right: 1px solid var(--border); padding: 28px 0; }
+  .tb-sidebar-inner { padding: 0 20px; }
+  .tb-sidebar-label { font-size: 10px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: var(--text-muted); margin-bottom: 12px; padding: 0 4px; }
+  .tb-nav-link { display: block; padding: 8px 12px; border-radius: 8px; font-size: 13px; font-weight: 500; color: var(--text-secondary); text-decoration: none; transition: all 0.12s; margin-bottom: 2px; line-height: 1.4; }
+  .tb-nav-link:hover { background: var(--surface); color: var(--text-primary); }
+  .tb-nav-link.active { background: rgba(26,158,116,0.08); color: #1a9e74; font-weight: 600; }
+  .tb-nav-num { font-family: 'JetBrains Mono', monospace; font-size: 10px; font-weight: 700; color: var(--text-muted); display: block; margin-bottom: 1px; }
+  .tb-nav-divider { height: 1px; background: var(--border); margin: 14px 0; }
+  .tb-buddy-btn { display: flex; align-items: center; gap: 8px; width: 100%; margin-top: 20px; padding: 10px 12px; border-radius: 8px; background: rgba(26,158,116,0.07); border: 1px solid rgba(26,158,116,0.2); color: #1a9e74; font-size: 13px; font-weight: 600; cursor: pointer; text-decoration: none; transition: all 0.15s; }
+  .tb-buddy-btn:hover { background: rgba(26,158,116,0.12); }
+  .tb-main { padding: 48px 60px 100px; max-width: 780px; }
+  .tb-back { display: inline-flex; align-items: center; gap: 6px; font-size: 13px; font-weight: 600; color: var(--text-muted); text-decoration: none; margin-bottom: 32px; transition: color 0.12s; }
+  .tb-back:hover { color: var(--text-primary); }
+  .tb-hero { margin-bottom: 48px; }
+  .tb-track-pill { display: inline-flex; align-items: center; gap: 7px; font-size: 11px; font-weight: 700; letter-spacing: 0.7px; text-transform: uppercase; padding: 5px 12px; border-radius: 20px; background: rgba(26,158,116,0.1); color: #1a9e74; border: 1px solid rgba(26,158,116,0.2); margin-bottom: 14px; }
+  .tb-title { font-size: 32px; font-weight: 700; color: var(--text-primary); letter-spacing: -0.5px; line-height: 1.15; margin-bottom: 10px; }
+  .tb-sub { font-size: 15px; color: var(--text-secondary); line-height: 1.65; max-width: 560px; }
+  .brief-section { margin-bottom: 64px; scroll-margin-top: 80px; }
+  .brief-label { font-family: 'JetBrains Mono', monospace; font-size: 10px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: #1a9e74; margin-bottom: 6px; }
+  .brief-title { font-size: 24px; font-weight: 700; color: var(--text-primary); letter-spacing: -0.3px; line-height: 1.2; margin-bottom: 20px; padding-bottom: 16px; border-bottom: 2px solid var(--border); }
+  .prose { color: var(--text-secondary); line-height: 1.75; font-size: 15px; }
+  .prose p { margin-bottom: 18px; }
+  .prose h3 { font-size: 17px; font-weight: 700; color: var(--text-primary); letter-spacing: -0.2px; margin: 32px 0 10px; }
+  .prose h4 { font-size: 14px; font-weight: 700; color: var(--text-primary); text-transform: uppercase; letter-spacing: 0.5px; margin: 24px 0 8px; }
+  .prose ul, .prose ol { padding-left: 20px; margin-bottom: 18px; display: flex; flex-direction: column; gap: 6px; }
+  .prose li { font-size: 14.5px; line-height: 1.65; }
+  .prose strong { font-weight: 700; color: var(--text-primary); }
+  .prose code { font-family: 'JetBrains Mono', monospace; font-size: 13px; background: var(--surface); padding: 2px 6px; border-radius: 4px; border: 1px solid var(--border); }
+  .key-insight { background: rgba(26,158,116,0.05); border: 1px solid rgba(26,158,116,0.15); border-left: 3px solid #1a9e74; border-radius: 0 var(--radius) var(--radius) 0; padding: 18px 22px; margin: 28px 0; }
+  .key-insight-label { font-size: 10px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: #1a9e74; margin-bottom: 8px; }
+  .key-insight p { font-size: 14px; color: var(--text-primary); line-height: 1.65; margin: 0; }
+  .starter-prompt { background: rgba(40,123,232,0.04); border: 1px solid rgba(40,123,232,0.18); border-radius: var(--radius); padding: 20px 22px; margin: 24px 0; }
+  .starter-prompt-label { display: flex; align-items: center; gap: 8px; font-size: 11px; font-weight: 700; letter-spacing: 0.7px; text-transform: uppercase; color: #287BE8; margin-bottom: 12px; }
+  .starter-prompt-text { font-size: 14px; color: var(--text-primary); line-height: 1.7; font-style: italic; background: white; padding: 14px 16px; border-radius: 8px; border: 1px solid rgba(40,123,232,0.15); }
+  .worked-example { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 20px 22px; margin: 24px 0; }
+  .worked-example-label { font-size: 10px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: var(--text-muted); margin-bottom: 12px; }
+  .tb-bottom-nav { display: flex; align-items: center; justify-content: space-between; border-top: 1px solid var(--border); padding-top: 32px; margin-top: 16px; }
+  .tb-nav-btn { display: inline-flex; align-items: center; gap: 6px; font-size: 13px; font-weight: 600; color: var(--text-muted); text-decoration: none; padding: 8px 14px; border-radius: 8px; border: 1px solid var(--border); transition: all 0.12s; }
+  .tb-nav-btn:hover { border-color: var(--border-hover); color: var(--text-primary); }
+  .tb-nav-btn.primary { background: #1a9e74; color: white; border-color: #1a9e74; }
+  .tb-nav-btn.primary:hover { background: #178a65; }
+  @media (max-width: 900px) { .page-wrap { grid-template-columns: 1fr; } .tb-sidebar { display: none; } .tb-main { padding: 40px 24px 80px; } .topbar-nav { display: none; } }
+
+</style>
+</head>
+<body>
+<div class="topbar">
+  <a href="../index.html" class="topbar-brand">AIO <span>Labs</span></a>
+  <nav class="topbar-nav">
+    <a href="../index.html" class="tnav-link"><span class="tnav-dot" style="background:#8b91ac"></span> Home</a>
+    <a href="../certification.html" class="tnav-link active"><span class="tnav-dot" style="background:#287BE8"></span> Certification</a>
+    <a href="../coaching.html" class="tnav-link"><span class="tnav-dot" style="background:#287BE8"></span> Coaching</a>
+    <a href="../micro-sessions/index.html" class="tnav-link"><span class="tnav-dot" style="background:#1A9E74"></span> Micro-Sessions</a>
+    <a href="../blog/index.html" class="tnav-link"><span class="tnav-dot" style="background:#6FF2C1"></span> Blog</a>
+    <a href="../my-team.html" class="tnav-link"><span class="tnav-dot" style="background:#8b91ac"></span> My Team</a>
+  </nav>
+  <div class="topbar-right">
+    <a href="https://claude.ai" target="_blank" class="buddy-launch-btn">🤖 AI Buddy</a>
+    <div class="topbar-stat">🔥 7</div>
+    <div class="topbar-stat">⭐ 1,240</div>
+    <div class="topbar-divider"></div>
+    <div class="topbar-avatar">DH</div>
+  </div>
+</div>
+
+<div class="page-wrap">
+
+  <aside class="tb-sidebar">
+    <div class="tb-sidebar-inner">
+      <div class="tb-sidebar-label">Mission 5 Briefs</div>
+      
+      <a href="#section-1" class="tb-nav-link">
+        <span class="tb-nav-num">SECTION 1</span>Welcome to Mission 5
+      </a>
+      <a href="#section-2" class="tb-nav-link">
+        <span class="tb-nav-num">SECTION 2</span>SECTION 2
+      </a>
+      <a href="#brief-1" class="tb-nav-link">
+        <span class="tb-nav-num">BRIEF 1</span>Teaching: Where Decision Logic Breaks
+      </a>
+      <a href="#brief-2" class="tb-nav-link">
+        <span class="tb-nav-num">BRIEF 2</span>Teaching: Think-Plan-Act-Reflect Loop
+      </a>
+      <a href="#brief-3" class="tb-nav-link">
+        <span class="tb-nav-num">BRIEF 3</span>Teaching: The Agent Design Doc
+      </a>
+      <a href="#brief-4" class="tb-nav-link">
+        <span class="tb-nav-num">BRIEF 4</span>Step-by-Step Agent Build
+      </a>
+      <a href="#brief-5" class="tb-nav-link">
+        <span class="tb-nav-num">BRIEF 5</span>Teaching: How to Test an Agent
+      </a>
+      <a href="#section-3" class="tb-nav-link">
+        <span class="tb-nav-num">SECTION 3</span>Key Takeaways
+      </a>
+      <div class="tb-nav-divider"></div>
+      <a href="https://claude.ai" target="_blank" class="tb-buddy-btn">🤖 Open AI Buddy</a>
+    </div>
+  </aside>
+
+  <main class="tb-main">
+
+    <a href="mission-5.html" class="tb-back">← Back to Mission 5</a>
+
+    <div class="tb-hero">
+      <div class="tb-track-pill">Agentic AI for Business · Mission 05</div>
+      <h1 class="tb-title">Unleash the Agent</h1>
+      <p class="tb-sub">Go beyond branches. Design a goal-driven AI agent that thinks, plans, and acts for your selected program item.</p>
+    </div>
+
+    
+    <section class="brief-section" id="section-1">
+      <div class="brief-label">SECTION 1</div>
+      <h2 class="brief-title">Welcome to Mission 5</h2>
+      <div class="prose">
+        <h4>Welcome to Mission 5</h4>
+<p>You've completed four sessions. You identified opportunities. You packaged AI. You wired workflows. You taught your system to decide.</p>
+<p>Now comes the part that turns that work into something powerful.</p>
+<p>You're about to shift from designer of branches to designer of goals. You're about to unleash the agent.</p>
+<p>This is everything you've learned coming together at full capability.</p>
+<h4>Your Mission Briefs</h4>
+<p>Five briefs will walk you through agents from the ground up:</p>
+<p><strong>Brief 1: The Ceiling of Logic</strong> - Where decision trees break and why agents are the answer. (20 min)</p>
+<p><strong>Brief 2: The Agent Loop and Agent Anatomy</strong> - How Think-Plan-Act-Reflect works. Brain, Tools, Memory. (20 min)</p>
+<p><strong>Brief 3: Designing Your Agent</strong> - Mission statement, instructions, guardrails, escalation criteria. (15 min)</p>
+<p><strong>Brief 4: Build Your Agent</strong> - Step-by-step walkthrough of building your first working agent. (40 min)</p>
+<p><strong>Brief 5: Test, Validate, and Determine Success</strong> - Testing patterns and success metrics. (25 min)</p>
+<h4>Learning Guide</h4>
+<ul><li><strong>Teaching content</strong> that explains the concept from first principles</li><li><strong>A worked example</strong> showing exactly how it works in practice</li><li><strong>A starter prompt</strong> to use with your AI Buddy</li><li><strong>A key insight</strong> that connects to leadership, not just technology</li></ul>
+<p>What you need before starting:</p>
+<ul><li>Your workflow from Mission 3 (what data flows through your system)</li><li>Your logic layer from Mission 4 (how decisions route to actions)</li><li>Access to Claude, ChatGPT, or Gemini (your agent's brain)</li><li>Clear understanding of where your logic hits its limits (those are your agent opportunities)</li></ul>
+<p>The test by the end of this mission: Can you design an agent that handles what your decision logic cannot? Can you define its mission, guardrails, and escalation criteria? Can you build it and test it?</p>
+      </div>
+    </section>
+    <section class="brief-section" id="section-2">
+      <div class="brief-label">SECTION 2</div>
+      <h2 class="brief-title">SECTION 2</h2>
+      <div class="prose">
+        
+      </div>
+    </section>
+    <section class="brief-section" id="brief-1">
+      <div class="brief-label">Brief 1</div>
+      <h2 class="brief-title">Teaching: Where Decision Logic Breaks</h2>
+      <div class="prose">
+        <p><strong>Duration:</strong> 20 minutes</p>
+<h4>Teaching: Where Decision Logic Breaks</h4>
+<p>Decision trees are powerful tools for handling predictable inputs. You define the rules. You design the branches. "If input is X, do Y." This works great when you can predict every input variation. But the moment inputs become too varied, too complex, or too unpredictable for your decision tree, you hit the ceiling of logic.</p>
+<p>The shift from logic to agents is not a question of "which is better." It's a question of "which tool is right for this problem."</p>
+<p><strong>When Decision Logic Excels:</strong>
+- Well-defined inputs with predictable variations
+- Clear categorization rules
+- Limited edge cases
+- Cost-sensitive operations
+- Fully predictable workflows</p>
+<p><strong>When Decision Logic Breaks:</strong>
+- Inputs are too varied or unpredictable
+- Nuance matters more than categorization
+- Edge cases outnumber standard cases
+- Human judgment is required
+- The problem is complex enough that the decision tree becomes harder to maintain than doing the work manually</p>
+<p><strong>The Shift:</strong>
+Instead of telling the system what to do in every situation (decision logic), you tell it what to achieve (agent goal). The system figures out how to get there.</p>
+<h4>Worked Example: Customer Support</h4>
+<p>Imagine you have a customer support workflow. A customer submits feedback. Your logic layer classifies it:</p>
+<ul><li>If it contains the word "broken" and "product," route to Product Team.</li><li>If it contains the word "billing," route to Finance Team.</li><li>If it's grateful language, send thank you.</li></ul>
+<p><strong>The Happy Path:</strong> This works for 80% of inputs.</p>
+<p><strong>The Edge Cases:</strong> What about the customer who says "I love your product but can't afford the pricing"? That's both a compliment and a concern. The categorization breaks. What about the customer who reports a bug that also involves a billing dispute? Multiple teams. What about the customer whose frustration is implied but not explicit? The rule fails.</p>
+<p><strong>With Decision Logic:</strong> You add more branches. You complicate the tree. Each new edge case is another rule to manage.</p>
+<p><strong>With an Agent:</strong> You define the goal - "Understand this customer's core concern and route them to the right team" - and let the agent figure out that this is a pricing concern, not a bug, even though the language is mixed. The agent reads between the lines. It prioritizes by urgency. It handles ambiguity.</p>
+<h4>Starter Prompt for Your Agent Work</h4>
+<p>"Look at your Session 4 workflow and the logic layer you built. Which inputs or situations made that logic complicated? Which required you to add extra branches? Which edge cases did you have to design around? Those are your agent opportunities."</p>
+<h4>Key Insight</h4>
+<p>"Decision logic is for problems you can fully predict. Agents are for the ones you can't."</p>
+      </div>
+    </section>
+    <section class="brief-section" id="brief-2">
+      <div class="brief-label">Brief 2</div>
+      <h2 class="brief-title">Teaching: Think-Plan-Act-Reflect Loop</h2>
+      <div class="prose">
+        <p><strong>Duration:</strong> 20 minutes</p>
+<h4>Teaching: Think-Plan-Act-Reflect Loop</h4>
+<p>The agent loop is the cycle that allows agents to handle complexity. It's not a simple input-to-output. It's iterative. It allows for course-correction. It allows the agent to reflect on whether it achieved the goal.</p>
+<p><strong>Think:</strong> The agent reads the input and understands what's being asked. What is the user trying to accomplish? What are the constraints? What does success look like? The agent builds a mental model of the problem.</p>
+<p><strong>Plan:</strong> Based on that understanding, the agent decides what steps to take. What data does it need? What tools should it use? In what order? What's the strategy? The agent creates a plan to achieve the goal.</p>
+<p><strong>Act:</strong> The agent executes the plan. It uses the tools. It gathers the information. It takes action. It moves toward the goal.</p>
+<p><strong>Reflect:</strong> The agent evaluates the output. Did it work? Is the goal achieved? Is the output good enough? If yes, it's done. If not, it loops back. It adjusts the plan. It tries a different approach. It gathers more data. It tries again.</p>
+<p>This loop is why agents can handle complexity that would break a decision tree. A decision tree follows a single path. An agent finds a solution. It can course-correct. It can try again. It can handle the unexpected because it's not rigidly following a branch - it's pursuing a goal.</p>
+<h4>Agent Anatomy: Brain + Tools + Memory</h4>
+<p>Every agent has three components.</p>
+<p><strong>Brain (The LLM):</strong>
+The underlying intelligence. Claude. GPT. The language model that does the thinking, planning, and reflecting. The better the brain, the better the reasoning. The more powerful the brain, the more complex the problems it can handle.</p>
+<p><strong>Tools (The Capabilities):</strong>
+What the agent can do beyond thinking. Web search - to find current information. API connections - to retrieve data from other systems. File access - to read and work with documents. Calculations - to work with numbers. Database queries - to find specific records. Email - to send messages. An agent without tools is just a chatbot. It can think, but it can't do anything. The tools are what let it act.</p>
+<p><strong>Memory (The Context and Knowledge Base):</strong>
+The data the agent draws from. The reference documents you uploaded in Mission 2. The conversation history. The customer data it's authorized to access. The rules and guardrails you set. The more complete and accurate the memory, the better the agent's output.</p>
+<h4>Worked Example: Customer Support Agent Using the Loop</h4>
+<p>A customer submits a ticket: "We've been using your product for 2 years. Last week the reports feature stopped working. Our reports are mission-critical. We need this fixed today."</p>
+<p><strong>Think:</strong> The agent understands: 1) Long-term, valuable customer. 2) Critical feature broken. 3) Time-sensitive. 4) Likely technical issue requiring investigation. 5) High escalation priority.</p>
+<p><strong>Plan:</strong> The agent decides: 1) Retrieve customer account history to understand their usage. 2) Search the knowledge base for known issues with reports. 3) Check if there's a recent system update that might have caused this. 4) If no quick fix, prepare escalation to engineering with all context.</p>
+<p><strong>Act:</strong> The agent queries the customer database. Finds they're a VIP account. Searches the knowledge base. Finds a post about a recent update and a workaround. Tries the workaround. Realizes it won't work for their use case. Prepares escalation documentation.</p>
+<p><strong>Reflect:</strong> The agent checks its output. Is the goal (resolve or properly escalate) achieved? Yes. The customer has a workaround path and a clear escalation if that doesn't work. If the reflection revealed the goal wasn't achieved, the loop would restart.</p>
+<h4>Teaching: AI Buddy's Agent Anatomy Check</h4>
+<p>Your AI Buddy helps identify what brain, tools, and memory your agent needs. Ask it: "For my agent's mission, what brain, tools, and memory do I need?"</p>
+<h4>Key Insight</h4>
+<p>"A decision tree follows a path. An agent finds a solution."</p>
+      </div>
+    </section>
+    <section class="brief-section" id="brief-3">
+      <div class="brief-label">Brief 3</div>
+      <h2 class="brief-title">Teaching: The Agent Design Doc</h2>
+      <div class="prose">
+        <p><strong>Duration:</strong> 15 minutes</p>
+<h4>Teaching: The Agent Design Doc</h4>
+<p>Your agent needs clear structure before you build it. That structure has four components: mission, instructions, guardrails, and escalation criteria.</p>
+<p><strong>The Mission (One Sentence):</strong>
+What is this agent trying to accomplish? Who is the user? What does success look like? Clear enough that someone who's never seen the agent could understand what it does.</p>
+<p>Good mission: "This agent helps support teams resolve customer technical issues by gathering information, diagnosing problems, and routing to the right specialist."</p>
+<p>Weak mission: "Helps with support."</p>
+<p><strong>The Instructions (How It Behaves):</strong>
+Not just the goal, but the rules of engagement. How should it think? What tone? What should it always do? What should it never do? These are your guardrails embedded in instructions.</p>
+<p><strong>Guardrails (The Boundaries):</strong>
+What is off-limits? What data can't it access? What can't it promise? When does it escalate? An agent without guardrails will make decisions you didn't authorize.</p>
+<p><strong>Escalation Criteria (When It Hands Off):</strong>
+What triggers human review? Frustrated customers? Requests outside its knowledge base? High-value opportunities? Requests that violate guardrails? Define the escalation rules.</p>
+<h4>Teaching: The Human-in-the-Loop Principle</h4>
+<p>The agent doesn't work alone. It works with humans. The model is: agent handles routine, human handles judgment. Agent drafts, human approves. Agent identifies opportunities, human decides priority.</p>
+<p>This isn't a limitation. It's the strength. The agent amplifies human judgment. It doesn't replace it.</p>
+<h4>Worked Example: Complete Agent Design Doc</h4>
+<p><strong>Agent:</strong> Customer Support Escalation Specialist</p>
+<p><strong>Mission:</strong> This agent understands customer technical issues, gathers information, diagnoses common problems, and escalates complex or urgent cases to the right specialist with full context.</p>
+<p><strong>Instructions:</strong>
+- Read every customer message carefully. Understand their core concern.
+- Ask clarifying questions if the issue isn't clear. Never assume.
+- Use a professional but friendly tone. Be patient. Assume the customer is frustrated.
+- Check the knowledge base for known solutions first.
+- If you find a solution, explain it clearly and ask the customer to try it.
+- Document everything as you go. This documentation goes to the escalation.</p>
+<p><strong>Guardrails:</strong>
+- Never make promises about timelines without checking with the engineering team.
+- Never share internal company information, pricing details, or customer data with the customer unless authorized.
+- Never tell a customer a feature request is definitely coming. Say "I'll document this and share it with the product team."
+- Never override a customer's own stated priority. If they say it's urgent, treat it as urgent.</p>
+<p><strong>Escalation Criteria:</strong>
+- If the customer expresses high frustration (words like "angry," "unacceptable," "worst"), escalate immediately.
+- If the issue doesn't match any known problem, escalate with all gathered information.
+- If the customer needs a timeline or has a business deadline, escalate to find out if we can meet it.
+- If the issue requires access to the customer's internal systems or data, escalate to the specialist authorized to work with sensitive data.</p>
+<h4>Key Insight</h4>
+<p>"You are not doing the work. You are designing the system. Supervisor, not spectator."</p>
+      </div>
+    </section>
+    <section class="brief-section" id="brief-4">
+      <div class="brief-label">Brief 4</div>
+      <h2 class="brief-title">Step-by-Step Agent Build</h2>
+      <div class="prose">
+        <p><strong>Duration:</strong> 40 minutes</p>
+<h4>Step-by-Step Agent Build</h4>
+<p><strong>Step 1: Define Your Mission (5 min)</strong></p>
+<p>Write one sentence. What is your agent's goal? Who is the user? What does success look like?</p>
+<p>Template: "This agent helps [user] achieve [specific goal] by [main method]."</p>
+<p>Example: "This agent helps marketing teams identify high-potential leads from inbound inquiries by analyzing engagement patterns, company fit, and growth signals."</p>
+<p><strong>Step 2: Write the Instructions (5 min)</strong></p>
+<p>How should it behave? What tone? What should it always do? What should it never do?</p>
+<p>Template:
+- Think about the user's needs and the goal you're pursuing.
+- [Tone instruction]: Use a [professional/casual/friendly/expert] tone.
+- Always [required behavior]: "Always confirm understanding before acting."
+- Never [prohibited behavior]: "Never share pricing without checking with sales."</p>
+<p><strong>Step 3: Upload Your Knowledge Base (5 min)</strong></p>
+<p>What data does your agent need? Process documents? FAQ? Customer data? Product information? Upload the real documents. Your agent is only as good as what it knows.</p>
+<p><strong>Step 4: Add Your Tools (5 min)</strong></p>
+<p>What does your agent need to do beyond thinking?
+- Search [your knowledge base/the web]
+- Retrieve [customer data/product specs/pricing]
+- Calculate [comparisons/ROI/costs]
+- Connect to [your CRM/help desk/internal systems]</p>
+<p>Each tool is a capability. Be specific about what it can access.</p>
+<p><strong>Step 5: Write Your Guardrails (5 min)</strong></p>
+<p>What is off-limits?
+- Data access: "Can access customer account history but not payment methods."
+- Decisions: "Can not make refund decisions over $500. Must escalate."
+- Communications: "Can not promise features or timelines without approval."
+- Tone: "Always remain professional. Never argue with customers."</p>
+<p><strong>Step 6: Define Escalation Criteria (3 min)</strong></p>
+<p>When does it hand off to a human?
+- Frustrated customers
+- Requests outside knowledge base
+- High-stakes decisions
+- Guardrail violations
+- Requests for human judgment</p>
+<h4>Worked Example: Complete Build</h4>
+<p><strong>Selected Item:</strong> Lead Qualification for Sales</p>
+<p><strong>Mission:</strong> This agent qualifies inbound leads for the sales team by analyzing their company profile, engagement level, and fit with our target customer profile, then routing them to the right sales representative.</p>
+<p><strong>Instructions:</strong>
+- Read every lead inquiry carefully. Understand what the prospect needs.
+- Check our target customer profile in the knowledge base.
+- Analyze: company size, industry, growth stage, problem fit, engagement level.
+- Use a professional and helpful tone. These are potential customers.
+- Ask clarifying questions if the fit isn't clear.
+- Document your analysis as you go.</p>
+<p><strong>Tools:</strong>
+- Search our knowledge base for customer profile and targeting rules.
+- Retrieve prospect company data from LinkedIn API.
+- Calculate fit score based on our target customer profile.
+- Access sales CRM to find the right sales rep.</p>
+<p><strong>Guardrails:</strong>
+- Never tell a prospect our pricing without checking with sales.
+- Never promise timelines or features.
+- Can access company information but not personal data.
+- Never share our customer list or target customer profile with prospects.</p>
+<p><strong>Escalation Criteria:</strong>
+- If the prospect asks about pricing, escalate to sales.
+- If the prospect is a competitor, escalate to management.
+- If fit score is below 30%, ask for human review before routing.
+- If the inquiry is about a partnership or integration, escalate to partnerships.</p>
+<h4>Key Insight</h4>
+<p>"Guardrails are not optional. They're what make an agent powerful instead of dangerous."</p>
+      </div>
+    </section>
+    <section class="brief-section" id="brief-5">
+      <div class="brief-label">Brief 5</div>
+      <h2 class="brief-title">Teaching: How to Test an Agent</h2>
+      <div class="prose">
+        <p><strong>Duration:</strong> 25 minutes</p>
+<h4>Teaching: How to Test an Agent</h4>
+<p>Testing an agent is different from testing a workflow. You're not checking if the agent follows a path. You're checking if it achieves the goal within the guardrails.</p>
+<p><strong>Happy Path Testing:</strong>
+Give it a straightforward request that fits your agent's mission perfectly. Does it do what you designed it to do? Does it produce good output?</p>
+<p><strong>Edge Case Testing:</strong>
+Give it a request that's not in your data, or partially in your data. A request that's ambiguous. Contradictory. Does the agent handle it gracefully? Does it ask for clarification? Does it escalate appropriately?</p>
+<p><strong>Adversarial Testing:</strong>
+Try to break it. Ask it to violate its guardrails. Give it conflicting instructions. Attempt to trick it into sharing information it shouldn't. Does it hold its guardrails? Does it escalate when it should?</p>
+<h4>Teaching: Success Metrics (Determine Phase)</h4>
+<p>Before you deploy, you need to know what success looks like. This is the Determine phase of the 5D Framework. You're determining your success metrics before you go live.</p>
+<p><strong>Success metrics are not vanity metrics.</strong> They're the weekly numbers you'll review to know if the agent is working.</p>
+<p>Example bad metrics: "Agent is live." "Lots of people are using it."</p>
+<p>Example good metrics:
+- Support escalation time reduced from 2 hours to 30 minutes
+- Correct diagnosis on first attempt: 75% of cases
+- Customer satisfaction for agent-resolved issues: 4.2/5 or higher
+- Human escalations reduced by 40%
+- Agent-to-human ratio improved from 30/70 to 60/40</p>
+<p><strong>The Determine Phase Questions:</strong>
+1. What is the current baseline for this process (before the agent)?
+2. What improvement are you targeting? (Faster? More accurate? Better customer experience?)
+3. How will you measure that improvement?
+4. What are your weekly metrics?
+5. What's your acceptable variance? (Is 70% success enough, or do you need 85%?)
+6. When do you escalate the agent for retraining? (If success drops below X%, you adjust the guardrails or knowledge base.)</p>
+<h4>Teaching: Human-in-the-Loop Design Patterns</h4>
+<p>Design your human-in-the-loop workflow before you deploy.</p>
+<p><strong>Pattern 1: Agent Drafts, Human Approves</strong>
+The agent produces output (email, analysis, recommendation). A human reviews and approves before it goes live. Good for high-stakes decisions or customer-facing communications.</p>
+<p><strong>Pattern 2: Agent Handles Routine, Human Handles Edge Cases</strong>
+The agent manages the standard cases (80% of requests). When the agent detects an edge case or is unsure, it escalates to a human. Good for scalability.</p>
+<p><strong>Pattern 3: Agent as Research Assistant</strong>
+The agent gathers information and presents options. The human makes the decision. Good for complex decisions requiring human judgment.</p>
+<p><strong>Pattern 4: Agent Monitors, Human Acts</strong>
+The agent monitors for issues or opportunities. When it finds one, it alerts a human, who takes action. Good for continuous improvement or opportunity identification.</p>
+<h4>Practice Challenges</h4>
+<p><strong>Challenge 1: Define Your Agent Mission</strong> (10 min)
+Write one-sentence mission for your agent. Identify what brain, tools, and memory it needs.</p>
+<p><strong>Challenge 2: Write Instructions with Guardrails</strong> (15 min)
+Full instructions including what it can and can't do. Write escalation criteria.</p>
+<p><strong>Challenge 3: Build and Test</strong> (15 min)
+Complete build. Run three test cases: happy path, edge case, and try to break it. Document what happens.</p>
+<p><strong>Challenge 4: Set Success Metrics</strong> (10 min)
+Write your Determine phase metrics. What's the baseline? What's your target? How will you measure it weekly?</p>
+<h4>Final Project: Your Agent + Success Metrics</h4>
+<p><strong>Part 1: Your Agent Design Doc</strong>
+- Mission statement (one sentence)
+- Instructions (how it behaves)
+- Guardrails (what it can't do)
+- Escalation criteria (when it hands off)</p>
+<p><strong>Part 2: Test Results</strong>
+- Happy path test case and output
+- Edge case test case and output
+- Adversarial test case and output
+- What you learned and what guardrails you adjusted</p>
+<p><strong>Part 3: Your Success Metrics (Determine Phase)</strong>
+- Current baseline for this process
+- Target improvement
+- How you'll measure it
+- Weekly metrics you'll track
+- Escalation thresholds (when you retrain or adjust the agent)</p>
+<p><strong>Part 4: Human-in-the-Loop Design</strong>
+- What does the agent handle autonomously?
+- What triggers escalation to a human?
+- What is the approval process (if any)?
+- What is the feedback loop for continuous improvement?</p>
+<h4>Key Insight</h4>
+<p>"The 50/50 era in practice: agent handles routine, human handles edge cases. That's leading AI."</p>
+      </div>
+    </section>
+    <section class="brief-section" id="section-3">
+      <div class="brief-label">SECTION 3</div>
+      <h2 class="brief-title">Key Takeaways</h2>
+      <div class="prose">
+        <h4>Key Takeaways</h4>
+<ol><li><strong>Decision logic solves predictable problems. Agents solve variable ones.</strong> Decision trees work when you can predict the inputs. Agents work when you can't. Know which problem you're solving.</li></ol>
+<ol><li><strong>The Think-Plan-Act-Reflect loop is why agents work.</strong> They don't follow a single path. They pursue a goal. They course-correct. They try again. That's how they handle complexity.</li></ol>
+<ol><li><strong>Agent anatomy: Brain (LLM) + Tools (capabilities) + Memory (data).</strong> Every agent needs all three. A great brain with no tools is a chatbot. Tools without guardrails are dangerous. Memory shapes every decision.</li></ol>
+<ol><li><strong>Guardrails are how you stay in control.</strong> An agent without guardrails will make decisions you never authorized. Define what it can access, what it can promise, when it escalates. Non-negotiable.</li></ol>
+<ol><li><strong>Escalation is not failure. It's by design.</strong> The agent handles routine. Humans handle judgment. Agent drafts, human decides. This is the 50/50 era. Not agent-only. Not human-only. Both.</li></ol>
+<ol><li><strong>Your role is designer, not executor.</strong> You design the mission, guardrails, and escalation rules. The agent executes. You supervise the system, not the work. That's the leadership shift.</li></ol>
+<ol><li><strong>Success metrics matter more than the agent itself.</strong> Before you deploy, know what success looks like. What's the baseline? What's your target? How will you measure it weekly? That's your Determine phase.</li></ol>
+<ol><li><strong>You've built the full stack.</strong> From problem statement to packaged AI to workflow to logic to agent. Mission 6 is the final step: the production brief. That's what takes this from your laptop to your organization.</li></ol>
+<h4>Your Commitment</h4>
+<p>You have a logic layer from Mission 4. Somewhere in that logic, there's an edge case that makes the rules more complicated. There's a situation where the decision tree isn't enough.</p>
+<p>That's your agent opportunity.</p>
+<p>Design one agent. Just one. Define its mission. Write its guardrails. Decide when it escalates.</p>
+<p>You don't have to build it yet. Design it. Be specific.</p>
+<p>What's your agent going to do?</p>
+<h4>Checkpoint: Quick Knowledge Check</h4>
+<p>Answer these five questions. Your AI Buddy will give you the answers and explanations.</p>
+<p><strong>Question 1: The Agent Loop</strong></p>
+<p>Which of these correctly describes the Think-Plan-Act-Reflect loop?</p>
+<p>A) Think about the input, plan the response, act on the plan, reflect on success
+B) Think about the goal, plan the steps, act on the steps, reflect on whether goal is achieved
+C) Think about the problem, plan the solution, act on the solution, reflect on the implementation
+D) Think about the workflow, plan the routing, act on the route, reflect on the output</p>
+<p><strong>Correct Answer: B</strong> - The agent loop is goal-driven. It thinks about what the user is trying to achieve, plans steps to get there, executes those steps, and checks if the goal was actually achieved. If not, it loops back and tries again. That's the core difference from decision logic.</p>
+<p><strong>Question 2: Agent Anatomy</strong></p>
+<p>What are the three components of agent anatomy?</p>
+<p>A) System prompt, knowledge base, conversation starters
+B) Brain (LLM), Tools (capabilities), Memory (data and context)
+C) Input, processing, output
+D) Platform, instructions, interface</p>
+<p><strong>Correct Answer: B</strong> - Every agent needs three things: a Brain (the language model doing the thinking), Tools (what it can actually do beyond thinking), and Memory (the data, context, and guardrails it draws from). Miss one and the agent can't function.</p>
+<p><strong>Question 3: Decision Logic vs. Agents</strong></p>
+<p>When should you use an agent instead of decision logic?</p>
+<p>A) Agents are always better
+B) When inputs are too varied or unpredictable for a decision tree
+C) When you want the system to follow a specific path
+D) When you have limited data</p>
+<p><strong>Correct Answer: B</strong> - Decision logic works for predictable inputs with clear rules. Use it. Agents work when inputs are too varied, nuanced, or unpredictable for rules to handle. That's the boundary.</p>
+<p><strong>Question 4: Guardrails</strong></p>
+<p>What is the purpose of guardrails in an agent design?</p>
+<p>A) To make the agent more powerful
+B) To define what the agent can access, promise, and do
+C) To speed up the agent's thinking
+D) To replace human decision-making</p>
+<p><strong>Correct Answer: B</strong> - Guardrails define boundaries. What data can it access? What can't it promise? When does it escalate? What tone should it use? Guardrails are what keep an agent powerful instead of dangerous.</p>
+<p><strong>Question 5: Human in the Loop</strong></p>
+<p>What does "human in the loop" mean in agent design?</p>
+<p>A) A human always approves before the agent acts
+B) The agent handles routine work, human handles judgment and escalations
+C) Humans train the agent continuously
+D) The agent only works when humans tell it to</p>
+<p><strong>Correct Answer: B</strong> - Human in the loop means a clear division: the agent handles routine cases and predictable work. Humans handle judgment, escalations, and edge cases. It's not agent-only automation. It's agent plus human working together. Agent amplifies human judgment.</p>
+<h4>Certificate of Completion</h4>
+<p>You've completed Mission 5. You've unleashed the agent.</p>
+<p>You came in with a problem statement. You packaged AI. You wired workflows. You taught systems to decide. You designed agents.</p>
+<p>Now comes the final step.</p>
+<p><strong>Next Mission Teaser:</strong></p>
+<p>In Mission 6, you take everything you've built across five missions and write the production brief. That's the document that takes your prototype from your laptop to your organization. That's the document that says: here's what we built, here's what it does, here's how to deploy it, here's how to measure success, here's how to support it.</p>
+<p>That's how AI goes from concept to program. That's the finish line.</p>
+<h4>Course Experience Survey</h4>
+<p>Your feedback shapes the next missions. Take two minutes to tell us what worked, what didn't, and what you want to see next.</p>
+<h4>Words to Know</h4>
+<p><strong>Agent</strong> - A system that pursues a goal by thinking, planning, acting, and reflecting. It adjusts its approach based on outcomes.</p>
+<p><strong>Agent Loop</strong> - The cycle of Think-Plan-Act-Reflect that allows agents to course-correct and handle complexity.</p>
+<p><strong>Think-Plan-Act-Reflect</strong> - The four stages of the agent loop. Think about the goal. Plan the steps. Act on the steps. Reflect on whether the goal was achieved.</p>
+<p><strong>LLM (Brain)</strong> - The language model (Claude, GPT, etc.) that serves as the agent's intelligence. The better the brain, the better the reasoning.</p>
+<p><strong>Tools</strong> - The capabilities an agent has beyond thinking. Web search, API access, file reading, database queries, email sending. Tools are what let an agent do things.</p>
+<p><strong>Memory</strong> - The context and knowledge an agent draws from. Reference documents, conversation history, customer data, guardrails. Memory shapes every decision.</p>
+<p><strong>Guardrails</strong> - The boundaries for an agent. What it can access, what it can promise, when it escalates. Guardrails are non-negotiable.</p>
+<p><strong>Human in the Loop</strong> - A design pattern where agents handle routine work and humans handle judgment, escalations, and edge cases. Not agent-only. Agent plus human.</p>
+<p><strong>Agentic Workflow</strong> - A complete system combining an agent, its tools, its knowledge base, its guardrails, and its escalation criteria.</p>
+<p><strong>Mission Statement</strong> (for agents) - One sentence describing what the agent is trying to accomplish. Specific. Clear. Measurable.</p>
+<p><strong>Escalation Criteria</strong> - The rules that trigger when an agent hands off to a human. High frustration. Outside knowledge base. High stakes. Guardrail violation.</p>
+<p>> <strong>Your AI Buddy is always here.</strong> If any term is unclear, ask your AI Buddy: "Explain [term] in plain language with an example from [your industry or role]."</p>
+<h4>Prompt Library</h4>
+<h4>FINDING YOUR AGENT OPPORTUNITY</h4>
+<pre style="background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:16px;font-family:JetBrains Mono,monospace;font-size:13px;line-height:1.6;overflow-x:auto;white-space:pre-wrap;">Look at the logic layer I built in Mission 4.</pre>
+<p>Which inputs or situations made that logic complicated? Which required me to add extra branches? Which edge cases did I have to design around?</p>
+<p>For each one: What if I built an agent to handle this instead? What would that agent's mission be?
+```</p>
+<h4>DEFINING YOUR AGENT MISSION</h4>
+<pre style="background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:16px;font-family:JetBrains Mono,monospace;font-size:13px;line-height:1.6;overflow-x:auto;white-space:pre-wrap;">I want to build an agent to handle [describe the situation].</pre>
+<p>Help me write a clear one-sentence mission statement. It should describe:
+- Who the agent is helping
+- What specific goal it's pursuing
+- What success looks like</p>
+<p>Format: "This agent helps [user] achieve [goal] by [method]."
+```</p>
+<h4>DESIGNING YOUR AGENT'S GUARDRAILS</h4>
+<pre style="background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:16px;font-family:JetBrains Mono,monospace;font-size:13px;line-height:1.6;overflow-x:auto;white-space:pre-wrap;">I&#x27;m designing an agent with this mission: [your mission statement]</pre>
+<p>What guardrails does it need?</p>
+<p>Think about:
+- What data can it access? What's off-limits?
+- What can it promise? What should it never promise?
+- What decisions can it make? What requires human approval?
+- What tone should it use? What should it never do?</p>
+<p>Help me write specific guardrails for each category.
+```</p>
+<h4>TESTING YOUR AGENT DESIGN</h4>
+<pre style="background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:16px;font-family:JetBrains Mono,monospace;font-size:13px;line-height:1.6;overflow-x:auto;white-space:pre-wrap;">I&#x27;ve designed an agent. Help me test it.</pre>
+<p>Mission: [your mission]
+Guardrails: [your guardrails]</p>
+<p>Test 1 - Happy path: [describe a perfect scenario for this agent]. How would it handle it?</p>
+<p>Test 2 - Edge case: [describe something not in the agent's data]. How would it handle it?</p>
+<p>Test 3 - Adversarial: [try to trick it into violating guardrails]. Does it hold?</p>
+<p>For any test that didn't work well, what would I adjust?
+```</p>
+<h4>SETTING YOUR SUCCESS METRICS</h4>
+<pre style="background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:16px;font-family:JetBrains Mono,monospace;font-size:13px;line-height:1.6;overflow-x:auto;white-space:pre-wrap;">I&#x27;m about to deploy this agent: [your mission]</pre>
+<p>Help me set success metrics. What's my baseline right now (before the agent)? What improvement am I targeting?</p>
+<p>For this agent, what are my weekly metrics? What does success look like?</p>
+<p>If performance drops below [your target], what should I adjust?
+```</p>
+<h4>AGENT ANATOMY CHECK</h4>
+<pre style="background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:16px;font-family:JetBrains Mono,monospace;font-size:13px;line-height:1.6;overflow-x:auto;white-space:pre-wrap;">I&#x27;m building an agent with this mission: [describe]</pre>
+<p>For this agent, what do I need?</p>
+<p>Brain: What language model? Do I need basic reasoning or deep analysis?</p>
+<p>Tools: What does this agent need to do? Search? Look up data? Calculate? Send messages? Connect to systems?</p>
+<p>Memory: What data does it need to know? What documents should I upload? What knowledge is essential?
+```</p>
+<p>> <strong>More prompts added each mission.</strong> [PROMPT LIBRARY - Full version in Lark, link provided by your instructor]</p>
+<p>End of Mission 5: Unleash the Agent</p>
+      </div>
+    </section>
+
+    <div class="tb-bottom-nav">
+      <a href="mission-5.html" class="tb-nav-btn">← Mission 5 Hub</a>
+      <a href="mission-5-prompts.html" class="tb-nav-btn primary">Prompt Library →</a>
+    </div>
+
+  </main>
+</div>
+</body>
+</html>

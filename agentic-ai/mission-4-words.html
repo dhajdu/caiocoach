@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Words to Know — Mission 4: Teach Your Workflow to Decide — AI Officer Institute</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../shared/styles.css">
+<style>
+  :root {
+    --royal: #287BE8;
+    --ease: cubic-bezier(0.4, 0, 0.2, 1);
+    --radius: 12px;
+    --shadow-sm: 0 1px 3px rgba(4,16,45,0.07);
+    --shadow-hover: 0 6px 24px rgba(4,16,45,0.10);
+    --text-tertiary: #8b91ac;
+    --border-hover: #b0b6cc;
+  }
+  body { background: var(--surface); }
+
+  .page-main { max-width: 760px; margin: 0 auto; padding: 80px 40px 100px; }
+  .wtk-back { display: inline-flex; align-items: center; gap: 6px; font-size: 13px; font-weight: 600; color: var(--text-muted); text-decoration: none; margin-bottom: 32px; transition: color 0.12s; }
+  .wtk-back:hover { color: var(--text-primary); }
+  .wtk-hero { margin-bottom: 40px; }
+  .wtk-track-pill { display: inline-flex; align-items: center; gap: 7px; font-size: 11px; font-weight: 700; letter-spacing: 0.7px; text-transform: uppercase; padding: 5px 12px; border-radius: 20px; background: rgba(4,16,45,0.06); color: var(--text-secondary); border: 1px solid var(--border); margin-bottom: 14px; }
+  .wtk-title { font-size: 30px; font-weight: 700; color: var(--text-primary); letter-spacing: -0.5px; line-height: 1.15; margin-bottom: 10px; }
+  .wtk-sub { font-size: 15px; color: var(--text-secondary); line-height: 1.6; }
+  .wtk-note { background: white; border: 1px solid var(--border); border-radius: var(--radius); padding: 16px 20px; margin-bottom: 40px; font-size: 14px; color: var(--text-secondary); line-height: 1.6; }
+  .wtk-category { font-size: 10px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: var(--text-muted); padding-bottom: 10px; border-bottom: 1px solid var(--border); margin-bottom: 16px; margin-top: 40px; }
+  .wtk-category:first-of-type { margin-top: 0; }
+  .term-card { background: white; border: 1px solid var(--border); border-radius: var(--radius); padding: 20px 22px; margin-bottom: 10px; box-shadow: var(--shadow-sm); }
+  .term-header { display: flex; align-items: flex-start; justify-content: space-between; gap: 16px; margin-bottom: 8px; }
+  .term-name { font-size: 16px; font-weight: 700; color: var(--text-primary); line-height: 1.2; }
+  .term-badge { font-family: 'JetBrains Mono', monospace; font-size: 10px; font-weight: 700; padding: 3px 8px; border-radius: 5px; white-space: nowrap; flex-shrink: 0; background: rgba(26,158,116,0.08); color: #1a9e74; border: 1px solid rgba(26,158,116,0.15); }
+  .term-def { font-size: 14px; color: var(--text-secondary); line-height: 1.7; }
+  .term-example { margin-top: 10px; padding-top: 10px; border-top: 1px solid var(--surface); font-size: 13px; color: var(--text-muted); line-height: 1.6; font-style: italic; }
+  .term-example strong { color: var(--text-secondary); font-style: normal; }
+  .wtk-bottom-nav { display: flex; align-items: center; justify-content: space-between; border-top: 1px solid var(--border); padding-top: 32px; margin-top: 16px; }
+  .wtk-nav-btn { display: inline-flex; align-items: center; gap: 6px; font-size: 13px; font-weight: 600; color: var(--text-muted); text-decoration: none; padding: 8px 14px; border-radius: 8px; border: 1px solid var(--border); transition: all 0.12s; }
+  .wtk-nav-btn:hover { border-color: var(--border-hover); color: var(--text-primary); }
+  .wtk-nav-btn.primary { background: var(--navy); color: white; border-color: var(--navy); }
+  .wtk-nav-btn.primary:hover { opacity: 0.88; }
+  @media (max-width: 760px) { .page-main { padding: 70px 20px 80px; } .topbar-nav { display: none; } }
+
+</style>
+</head>
+<body>
+<div class="topbar">
+  <a href="../index.html" class="topbar-brand">AIO <span>Labs</span></a>
+  <nav class="topbar-nav">
+    <a href="../index.html" class="tnav-link"><span class="tnav-dot" style="background:#8b91ac"></span> Home</a>
+    <a href="../certification.html" class="tnav-link active"><span class="tnav-dot" style="background:#287BE8"></span> Certification</a>
+    <a href="../coaching.html" class="tnav-link"><span class="tnav-dot" style="background:#287BE8"></span> Coaching</a>
+    <a href="../micro-sessions/index.html" class="tnav-link"><span class="tnav-dot" style="background:#1A9E74"></span> Micro-Sessions</a>
+    <a href="../blog/index.html" class="tnav-link"><span class="tnav-dot" style="background:#6FF2C1"></span> Blog</a>
+    <a href="../my-team.html" class="tnav-link"><span class="tnav-dot" style="background:#8b91ac"></span> My Team</a>
+  </nav>
+  <div class="topbar-right">
+    <a href="https://claude.ai" target="_blank" class="buddy-launch-btn">🤖 AI Buddy</a>
+    <div class="topbar-stat">🔥 7</div>
+    <div class="topbar-stat">⭐ 1,240</div>
+    <div class="topbar-divider"></div>
+    <div class="topbar-avatar">DH</div>
+  </div>
+</div>
+
+<main class="page-main">
+
+  <a href="mission-4.html" class="wtk-back">← Back to Mission 4</a>
+
+  <div class="wtk-hero">
+    <div class="wtk-track-pill">🔤 Words to Know</div>
+    <h1 class="wtk-title">Mission 4 — Key Terms</h1>
+    <p class="wtk-sub">The vocabulary you need to understand and apply this mission's concepts. When in doubt, ask your AI Buddy.</p>
+  </div>
+
+  <div class="wtk-note">
+    These terms appear across the briefs, challenges, and prompts for Mission 4. Read them before you start, or use this page as a reference while you work.
+  </div>
+
+  <div class="wtk-category">All Terms — Mission 4</div>
+  
+  <div class="term-card">
+    <div class="term-header">
+      <div class="term-name">Classifier</div>
+      <span class="term-badge">Term</span>
+    </div>
+    <div class="term-def">An AI step that reads input and outputs a single label to indicate its type or category.</div>
+    <div class="term-example"><strong>Example:</strong> A classifier reads customer feedback and outputs &quot;COMPLAINT&quot; so that feedback gets routed to the problem-solving path instead of the thank-you path.
+
+---</div>
+  </div>
+  <div class="term-card">
+    <div class="term-header">
+      <div class="term-name">Router</div>
+      <span class="term-badge">Term</span>
+    </div>
+    <div class="term-def">Logic (if-then) that directs input to different paths based on a classifier label. The router contains no AI - it&#x27;s pure traffic control.</div>
+    <div class="term-example"><strong>Example:</strong> A router in an email system reads the classifier label &quot;SUGGESTION&quot; and sends the email to the suggestion-handling path, where it gets documented and forwarded to the product team.
+
+---</div>
+  </div>
+  <div class="term-card">
+    <div class="term-header">
+      <div class="term-name">Logic Layer</div>
+      <span class="term-badge">Term</span>
+    </div>
+    <div class="term-def">The decision-making intelligence added to a workflow between input and response. It&#x27;s what makes a workflow smart instead of just fast.</div>
+    <div class="term-example"><strong>Example:</strong> A support workflow gains a logic layer that classifies incoming tickets as urgent vs routine, then routes urgent tickets to immediate response and routine tickets to scheduled batch processing.
+
+---</div>
+  </div>
+  <div class="term-card">
+    <div class="term-header">
+      <div class="term-name">Decision Tree</div>
+      <span class="term-badge">Term</span>
+    </div>
+    <div class="term-def">A branching structure where each branch represents a different input type and its corresponding actions.</div>
+    <div class="term-example"><strong>Example:</strong> A decision tree for expense reports has three branches: (1) routine expenses under $500, (2) unusual expenses, and (3) policy violations. Each branch routes to different approval processes.
+
+---</div>
+  </div>
+  <div class="term-card">
+    <div class="term-header">
+      <div class="term-name">Input Type</div>
+      <span class="term-badge">Term</span>
+    </div>
+    <div class="term-def">A distinct category of input that should be handled differently from other categories.</div>
+    <div class="term-example"><strong>Example:</strong> In an employee survey workflow, input types might be satisfaction (satisfied, neutral, dissatisfied), department (sales, operations, support), and tenure (new, mid-career, senior).
+
+---</div>
+  </div>
+  <div class="term-card">
+    <div class="term-header">
+      <div class="term-name">Classification</div>
+      <span class="term-badge">Term</span>
+    </div>
+    <div class="term-def">The process of assigning a label to input based on its characteristics.</div>
+    <div class="term-example"><strong>Example:</strong> A focus group note is classified as &quot;feature request,&quot; &quot;competitive concern,&quot; or &quot;user frustration&quot; based on what&#x27;s being discussed.
+
+---</div>
+  </div>
+  <div class="term-card">
+    <div class="term-header">
+      <div class="term-name">Tiny Decision Canvas</div>
+      <span class="term-badge">Term</span>
+    </div>
+    <div class="term-def">A one-page template for defining input types, their meanings, and corresponding actions before building the system.</div>
+    <div class="term-example"><strong>Example:</strong> A customer service canvas might show: PRAISE (customer satisfied, action: thank and ask for review), COMPLAINT (problem reported, action: apologize and solve), SUGGESTION (idea offered, action: thank and document).
+
+---</div>
+  </div>
+  <div class="term-card">
+    <div class="term-header">
+      <div class="term-name">Branching Logic</div>
+      <span class="term-badge">Term</span>
+    </div>
+    <div class="term-def">Conditional pathways in a workflow where different inputs take different routes.</div>
+    <div class="term-example"><strong>Example:</strong> A hiring workflow branches based on job level: entry-level candidates go through fast-track screening, mid-level candidates go through detailed interview rounds, and senior candidates go through executive interviews.
+
+---</div>
+  </div>
+  <div class="term-card">
+    <div class="term-header">
+      <div class="term-name">Personalization at Scale</div>
+      <span class="term-badge">Term</span>
+    </div>
+    <div class="term-def">Treating different inputs differently (tailored responses, different tones, different actions) while maintaining efficiency and consistency.</div>
+    <div class="term-example"><strong>Example:</strong> A customer service system handling 10,000 emails per day classifies them and routes them: angry customers get immediate executive attention, satisfied customers get a thank-you email, suggestions get routed to product team. Each type is handled right at scale.
+
+---</div>
+  </div>
+  <div class="term-card">
+    <div class="term-header">
+      <div class="term-name">Conditional Path</div>
+      <span class="term-badge">Term</span>
+    </div>
+    <div class="term-def">A route through a workflow that is triggered only when a specific condition (like a classifier label) is met.</div>
+    <div class="term-example"><strong>Example:</strong> An expense approval workflow has conditional paths: expenses under $500 auto-approve, expenses $500-2000 need manager approval, expenses over $2000 need director approval.
+
+---</div>
+  </div>
+  <div class="term-card">
+    <div class="term-header">
+      <div class="term-name">System Prompt Constraint</div>
+      <span class="term-badge">Term</span>
+    </div>
+    <div class="term-def">A specific instruction in an AI system prompt that limits or controls the AI&#x27;s output format or behavior.</div>
+    <div class="term-example"><strong>Example:</strong> A classifier might normally say &quot;COMPLAINT (the customer seems frustrated about shipping)&quot; but with the constraint &quot;Output ONLY one word&quot; it says simply &quot;COMPLAINT&quot;.
+
+---</div>
+  </div>
+
+  <div class="wtk-bottom-nav">
+    <a href="mission-4-prompts.html" class="wtk-nav-btn">← Prompt Library</a>
+    <a href="mission-4-slides.html" class="wtk-nav-btn primary">Slide Deck →</a>
+  </div>
+
+</main>
+</body>
+</html>

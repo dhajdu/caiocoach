@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Words to Know — Mission 5: Unleash the Agent — AI Officer Institute</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../shared/styles.css">
+<style>
+  :root {
+    --royal: #287BE8;
+    --ease: cubic-bezier(0.4, 0, 0.2, 1);
+    --radius: 12px;
+    --shadow-sm: 0 1px 3px rgba(4,16,45,0.07);
+    --shadow-hover: 0 6px 24px rgba(4,16,45,0.10);
+    --text-tertiary: #8b91ac;
+    --border-hover: #b0b6cc;
+  }
+  body { background: var(--surface); }
+
+  .page-main { max-width: 760px; margin: 0 auto; padding: 80px 40px 100px; }
+  .wtk-back { display: inline-flex; align-items: center; gap: 6px; font-size: 13px; font-weight: 600; color: var(--text-muted); text-decoration: none; margin-bottom: 32px; transition: color 0.12s; }
+  .wtk-back:hover { color: var(--text-primary); }
+  .wtk-hero { margin-bottom: 40px; }
+  .wtk-track-pill { display: inline-flex; align-items: center; gap: 7px; font-size: 11px; font-weight: 700; letter-spacing: 0.7px; text-transform: uppercase; padding: 5px 12px; border-radius: 20px; background: rgba(4,16,45,0.06); color: var(--text-secondary); border: 1px solid var(--border); margin-bottom: 14px; }
+  .wtk-title { font-size: 30px; font-weight: 700; color: var(--text-primary); letter-spacing: -0.5px; line-height: 1.15; margin-bottom: 10px; }
+  .wtk-sub { font-size: 15px; color: var(--text-secondary); line-height: 1.6; }
+  .wtk-note { background: white; border: 1px solid var(--border); border-radius: var(--radius); padding: 16px 20px; margin-bottom: 40px; font-size: 14px; color: var(--text-secondary); line-height: 1.6; }
+  .wtk-category { font-size: 10px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: var(--text-muted); padding-bottom: 10px; border-bottom: 1px solid var(--border); margin-bottom: 16px; margin-top: 40px; }
+  .wtk-category:first-of-type { margin-top: 0; }
+  .term-card { background: white; border: 1px solid var(--border); border-radius: var(--radius); padding: 20px 22px; margin-bottom: 10px; box-shadow: var(--shadow-sm); }
+  .term-header { display: flex; align-items: flex-start; justify-content: space-between; gap: 16px; margin-bottom: 8px; }
+  .term-name { font-size: 16px; font-weight: 700; color: var(--text-primary); line-height: 1.2; }
+  .term-badge { font-family: 'JetBrains Mono', monospace; font-size: 10px; font-weight: 700; padding: 3px 8px; border-radius: 5px; white-space: nowrap; flex-shrink: 0; background: rgba(26,158,116,0.08); color: #1a9e74; border: 1px solid rgba(26,158,116,0.15); }
+  .term-def { font-size: 14px; color: var(--text-secondary); line-height: 1.7; }
+  .term-example { margin-top: 10px; padding-top: 10px; border-top: 1px solid var(--surface); font-size: 13px; color: var(--text-muted); line-height: 1.6; font-style: italic; }
+  .term-example strong { color: var(--text-secondary); font-style: normal; }
+  .wtk-bottom-nav { display: flex; align-items: center; justify-content: space-between; border-top: 1px solid var(--border); padding-top: 32px; margin-top: 16px; }
+  .wtk-nav-btn { display: inline-flex; align-items: center; gap: 6px; font-size: 13px; font-weight: 600; color: var(--text-muted); text-decoration: none; padding: 8px 14px; border-radius: 8px; border: 1px solid var(--border); transition: all 0.12s; }
+  .wtk-nav-btn:hover { border-color: var(--border-hover); color: var(--text-primary); }
+  .wtk-nav-btn.primary { background: var(--navy); color: white; border-color: var(--navy); }
+  .wtk-nav-btn.primary:hover { opacity: 0.88; }
+  @media (max-width: 760px) { .page-main { padding: 70px 20px 80px; } .topbar-nav { display: none; } }
+
+</style>
+</head>
+<body>
+<div class="topbar">
+  <a href="../index.html" class="topbar-brand">AIO <span>Labs</span></a>
+  <nav class="topbar-nav">
+    <a href="../index.html" class="tnav-link"><span class="tnav-dot" style="background:#8b91ac"></span> Home</a>
+    <a href="../certification.html" class="tnav-link active"><span class="tnav-dot" style="background:#287BE8"></span> Certification</a>
+    <a href="../coaching.html" class="tnav-link"><span class="tnav-dot" style="background:#287BE8"></span> Coaching</a>
+    <a href="../micro-sessions/index.html" class="tnav-link"><span class="tnav-dot" style="background:#1A9E74"></span> Micro-Sessions</a>
+    <a href="../blog/index.html" class="tnav-link"><span class="tnav-dot" style="background:#6FF2C1"></span> Blog</a>
+    <a href="../my-team.html" class="tnav-link"><span class="tnav-dot" style="background:#8b91ac"></span> My Team</a>
+  </nav>
+  <div class="topbar-right">
+    <a href="https://claude.ai" target="_blank" class="buddy-launch-btn">🤖 AI Buddy</a>
+    <div class="topbar-stat">🔥 7</div>
+    <div class="topbar-stat">⭐ 1,240</div>
+    <div class="topbar-divider"></div>
+    <div class="topbar-avatar">DH</div>
+  </div>
+</div>
+
+<main class="page-main">
+
+  <a href="mission-5.html" class="wtk-back">← Back to Mission 5</a>
+
+  <div class="wtk-hero">
+    <div class="wtk-track-pill">🔤 Words to Know</div>
+    <h1 class="wtk-title">Mission 5 — Key Terms</h1>
+    <p class="wtk-sub">The vocabulary you need to understand and apply this mission's concepts. When in doubt, ask your AI Buddy.</p>
+  </div>
+
+  <div class="wtk-note">
+    These terms appear across the briefs, challenges, and prompts for Mission 5. Read them before you start, or use this page as a reference while you work.
+  </div>
+
+  <div class="wtk-category">All Terms — Mission 5</div>
+  
+  <div class="term-card">
+    <div class="term-header">
+      <div class="term-name">Agent (AI)</div>
+      <span class="term-badge">Term</span>
+    </div>
+    <div class="term-def">An AI system that uses the Think-Plan-Act-Reflect loop to pursue goals. Unlike a chatbot (which just responds to prompts), an agent observes a goal, plans how to achieve it, takes action using available tools, and reflects on whether the goal was achieved. If not, it loops back and tries again. Agents handle complexity that decision trees can&#x27;t because they don&#x27;t follow a single predetermined path</div>
+    
+  </div>
+  <div class="term-card">
+    <div class="term-header">
+      <div class="term-name">Agentic Workflow</div>
+      <span class="term-badge">Term</span>
+    </div>
+    <div class="term-def">A workflow where an AI agent, not a decision tree, controls the logic. Instead of &quot;if X, do Y,&quot; the agent is given a mission (goal) and uses its brain (LLM), tools (capabilities), and memory (context) to figure out how to achieve it. The agent decides the steps, adapts to unexpected inputs, and escalates to humans when needed. More flexible than decision logic but requires clear guardrails.</div>
+    
+  </div>
+  <div class="term-card">
+    <div class="term-header">
+      <div class="term-name">Think-Plan-Act-Reflect Loop</div>
+      <span class="term-badge">Term</span>
+    </div>
+    <div class="term-def">The cycle that allows agents to handle complexity. Think: the agent understands the input and goal. Plan: it decides what steps to take. Act: it executes those steps using available tools. Reflect: it evaluates whether the goal was achieved. If not, it loops back to Plan and tries again. This is why agents can handle variability and edge cases that would break a decision tree.</div>
+    
+  </div>
+  <div class="term-card">
+    <div class="term-header">
+      <div class="term-name">Agent Anatomy</div>
+      <span class="term-badge">Term</span>
+    </div>
+    <div class="term-def">The three components every agent needs: Brain (the LLM), Tools (the capabilities), and Memory (the context and knowledge base). The brain does the thinking. The tools let it act. The memory gives it context. Your job as the AI Officer is to give the agent the right brain, the right tools, and the right memory for its mission.</div>
+    
+  </div>
+  <div class="term-card">
+    <div class="term-header">
+      <div class="term-name">Brain (LLM)</div>
+      <span class="term-badge">Term</span>
+    </div>
+    <div class="term-def">The underlying intelligence of an agent. The large language model (Claude, GPT, Gemini) that does the thinking, planning, and reflecting. A better brain can handle more complex reasoning. A more powerful brain can tackle harder problems. The brain is what gives the agent intelligence.</div>
+    
+  </div>
+  <div class="term-card">
+    <div class="term-header">
+      <div class="term-name">Tools (in agent context)</div>
+      <span class="term-badge">Term</span>
+    </div>
+    <div class="term-def">The capabilities you give an agent beyond just thinking. Web search - to find current information. API connections - to retrieve data from other systems. File access - to read and work with documents. Calculations - to work with numbers. Database queries - to find specific records. An agent without tools is just a chatbot. The tools are what let it act.</div>
+    
+  </div>
+  <div class="term-card">
+    <div class="term-header">
+      <div class="term-name">Memory (in agent context)</div>
+      <span class="term-badge">Term</span>
+    </div>
+    <div class="term-def">The context and knowledge base an agent draws from. The reference documents you uploaded. The conversation history. The customer data it&#x27;s authorized to access. The rules and guardrails you set. The instructions on how to behave. The better and more complete the memory, the better the agent&#x27;s output.</div>
+    
+  </div>
+  <div class="term-card">
+    <div class="term-header">
+      <div class="term-name">Guardrails</div>
+      <span class="term-badge">Term</span>
+    </div>
+    <div class="term-def">The boundaries you set for an agent. What it can&#x27;t do. What data it can&#x27;t access. When it should escalate to a human. What tone it should use. What it can&#x27;t promise. Guardrails are how you control an agent without controlling every step it takes. An agent without guardrails will make decisions you didn&#x27;t authorize. Guardrails transform an agent from a liability into a powerful tool.</div>
+    
+  </div>
+  <div class="term-card">
+    <div class="term-header">
+      <div class="term-name">Escalation</div>
+      <span class="term-badge">Term</span>
+    </div>
+    <div class="term-def">The process of handing off a decision or task from an agent to a human. Agents should escalate when they encounter situations outside their guardrails, when the stakes are high, when they&#x27;re unsure, or when human judgment is required. Escalation criteria should be defined as part of your agent design. Clear escalation rules are what make the 50/50 era work - agent handles routine, human handles ju</div>
+    
+  </div>
+  <div class="term-card">
+    <div class="term-header">
+      <div class="term-name">Human in the Loop</div>
+      <span class="term-badge">Term</span>
+    </div>
+    <div class="term-def">A workflow design pattern where AI (agent) and humans work together. Common patterns: agent drafts, human approves. Agent handles routine, human handles edge cases. Agent identifies opportunities, human decides priority. Agent monitors, human acts. The 50/50 era in practice. The agent doesn&#x27;t replace the human. The agent amplifies human judgment and frees humans from routine work.</div>
+    
+  </div>
+  <div class="term-card">
+    <div class="term-header">
+      <div class="term-name">Supervisor Model</div>
+      <span class="term-badge">Term</span>
+    </div>
+    <div class="term-def">Your role as the AI Officer. You&#x27;re not the doer - you&#x27;re the supervisor. You don&#x27;t do the work yourself. You design the system that does the work. You define the mission, set the guardrails, upload the data, connect the tools, set success metrics, and oversee the results. You supervise the system. You make the judgment calls. You make the final decisions. Supervisor, not spectator. Supervisor, no</div>
+    
+  </div>
+  <div class="term-card">
+    <div class="term-header">
+      <div class="term-name">Determine (5D Framework)</div>
+      <span class="term-badge">Term</span>
+    </div>
+    <div class="term-def">The phase where you define success metrics before deployment. Before you go live with an agent, you determine what success looks like. What is the current baseline? What improvement are you targeting? How will you measure it weekly? What are your thresholds for retraining? What does success mean in numbers? Determine your metrics before you deploy.</div>
+    
+  </div>
+  <div class="term-card">
+    <div class="term-header">
+      <div class="term-name">Success Metrics</div>
+      <span class="term-badge">Term</span>
+    </div>
+    <div class="term-def">The measurable indicators you track to know if your agent is working. Not vanity metrics like &quot;it&#x27;s live&quot; but real numbers like: escalation time reduced by 40%, customer satisfaction improved to 4.2/5, successful diagnosis on first attempt reached 75%, human escalations reduced by 30%. Your success metrics are what you review weekly to know whether to keep the agent as-is, retrain it, or adjust it</div>
+    
+  </div>
+  <div class="term-card">
+    <div class="term-header">
+      <div class="term-name">Decision Logic / Decision Tree</div>
+      <span class="term-badge">Term</span>
+    </div>
+    <div class="term-def">The if/then logic layer you built in Session 4. Predictable. Cheap. Rigid. You design every branch. It works great for well-defined inputs and clear categorizations. But it breaks when inputs are too varied, too complex, or too unpredictable. Decision logic is not bad - it&#x27;s just the right tool for some problems, not others.</div>
+    
+  </div>
+  <div class="term-card">
+    <div class="term-header">
+      <div class="term-name">Agentic AI</div>
+      <span class="term-badge">Term</span>
+    </div>
+    <div class="term-def">AI systems that use the Think-Plan-Act-Reflect loop to pursue goals. Broader term for agent-based approaches. Agentic AI is not just responding to prompts - it&#x27;s actively reasoning, planning, acting, and evaluating to achieve defined goals.</div>
+    
+  </div>
+  <div class="term-card">
+    <div class="term-header">
+      <div class="term-name">Instructions (Agent)</div>
+      <span class="term-badge">Term</span>
+    </div>
+    <div class="term-def">The specific instructions for how your agent should behave. What tone? What should it always do? What should it never do? How should it approach problems? These instructions embed your guardrails and are the operational rules the agent follows. Clear instructions are what make the difference between an agent that does what you want and an agent that does what you didn&#x27;t expect.</div>
+    
+  </div>
+  <div class="term-card">
+    <div class="term-header">
+      <div class="term-name">Production Brief</div>
+      <span class="term-badge">Term</span>
+    </div>
+    <div class="term-def">The document you create in Session 6 that takes your prototype from your laptop to your organization. The specification. The guardrails. The success metrics. The documentation that tells an engineering team exactly what you built, how it works, how to maintain it, and what to do when it breaks. The production brief is how an idea becomes a program.</div>
+    
+  </div>
+  <div class="term-card">
+    <div class="term-header">
+      <div class="term-name">Routine vs. Edge Cases</div>
+      <span class="term-badge">Term</span>
+    </div>
+    <div class="term-def">Routine: the standard work that fits your decision tree or agent mission. 80% of cases. The work the agent can handle autonomously. Edge cases: the situations that don&#x27;t fit the standard path. The ones that require judgment. The 20% that needs human review. The 50/50 era divides work this way - agent handles routine, human handles edge cases.</div>
+    
+  </div>
+  <div class="term-card">
+    <div class="term-header">
+      <div class="term-name">Adversarial Testing</div>
+      <span class="term-badge">Term</span>
+    </div>
+    <div class="term-def">Testing your agent by trying to break it or trick it. Give it conflicting instructions. Ask it to violate its guardrails. Try to get it to share information it shouldn&#x27;t. Attack the logic. See where it fails. Adversarial testing is how you find gaps in your guardrails before your team depends on the agent.</div>
+    
+  </div>
+  <div class="term-card">
+    <div class="term-header">
+      <div class="term-name">Autonomous (Autonomously)</div>
+      <span class="term-badge">Term</span>
+    </div>
+    <div class="term-def">Acting on its own, without human intervention. An agent can handle some tasks autonomously - the routine, predictable, low-stakes work within its guardrails. Other tasks require human approval or escalation. Autonomy is defined by the guardrails and escalation criteria you set, not by how smart the agent is.</div>
+    
+  </div>
+  <div class="term-card">
+    <div class="term-header">
+      <div class="term-name">Guardrail Violation</div>
+      <span class="term-badge">Term</span>
+    </div>
+    <div class="term-def">When an agent attempts to do something it&#x27;s not supposed to do or tries to cross a boundary you&#x27;ve set. Escalating before guardrail violations happen (clear escalation criteria) is better than discovering violations after they happen. Guardrail violations are what you&#x27;re testing for in adversarial testing.</div>
+    
+  </div>
+  <div class="term-card">
+    <div class="term-header">
+      <div class="term-name">Knowledge Base Upload</div>
+      <span class="term-badge">Term</span>
+    </div>
+    <div class="term-def">The process of giving your agent reference documents and data to work from. Session 2 taught you the importance of good data for packaged prompts. Same principle for agents. Your agent is only as good as what it knows. Upload complete, accurate, current documentation. FAQs. Process guides. Customer data (if authorized). Pricing. Product specs.</div>
+    
+  </div>
+  <div class="term-card">
+    <div class="term-header">
+      <div class="term-name">Tool Integration</div>
+      <span class="term-badge">Term</span>
+    </div>
+    <div class="term-def">Connecting your agent to external systems and capabilities. APIs to your CRM. Database query access. File storage. Search. Email. Calculations. Each integration is a tool that lets your agent do something beyond just thinking. Tool integration is what transforms a chatbot into an agent.</div>
+    
+  </div>
+  <div class="term-card">
+    <div class="term-header">
+      <div class="term-name">Reflection (in agent loop)</div>
+      <span class="term-badge">Term</span>
+    </div>
+    <div class="term-def">The agent evaluating its own output. Did it achieve the goal? Is the output good enough? If not, it loops back and tries a different approach. Reflection is what allows agents to course-correct. A decision tree doesn&#x27;t reflect - it just outputs. An agent reflects and improves.</div>
+    
+  </div>
+  <div class="term-card">
+    <div class="term-header">
+      <div class="term-name">Flexibility</div>
+      <span class="term-badge">Term</span>
+    </div>
+    <div class="term-def">The ability to handle varied inputs and unexpected situations without requiring a decision tree redesign. Agents are flexible because they can adapt their approach. Decision logic is rigid because it follows predetermined paths. Flexibility is the tradeoff for complexity and the need for guardrails.</div>
+    
+  </div>
+  <div class="term-card">
+    <div class="term-header">
+      <div class="term-name">Complexity</div>
+      <span class="term-badge">Term</span>
+    </div>
+    <div class="term-def">The characteristic of a problem or input that makes decision logic insufficient. Too many variations. Too much nuance. Too much judgment required. Complex problems are where agents excel and decision trees fail. Complexity is not a problem for agents - it&#x27;s what they&#x27;re designed for.</div>
+    
+  </div>
+
+  <div class="wtk-bottom-nav">
+    <a href="mission-5-prompts.html" class="wtk-nav-btn">← Prompt Library</a>
+    <a href="mission-5-slides.html" class="wtk-nav-btn primary">Slide Deck →</a>
+  </div>
+
+</main>
+</body>
+</html>

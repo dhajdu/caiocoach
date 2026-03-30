@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Slide Deck — Mission 4: Teach Your Workflow to Decide — AI Officer Institute</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../shared/styles.css">
+<style>
+  :root {
+    --royal: #287BE8;
+    --ease: cubic-bezier(0.4, 0, 0.2, 1);
+    --radius: 12px;
+    --shadow-sm: 0 1px 3px rgba(4,16,45,0.07);
+    --shadow-hover: 0 6px 24px rgba(4,16,45,0.10);
+    --text-tertiary: #8b91ac;
+    --border-hover: #b0b6cc;
+  }
+  body { background: var(--surface); }
+
+  body { background: #0d1117; }
+  .slides-header { position: fixed; top: 56px; left: 0; right: 0; background: rgba(13,17,23,0.95); border-bottom: 1px solid rgba(255,255,255,0.08); padding: 0 32px; height: 48px; display: flex; align-items: center; z-index: 50; gap: 16px; }
+  .slides-back { display: inline-flex; align-items: center; gap: 6px; font-size: 12px; font-weight: 600; color: rgba(255,255,255,0.5); text-decoration: none; transition: color 0.12s; }
+  .slides-back:hover { color: rgba(255,255,255,0.85); }
+  .slides-title { font-size: 13px; font-weight: 600; color: rgba(255,255,255,0.65); margin-left: 8px; }
+  .slides-counter { font-family: 'JetBrains Mono', monospace; font-size: 11px; color: rgba(255,255,255,0.35); margin-left: auto; }
+  .slides-wrapper { padding-top: 104px; padding-bottom: 80px; display: flex; flex-direction: column; align-items: center; gap: 0; }
+  .slide { width: 100%; max-width: 900px; min-height: 520px; margin: 0 auto 3px; display: flex; flex-direction: column; justify-content: center; padding: 60px 80px; position: relative; }
+  .slide-title-card { background: var(--navy); min-height: 600px; }
+  .slide-dark { background: #161b22; }
+  .slide-light { background: white; }
+  .slide-mint { background: rgba(26,158,116,0.1); border: 1px solid rgba(26,158,116,0.2); }
+  .slide-blue { background: rgba(40,123,232,0.12); border: 1px solid rgba(40,123,232,0.2); }
+  .slide-num { position: absolute; top: 28px; right: 32px; font-family: 'JetBrains Mono', monospace; font-size: 11px; font-weight: 700; color: rgba(255,255,255,0.2); }
+  .slide-light .slide-num { color: rgba(4,16,45,0.2); }
+  .slide-eyebrow { font-size: 11px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 16px; color: rgba(111,242,193,0.8); }
+  .slide-eyebrow.mint { color: #1a9e74; }
+  .slide-eyebrow.blue { color: rgba(40,123,232,0.9); }
+  .slide-eyebrow.muted { color: rgba(255,255,255,0.4); }
+  .slide-h1 { font-size: 52px; font-weight: 700; letter-spacing: -1.5px; line-height: 1.05; color: white; margin-bottom: 24px; }
+  .slide-h1 .accent { color: #6FF2C1; }
+  .slide-h2 { font-size: 36px; font-weight: 700; letter-spacing: -0.8px; line-height: 1.15; color: white; margin-bottom: 20px; }
+  .slide-h2.dark { color: var(--navy); }
+  .slide-h3 { font-size: 28px; font-weight: 700; letter-spacing: -0.5px; line-height: 1.2; color: white; margin-bottom: 16px; }
+  .slide-h3.dark { color: var(--navy); }
+  .slide-body { font-size: 18px; line-height: 1.65; color: rgba(255,255,255,0.75); max-width: 660px; }
+  .slide-body.dark { color: rgba(4,16,45,0.7); }
+  .slide-body strong { color: white; font-weight: 700; }
+  .slide-body.dark strong { color: var(--navy); }
+  .slide-list { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 14px; }
+  .slide-list li { display: flex; align-items: flex-start; gap: 12px; font-size: 17px; line-height: 1.5; }
+  .slide-list li .bullet { width: 24px; height: 24px; border-radius: 6px; flex-shrink: 0; background: rgba(26,158,116,0.2); color: #1a9e74; font-family: 'JetBrains Mono', monospace; font-size: 11px; font-weight: 700; display: flex; align-items: center; justify-content: center; margin-top: 2px; }
+  .slide-list li .text { color: rgba(255,255,255,0.8); }
+  .slide-list li .text strong { color: white; display: block; margin-bottom: 2px; }
+
+</style>
+</head>
+<body>
+<div class="topbar">
+  <a href="../index.html" class="topbar-brand">AIO <span>Labs</span></a>
+  <nav class="topbar-nav">
+    <a href="../index.html" class="tnav-link"><span class="tnav-dot" style="background:#8b91ac"></span> Home</a>
+    <a href="../certification.html" class="tnav-link active"><span class="tnav-dot" style="background:#287BE8"></span> Certification</a>
+    <a href="../coaching.html" class="tnav-link"><span class="tnav-dot" style="background:#287BE8"></span> Coaching</a>
+    <a href="../micro-sessions/index.html" class="tnav-link"><span class="tnav-dot" style="background:#1A9E74"></span> Micro-Sessions</a>
+    <a href="../blog/index.html" class="tnav-link"><span class="tnav-dot" style="background:#6FF2C1"></span> Blog</a>
+    <a href="../my-team.html" class="tnav-link"><span class="tnav-dot" style="background:#8b91ac"></span> My Team</a>
+  </nav>
+  <div class="topbar-right">
+    <a href="https://claude.ai" target="_blank" class="buddy-launch-btn">🤖 AI Buddy</a>
+    <div class="topbar-stat">🔥 7</div>
+    <div class="topbar-stat">⭐ 1,240</div>
+    <div class="topbar-divider"></div>
+    <div class="topbar-avatar">DH</div>
+  </div>
+</div>
+
+<div class="slides-header">
+  <a href="mission-4.html" class="slides-back">← Mission 4</a>
+  <span class="slides-title">Teach Your Workflow to Decide</span>
+  <span class="slides-counter">20 slides</span>
+</div>
+
+<div class="slides-wrapper">
+  
+  <div class="slide slide-title-card">
+    <span class="slide-num">1 / 20</span>
+    <div class="slide-eyebrow">Agentic AI for Business — Mission 4</div>
+    <h1 class="slide-h1">Title Slide</h1>
+    
+    <ul class="slide-list"><li><span class="bullet">1</span><span class="text">Agentic AI Essentials</span></li><li><span class="bullet">2</span><span class="text">Teach Your Workflow to Decide</span></li><li><span class="bullet">3</span><span class="text">Mission 3</span></li><li><span class="bullet">4</span><span class="text">Fast isn&#x27;t enough. We need fast and right.</span></li><li><span class="bullet">5</span><span class="text">#AIOfficerCertification | Dave Hajdu | dave@ai-officer.com</span></li></ul>
+  </div>
+  <div class="slide slide-dark">
+    <span class="slide-num">2 / 20</span>
+    
+    <h2 class="slide-h2">Continuity Bridge</h2>
+    
+    <ul class="slide-list"><li><span class="bullet">1</span><span class="text">Mission 1: You packaged your AI.</span></li><li><span class="bullet">2</span><span class="text">Mission 2: You wired it into a workflow.</span></li><li><span class="bullet">3</span><span class="text">Mission 3: You teach it to make decisions.</span></li></ul>
+  </div>
+  <div class="slide slide-mint">
+    <span class="slide-num">3 / 20</span>
+    
+    <h2 class="slide-h2">The Problem</h2>
+    
+    <ul class="slide-list"><li><span class="bullet">1</span><span class="text">Your workflow is fast.</span></li><li><span class="bullet">2</span><span class="text">But it treats everyone the same.</span></li></ul>
+  </div>
+  <div class="slide slide-light">
+    <span class="slide-num">4 / 20</span>
+    
+    <h2 class="slide-h2 dark">Today&#x27;s Agenda</h2>
+    
+    <ul class="slide-list"><li><span class="bullet">1</span><span class="text">1. When one path isn&#x27;t enough</span></li><li><span class="bullet">2</span><span class="text">2. The decision pattern: Classify -- Route -- Respond</span></li><li><span class="bullet">3</span><span class="text">3. Build the logic layer</span></li></ul>
+  </div>
+  <div class="slide slide-dark">
+    <span class="slide-num">5 / 20</span>
+    
+    <h2 class="slide-h2">The Linear Workflow Problem</h2>
+    
+    <ul class="slide-list"><li><span class="bullet">1</span><span class="text">New feedback comes in.</span></li><li><span class="bullet">2</span><span class="text">AI writes one generic reply.</span></li><li><span class="bullet">3</span><span class="text">You send it, log it, move on.</span></li></ul>
+  </div>
+  <div class="slide slide-dark">
+    <span class="slide-num">6 / 20</span>
+    
+    <h2 class="slide-h2">The Fix -- Mental Model</h2>
+    
+    <ul class="slide-list"><li><span class="bullet">1</span><span class="text">First listen. Then decide. Then respond.</span></li></ul>
+  </div>
+  <div class="slide slide-dark">
+    <span class="slide-num">7 / 20</span>
+    
+    <h2 class="slide-h2">Exercise -- Classify These</h2>
+    
+    <ul class="slide-list"><li><span class="bullet">1</span><span class="text">Exercise: What type is each one?</span></li><li><span class="bullet">2</span><span class="text">A: &quot;Your team was so helpful on my last order!&quot;</span></li><li><span class="bullet">3</span><span class="text">B: &quot;My package is late again and I still don&#x27;t have tracking.&quot;</span></li><li><span class="bullet">4</span><span class="text">C: &quot;Have you ever thought about adding a subscription option?&quot;</span></li><li><span class="bullet">5</span><span class="text">Share your labels in the chat.</span></li></ul>
+  </div>
+  <div class="slide slide-mint">
+    <span class="slide-num">8 / 20</span>
+    
+    <h2 class="slide-h2">The Decision Pattern</h2>
+    
+    <ul class="slide-list"><li><span class="bullet">1</span><span class="text">Classify -- Route -- Respond.</span></li></ul>
+  </div>
+  <div class="slide slide-light">
+    <span class="slide-num">9 / 20</span>
+    
+    <h2 class="slide-h2 dark">The Pattern Works Everywhere</h2>
+    
+    <ul class="slide-list"><li><span class="bullet">1</span><span class="text">Customer feedback -- Revenue Office.</span></li><li><span class="bullet">2</span><span class="text">Employee surveys -- Talent Office.</span></li><li><span class="bullet">3</span><span class="text">Time-off requests -- Operations Office.</span></li><li><span class="bullet">4</span><span class="text">Focus group notes -- Innovation Office.</span></li></ul>
+  </div>
+  <div class="slide slide-dark">
+    <span class="slide-num">10 / 20</span>
+    
+    <h2 class="slide-h2">Workflow Structure</h2>
+    
+    <ul class="slide-list"><li><span class="bullet">1</span><span class="text">New feedback -- Classify -- Route -- Respond -- Log.</span></li></ul>
+  </div>
+  <div class="slide slide-dark">
+    <span class="slide-num">11 / 20</span>
+    
+    <h2 class="slide-h2">Exercise -- Tiny Decision Canvas</h2>
+    
+    <ul class="slide-list"><li><span class="bullet">1</span><span class="text">Exercise: Design your logic on paper before touching any tool.</span></li><li><span class="bullet">2</span><span class="text">For each input type, define: what it means, and what happens next.</span></li><li><span class="bullet">3</span><span class="text">PRAISE -- Customer is happy -- Thank them, ask for review.</span></li><li><span class="bullet">4</span><span class="text">COMPLAINT -- Something went wrong -- Apologize, help fix.</span></li><li><span class="bullet">5</span><span class="text">SUGGESTION -- Idea for improvement -- Thank them, confirm captured.</span></li></ul>
+  </div>
+  <div class="slide slide-dark">
+    <span class="slide-num">12 / 20</span>
+    
+    <h2 class="slide-h2">Building the Logic Layer</h2>
+    
+    <ul class="slide-list"><li><span class="bullet">1</span><span class="text">Before: Trigger -- AI -- Action -- Log.</span></li><li><span class="bullet">2</span><span class="text">After: Trigger -- Classifier -- Router -- AI -- Action -- Log.</span></li></ul>
+  </div>
+  <div class="slide slide-mint">
+    <span class="slide-num">13 / 20</span>
+    
+    <h2 class="slide-h2">Exercise -- Step 1: Build the Classifier</h2>
+    
+    <ul class="slide-list"><li><span class="bullet">1</span><span class="text">Exercise: Build your classifier.</span></li><li><span class="bullet">2</span><span class="text">System prompt: &quot;Classify this feedback. Output ONLY one word: PRAISE, COMPLAINT, or SUGGESTION. No explanation.&quot;</span></li><li><span class="bullet">3</span><span class="text">Input: feedback text. Output: one label.</span></li></ul>
+  </div>
+  <div class="slide slide-light">
+    <span class="slide-num">14 / 20</span>
+    
+    <h2 class="slide-h2 dark">Step 2: Build the Router</h2>
+    
+    <ul class="slide-list"><li><span class="bullet">1</span><span class="text">Router reads the label. Selects the path.</span></li><li><span class="bullet">2</span><span class="text">PRAISE -- Praise path.</span></li><li><span class="bullet">3</span><span class="text">COMPLAINT -- Complaint path.</span></li><li><span class="bullet">4</span><span class="text">SUGGESTION -- Suggestion path.</span></li><li><span class="bullet">5</span><span class="text">The router doesn&#x27;t think. It just directs.</span></li></ul>
+  </div>
+  <div class="slide slide-dark">
+    <span class="slide-num">15 / 20</span>
+    
+    <h2 class="slide-h2">Step 3: Build the Responses</h2>
+    
+    <ul class="slide-list"><li><span class="bullet">1</span><span class="text">Exercise: Build a response for each path.</span></li><li><span class="bullet">2</span><span class="text">PRAISE -- Thank them, optional review ask.</span></li><li><span class="bullet">3</span><span class="text">COMPLAINT -- Acknowledge, apologize, help fix.</span></li><li><span class="bullet">4</span><span class="text">SUGGESTION -- Thank them, confirm captured.</span></li><li><span class="bullet">5</span><span class="text">All paths end with: send reply + log.</span></li></ul>
+  </div>
+  <div class="slide slide-dark">
+    <span class="slide-num">16 / 20</span>
+    
+    <h2 class="slide-h2">Exercise -- Pick Your Building Blocks</h2>
+    
+    <ul class="slide-list"><li><span class="bullet">1</span><span class="text">Exercise: Map your components in your automation platform.</span></li><li><span class="bullet">2</span><span class="text">You don&#x27;t need to connect everything yet. Just identify: trigger, classifier, router, response paths, log.</span></li></ul>
+  </div>
+  <div class="slide slide-dark">
+    <span class="slide-num">17 / 20</span>
+    
+    <h2 class="slide-h2">Outcome</h2>
+    
+    <ul class="slide-list"><li><span class="bullet">1</span><span class="text">You designed a workflow that classifies, routes, responds differently, and logs everything.</span></li><li><span class="bullet">2</span><span class="text">This is personalization at scale.</span></li></ul>
+  </div>
+  <div class="slide slide-mint">
+    <span class="slide-num">18 / 20</span>
+    
+    <h2 class="slide-h2">What&#x27;s Next</h2>
+    
+    <ul class="slide-list"><li><span class="bullet">1</span><span class="text">Today you designed every path.</span></li><li><span class="bullet">2</span><span class="text">What happens when you can&#x27;t?</span></li></ul>
+  </div>
+  <div class="slide slide-light">
+    <span class="slide-num">19 / 20</span>
+    
+    <h2 class="slide-h2 dark">Your Commitment</h2>
+    
+    <ul class="slide-list"><li><span class="bullet">1</span><span class="text">What is one process in your work where different inputs should get different treatment -- and currently don&#x27;t?</span></li></ul>
+  </div>
+  <div class="slide slide-dark">
+    <span class="slide-num">20 / 20</span>
+    
+    <h2 class="slide-h2">Thank You</h2>
+    
+    <ul class="slide-list"><li><span class="bullet">1</span><span class="text">Thank you.</span></li><li><span class="bullet">2</span><span class="text">[QR Code Placeholder -- Session Feedback]</span></li><li><span class="bullet">3</span><span class="text">#AIOfficerCertification | Dave Hajdu | dave@ai-officer.com | ai-officer.com</span></li></ul>
+  </div>
+</div>
+
+</body>
+</html>

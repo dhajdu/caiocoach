@@ -1,0 +1,561 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mission 3 Briefs — Wire the Workflow — AI Officer Institute</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../shared/styles.css">
+<style>
+  :root {
+    --royal: #287BE8;
+    --ease: cubic-bezier(0.4, 0, 0.2, 1);
+    --radius: 12px;
+    --shadow-sm: 0 1px 3px rgba(4,16,45,0.07);
+    --shadow-hover: 0 6px 24px rgba(4,16,45,0.10);
+    --text-tertiary: #8b91ac;
+    --border-hover: #b0b6cc;
+  }
+  body { background: var(--surface); }
+
+  .page-wrap { display: grid; grid-template-columns: 240px 1fr; min-height: 100vh; padding-top: 56px; }
+  .tb-sidebar { position: sticky; top: 56px; height: calc(100vh - 56px); overflow-y: auto; background: white; border-right: 1px solid var(--border); padding: 28px 0; }
+  .tb-sidebar-inner { padding: 0 20px; }
+  .tb-sidebar-label { font-size: 10px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: var(--text-muted); margin-bottom: 12px; padding: 0 4px; }
+  .tb-nav-link { display: block; padding: 8px 12px; border-radius: 8px; font-size: 13px; font-weight: 500; color: var(--text-secondary); text-decoration: none; transition: all 0.12s; margin-bottom: 2px; line-height: 1.4; }
+  .tb-nav-link:hover { background: var(--surface); color: var(--text-primary); }
+  .tb-nav-link.active { background: rgba(26,158,116,0.08); color: #1a9e74; font-weight: 600; }
+  .tb-nav-num { font-family: 'JetBrains Mono', monospace; font-size: 10px; font-weight: 700; color: var(--text-muted); display: block; margin-bottom: 1px; }
+  .tb-nav-divider { height: 1px; background: var(--border); margin: 14px 0; }
+  .tb-buddy-btn { display: flex; align-items: center; gap: 8px; width: 100%; margin-top: 20px; padding: 10px 12px; border-radius: 8px; background: rgba(26,158,116,0.07); border: 1px solid rgba(26,158,116,0.2); color: #1a9e74; font-size: 13px; font-weight: 600; cursor: pointer; text-decoration: none; transition: all 0.15s; }
+  .tb-buddy-btn:hover { background: rgba(26,158,116,0.12); }
+  .tb-main { padding: 48px 60px 100px; max-width: 780px; }
+  .tb-back { display: inline-flex; align-items: center; gap: 6px; font-size: 13px; font-weight: 600; color: var(--text-muted); text-decoration: none; margin-bottom: 32px; transition: color 0.12s; }
+  .tb-back:hover { color: var(--text-primary); }
+  .tb-hero { margin-bottom: 48px; }
+  .tb-track-pill { display: inline-flex; align-items: center; gap: 7px; font-size: 11px; font-weight: 700; letter-spacing: 0.7px; text-transform: uppercase; padding: 5px 12px; border-radius: 20px; background: rgba(26,158,116,0.1); color: #1a9e74; border: 1px solid rgba(26,158,116,0.2); margin-bottom: 14px; }
+  .tb-title { font-size: 32px; font-weight: 700; color: var(--text-primary); letter-spacing: -0.5px; line-height: 1.15; margin-bottom: 10px; }
+  .tb-sub { font-size: 15px; color: var(--text-secondary); line-height: 1.65; max-width: 560px; }
+  .brief-section { margin-bottom: 64px; scroll-margin-top: 80px; }
+  .brief-label { font-family: 'JetBrains Mono', monospace; font-size: 10px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: #1a9e74; margin-bottom: 6px; }
+  .brief-title { font-size: 24px; font-weight: 700; color: var(--text-primary); letter-spacing: -0.3px; line-height: 1.2; margin-bottom: 20px; padding-bottom: 16px; border-bottom: 2px solid var(--border); }
+  .prose { color: var(--text-secondary); line-height: 1.75; font-size: 15px; }
+  .prose p { margin-bottom: 18px; }
+  .prose h3 { font-size: 17px; font-weight: 700; color: var(--text-primary); letter-spacing: -0.2px; margin: 32px 0 10px; }
+  .prose h4 { font-size: 14px; font-weight: 700; color: var(--text-primary); text-transform: uppercase; letter-spacing: 0.5px; margin: 24px 0 8px; }
+  .prose ul, .prose ol { padding-left: 20px; margin-bottom: 18px; display: flex; flex-direction: column; gap: 6px; }
+  .prose li { font-size: 14.5px; line-height: 1.65; }
+  .prose strong { font-weight: 700; color: var(--text-primary); }
+  .prose code { font-family: 'JetBrains Mono', monospace; font-size: 13px; background: var(--surface); padding: 2px 6px; border-radius: 4px; border: 1px solid var(--border); }
+  .key-insight { background: rgba(26,158,116,0.05); border: 1px solid rgba(26,158,116,0.15); border-left: 3px solid #1a9e74; border-radius: 0 var(--radius) var(--radius) 0; padding: 18px 22px; margin: 28px 0; }
+  .key-insight-label { font-size: 10px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: #1a9e74; margin-bottom: 8px; }
+  .key-insight p { font-size: 14px; color: var(--text-primary); line-height: 1.65; margin: 0; }
+  .starter-prompt { background: rgba(40,123,232,0.04); border: 1px solid rgba(40,123,232,0.18); border-radius: var(--radius); padding: 20px 22px; margin: 24px 0; }
+  .starter-prompt-label { display: flex; align-items: center; gap: 8px; font-size: 11px; font-weight: 700; letter-spacing: 0.7px; text-transform: uppercase; color: #287BE8; margin-bottom: 12px; }
+  .starter-prompt-text { font-size: 14px; color: var(--text-primary); line-height: 1.7; font-style: italic; background: white; padding: 14px 16px; border-radius: 8px; border: 1px solid rgba(40,123,232,0.15); }
+  .worked-example { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 20px 22px; margin: 24px 0; }
+  .worked-example-label { font-size: 10px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: var(--text-muted); margin-bottom: 12px; }
+  .tb-bottom-nav { display: flex; align-items: center; justify-content: space-between; border-top: 1px solid var(--border); padding-top: 32px; margin-top: 16px; }
+  .tb-nav-btn { display: inline-flex; align-items: center; gap: 6px; font-size: 13px; font-weight: 600; color: var(--text-muted); text-decoration: none; padding: 8px 14px; border-radius: 8px; border: 1px solid var(--border); transition: all 0.12s; }
+  .tb-nav-btn:hover { border-color: var(--border-hover); color: var(--text-primary); }
+  .tb-nav-btn.primary { background: #1a9e74; color: white; border-color: #1a9e74; }
+  .tb-nav-btn.primary:hover { background: #178a65; }
+  @media (max-width: 900px) { .page-wrap { grid-template-columns: 1fr; } .tb-sidebar { display: none; } .tb-main { padding: 40px 24px 80px; } .topbar-nav { display: none; } }
+
+</style>
+</head>
+<body>
+<div class="topbar">
+  <a href="../index.html" class="topbar-brand">AIO <span>Labs</span></a>
+  <nav class="topbar-nav">
+    <a href="../index.html" class="tnav-link"><span class="tnav-dot" style="background:#8b91ac"></span> Home</a>
+    <a href="../certification.html" class="tnav-link active"><span class="tnav-dot" style="background:#287BE8"></span> Certification</a>
+    <a href="../coaching.html" class="tnav-link"><span class="tnav-dot" style="background:#287BE8"></span> Coaching</a>
+    <a href="../micro-sessions/index.html" class="tnav-link"><span class="tnav-dot" style="background:#1A9E74"></span> Micro-Sessions</a>
+    <a href="../blog/index.html" class="tnav-link"><span class="tnav-dot" style="background:#6FF2C1"></span> Blog</a>
+    <a href="../my-team.html" class="tnav-link"><span class="tnav-dot" style="background:#8b91ac"></span> My Team</a>
+  </nav>
+  <div class="topbar-right">
+    <a href="https://claude.ai" target="_blank" class="buddy-launch-btn">🤖 AI Buddy</a>
+    <div class="topbar-stat">🔥 7</div>
+    <div class="topbar-stat">⭐ 1,240</div>
+    <div class="topbar-divider"></div>
+    <div class="topbar-avatar">DH</div>
+  </div>
+</div>
+
+<div class="page-wrap">
+
+  <aside class="tb-sidebar">
+    <div class="tb-sidebar-inner">
+      <div class="tb-sidebar-label">Mission 3 Briefs</div>
+      
+      <a href="#section-1" class="tb-nav-link">
+        <span class="tb-nav-num">SECTION 1</span>Welcome to Mission 3
+      </a>
+      <a href="#section-2" class="tb-nav-link">
+        <span class="tb-nav-num">SECTION 2</span>Brief 1: Why You&#x27;re Still the Bottleneck
+      </a>
+      <a href="#section-3" class="tb-nav-link">
+        <span class="tb-nav-num">SECTION 3</span>Key Takeaways
+      </a>
+      <div class="tb-nav-divider"></div>
+      <a href="https://claude.ai" target="_blank" class="tb-buddy-btn">🤖 Open AI Buddy</a>
+    </div>
+  </aside>
+
+  <main class="tb-main">
+
+    <a href="mission-3.html" class="tb-back">← Back to Mission 3</a>
+
+    <div class="tb-hero">
+      <div class="tb-track-pill">Agentic AI for Business · Mission 03</div>
+      <h1 class="tb-title">Wire the Workflow</h1>
+      <p class="tb-sub">Stop being the middleware. Build a workflow that runs your AI tool automatically — trigger, data, AI step, action, log.</p>
+    </div>
+
+    
+    <section class="brief-section" id="section-1">
+      <div class="brief-label">SECTION 1</div>
+      <h2 class="brief-title">Welcome to Mission 3</h2>
+      <div class="prose">
+        <h4>Welcome to Mission 3</h4>
+<p>You built a Packaged AI tool in Mission 2. It works. You press the button, it generates output, and the quality is good.</p>
+<p>But then what happens?</p>
+<p>You become the connector. You manually paste input. You wait for output. You copy it. You switch to email or Slack or a document. You paste it again. You check the formatting. You send it. You log it somewhere, or you don't, and now there's no record.</p>
+<p>The AI is fast. Three seconds per response. You are slow. Five minutes of connector work per response.</p>
+<p>This mission fixes that. You're about to wire your Packaged AI into a workflow. A system where data flows automatically, your AI processes it, and output lands where it needs to go without you manually connecting the dots.</p>
+<p>The difference: Before today, you are the middleware. After today, the workflow is.</p>
+<h4>Your Mission Briefs</h4>
+<p>Five briefs will walk you through the complete pattern:</p>
+<p><strong>Brief 1: Why You're Still the Bottleneck</strong> - The middleware problem. You built the tool. Now you're the connector. Workflows remove you from that loop. (20 min)</p>
+<p><strong>Brief 2: The 5-Part Workflow Blueprint</strong> - Trigger, Data, AI Step, Action, Log. Every platform speaks this language. (20 min)</p>
+<p><strong>Brief 3: Platform Options</strong> - Make.com, Zapier, n8n, Power Automate. Same pattern. Different tools. How to pick. (15 min)</p>
+<p><strong>Brief 4: Build Your Workflow</strong> - Step-by-step walkthrough of wiring your Packaged AI into a live workflow. (30 min)</p>
+<p><strong>Brief 5: Test, Fix, and Ship</strong> - Error handling, edge cases, and moving from prototype to reliable system. (25 min)</p>
+<h4>Learning Guide</h4>
+<ul><li><strong>Teaching content</strong> that explains the concept</li><li><strong>A worked example</strong> showing exactly how it works in practice</li><li><strong>A starter prompt</strong> to use with your AI Buddy</li><li><strong>A key insight</strong> that connects to leadership, not just technology</li></ul>
+<p>At the end, you'll have practice challenges and a final project: a complete automated workflow for your selected item from Session 1.</p>
+<p>Before you start, you need:
+- Your Packaged AI tool from Mission 2 (working and tested)
+- Access to an automation platform (Make.com, Zapier, n8n, or Power Automate)
+- A Google Sheet or similar to log workflow results</p>
+<h4>Rules of the Road</h4>
+<ol><li><strong>Design before you build.</strong> Map your 5-part workflow before you touch any automation platform. Fifteen minutes on paper saves an hour of confused building.</li></ol>
+<ol><li><strong>Test with real data.</strong> Use actual inputs from your work, not fake examples. Real data surfaces real problems.</li></ol>
+<ol><li><strong>Start with the trigger.</strong> If the trigger doesn't fire, nothing else happens. Get this right first.</li></ol>
+<ol><li><strong>Don't skip the log.</strong> Your logs become the system's memory. Skip logging and you're flying blind.</li></ol>
+<ol><li><strong>Embrace the errors.</strong> When something breaks, click the error. Read it. Most fixes are obvious once you understand what went wrong.</li></ol>
+<ol><li><strong>Good enough is good enough.</strong> You don't need a workflow that handles every edge case. You need a workflow that works for 90 percent of your inputs and saves you time on those 90 percent.</li></ol>
+      </div>
+    </section>
+    <section class="brief-section" id="section-2">
+      <div class="brief-label">SECTION 2</div>
+      <h2 class="brief-title">Brief 1: Why You&#x27;re Still the Bottleneck (20 min)</h2>
+      <div class="prose">
+        <h4>Brief 1: Why You're Still the Bottleneck (20 min)</h4>
+<h4>Teaching: The Middleware Problem</h4>
+<p>In Session 2, you built a Packaged AI tool. You created a reusable AI system: data fed in, instructions defined, interface built. It works. You press the button, it generates output, and the quality is good. But then what happens?</p>
+<p>You become the connector. The middleware. You open the tool, paste the input manually. You wait for the output. You copy it. You switch to email or Slack or a document. You paste it. You check it. You tweak the formatting. You might add context. You send it. You log it somewhere, or you don't, and now there's no record. You repeat this every single day.</p>
+<p>The AI is fast. Three seconds per response. You are slow. Five minutes of manual work per response. When you add a second workflow, you're now the bottleneck for both. When you add a third, three. The tool scales. You don't.</p>
+<p>This is called the 95 percent problem. MIT Sloan research shows that 95 percent of organizations investing in AI get zero return. Not because the AI doesn't work. Because they bolt AI onto broken processes and automate chaos. Process excellence comes before AI, every single time.</p>
+<p>The solution isn't a better AI tool. It's a workflow. A system where data flows automatically, AI processes it, and output lands where it needs to go without you manually connecting the dots.</p>
+<div class="worked-example"><div class="worked-example-label">Worked Example</div><div class="prose"><h4>Worked Example: Before and After</h4></div></div>
+<p><strong>BEFORE: Manual Process</strong></p>
+<p>Monday morning. Fifteen customer emails arrived overnight with feedback. You:
+1. Open your email (2 minutes)
+2. Copy the first feedback (1 minute)
+3. Open your Packaged AI tool from Session 2 (30 seconds)
+4. Paste the feedback (30 seconds)
+5. Hit submit, wait for output (1 minute)
+6. Copy the AI response (30 seconds)
+7. Open Gmail (30 seconds)
+8. Click reply on the original email (30 seconds)
+9. Paste the AI response (30 seconds)
+10. Edit it slightly (2 minutes)
+11. Send (30 seconds)
+12. Open a spreadsheet to log it (1 minute)
+13. Write down the timestamp, input, output, status (1 minute)
+14. Repeat for the next email.</p>
+<p>Total time for 15 responses: 4 hours. The AI did 5 minutes of actual work. You did 3 hours and 55 minutes of connector work.</p>
+<p><strong>AFTER: Automated Workflow</strong></p>
+<p>The trigger watches your email inbox. New feedback arrives. The workflow fires automatically. Data is pulled from the email. Your Packaged AI processes it (5 minutes of actual work for all 15 responses). The response is sent directly to Gmail and lands in the customer's inbox. Everything is logged automatically.</p>
+<p>Total time for you: 10 minutes to monitor and verify. Everything else happens while you work on something else.</p>
+<p>That's the shift from tool to system.</p>
+<div class="starter-prompt"><div class="starter-prompt-label">🤖 Starter Prompt</div><div class="starter-prompt-text">#### Starter Prompt: Map Your Current Manual Process</div></div>
+<p>Before you wire anything, you need to see the manual process you're replacing. Use your AI Buddy with this prompt:</p>
+<p>"I currently do this work manually: [describe your current manual process]. I use this Packaged AI tool from Session 2: [describe what it does]. Every time I do this work, here's what I do step by step: [list the steps]. How would you describe the workflow? Where am I doing the connector work? Where is the AI tool sitting unused between my manual steps?"</p>
+<p>Your AI Buddy will help you visualize the bottleneck. This is the workflow you're going to automate in the next brief.</p>
+<div class="key-insight"><div class="key-insight-label">Key Insight</div><p>#### Key Insight</p></div>
+<p>The AI is fast. You are slow. The workflow fixes that. Stop being the middleware.</p>
+<h4>Brief 2: The 5-Part Workflow Blueprint (20 min)</h4>
+<h4>Teaching: The Five Parts That Work Everywhere</h4>
+<p>There are five parts to every workflow that automates business processes. Every platform uses them. Make.com, Zapier, n8n, Power Automate. They all speak the same language.</p>
+<p><strong>1. Trigger: What Starts It</strong></p>
+<p>The trigger is the starting signal. Something happens that kicks off the workflow. Triggers can be time-based: every Monday at 9 AM, the workflow fires. Or event-based: a new row in a spreadsheet, a form submission, an email arrival, a Slack message. Or manual: you click a button when you're ready.</p>
+<p>The best triggers are the ones that don't require you to remember anything. Set it and forget it. The system watches for you.</p>
+<p>For the customer feedback workflow: Trigger is a new email arriving in your inbox.</p>
+<p><strong>2. Data: The Fuel</strong></p>
+<p>Data is what the workflow operates on. Sometimes the trigger brings the data with it (the new email includes the customer name, feedback content, date, sender). Sometimes you need to fetch it (pull the customer record from your CRM to add purchase history context to the AI input). Sometimes you transform it (clean up messy spreadsheet data before sending it to the AI).</p>
+<p>Your workflow is only as good as your data. Garbage in, garbage out.</p>
+<p>For the customer feedback workflow: Data is the email content, customer name, and previous conversation history.</p>
+<p><strong>3. AI Step: What AI Does With It</strong></p>
+<p>This is where your Packaged AI from Session 2 lives, now inside a system instead of in a chat window. Data flows to it automatically. It processes and produces output. Generate. Transform. Extract. Classify. The AI step takes the raw data and turns it into something useful.</p>
+<p>For the customer feedback workflow: AI Step generates a personalized response to the customer feedback.</p>
+<p><strong>4. Action: Where Output Goes</strong></p>
+<p>The action is where the output lands. Send an email. Create a task in Asana. Post a message in Slack. Update a row in a spreadsheet. Create a document. Add a record to a database. This step replaces you as the manual connector. Before today, you copy-pasted AI output manually. Now the system does it.</p>
+<p>For the customer feedback workflow: Action sends the AI-generated response to the customer via Gmail.</p>
+<p><strong>5. Log: The System's Memory</strong></p>
+<p>AI doesn't remember. Your logs become the system's memory. Every time the workflow runs, log: the timestamp, what input triggered it, what AI output was generated, the status of the action that followed. When something breaks, your log tells you where and what happened. When your manager asks how many responses were handled, your log has the answer. Logs turn automation into intelligence.</p>
+<p>For the customer feedback workflow: Log records timestamp, original feedback, AI response, and whether the email sent successfully.</p>
+<div class="worked-example"><div class="worked-example-label">Worked Example</div><div class="prose"><h4>Worked Example: Customer Feedback Workflow Step by Step</h4></div></div>
+<p>Let's walk through a real build in detail.</p>
+<p><strong>Step 1: Trigger</strong>
+"Whenever a new email arrives in my feedback inbox, the workflow should fire."</p>
+<p><strong>Step 2: Data</strong>
+"Extract the customer's name, email address, feedback content, and the date it arrived. If I have their CRM record, pull in their account status and previous feedback history."</p>
+<p><strong>Step 3: AI Step</strong>
+"Take that data and feed it into my Packaged AI from Session 2. Use this system prompt: 'You are a customer success specialist responding to feedback. Be warm, specific, acknowledge their concern, offer a solution or timeline.' Generate a personalized response."</p>
+<p><strong>Step 4: Action</strong>
+"Send the AI-generated response as a reply to the original email via Gmail."</p>
+<p><strong>Step 5: Log</strong>
+"Write back to my feedback spreadsheet with: timestamp, customer name, feedback received, AI response generated, email sent status, send time."</p>
+<p>That's the complete pattern. Five parts. Every workflow, same structure.</p>
+<div class="starter-prompt"><div class="starter-prompt-label">🤖 Starter Prompt</div><div class="starter-prompt-text">#### Starter Prompt: Design Your Workflow With AI Buddy</div></div>
+<p>Use your AI Buddy with this prompt:</p>
+<p>"I want to automate this work with a workflow: [describe what you want to automate]. My Packaged AI from Session 2 is: [describe it]. Using the 5-Part Workflow Blueprint (Trigger, Data, AI Step, Action, Log), help me design the workflow. For each part, tell me: What should the trigger be? What data do I need to collect? What should the AI step do? Where should the output go? What should I log? Make it specific and practical."</p>
+<p>Your AI Buddy will help you design all five parts before you touch any automation platform. You'll know what you're building before you start building.</p>
+<div class="key-insight"><div class="key-insight-label">Key Insight</div><p>#### Key Insight</p></div>
+<p>The platform is the tool. The pattern is the skill. Learn it once, build on any platform.</p>
+<h4>Brief 3: Platform Options (15 min)</h4>
+<h4>Teaching: Which Platform, When, and Why</h4>
+<p>Five automation platforms dominate the space: Make.com, Zapier, n8n, Power Automate. They all implement the 5-Part Workflow Blueprint. The differences are in interface, pricing, and ecosystem.</p>
+<p>Make.com is visual and approachable. You build workflows by connecting modules. The interface is drag-and-drop friendly. Pricing is pay-as-you-go based on operations (a "make" is one workflow execution). Good for: learning, experimenting, small-scale workflows, creative work. Best for: startups, individuals, teams just starting automation. Learning curve: gentle. Ecosystem: good (hundreds of app integrations).</p>
+<p>Zapier is the most established platform. It has the largest ecosystem (integrations with nearly every business app) and excellent stability. Pricing is subscription-based (monthly per workflow or per account). Good for: reliability, ecosystem, documentation. Best for: enterprises, teams with critical workflows, scenarios where you need obscure integrations. Learning curve: moderate. Ecosystem: massive.</p>
+<p>n8n is open-source and self-hosted (you can run it on your own servers). This means more control, data privacy in your hands, no vendor lock-in. Pricing is free for self-hosted (you pay for infrastructure), or cloud-based pricing. Good for: privacy, control, cost at scale. Best for: organizations with security/privacy requirements, teams with technical depth. Learning curve: steeper. Ecosystem: good but smaller than Zapier.</p>
+<p>Power Automate is Microsoft's automation platform. If you're already in the Microsoft ecosystem (Office 365, Teams, SharePoint), it integrates seamlessly. Pricing varies (included with some Office plans, standalone subscriptions). Good for: Microsoft ecosystem integration. Best for: organizations already on Microsoft. Learning curve: moderate. Ecosystem: excellent for Microsoft products, smaller for third-party apps.</p>
+<h4>Teaching: How to Pick</h4>
+<ol><li><strong>Do I need it in the Microsoft ecosystem?</strong> If yes and you're on Office 365, use Power Automate.</li><li><strong>Do I need exotic integrations?</strong> If yes, use Zapier (biggest ecosystem).</li><li><strong>Am I just learning?</strong> If yes, use Make.com (cheapest to experiment on, friendly interface).</li><li><strong>Do I need privacy and control?</strong> If yes, use n8n (self-hosted option available).</li><li><strong>Do I need reliability and scale?</strong> If yes, use Zapier (most stable, most established).</li></ol>
+<p>For your first workflow in this mission, we recommend Make.com. It's the easiest to learn, the fastest to build, and you can experiment cheaply.</p>
+<div class="worked-example"><div class="worked-example-label">Worked Example</div><div class="prose"><h4>Worked Example: Same Workflow on Three Platforms</h4></div></div>
+<p>The customer feedback workflow (Trigger: new email, Data: extract content, AI: generate response, Action: send email, Log: record activity) looks like this on each platform:</p>
+<p><strong>Make.com:</strong>
+1. Gmail module as trigger (watches inbox)
+2. Gmail module to extract email data
+3. API module pointing to your Packaged AI tool
+4. Gmail module to send reply
+5. Google Sheets module to log results</p>
+<p>Visual connections between modules. All configured through dropdowns and field mapping.</p>
+<p><strong>Zapier:</strong>
+1. Gmail trigger (new email)
+2. Formatter step to extract and clean email data
+3. Zapier Code or API step to call your Packaged AI
+4. Gmail action to send reply
+5. Google Sheets action to log</p>
+<p>Similar structure, different naming and interface.</p>
+<p><strong>n8n:</strong>
+1. Gmail trigger node (new email)
+2. Function node to extract data
+3. HTTP request node to your Packaged AI
+4. Gmail send node to reply
+5. Google Sheets node to log</p>
+<p>Same five parts, different visual flow.</p>
+<p>The pattern is identical. The buttons look different. The skill transfers.</p>
+<div class="starter-prompt"><div class="starter-prompt-label">🤖 Starter Prompt</div><div class="starter-prompt-text">#### Starter Prompt: Platform Recommendation</div></div>
+<p>Use your AI Buddy with this prompt:</p>
+<p>"I want to build my first workflow. Here's my situation: [describe your tech setup - are you on Microsoft, do you need privacy, etc.]. My workflow is: [describe your 5-part design]. Which automation platform should I use? Make.com, Zapier, n8n, or Power Automate? Why? What's the main advantage and one limitation I should know about?"</p>
+<p>Your AI Buddy will recommend the right platform for your specific situation.</p>
+<div class="key-insight"><div class="key-insight-label">Key Insight</div><p>#### Key Insight</p></div>
+<p>Five parts. Trigger, Data, AI, Action, Log. Every platform speaks this language.</p>
+<h4>Brief 4: Build Your Workflow (30 min)</h4>
+<h4>Teaching: The Build Process</h4>
+<p>You're going to build a working workflow using the 5-Part Workflow Blueprint. We'll use Make.com as the platform, but the pattern transfers to Zapier, n8n, or Power Automate.</p>
+<p>Before you start, you have:
+1. A Packaged AI tool from Session 2 (working and tested)
+2. A workflow design from Brief 2 (your 5-part blueprint written out)
+3. Access to an automation platform (Make.com account created)</p>
+<h4>Build Step 1: Create Your Scenario and Set Your Trigger</h4>
+<p>Log into Make.com. Click "Create a new scenario." Name it something clear: "Session 1 Item - Customer Feedback Response" or "Lead Qualification Workflow" or whatever your workflow does. Don't use generic names.</p>
+<p>Select your trigger app. For a customer feedback workflow, it's Gmail. For a lead qualification workflow, it might be a form submission app. For a content review workflow, it might be a Slack channel. Configure the trigger: which inbox to watch, which form to monitor, which channel to listen to.</p>
+<p>Test the trigger. Add a test input. Does the trigger fire? You should see it in the workflow run history. If yes, move to step 2. If no, check: Is the account connected correctly? Is the trigger looking at the right inbox or form or channel? Fix it and test again.</p>
+<p><strong>Key point:</strong> Don't move forward until the trigger is working. Everything else depends on it.</p>
+<h4>Build Step 2: Extract and Prepare Data</h4>
+<p>Add a second module to your workflow. This is the Data step. Depending on your trigger, you might use:
+- Gmail module to extract email content
+- Spreadsheet module to get row data
+- Form module to extract submission fields
+- Slack module to extract message content</p>
+<p>Configure it to capture all the data your AI step needs. If you need data from outside the trigger (customer history from your CRM, context from a previous interaction), add another module to fetch it.</p>
+<p>Test with real data. Does the extracted data look right? Are the fields mapped correctly? If you see messy data, note it - you might need to clean it with a formatter step.</p>
+<p><strong>Key point:</strong> Pay attention to data quality. What looks small here becomes a big problem at the AI step.</p>
+<h4>Build Step 3: Connect Your Packaged AI</h4>
+<p>Add your AI step. This is where your Packaged AI tool from Session 2 comes in.</p>
+<p>If your Packaged AI lives in ChatGPT or Claude with a system prompt: use the OpenAI or Anthropic API module. Map your data fields to the prompt input.</p>
+<p>If your Packaged AI is a custom tool (built in another platform): use an HTTP module to call it. You'll need the API endpoint and any authentication keys.</p>
+<p>If your Packaged AI is a Google Form + Apps Script combo: use the Apps Script module to call it.</p>
+<p>Feed your extracted data into the AI step. Include all context the AI needs to do its job well. Test with real data. Does the AI output look right? Is it personalized? Is it the quality you expect from Session 2? If the output is generic or wrong, the problem is usually the data (garbage in, garbage out) or the AI prompt needs refinement.</p>
+<p><strong>Key point:</strong> This is where you might refine your Session 2 Packaged AI. Real workflow data sometimes teaches you things your Session 2 testing didn't.</p>
+<h4>Build Step 4: Configure the Action</h4>
+<p>Add your action step. This is where the output lands.</p>
+<p>If the action is send an email: Gmail module, mapped to the customer's email address, with the AI output as the body.</p>
+<p>If the action is create a task: Asana module, with the AI output as the task description.</p>
+<p>If the action is update a spreadsheet: Google Sheets module, with the AI output written to a specific column.</p>
+<p>If the action is post a message: Slack module, with the AI output as the message content.</p>
+<p>Map your fields carefully. The AI output field should go to the right place. Customer name or ID should go to the right recipient or record.</p>
+<p>Test the action. Does the output arrive where it should? Email: check your inbox. Spreadsheet: check the sheet. Task: check the app. Does it look right? Is the formatting correct? Is anything missing?</p>
+<p><strong>Key point:</strong> This is where you remove yourself from the loop. Before today, you did this manually. Now the system does.</p>
+<h4>Build Step 5: Log Everything</h4>
+<p>Add your log step. This is usually a spreadsheet or database module where you write back the results.</p>
+<p>Create columns for:
+- Timestamp (when the workflow ran)
+- Input (what triggered it - customer name, feedback content, lead source, etc.)
+- AI Output (what the AI generated)
+- Action Status (sent, failed, pending, etc.)
+- Any other metadata you want to track</p>
+<p>Configure the module to write back to your spreadsheet or database. Map each field correctly.</p>
+<p>Test the log. Run the workflow and check: does the spreadsheet row get populated? Does the timestamp capture correctly? Does the AI output get recorded?</p>
+<p><strong>Key point:</strong> Logs are how you build system memory. Skip this step and you lose visibility. Don't skip it.</p>
+<h4>Build Step 6: Full Workflow Test</h4>
+<p>Now run the entire workflow end to end with real data.</p>
+<ol><li>Add a test input to your trigger (email, form submission, spreadsheet row, Slack message - whatever your trigger is).</li><li>Go check the workflow run history. Did the trigger fire? Click the run and see the details.</li><li>Did the data extract correctly? Check the data step. Are all fields captured?</li><li>Did the AI step complete? Check the output. Is it right?</li><li>Did the action complete? Check the output location. Email sent? Task created? Row updated?</li><li>Did the log capture everything? Check the spreadsheet. Are all fields populated?</li></ol>
+<p>If all steps work, you just built a real automated workflow. Celebrate. This is the jump from tool to system.</p>
+<p>If something breaks, click the error. Read it. Most problems are simple:
+- Connection expired: re-authorize the app.
+- Field mapping wrong: fix the field mapping.
+- Missing data: check the data step and add what's missing.
+- Permissions issue: grant the necessary permissions.
+- Rate limit hit: wait and try again, or adjust the API call.</p>
+<p>Don't panic. Don't start over. Diagnose and fix.</p>
+<div class="worked-example"><div class="worked-example-label">Worked Example</div><div class="prose"><h4>Worked Example: Complete Customer Feedback Workflow Build</h4></div></div>
+<p>Here's what a customer feedback response workflow looks like when fully built:</p>
+<p><strong>Trigger (Gmail):</strong> Watch for new emails in "feedback@mycompany.com" inbox.</p>
+<p><strong>Data (Gmail Extract):</strong> Pull sender email address, sender name, email subject, email body, timestamp.</p>
+<p><strong>Data (CRM Lookup):</strong> Use the sender email to fetch customer record, account status, interaction history.</p>
+<p><strong>AI Step (OpenAI API):</strong> Feed to ChatGPT with system prompt "You are a customer success specialist. Use the customer history context to personalize your response. Be warm, specific, acknowledge their concern, offer a solution."</p>
+<p><strong>Action (Gmail Send):</strong> Send reply email to the sender's address with the AI-generated response.</p>
+<p><strong>Log (Google Sheets):</strong> Write timestamp, sender name, feedback received, AI response, send status to your feedback log spreadsheet.</p>
+<p>That's your complete workflow. Five parts. Now fully automated.</p>
+<div class="starter-prompt"><div class="starter-prompt-label">🤖 Starter Prompt</div><div class="starter-prompt-text">#### Starter Prompt: Build System Prompt for Your AI Step</div></div>
+<p>Use your AI Buddy with this prompt:</p>
+<p>"I'm wiring my AI step into a live workflow. The workflow will: [describe your workflow]. The data it will receive is: [describe what fields and context]. I need a system prompt for the AI step that is clear, specific, and will perform well at scale. The output should: [describe what you want the AI to generate]. Create a system prompt for this."</p>
+<p>Your AI Buddy will help refine your Packaged AI prompt for live workflow conditions.</p>
+<div class="key-insight"><div class="key-insight-label">Key Insight</div><p>#### Key Insight</p></div>
+<p>You removed yourself from the loop. That's the jump from tool to system.</p>
+<h4>Brief 5: Test, Fix, and Ship (25 min)</h4>
+<h4>Teaching: Happy Path and Error Handling</h4>
+<p>Most people stop building a workflow the moment it works one time. That's not enough. A workflow that works once is a prototype. A workflow that works consistently across 100 inputs is a system.</p>
+<p>The happy path is the ideal scenario. New feedback arrives (positive or negative, but clear). The workflow triggers. Data extracts cleanly. AI generates a great response. Email sends successfully. Everything logs correctly. This is the path you designed for.</p>
+<p>But real data is messy. Not all inputs are ideal. Some feedback is unclear. Some emails are incomplete. Some customer records are missing. Some API calls fail randomly. This is the unhappy path.</p>
+<p><strong>Testing for Happy Path</strong></p>
+<p>Test with 5-10 real inputs that match your ideal scenario. Add a customer feedback, let it process, verify the response is good. Add another, verify. Do this multiple times. Does the workflow succeed every time? Good. Now try with real-world messy data.</p>
+<p><strong>Testing for Edge Cases</strong></p>
+<p>Test with real messy inputs. Feedback with special characters. Incomplete customer records. Missing data. Unusual scenarios. For each one, does the workflow handle it or break? If it breaks, note the error. That's what you fix.</p>
+<p>When something breaks, Make.com, Zapier, n8n, or Power Automate show you the error. Click the failed workflow run. Read the error message. Most problems are obvious once you read them.</p>
+<p>Common errors and fixes:
+- "Gmail connection failed" - your Gmail account needs re-authenticating.
+- "Field mapping error: undefined field" - you're trying to use a field that didn't get extracted from the data step.
+- "API rate limit exceeded" - you're calling the API too fast, add a delay or upgrade the API plan.
+- "No matching records found" - your CRM lookup didn't find the customer; check the lookup field.
+- "Empty input" - the data step is extracting a blank field; check why the source data is blank.</p>
+<p>For each error, the fix is usually a reconnection, field mapping correction, or permission refresh. Fix it. Re-run. Check again.</p>
+<p><strong>When to Iterate vs. When to Ship</strong></p>
+<p>You don't need perfect. You need working. A workflow that handles 90 percent of your inputs well is ship-ready. It saves you time on 90 percent of cases. For the remaining 10 percent, you manually handle and log that it failed. You can improve it later.</p>
+<p>The enemy of shipped is perfect.</p>
+<h4>Practice Challenge 1: Map Your Workflow on Paper (15 min)</h4>
+<p>Before you touch Make.com or Zapier, map your workflow on paper or in a document.</p>
+<p>Draw or write:
+1. What triggers the workflow? (Event, time, or manual?)
+2. What data comes in?
+3. What does your Packaged AI do with it?
+4. Where does the output go?
+5. What gets logged?</p>
+<p>For each step, write 2-3 sentences describing what happens. Be specific. "Email arrives" is good. "Feedback arrives in my inbox" is better. "A customer fills out the feedback form on our website" is best.</p>
+<p>Then ask: Could someone else on my team understand this workflow from my map? Could they build it? If yes, your map is clear. If no, add more detail.</p>
+<p>This 15-minute exercise saves you an hour of confused building.</p>
+<h4>Practice Challenge 2: Set Up Your Trigger (10 min)</h4>
+<p>Open Make.com. Create a new scenario. Name it. Select your trigger app. Configure the trigger. Add a test input. Does it fire?</p>
+<p>You're done when the trigger catches your test input and you see it in the workflow history.</p>
+<p>This is the foundation. Everything else depends on it.</p>
+<h4>Practice Challenge 3: Connect Your AI Step (10 min)</h4>
+<p>Add your data extraction step. Add your AI step. Feed the extracted data into the AI. Test with real data. Does the AI output look right?</p>
+<p>You're done when the AI generates good output from real inputs.</p>
+<h4>Practice Challenge 4: Run the Full Test (10 min)</h4>
+<p>Add your action step and log step. Run the entire workflow with a test input. Check that the trigger fired, data extracted, AI responded, action completed, and log updated.</p>
+<p>You're done when all five steps work end to end.</p>
+<h4>Final Project: Complete Workflow for Your Session 1 Selected Item</h4>
+<p>Your Mission 3 project has four parts:</p>
+<p><strong>Part 1: Your Workflow Map</strong></p>
+<p>Describe or diagram all five parts of your workflow: trigger, data, AI step, action, log. Be specific. Write it clearly enough that someone else could follow it.</p>
+<p>Trigger: New customer email arrives in "support@mycompany.com"
+Data: Extract sender email, sender name, email subject, email body. Also look up sender in Salesforce CRM.
+AI Step: Use ChatGPT to generate a personalized support response using the email content and customer history.
+Action: Send the AI-generated response back to the customer via Gmail.
+Log: Write timestamp, customer name, issue reported, AI response generated, email sent status to a support log spreadsheet.</p>
+<p><strong>Part 2: Live Workflow Screenshot or Evidence</strong></p>
+<p>Show that the workflow actually runs. This can be:
+- A screenshot of the completed workflow in Make.com, Zapier, n8n, or Power Automate
+- A screenshot showing the workflow run history (proof that it ran)
+- A screenshot showing the output (email sent, task created, row logged, message posted)
+- A screenshot of the log spreadsheet showing multiple runs with timestamps and results</p>
+<p>Proof that it's not a concept. It's live.</p>
+<p><strong>Part 3: Error Log</strong></p>
+<p>Document at least one error you encountered and how you fixed it. Include:
+- What error did you get?
+- What step broke?
+- How did you diagnose it?
+- How did you fix it?</p>
+<p>Error: "Gmail connection failed - invalid credentials"
+Step: Action (Gmail send)
+Diagnosis: I clicked the failed run, saw it was an authentication error. My Gmail account needed re-authorization.
+Fix: Clicked the Gmail module, clicked "Reconnect," re-authorized my Gmail account, re-ran the workflow.</p>
+<p>This shows you understand troubleshooting, not just happy-path building.</p>
+<p><strong>Part 4: Your FAST Goal Update</strong></p>
+<p>In Session 1, you set a FAST goal for your selected item. How does this workflow bring you closer to it? Write 2-3 sentences.</p>
+<p>Session 1 FAST Goal: "Handle 50 customer feedback responses per week with personalized, high-quality responses by end of Q2."</p>
+<p>Workflow Impact: "This workflow automates the feedback response process. It processes feedback automatically (5 seconds per response instead of 5 minutes). I can now handle 150+ responses per week, far exceeding the 50-response goal. The AI generates personalized responses, maintaining quality. I'm on track to hit the goal in Q1, two quarters ahead of schedule."</p>
+<div class="key-insight"><div class="key-insight-label">Key Insight</div><p>#### Key Insight</p></div>
+<p>The skill isn't building perfect workflows. The skill is diagnosing and fixing the ones you build.</p>
+      </div>
+    </section>
+    <section class="brief-section" id="section-3">
+      <div class="brief-label">SECTION 3</div>
+      <h2 class="brief-title">Key Takeaways</h2>
+      <div class="prose">
+        <h4>Key Takeaways</h4>
+<ol><li><strong>You are not doing the work. You are designing the system.</strong> Before today, you were the middleware manually connecting pieces. Your job now is to design a system where the connections happen automatically.</li></ol>
+<ol><li><strong>95 percent of companies fail at AI not because the tools don't work, but because they don't have workflows figured out.</strong> A better AI tool doesn't help if a human still has to manually move the output around. Workflows remove you from the loop.</li></ol>
+<ol><li><strong>The 5-Part Blueprint works on any platform. Learn the pattern, not the tool.</strong> Make.com, Zapier, n8n, Power Automate. Different buttons. Same five parts. When you move to a new platform, you already know how to build.</li></ol>
+<ol><li><strong>A good trigger means you don't have to remember. Set it and forget it.</strong> Triggers are what make automation actually automatic. The best triggers are the ones that fire without you thinking about them.</li></ol>
+<ol><li><strong>Your logs become the system's memory. Skip the log and you're flying blind.</strong> AI doesn't remember. When your workflow runs 100 times, your log has to remember what happened all 100 times. Without logs, you have no visibility into what your system is actually doing.</li></ol>
+<ol><li><strong>Things will break. Click the error. Read it. Most fixes are obvious.</strong> Every workflow you build will break at least once. This is normal. The skill isn't building perfect workflows. The skill is diagnosing the errors you get and fixing them. Most errors have obvious fixes once you read them.</li></ol>
+<ol><li><strong>The AI Officer's job is finding the workflows hiding in plain sight.</strong> Your company has dozens of manual processes that could be automated. The work that happens the same way every time. That work sitting in someone's to-do list. Your job is spotting those, building the workflows, and shipping them.</li></ol>
+<h4>Your Commitment</h4>
+<p>This week, identify one workflow you can ship. Not someday. This week.</p>
+<p>It could be your Session 1 selected item wired into the workflow you just built. It could be a different repeated task. Whatever it is, the test is: Does it work? Can someone else on your team use it? Does it save time?</p>
+<p>Write it down. Commit to shipping one workflow by Friday.</p>
+<p>What's your one workflow?</p>
+<h4>Checkpoint: Quick Knowledge Check</h4>
+<p>Answer these five questions. Your AI Buddy will tell you if you're on track.</p>
+<p><strong>Question 1:</strong> What are the 5 parts of the workflow blueprint?</p>
+<p>A) Platform, Plugin, Performance, People, Process
+B) Trigger, Data, AI Step, Action, Log
+C) Input, Process, Output, Export, Archive
+D) Email, Form, CRM, Task, Database</p>
+<p><strong>Correct Answer: B</strong> - Every workflow has these five parts: Trigger (what starts it), Data (what flows through it), AI Step (what processes it), Action (where it goes), Log (the record).</p>
+<p><strong>Question 2:</strong> What is a trigger?</p>
+<p>A) The AI tool you use in your workflow
+B) The event or action that starts a workflow
+C) The person who approves workflow runs
+D) The error message you get when a workflow fails</p>
+<p><strong>Correct Answer: B</strong> - A trigger is the starting signal. Time-based (every Monday at 9 AM), event-based (new email, form submission, spreadsheet row), or manual (button click). The trigger decides when your workflow fires.</p>
+<p><strong>Question 3:</strong> Why do logs matter?</p>
+<p>A) To make the workflow run faster
+B) To prove the workflow existed
+C) Because AI doesn't remember. Your logs become the system's memory.
+D) To impress your manager with data</p>
+<p><strong>Correct Answer: C</strong> - Logs turn automation into intelligence. When your workflow runs 100 times, your log records all 100 runs. Without logs, you have no visibility into what actually happened.</p>
+<p><strong>Question 4:</strong> What's the most common reason workflows fail?</p>
+<p>A) The AI is not smart enough
+B) The platform is too complex
+C) Field mapping is wrong or data quality is poor
+D) The user forgets to run it</p>
+<p><strong>Correct Answer: C</strong> - Most workflow failures trace back to either incorrect field mapping (trying to use data that didn't get extracted correctly) or poor data quality (garbage in, garbage out). Fix these two issues and most workflows work.</p>
+<p><strong>Question 5:</strong> What does it mean to be the middleware?</p>
+<p>A) To be in the middle of your organization
+B) To manually connect AI output to the rest of your work
+C) To use a middleware software platform
+D) To be the person who approves automation</p>
+<p><strong>Correct Answer: B</strong> - Before today, you were the middleware. You opened the AI tool, copied the output, switched to email, pasted it, sent it, logged it. The workflow removes you from that role and connects the pieces automatically.</p>
+<h4>Certificate of Completion</h4>
+<p>You've completed Mission 3. You wired your Packaged AI into a real system.</p>
+<p>In Mission 2, you built a Packaged AI prototype your team could use. In Mission 3, you wired it into a workflow that runs without you pressing a button.</p>
+<p>Your next mission: add decision-making. Right now, your workflow does the same thing every time. But what if it needs to choose? What if the response should be different based on different inputs? In Mission 4, you add the intelligence layer that lets your workflow listen before it responds.</p>
+<h4>Course Experience Survey</h4>
+<p>Your feedback shapes the next sessions. Take two minutes. [Link to survey]</p>
+<h4>Words to Know</h4>
+<p><strong>Workflow</strong> - A series of steps that move work from start to finish. Something triggers it, steps happen in sequence, output gets delivered.</p>
+<p><strong>Trigger</strong> - The event or action that starts a workflow. Can be time-based (every Monday at 9 AM), event-based (new email, form submission, spreadsheet row), or manual (button click).</p>
+<p><strong>5-Part Workflow Blueprint</strong> - The pattern used by all automation platforms: Trigger, Data, AI Step, Action, Log. Learn once, apply everywhere.</p>
+<p><strong>Automation Platform</strong> - Software that lets you build workflows without code. Examples: Make.com, Zapier, n8n, Power Automate.</p>
+<p><strong>Make.com</strong> - An approachable, visual automation platform. Good for learning. Pay-as-you-go pricing.</p>
+<p><strong>Zapier</strong> - The largest automation platform with the biggest ecosystem of integrations. Most established, most stable.</p>
+<p><strong>n8n</strong> - An open-source automation platform. Self-hosted option available. Good for privacy and control.</p>
+<p><strong>Power Automate</strong> - Microsoft's automation platform. Best if you're already in the Microsoft ecosystem.</p>
+<p><strong>Log (in automation context)</strong> - A record of what a workflow did. Timestamp, input, output, status. Gives the system memory.</p>
+<p><strong>Middleware</strong> - A connector between systems. In workflow context, this was you - manually connecting AI output to the rest of your work. Workflows remove you as the middleware.</p>
+<p><strong>Action Step</strong> - The part of a workflow that executes the result. Send an email, create a task, update a spreadsheet, post a message.</p>
+<p><strong>Data Step</strong> - The part of a workflow that extracts and prepares information. Pulls data from the trigger, fetches additional context, cleans messy data.</p>
+<p><strong>Happy Path</strong> - The ideal scenario. Everything goes according to plan. The workflow works end to end without errors.</p>
+<p><strong>Edge Case</strong> - A scenario that doesn't fit the ideal path. Missing data, special characters, unusual input. Workflows need to handle edge cases.</p>
+<p><strong>Error Handling</strong> - The process of identifying, diagnosing, and fixing workflow failures.</p>
+<h4>Prompt Library</h4>
+<h4>SECTION 1: MAPPING YOUR WORKFLOW (Before You Build)</h4>
+<p><strong>Prompt 1.1: Identify Your Workflow</strong></p>
+<p>"I do this work repeatedly: [describe the repetitive task]. I want to automate it with a workflow. The work starts when: [describe the trigger]. The work ends when: [describe the final output]. What are all the steps in between? Help me see the complete workflow."</p>
+<p>Your AI Buddy helps you identify every step so nothing is missed.</p>
+<p><strong>Prompt 1.2: Find the Bottleneck</strong></p>
+<p>"Here's my current process: [describe your steps]. I use a Packaged AI tool at this point: [describe where]. The rest is manual. Where am I doing the most time-consuming work? Where could a workflow save the most time?"</p>
+<p>Focuses your automation effort on the highest-impact improvements.</p>
+<p><strong>Prompt 1.3: Design the 5-Part Blueprint</strong></p>
+<p>"I want to automate this work: [describe it]. Using the 5-Part Workflow Blueprint (Trigger, Data, AI Step, Action, Log), help me design each part. For each part, be specific about what happens. For Trigger: what event should start it? For Data: what information is needed? For AI Step: what should the AI do with the data? For Action: where should the output go? For Log: what should be recorded?"</p>
+<p>Ensures your design is complete before you start building.</p>
+<p><strong>Prompt 1.4: Spot Data Quality Issues</strong></p>
+<p>"I want to wire my Packaged AI into a workflow. The data that will come in is: [describe it]. What data quality issues might I encounter? What if the data is incomplete, messy, or missing fields? How should I handle those cases in my workflow?"</p>
+<p>Prevents surprises during the build.</p>
+<h4>SECTION 2: DESIGNING EACH STEP (Detailed Step Prompts)</h4>
+<p><strong>Prompt 2.1: Design Your Trigger</strong></p>
+<p>"I want my workflow to trigger when: [describe the event]. Should this trigger be time-based, event-based, or manual? What's the best trigger approach for this use case? What might cause the trigger not to fire that I should know about?"</p>
+<p>Clarifies trigger strategy before you configure it.</p>
+<p><strong>Prompt 2.2: Design Your Data Step</strong></p>
+<p>"My workflow will receive this data: [describe it]. I need to extract: [list the fields]. Should I also fetch additional context from external sources? Where would that context come from? How should I handle missing or incomplete data?"</p>
+<p>Ensures you're gathering all the data your AI needs.</p>
+<p><strong>Prompt 2.3: Refine Your AI Step Prompt</strong></p>
+<p>"I built a Packaged AI tool in Session 2. Here's the current system prompt: [include it]. Now I'm wiring it into a live workflow. The data it will receive is: [describe what fields and context]. The output it needs to generate is: [describe what you want]. Should I modify the system prompt for better workflow performance? Here's what I'm seeing: [describe any issues]."</p>
+<p>Optimizes your AI step for real workflow conditions.</p>
+<p><strong>Prompt 2.4: Design Your Action Step</strong></p>
+<p>"The AI will generate this output: [describe it]. I want to send it to: [describe where: email, task, message, spreadsheet, etc.]. What fields need to be mapped? What formatting or cleanup is needed? What could go wrong at the action step?"</p>
+<p>Ensures output lands correctly where it needs to go.</p>
+<p><strong>Prompt 2.5: Design Your Log Step</strong></p>
+<p>"I need to log the results of my workflow. What should I capture? I'm thinking of logging: [list what you want to track]. Is that complete? What else should I log for system memory and troubleshooting?"</p>
+<p>Builds in the system memory you'll need later.</p>
+<h4>SECTION 3: TESTING AND DEBUGGING (Troubleshooting Prompts)</h4>
+<p><strong>Prompt 3.1: Diagnose a Failed Run</strong></p>
+<p>"My workflow failed at this step: [describe which step]. The error message is: [copy the error]. What does this error mean? How do I fix it? What should I check?"</p>
+<p>Turns cryptic error messages into clear action steps.</p>
+<p><strong>Prompt 3.2: Test Edge Cases</strong></p>
+<p>"My workflow works for ideal inputs. But in real use, I might receive: [list edge cases: messy data, missing fields, unusual scenarios]. How should I handle each of these? Should I modify my workflow to handle them, or is manual intervention okay for edge cases?"</p>
+<p>Prepares you for real-world messiness.</p>
+<p><strong>Prompt 3.3: Optimize Workflow Performance</strong></p>
+<p>"My workflow is working, but it's slow. It takes: [describe timing]. The slow step is: [describe which step]. How can I speed this up? Should I add delays, remove steps, batch operations, or use a different approach?"</p>
+<p>Makes your workflow efficient at scale.</p>
+<p><strong>Prompt 3.4: Handle Missing Data Gracefully</strong></p>
+<p>"Sometimes my workflow receives incomplete data: [describe what's missing]. Currently it: [describe what happens]. Should I skip those inputs, generate a default response, log them for manual review, or something else?"</p>
+<p>Prevents workflow failures on incomplete inputs.</p>
+<h4>SECTION 4: FINDING WORKFLOWS TO AUTOMATE (Discovery Prompts)</h4>
+<p><strong>Prompt 4.1: Spot Automatable Workflows in Your Role</strong></p>
+<p>"I work in: [describe your role or office]. In my role, I repeatedly do this work: [describe your regular tasks]. Which of these could be workflows? Which are repeatable enough to automate? Where would a workflow save the most time?"</p>
+<p>Helps you identify automation opportunities in your specific role.</p>
+<p><strong>Prompt 4.2: Map Workflows Across Your Company</strong></p>
+<p>"In my department, I see these repeated processes: [list them]. Which of these are happening without documentation or consistency? Which would benefit most from having a defined workflow? Where do people waste time doing connector work between systems?"</p>
+<p>Identifies the workflows hiding in plain sight.</p>
+<p><strong>Prompt 4.3: Prioritize Workflows to Build</strong></p>
+<p>"I've identified these workflows I could automate: [list them with estimated frequency and impact]. Which should I build first? What's the priority? What would give me the fastest ROI?"</p>
+<p>Focuses your effort on highest-impact workflows.</p>
+<p><strong>Prompt 4.4: Design a Workflow Library</strong></p>
+<p>"I want to build a library of automated workflows for my team. What workflows should be in it? I'm thinking of: [list your ideas]. What other workflows would be valuable? How should I organize them so my team can find and use them?"</p>
+<p>Scales your automation work across the team.</p>
+<p>> <strong>Your AI Buddy is always here.</strong> If any term in this content is unclear, ask your AI Buddy: "Explain [term] in plain language with an example from [your role or industry]."</p>
+<p>> <strong>More prompts added each session.</strong> [PROMPT LIBRARY - Full version in Lark, link provided by Kate]</p>
+<p>End of Mission 3: Wire the Workflow</p>
+      </div>
+    </section>
+
+    <div class="tb-bottom-nav">
+      <a href="mission-3.html" class="tb-nav-btn">← Mission 3 Hub</a>
+      <a href="mission-3-prompts.html" class="tb-nav-btn primary">Prompt Library →</a>
+    </div>
+
+  </main>
+</div>
+</body>
+</html>

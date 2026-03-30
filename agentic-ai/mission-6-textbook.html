@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mission 6 Briefs — From Prototype to Production — AI Officer Institute</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../shared/styles.css">
+<style>
+  :root {
+    --royal: #287BE8;
+    --ease: cubic-bezier(0.4, 0, 0.2, 1);
+    --radius: 12px;
+    --shadow-sm: 0 1px 3px rgba(4,16,45,0.07);
+    --shadow-hover: 0 6px 24px rgba(4,16,45,0.10);
+    --text-tertiary: #8b91ac;
+    --border-hover: #b0b6cc;
+  }
+  body { background: var(--surface); }
+
+  .page-wrap { display: grid; grid-template-columns: 240px 1fr; min-height: 100vh; padding-top: 56px; }
+  .tb-sidebar { position: sticky; top: 56px; height: calc(100vh - 56px); overflow-y: auto; background: white; border-right: 1px solid var(--border); padding: 28px 0; }
+  .tb-sidebar-inner { padding: 0 20px; }
+  .tb-sidebar-label { font-size: 10px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: var(--text-muted); margin-bottom: 12px; padding: 0 4px; }
+  .tb-nav-link { display: block; padding: 8px 12px; border-radius: 8px; font-size: 13px; font-weight: 500; color: var(--text-secondary); text-decoration: none; transition: all 0.12s; margin-bottom: 2px; line-height: 1.4; }
+  .tb-nav-link:hover { background: var(--surface); color: var(--text-primary); }
+  .tb-nav-link.active { background: rgba(26,158,116,0.08); color: #1a9e74; font-weight: 600; }
+  .tb-nav-num { font-family: 'JetBrains Mono', monospace; font-size: 10px; font-weight: 700; color: var(--text-muted); display: block; margin-bottom: 1px; }
+  .tb-nav-divider { height: 1px; background: var(--border); margin: 14px 0; }
+  .tb-buddy-btn { display: flex; align-items: center; gap: 8px; width: 100%; margin-top: 20px; padding: 10px 12px; border-radius: 8px; background: rgba(26,158,116,0.07); border: 1px solid rgba(26,158,116,0.2); color: #1a9e74; font-size: 13px; font-weight: 600; cursor: pointer; text-decoration: none; transition: all 0.15s; }
+  .tb-buddy-btn:hover { background: rgba(26,158,116,0.12); }
+  .tb-main { padding: 48px 60px 100px; max-width: 780px; }
+  .tb-back { display: inline-flex; align-items: center; gap: 6px; font-size: 13px; font-weight: 600; color: var(--text-muted); text-decoration: none; margin-bottom: 32px; transition: color 0.12s; }
+  .tb-back:hover { color: var(--text-primary); }
+  .tb-hero { margin-bottom: 48px; }
+  .tb-track-pill { display: inline-flex; align-items: center; gap: 7px; font-size: 11px; font-weight: 700; letter-spacing: 0.7px; text-transform: uppercase; padding: 5px 12px; border-radius: 20px; background: rgba(26,158,116,0.1); color: #1a9e74; border: 1px solid rgba(26,158,116,0.2); margin-bottom: 14px; }
+  .tb-title { font-size: 32px; font-weight: 700; color: var(--text-primary); letter-spacing: -0.5px; line-height: 1.15; margin-bottom: 10px; }
+  .tb-sub { font-size: 15px; color: var(--text-secondary); line-height: 1.65; max-width: 560px; }
+  .brief-section { margin-bottom: 64px; scroll-margin-top: 80px; }
+  .brief-label { font-family: 'JetBrains Mono', monospace; font-size: 10px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: #1a9e74; margin-bottom: 6px; }
+  .brief-title { font-size: 24px; font-weight: 700; color: var(--text-primary); letter-spacing: -0.3px; line-height: 1.2; margin-bottom: 20px; padding-bottom: 16px; border-bottom: 2px solid var(--border); }
+  .prose { color: var(--text-secondary); line-height: 1.75; font-size: 15px; }
+  .prose p { margin-bottom: 18px; }
+  .prose h3 { font-size: 17px; font-weight: 700; color: var(--text-primary); letter-spacing: -0.2px; margin: 32px 0 10px; }
+  .prose h4 { font-size: 14px; font-weight: 700; color: var(--text-primary); text-transform: uppercase; letter-spacing: 0.5px; margin: 24px 0 8px; }
+  .prose ul, .prose ol { padding-left: 20px; margin-bottom: 18px; display: flex; flex-direction: column; gap: 6px; }
+  .prose li { font-size: 14.5px; line-height: 1.65; }
+  .prose strong { font-weight: 700; color: var(--text-primary); }
+  .prose code { font-family: 'JetBrains Mono', monospace; font-size: 13px; background: var(--surface); padding: 2px 6px; border-radius: 4px; border: 1px solid var(--border); }
+  .key-insight { background: rgba(26,158,116,0.05); border: 1px solid rgba(26,158,116,0.15); border-left: 3px solid #1a9e74; border-radius: 0 var(--radius) var(--radius) 0; padding: 18px 22px; margin: 28px 0; }
+  .key-insight-label { font-size: 10px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: #1a9e74; margin-bottom: 8px; }
+  .key-insight p { font-size: 14px; color: var(--text-primary); line-height: 1.65; margin: 0; }
+  .starter-prompt { background: rgba(40,123,232,0.04); border: 1px solid rgba(40,123,232,0.18); border-radius: var(--radius); padding: 20px 22px; margin: 24px 0; }
+  .starter-prompt-label { display: flex; align-items: center; gap: 8px; font-size: 11px; font-weight: 700; letter-spacing: 0.7px; text-transform: uppercase; color: #287BE8; margin-bottom: 12px; }
+  .starter-prompt-text { font-size: 14px; color: var(--text-primary); line-height: 1.7; font-style: italic; background: white; padding: 14px 16px; border-radius: 8px; border: 1px solid rgba(40,123,232,0.15); }
+  .worked-example { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 20px 22px; margin: 24px 0; }
+  .worked-example-label { font-size: 10px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: var(--text-muted); margin-bottom: 12px; }
+  .tb-bottom-nav { display: flex; align-items: center; justify-content: space-between; border-top: 1px solid var(--border); padding-top: 32px; margin-top: 16px; }
+  .tb-nav-btn { display: inline-flex; align-items: center; gap: 6px; font-size: 13px; font-weight: 600; color: var(--text-muted); text-decoration: none; padding: 8px 14px; border-radius: 8px; border: 1px solid var(--border); transition: all 0.12s; }
+  .tb-nav-btn:hover { border-color: var(--border-hover); color: var(--text-primary); }
+  .tb-nav-btn.primary { background: #1a9e74; color: white; border-color: #1a9e74; }
+  .tb-nav-btn.primary:hover { background: #178a65; }
+  @media (max-width: 900px) { .page-wrap { grid-template-columns: 1fr; } .tb-sidebar { display: none; } .tb-main { padding: 40px 24px 80px; } .topbar-nav { display: none; } }
+
+</style>
+</head>
+<body>
+<div class="topbar">
+  <a href="../index.html" class="topbar-brand">AIO <span>Labs</span></a>
+  <nav class="topbar-nav">
+    <a href="../index.html" class="tnav-link"><span class="tnav-dot" style="background:#8b91ac"></span> Home</a>
+    <a href="../certification.html" class="tnav-link active"><span class="tnav-dot" style="background:#287BE8"></span> Certification</a>
+    <a href="../coaching.html" class="tnav-link"><span class="tnav-dot" style="background:#287BE8"></span> Coaching</a>
+    <a href="../micro-sessions/index.html" class="tnav-link"><span class="tnav-dot" style="background:#1A9E74"></span> Micro-Sessions</a>
+    <a href="../blog/index.html" class="tnav-link"><span class="tnav-dot" style="background:#6FF2C1"></span> Blog</a>
+    <a href="../my-team.html" class="tnav-link"><span class="tnav-dot" style="background:#8b91ac"></span> My Team</a>
+  </nav>
+  <div class="topbar-right">
+    <a href="https://claude.ai" target="_blank" class="buddy-launch-btn">🤖 AI Buddy</a>
+    <div class="topbar-stat">🔥 7</div>
+    <div class="topbar-stat">⭐ 1,240</div>
+    <div class="topbar-divider"></div>
+    <div class="topbar-avatar">DH</div>
+  </div>
+</div>
+
+<div class="page-wrap">
+
+  <aside class="tb-sidebar">
+    <div class="tb-sidebar-inner">
+      <div class="tb-sidebar-label">Mission 6 Briefs</div>
+      
+      <a href="#section-1" class="tb-nav-link">
+        <span class="tb-nav-num">SECTION 1</span>Welcome - Video
+      </a>
+      <a href="#section-2" class="tb-nav-link">
+        <span class="tb-nav-num">SECTION 2</span>Brief 1: What Production Actually Means
+      </a>
+      <a href="#section-3" class="tb-nav-link">
+        <span class="tb-nav-num">SECTION 3</span>Key Takeaways
+      </a>
+      <div class="tb-nav-divider"></div>
+      <a href="https://claude.ai" target="_blank" class="tb-buddy-btn">🤖 Open AI Buddy</a>
+    </div>
+  </aside>
+
+  <main class="tb-main">
+
+    <a href="mission-6.html" class="tb-back">← Back to Mission 6</a>
+
+    <div class="tb-hero">
+      <div class="tb-track-pill">Agentic AI for Business · Mission 06</div>
+      <h1 class="tb-title">From Prototype to Production</h1>
+      <p class="tb-sub">Write the production brief that hands your AI program to an engineer. This is where the AI Officer&#x27;s job ends and the AI Engineer&#x27;s begins.</p>
+    </div>
+
+    
+    <section class="brief-section" id="section-1">
+      <div class="brief-label">Section 1</div>
+      <h2 class="brief-title">Welcome - Video</h2>
+      <div class="prose">
+        <h4>Welcome - Video</h4>
+<p>Welcome to Mission 6. This is the finish line.</p>
+<p>Across five missions, you built a complete AI program. You defined the problem. You packaged your AI into a reusable tool. You wired a workflow. You added decision logic. You designed an agent.</p>
+<p>You have a working prototype.</p>
+<p>But a working prototype is not a production system. And here is the honest truth: 90% of the time, a business professional cannot take that prototype to production alone. Not because you lack skill. Because production is a different job - one that requires a different kind of expert.</p>
+<p>That is what Mission 6 is about. Understanding the gap. Understanding who you need to close it. And writing the document that makes the handoff work.</p>
+<ul><li>Understand what production actually means and why it requires an AI Engineer</li><li>Learn the difference between what the AI Officer does and what the AI Engineer does</li><li>Use the production brief as the spec that connects those two roles</li><li>Write your production brief well enough that an engineer could build exactly what you designed</li></ul>
+<h4>Mission Briefs Overview</h4>
+<p><strong>Brief 1 - What Production Actually Means</strong> | 25 minutes</p>
+<p>The honest reality of what happens between prototype and production. What changes technically. Why most business professionals cannot cross that gap alone. The AI Officer and the AI Engineer - who does what, and why you need both.</p>
+<p><strong>Brief 2 - The Production Brief</strong> | 20 minutes</p>
+<p>What the production brief is, who it is for, and what it needs to contain. How it functions as both a leadership document and an engineering spec. Introduction to the six components.</p>
+<p><strong>Brief 3 - Stakeholder Alignment and Governance</strong> | 20 minutes</p>
+<p>Who needs to say yes. What each stakeholder needs to see. How governance connects the AI Officer's authority to the AI Engineer's implementation.</p>
+<p><strong>Brief 4 - Training, Handoff, and Success Metrics</strong> | 20 minutes</p>
+<p>How you make the system runnable without you. How you define success before deployment so engineering knows what to build toward.</p>
+<p><strong>Brief 5 - Build Your Production Brief</strong> | 60 minutes</p>
+<p>The capstone. You write the full production brief for your AI program. This is your final project submission for the Agentic AI Essentials certification.</p>
+<h4>Learning Guide</h4>
+<p><strong>How to get the most from Mission 6</strong></p>
+<p>This is the capstone mission. Everything you built across Missions 1 through 5 becomes an input here. You are not starting over. You are completing something.</p>
+<p>Work through the briefs in order. Brief 1 is the most important conceptual shift in the whole series. Don't skip it.</p>
+<p><strong>Checklist for this mission:</strong></p>
+<ul><li>[ ] Bring your Mission 1 FAST goal statement</li><li>[ ] Bring your Mission 2 packaged AI tool</li><li>[ ] Bring your Mission 3 workflow diagram or description</li><li>[ ] Bring your Mission 4 logic layer documentation</li><li>[ ] Bring your Mission 5 agent design doc and guardrails list</li><li>[ ] Set aside 60 minutes for Brief 5 with no interruptions</li></ul>
+<p><strong>Rules of the road:</strong></p>
+<p>Write for your organization, not for this course. The production brief you submit for certification is also a real document you can share with your manager and your engineering team. Write it that way. Be specific about your actual process, your actual tools, and your actual numbers. A generic production brief gets ignored. A specific one gets built.</p>
+<p>Want to check your understanding before diving in? Ask your AI Buddy: "What is a production brief and how does it function as a spec for an AI Engineer?"</p>
+      </div>
+    </section>
+    <section class="brief-section" id="section-2">
+      <div class="brief-label">Section 2</div>
+      <h2 class="brief-title">Brief 1: What Production Actually Means</h2>
+      <div class="prose">
+        <h4>Brief 1: What Production Actually Means</h4>
+<p><strong>Duration:</strong> 25 minutes</p>
+<p><strong>Teaching: The Prototype Is Not the Product</strong></p>
+<p>You built a prototype. That is real work. You should be proud of it.</p>
+<p>But let's be honest about what it is.</p>
+<p>You built it using no-code and low-code tools. Claude, Zapier or Make, Google Drive, a few API connections. It works when you run it. You know where the edges are. You know how to handle the quirks. When you're there, it performs.</p>
+<p>That is a prototype. It is not a production system.</p>
+<p>Here is what "production" actually means in most organizations:</p>
+<p><strong>Infrastructure.</strong> The system runs on your organization's servers or cloud environment - not a personal API account. It is managed by IT. It has uptime requirements. It gets backed up. It has disaster recovery.</p>
+<p><strong>Security.</strong> The data connections go through enterprise-grade, authenticated APIs that have been reviewed by your security team. No personal credentials embedded in workflows. No data leaving the organization through unreviewed channels.</p>
+<p><strong>Scale.</strong> The system handles your whole team, not just you. Under load. At 2am when you are asleep.</p>
+<p><strong>Compliance.</strong> Depending on what data the system touches, it may need to meet GDPR, HIPAA, SOC 2, or your organization's own data governance requirements. Someone has reviewed it. Someone has signed off.</p>
+<p><strong>Monitoring and logging.</strong> When something goes wrong - and something always goes wrong - there is a log. Someone is alerted. The failure is traceable. There is a process for fixing it.</p>
+<p><strong>Maintenance.</strong> The system gets updated. Dependencies get patched. API versions get upgraded. Someone owns that work on an ongoing basis.</p>
+<p>None of that is in your prototype. None of that is what you built. And none of that is something most business professionals can build on their own.</p>
+<p>That is not a failure. That is just an honest description of what production is.</p>
+<p>The question is: what do you do about it?</p>
+<p><strong>Teaching: The AIO and the AI Engineer</strong></p>
+<p>This is the most important distinction in Mission 6.</p>
+<p>In most organizations, there are two roles that must work together to take an AI system to production. They are rarely the same person. They often don't speak the same language. And the gap between them is the reason most AI prototypes never become production systems.</p>
+<p><strong>The AI Officer - that's you.</strong></p>
+<p>You understand the business problem. You know the process better than anyone. You know who uses this system and what they need from it. You know what decisions the system has to make, what data it needs, what it should never do, and how you will know if it's working. You understand the organizational politics - who needs to say yes, what governance looks like, what success means to leadership.</p>
+<p>You built a prototype that proves the concept works.</p>
+<p>What you typically cannot do: build enterprise infrastructure, architect secure API integrations, set up monitoring and logging, pass a security review, or maintain a production system at scale.</p>
+<p>They can do all of those things. They know how to take a concept and build it properly on enterprise infrastructure. They know the security requirements. They know how to architect for scale. They know what compliance looks like in practice.</p>
+<p>What they typically cannot do: define the right problem to solve, design the workflow that the business actually needs, write guardrails that match organizational policy, or know what success looks like from the user's perspective.</p>
+<p>Most organizations have business professionals who can use AI tools, and engineers who can build technical systems. Very few have someone who can bridge the two - who understands both the business requirement and the technical reality clearly enough to hand off effectively.</p>
+<p>That is the AI Officer role at this stage. Not the engineer. The bridge.</p>
+<p><strong>Teaching: The Production Brief Is the Spec</strong></p>
+<p>The production brief is not a summary of your project. It is not instructions for yourself. It is the document you hand to an AI Engineer or your IT team so they can build exactly what you designed.</p>
+<p>When you hand a clear production brief to an engineer, they should be able to:
+- Understand the system and who it's for without asking you
+- Know exactly what data sources they need to connect to
+- Know what integrations the system requires and what they do
+- Implement the guardrails you defined, technically
+- Build the monitoring and logging that surfaces the metrics you care about
+- Know what "done" looks like</p>
+<p>That is a spec. That is what a production brief does.</p>
+<p>When the spec is vague, the engineer builds what they think you want. They make assumptions. They fill gaps with their own judgment. The system that gets deployed is not the system you designed. The guardrails are wrong. The data connections are off. The escalation paths don't match the business requirements. Nobody is happy.</p>
+<p>When the spec is clear, the engineer builds what the business needs. The system that gets deployed matches the prototype you tested. The guardrails are right. The data is right. The escalation paths work. The metrics make sense.</p>
+<p>That is the value you add as the AI Officer. Not the infrastructure. The clarity.</p>
+<p><strong>The two failures you are trying to prevent:</strong></p>
+<p>Failure one: the production brief is so vague that the engineer can't build from it. They ask questions you should have answered in the document. The project drags. Leadership loses confidence. The prototype stays a prototype.</p>
+<p>Failure two: you skip the production brief entirely and try to hand the engineer your prototype. They have no idea what the business requirements are. They build the technical version of what they see in front of them, not the system the business needs.</p>
+<p>The production brief prevents both.</p>
+<p><strong>Worked Example: AIO vs. AI Engineer</strong></p>
+<p>Consider a customer support team. Their AI Officer - Sarah - built a prototype that classifies incoming tickets by type, generates draft responses, and routes complex cases to the right specialist. She tested it across 200 tickets. It works. The CSAT score for tickets processed through her prototype is 15 points higher than the baseline.</p>
+<p>Now Sarah needs to take it to production.</p>
+<p><strong>What Sarah does as the AI Officer:</strong>
+- Writes the system description so any stakeholder can understand what it does
+- Documents the business case: baseline 4.2 hours average resolution time, target 2.1 hours
+- Specifies the data requirements: ticket data from Zendesk, customer history from Salesforce, product knowledge base from Confluence
+- Defines the guardrails: the system never promises a refund, never accesses payment data, always escalates churn-risk customers to a human
+- Defines success metrics: resolution time, first-contact resolution rate, CSAT score, reviewed weekly by the Support Manager
+- Names the system owner: Head of Customer Operations
+- Writes the training outline for the support team</p>
+<p><strong>What the AI Engineer does:</strong>
+- Reviews Sarah's production brief
+- Architects the system on the company's cloud infrastructure
+- Builds secure, authenticated integrations with Zendesk, Salesforce, and Confluence
+- Implements the guardrails technically in the production system
+- Sets up monitoring, logging, and alerting
+- Builds the dashboard that surfaces Sarah's weekly metrics
+- Passes the security review
+- Deploys and maintains the system</p>
+<p>Neither Sarah nor the engineer could have done the other's job. Sarah could not have built the enterprise integrations. The engineer could not have defined the business requirements. Together, they shipped a production system.</p>
+<p>The production brief is what made that collaboration possible.</p>
+<div class="key-insight"><div class="key-insight-label">Key Insight</div><p></p></div>
+<p>"A prototype proves the system works. A production brief proves the AI Officer and the AI Engineer can build it together."</p>
+<h4>Brief 2: The Production Brief</h4>
+<p><strong>Duration:</strong> 20 minutes</p>
+<p><strong>Teaching: One Document, Three Audiences</strong></p>
+<p>The production brief is a leadership document that also functions as an engineering spec.</p>
+<p>It is readable by your CEO. It is actionable by your AI Engineer. It is usable by your team members. One document. Three audiences.</p>
+<p>Leadership reads the business case and governance model. They need to know what the system does, why the organization should invest in deploying it, and who is accountable when something goes wrong.</p>
+<p>Your AI Engineer or IT team reads the technical requirements. They need to know what to build - what the system connects to, what data it needs, what the guardrails are, what success looks like technically.</p>
+<p>Your team reads the training documentation. They need to know how to use the system, when to trust it, and when to escalate.</p>
+<p>It is not code documentation. It is not a flowchart of every technical decision. It is not a user manual. It is the document that sits above all of those - the document that justifies the program, specifies the requirements, and defines the governance.</p>
+<p><strong>The Six Components</strong></p>
+<p><strong>Component 1: What It Is</strong>
+System name. What it does. Who it is for. What problem it solves. Plain language. No jargon. Readable by someone who has never seen the system.</p>
+<p><strong>Component 2: Why It Matters</strong>
+The business case. The current baseline. The target improvement. The cost of not deploying. This is where your FAST goal from Mission 1 becomes the foundation of your argument.</p>
+<p><strong>Component 3: What It Needs</strong>
+Technical requirements. What tools does the production version use? What data sources does it need to connect to? What enterprise systems does it integrate with? What access does it need? Written for the AI Engineer - specific enough that they can build from it.</p>
+<p><strong>Component 4: Who Owns It</strong>
+Governance. Who has authority over the system? Who can change the guardrails? Who approves updates? Who is accountable when something goes wrong? What can the system do and not do? What does oversight look like?</p>
+<p><strong>Component 5: Who Runs It</strong>
+Training and handoff. Who uses this system day to day? How do they learn it? What happens when something breaks? What is the escalation path?</p>
+<p><strong>Component 6: How You Know It Is Working</strong>
+Success metrics. The baseline before deployment. The target improvement. The weekly numbers someone will review. The thresholds for adjustment. These metrics also inform what the engineer needs to build for monitoring and logging.</p>
+<p><strong>Worked Example: Production Brief Overview</strong></p>
+<p><strong>System Name:</strong> Lead Qualification Agent - Revenue Office</p>
+<p><strong>What It Is:</strong> This system qualifies inbound leads by analyzing company profile, engagement level, and fit with our target customer profile, then routes leads to the right sales representative with a qualification summary.</p>
+<p><strong>Why It Matters:</strong> Current process: 4 hours per lead, handled manually. Target: 45 minutes per lead, 80% routing accuracy. Annual impact: 250 hours reclaimed for high-value selling activity.</p>
+<p><strong>What It Needs:</strong> Production version to be built on company infrastructure. Data sources: Salesforce CRM (customer records), Google Drive knowledge base (qualification criteria), LinkedIn data API. Guardrails to be implemented technically by engineering. Monitoring dashboard to surface weekly accuracy metrics.</p>
+<p><strong>Who Owns It:</strong> Revenue Operations Manager owns governance. CAIO approves changes to guardrails. IT maintains infrastructure. Quarterly leadership review.</p>
+<p><strong>Who Runs It:</strong> Sales operations team (3 users). 2-hour onboarding. Written guide maintained by system owner.</p>
+<p><strong>How You Know:</strong> Baseline: 4 hours. Target: 45 minutes. Weekly metrics: qualification accuracy, average qualification time. Threshold: accuracy below 70% for 2 weeks triggers audit.</p>
+<p><strong>Starter Prompt for Your AI Buddy</strong></p>
+<p>"Based on what I built in this series - [brief description of your selected item and process] - help me write a plain language system description for a production brief. It should be readable by my CEO and clear enough that an AI Engineer knows what system they are being asked to build."</p>
+<div class="key-insight"><div class="key-insight-label">Key Insight</div><p></p></div>
+<p>"A vague spec produces the wrong system. A clear production brief produces the one the business needs."</p>
+<h4>Brief 3: Stakeholder Alignment and Governance</h4>
+<p><strong>Duration:</strong> 20 minutes</p>
+<p><strong>Teaching: Who Needs to Say Yes</strong></p>
+<p>Every production deployment requires alignment from multiple stakeholders. They all have different questions.</p>
+<p><strong>Leadership:</strong> What does this do? Why should we invest? Who is responsible when something goes wrong? How will we know if it is working?</p>
+<p><strong>Engineering/IT:</strong> What do we need to build? What does it connect to? What are the requirements? What does done look like? What do we maintain ongoing?</p>
+<p><strong>Your team:</strong> How do I use this? When should I trust the output? Who do I call when something goes wrong?</p>
+<p>Stakeholder alignment is not just writing the document. It is knowing who reads each section and making sure it answers their specific questions. Leadership does not need to read the technical requirements. Engineering does not need to read the business case narrative. Give each audience what they need.</p>
+<p><strong>Teaching: Governance - The AI Officer's Ongoing Role</strong></p>
+<p>Governance is the section that defines what the AI Officer owns after the engineer has built the system.</p>
+<p>When the AI Engineer finishes their work, the AI Officer's job is not over. It is just changing form.</p>
+<p>The AI Engineer maintains the infrastructure. The AI Officer owns the program.</p>
+<p>Governance answers three questions.</p>
+<p><strong>Who has authority?</strong>
+Who is accountable for the system's ongoing performance? Who can change the guardrails - and when they do, does the engineer need to implement that change technically? Who decides when to retrain the agent? Who decides when to shut it down? Ownership must be named. "The team" is not an owner.</p>
+<p><strong>What can the system do and not do?</strong>
+The guardrails you wrote in Mission 5 become official organizational policy here. They are not just agent instructions. They are the AI Officer's formal definition of how this system operates. The engineer implements them. The AI Officer owns them. When they need to change, that is an AI Officer decision that then goes to engineering to implement.</p>
+<p><strong>What does oversight look like?</strong>
+How often does the AI Officer review performance? Who do they escalate to if something is wrong? When does the AI Officer bring the engineer back in? This is the ongoing governance loop - AI Officer reviews metrics, identifies issues, decides whether they require a business response (change the process) or a technical response (change the system), and coordinates accordingly.</p>
+<p><strong>Worked Example: Governance Section</strong></p>
+<p><strong>System Owner:</strong> Revenue Operations Manager (Sarah Chen)
+Sarah is accountable for the system's business performance. She reviews weekly metrics and owns the decision to change guardrails or escalation criteria. Changes to guardrails require CAIO approval and then go to engineering to implement technically.</p>
+<p><strong>What it can do:</strong>
+Qualify leads using the defined criteria. Route leads to the right representative. Generate qualification summaries. Flag incomplete profiles for human review.</p>
+<p><strong>What it cannot do:</strong>
+Make final decisions on accounts over $50K. Share pricing or terms with prospects. Access payment data. Override a sales representative's own lead assessment.</p>
+<p><strong>Oversight model:</strong>
+Weekly metric review by Sarah (Revenue Operations Manager). Monthly guardrail review by CAIO. Any accuracy issue below threshold triggers a conversation between Sarah and engineering to determine whether the fix is a business change or a technical one. Quarterly review by leadership.</p>
+<div class="key-insight"><div class="key-insight-label">Key Insight</div><p></p></div>
+<p>"Governance defines the ongoing relationship between the AI Officer and the AI Engineer after deployment. The officer owns the business requirements. The engineer owns the technical implementation. Governance keeps them aligned."</p>
+<h4>Brief 4: Training, Handoff, and Success Metrics</h4>
+<p><strong>Duration:</strong> 20 minutes</p>
+<p><strong>Teaching: The Handoff Has Two Parts</strong></p>
+<p>Most people think of handoff as handing the system to their team. That is only half of it.</p>
+<p>The handoff in production has two parts.</p>
+<p><strong>The handoff to engineering.</strong> Your production brief goes to the AI Engineer. They build the production system based on your spec. Before go-live, you review what they built against your requirements. Does the system do what you specified? Are the guardrails implemented correctly? Do the escalation paths work as designed? Are the metrics being captured so you can review them weekly? This review is your job. The engineer built it. You check it against the brief.</p>
+<p><strong>The handoff to your team.</strong> Once the system is live, your team needs to know how to use it. This is user training. How do they access it? How do they review its output? How do they know when to trust it and when to check it? How do they flag something wrong? This documentation is your responsibility as the AI Officer, not the engineer's.</p>
+<p>Both handoffs require documentation. Both require you to be specific.</p>
+<p><strong>Teaching: Success Metrics Are Part of the Spec</strong></p>
+<p>Success metrics are not just how you measure the program. They are also a specification for what the engineer needs to build.</p>
+<p>When you write your success metrics, the engineer reads them and figures out what monitoring and logging to build. If your metrics require tracking response time, they need to instrument the system to capture that. If your metrics require tracking escalation rates, they need a way to log escalations. If your metrics require a weekly dashboard, they need to build one.</p>
+<p>Define your metrics before the engineer starts building. That way the monitoring is built in, not bolted on afterward.</p>
+<p><strong>Three types of metrics:</strong></p>
+<p>Efficiency metrics measure time and volume. How much faster is this process? How many cases per week?</p>
+<p>Quality metrics measure accuracy and outcome. What percentage of outputs are correct? What do the downstream results look like?</p>
+<p>Experience metrics measure satisfaction and trust. Is the team using the system or working around it? What does the user feedback say?</p>
+<p><strong>The weekly review:</strong></p>
+<p>Pick two to three numbers that a named person reviews every week. Not twenty metrics. Two or three. That person is the AI Officer or the system owner. When the numbers are healthy, the system is working. When they drop, the AI Officer investigates - and decides whether the issue is a business problem (change the requirements) or a technical problem (go back to engineering).</p>
+<p><strong>Worked Example: Metrics as a Spec</strong></p>
+<p><strong>Metrics the AI Officer defined in the production brief:</strong>
+- Average lead qualification time (target: under 45 minutes)
+- Routing accuracy rate (target: 80%)
+- Human override rate (tracking for calibration)</p>
+<p><strong>What the AI Engineer built based on those metrics:</strong>
+- Timing instrumentation on every qualification job
+- Accuracy logging comparing agent routing to actual rep assignment
+- Override tracking when reps change the assigned route
+- Weekly dashboard accessible to the Revenue Operations Manager
+- Alerting when accuracy drops below 70% for two consecutive weeks</p>
+<p>The metrics Sarah defined in the brief directly shaped what engineering built. That is the spec function of success metrics.</p>
+<p><strong>Practice Challenges</strong></p>
+<p><strong>Challenge 1: Write Your Technical Requirements for the Engineer</strong> (15 min)</p>
+<p>Write the technical requirements section as if you are briefing an AI Engineer for the first time. Cover: what tools the production version needs, what enterprise data sources it connects to, what existing systems it integrates with, what access and permissions are required, and what the known failure points are. Specific enough that the engineer can start a technical assessment without asking follow-up questions.</p>
+<p><strong>Challenge 2: Define Your Governance Ownership</strong> (10 min)</p>
+<p>Name the system owner and write their responsibilities in two columns: what they own as the AI Officer (business requirements, guardrail decisions, weekly metric review), and what they coordinate with engineering on (implementing guardrail changes, investigating technical failures, updating integrations).</p>
+<p><strong>Challenge 3: Write Your Metrics as a Spec</strong> (10 min)</p>
+<p>Write your two to three success metrics. For each one, write: the metric, how it is measured, who reviews it, and what needs to be built by engineering to capture it (logging, instrumentation, dashboard, alerting).</p>
+<p><strong>Challenge 4: Write the Engineer's Handoff Checklist</strong> (15 min)</p>
+<p>Before the system goes live, you review the engineer's build against your production brief. Write the checklist you would use: what do you check to confirm the system matches the spec you wrote? What would a failed review look like? What would a passed review look like?</p>
+<div class="key-insight"><div class="key-insight-label">Key Insight</div><p></p></div>
+<p>"The AI Officer writes the brief. The engineer builds from it. The AI Officer then checks the build against the brief. That review loop is what makes production work."</p>
+<h4>Brief 5: Build Your Production Brief</h4>
+<p><strong>Duration:</strong> 60 minutes</p>
+<p>This is the final brief. This is what the certification is built on.</p>
+<p>You are going to write the complete production brief for the AI program you built across Missions 1 through 5. Not a test. Not a simulation. A real document for a real program - written clearly enough that an AI Engineer could build from it and a senior leader could approve it.</p>
+<p><strong>Step-by-Step: Write Your Production Brief</strong></p>
+<p><strong>Step 1: Component 1 - What It Is</strong> (8 minutes)</p>
+<p>Write the system description.
+- System name
+- What it does (two to three sentences, plain language)
+- Who uses it
+- What problem it solves</p>
+<p>Test: Could your CEO read this and understand what this system does? Could an AI Engineer read this and know what they are being asked to build?</p>
+<p><strong>Step 2: Component 2 - Why It Matters</strong> (8 minutes)</p>
+<p>Write the business case.
+- Current baseline: how does this process work today? How long does it take? What errors occur? What does that cost?
+- Target: what improvement are you promising? Specific numbers.
+- Cost of not deploying: what does the organization lose by not building this?</p>
+<p>Your FAST goal from Mission 1 is the core of this section.</p>
+<p><strong>Step 3: Component 3 - What It Needs</strong> (8 minutes)</p>
+<p>Write the technical requirements for the AI Engineer.
+- AI tools (provider, model, access method)
+- Data sources (where the data lives, who owns it, what format, what access is required)
+- Enterprise integrations (what systems it connects to, what the integration does)
+- Access and permissions required
+- Known failure points or dependencies the engineer needs to plan for</p>
+<p>Think about this section from the engineer's perspective. They are building a production system. What do they need to know?</p>
+<p><strong>Step 4: Component 4 - Who Owns It</strong> (8 minutes)</p>
+<p>Write the governance model.
+- Named system owner with responsibilities
+- What the AI Officer owns (business requirements, guardrail decisions, weekly review)
+- What requires escalation and to whom
+- Guardrails: what the system can and cannot do (formal policy, to be implemented technically by engineering)
+- Oversight: review cadence, threshold for bringing engineering back in</p>
+<p><strong>Step 5: Component 5 - Who Runs It</strong> (10 minutes)</p>
+<p>Write the training and handoff plan.
+- Who uses the system day to day
+- User training summary (what they need to know, how they learn it)
+- Maintenance responsibilities (what the AI Officer owns, what engineering owns)
+- Escalation paths (what triggers escalation, where it goes, how fast)
+- Pre-launch review checklist: what do you check before signing off on the engineer's build?</p>
+<p><strong>Step 6: Component 6 - How You Know It Works</strong> (8 minutes)</p>
+<p>Write the success metrics - and the monitoring spec.
+- Baseline (current state before deployment)
+- Target (specific improvement you are committing to)
+- Two to three weekly metrics
+- Named reviewer and review cadence
+- Adjustment threshold
+- What engineering needs to build to capture these metrics (logging, dashboard, alerting)</p>
+<p><strong>Before You Submit</strong></p>
+<p>Four checks before you submit.</p>
+<p><strong>Check 1: Could an AI Engineer build from this?</strong>
+Read the technical requirements and governance sections from an engineer's perspective. Do they know what to build? Do they have what they need to start a technical assessment? If not, what is missing?</p>
+<p><strong>Check 2: Could leadership approve this?</strong>
+Read the business case and governance sections from a senior leader's perspective. Is the ROI clear? Is there named accountability? Is there a governance model? If not, what is vague?</p>
+<p><strong>Check 3: Could your team use this?</strong>
+Read the training section from a new team member's perspective. Do they know how to use the system? When to trust it? What to do when something goes wrong? If not, what is missing?</p>
+<p><strong>Check 4: Does this connect back to leading a program, not just using a tool?</strong>
+Every section should reflect leadership work - defining requirements, governing the program, measuring outcomes - not just describing what AI does.</p>
+<p><strong>Launch Your Final Project in AIO Labs</strong></p>
+<p>[CTA: Submit Your Mission 6 Final Project]</p>
+<p><strong>Final Project: Your Complete Production Brief</strong></p>
+<p>Submit all six components as a single document.</p>
+<p><strong>Component 1:</strong> System description
+<strong>Component 2:</strong> Business case
+<strong>Component 3:</strong> Technical requirements (written for an AI Engineer)
+<strong>Component 4:</strong> Governance model
+<strong>Component 5:</strong> Training and handoff plan
+<strong>Component 6:</strong> Success metrics and monitoring spec</p>
+<p>Completing and submitting your production brief earns your Agentic AI Essentials certification badge.</p>
+<p>Your submission will be reviewed by your AI Buddy, which will assess each component against the production brief standard and give you specific feedback on where to strengthen it.</p>
+<p>[Certification Badge: Agentic AI Essentials - From Prototype to Production]</p>
+      </div>
+    </section>
+    <section class="brief-section" id="section-3">
+      <div class="brief-label">Section 3</div>
+      <h2 class="brief-title">Key Takeaways</h2>
+      <div class="prose">
+        <h4>Key Takeaways</h4>
+<ol><li>A prototype proves the concept. A production system runs on enterprise infrastructure. The gap between them requires an AI Engineer - and most business professionals cannot cross it alone.</li></ol>
+<ol><li>The AI Officer and the AI Engineer need each other. The AI Officer defines the business requirements, designs the system, and owns the program. The AI Engineer builds the production infrastructure. Neither can do the other's job.</li></ol>
+<ol><li>The production brief functions as both a leadership document and an engineering spec. The same document tells leadership why to invest, tells engineering what to build, and tells the team how to use it.</li></ol>
+<ol><li>A vague spec produces the wrong system. The clearer your production brief, the closer the production system will match what the business needs.</li></ol>
+<ol><li>Governance defines the ongoing relationship between the AI Officer and the AI Engineer after deployment. When guardrails need to change, the AI Officer decides. The engineer implements. That is the accountability structure.</li></ol>
+<ol><li>Success metrics are part of the spec. Define them before the engineer starts building so the monitoring and logging are built in, not added later.</li></ol>
+<ol><li>The AI Officer's job does not end at deployment. After the engineer delivers the system, the AI Officer owns the weekly review, the escalation decisions, and the ongoing governance. The engineer owns the infrastructure. Both own the outcome.</li></ol>
+<ol><li>The production brief is how you move from prototype land to production. Write it clearly enough to hand to an engineer. That is the AI Officer skill at this stage.</li></ol>
+<p>What is one step you will take in the next seven days to move your production brief toward an engineer or a decision-maker? Share it with your cohort in AIO Labs.</p>
+<h4>Checkpoint</h4>
+<p><strong>Question 1:</strong> Why can't most business professionals take a prototype to production on their own?</p>
+<p>A) They didn't build the prototype correctly
+B) Production requires enterprise infrastructure, security, compliance, and engineering expertise that most business professionals don't have
+C) They need more AI training before they can deploy
+D) Production is only possible with a dedicated AI team</p>
+<p><strong>Answer:</strong> B. Production means enterprise infrastructure, secure API integrations, compliance, monitoring, and ongoing maintenance. These require an AI Engineer. The AI Officer's role is to design the system and write the spec - not to build the production infrastructure.</p>
+<p><strong>Question 2:</strong> What is the AI Officer's primary contribution to the production process?</p>
+<p>A) Building the secure API integrations
+B) Writing the code that powers the production system
+C) Defining the business requirements clearly enough that an engineer can build the right system
+D) Managing the cloud infrastructure</p>
+<p><strong>Answer:</strong> C. The AI Officer defines the problem, designs the system, specifies the requirements, and writes the production brief. The engineer builds from that spec. The clearer the brief, the more accurately the production system matches what the business needs.</p>
+<p><strong>Question 3:</strong> How do success metrics function as a spec for the AI Engineer?</p>
+<p>A) They don't - metrics are only for business stakeholders
+B) They tell the engineer what monitoring, logging, and dashboards need to be built into the production system
+C) They replace the technical requirements section
+D) They are written after deployment once the system is live</p>
+<p><strong>Answer:</strong> B. Success metrics define what the AI Officer needs to see to manage the program. The engineer builds the monitoring and logging to surface those metrics. Metrics defined before deployment get built in. Metrics added after deployment get bolted on - and are usually incomplete.</p>
+<p><strong>Question 4:</strong> When should the AI Officer review the engineer's build?</p>
+<p>A) Only after the system has been live for a month
+B) Before go-live, checking the build against the production brief
+C) Never - that is the engineer's responsibility
+D) Only if the metrics are not being tracked correctly</p>
+<p><strong>Answer:</strong> B. Before go-live, the AI Officer reviews the engineer's build against the production brief. Do the guardrails match what was specified? Do the escalation paths work as designed? Are the metrics being captured? This is the AI Officer's quality check - not a technical audit, but a requirements audit.</p>
+<h4>Certificate of Completion</h4>
+<p>You have completed the Agentic AI Essentials series.</p>
+<ul><li>Mission 1: AI Program Design - Complete</li><li>Mission 2: From Prompts to Packaged AI - Complete</li><li>Mission 3: Wire the Workflow - Complete</li><li>Mission 4: Teach Your Workflow to Decide - Complete</li><li>Mission 5: Unleash the Agent - Complete</li><li>Mission 6: From Prototype to Production - Complete</li></ul>
+<p><strong>You are certified.</strong></p>
+<p>Across six missions, you built a complete AI program and wrote the spec to deploy it. You know what production means. You know who you need to build it. And you know how to write clearly enough that the right system gets built. That is the AI Officer capability. That is what leading AI looks like.</p>
+<p>The Leadership in the AI Era series goes deeper into the organizational work - how to build AI programs at the team and organization level, how to manage the 50/50 era, and how to develop the people, culture, and AI Engineer relationships that make programs last. Your production brief is your entry point.</p>
+<h4>Course Experience Survey</h4>
+<p><em>[Survey placeholder - link to be added by AI Officer]</em></p>
+<h4>Words to Know</h4>
+<p>See the full Words to Know document for Mission 6 in the Prompt Library.</p>
+<p><em>[Lark link placeholder - to be added by AI Officer]</em></p>
+<h4>Prompt Library</h4>
+<p>Copy-paste prompts for every step of the production brief writing process are in the Mission 6 Prompt Library.</p>
+<p><em>[Lark link placeholder - to be added by AI Officer]</em></p>
+      </div>
+    </section>
+
+    <div class="tb-bottom-nav">
+      <a href="mission-6.html" class="tb-nav-btn">← Mission 6 Hub</a>
+      <a href="mission-6-prompts.html" class="tb-nav-btn primary">Prompt Library →</a>
+    </div>
+
+  </main>
+</div>
+</body>
+</html>

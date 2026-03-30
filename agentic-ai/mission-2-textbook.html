@@ -1,0 +1,502 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mission 2 Briefs — From Prompts to Packaged AI — AI Officer Institute</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../shared/styles.css">
+<style>
+  :root {
+    --royal: #287BE8;
+    --ease: cubic-bezier(0.4, 0, 0.2, 1);
+    --radius: 12px;
+    --shadow-sm: 0 1px 3px rgba(4,16,45,0.07);
+    --shadow-hover: 0 6px 24px rgba(4,16,45,0.10);
+    --text-tertiary: #8b91ac;
+    --border-hover: #b0b6cc;
+  }
+  body { background: var(--surface); }
+
+  .page-wrap { display: grid; grid-template-columns: 240px 1fr; min-height: 100vh; padding-top: 56px; }
+  .tb-sidebar { position: sticky; top: 56px; height: calc(100vh - 56px); overflow-y: auto; background: white; border-right: 1px solid var(--border); padding: 28px 0; }
+  .tb-sidebar-inner { padding: 0 20px; }
+  .tb-sidebar-label { font-size: 10px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: var(--text-muted); margin-bottom: 12px; padding: 0 4px; }
+  .tb-nav-link { display: block; padding: 8px 12px; border-radius: 8px; font-size: 13px; font-weight: 500; color: var(--text-secondary); text-decoration: none; transition: all 0.12s; margin-bottom: 2px; line-height: 1.4; }
+  .tb-nav-link:hover { background: var(--surface); color: var(--text-primary); }
+  .tb-nav-link.active { background: rgba(26,158,116,0.08); color: #1a9e74; font-weight: 600; }
+  .tb-nav-num { font-family: 'JetBrains Mono', monospace; font-size: 10px; font-weight: 700; color: var(--text-muted); display: block; margin-bottom: 1px; }
+  .tb-nav-divider { height: 1px; background: var(--border); margin: 14px 0; }
+  .tb-buddy-btn { display: flex; align-items: center; gap: 8px; width: 100%; margin-top: 20px; padding: 10px 12px; border-radius: 8px; background: rgba(26,158,116,0.07); border: 1px solid rgba(26,158,116,0.2); color: #1a9e74; font-size: 13px; font-weight: 600; cursor: pointer; text-decoration: none; transition: all 0.15s; }
+  .tb-buddy-btn:hover { background: rgba(26,158,116,0.12); }
+  .tb-main { padding: 48px 60px 100px; max-width: 780px; }
+  .tb-back { display: inline-flex; align-items: center; gap: 6px; font-size: 13px; font-weight: 600; color: var(--text-muted); text-decoration: none; margin-bottom: 32px; transition: color 0.12s; }
+  .tb-back:hover { color: var(--text-primary); }
+  .tb-hero { margin-bottom: 48px; }
+  .tb-track-pill { display: inline-flex; align-items: center; gap: 7px; font-size: 11px; font-weight: 700; letter-spacing: 0.7px; text-transform: uppercase; padding: 5px 12px; border-radius: 20px; background: rgba(26,158,116,0.1); color: #1a9e74; border: 1px solid rgba(26,158,116,0.2); margin-bottom: 14px; }
+  .tb-title { font-size: 32px; font-weight: 700; color: var(--text-primary); letter-spacing: -0.5px; line-height: 1.15; margin-bottom: 10px; }
+  .tb-sub { font-size: 15px; color: var(--text-secondary); line-height: 1.65; max-width: 560px; }
+  .brief-section { margin-bottom: 64px; scroll-margin-top: 80px; }
+  .brief-label { font-family: 'JetBrains Mono', monospace; font-size: 10px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: #1a9e74; margin-bottom: 6px; }
+  .brief-title { font-size: 24px; font-weight: 700; color: var(--text-primary); letter-spacing: -0.3px; line-height: 1.2; margin-bottom: 20px; padding-bottom: 16px; border-bottom: 2px solid var(--border); }
+  .prose { color: var(--text-secondary); line-height: 1.75; font-size: 15px; }
+  .prose p { margin-bottom: 18px; }
+  .prose h3 { font-size: 17px; font-weight: 700; color: var(--text-primary); letter-spacing: -0.2px; margin: 32px 0 10px; }
+  .prose h4 { font-size: 14px; font-weight: 700; color: var(--text-primary); text-transform: uppercase; letter-spacing: 0.5px; margin: 24px 0 8px; }
+  .prose ul, .prose ol { padding-left: 20px; margin-bottom: 18px; display: flex; flex-direction: column; gap: 6px; }
+  .prose li { font-size: 14.5px; line-height: 1.65; }
+  .prose strong { font-weight: 700; color: var(--text-primary); }
+  .prose code { font-family: 'JetBrains Mono', monospace; font-size: 13px; background: var(--surface); padding: 2px 6px; border-radius: 4px; border: 1px solid var(--border); }
+  .key-insight { background: rgba(26,158,116,0.05); border: 1px solid rgba(26,158,116,0.15); border-left: 3px solid #1a9e74; border-radius: 0 var(--radius) var(--radius) 0; padding: 18px 22px; margin: 28px 0; }
+  .key-insight-label { font-size: 10px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: #1a9e74; margin-bottom: 8px; }
+  .key-insight p { font-size: 14px; color: var(--text-primary); line-height: 1.65; margin: 0; }
+  .starter-prompt { background: rgba(40,123,232,0.04); border: 1px solid rgba(40,123,232,0.18); border-radius: var(--radius); padding: 20px 22px; margin: 24px 0; }
+  .starter-prompt-label { display: flex; align-items: center; gap: 8px; font-size: 11px; font-weight: 700; letter-spacing: 0.7px; text-transform: uppercase; color: #287BE8; margin-bottom: 12px; }
+  .starter-prompt-text { font-size: 14px; color: var(--text-primary); line-height: 1.7; font-style: italic; background: white; padding: 14px 16px; border-radius: 8px; border: 1px solid rgba(40,123,232,0.15); }
+  .worked-example { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 20px 22px; margin: 24px 0; }
+  .worked-example-label { font-size: 10px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: var(--text-muted); margin-bottom: 12px; }
+  .tb-bottom-nav { display: flex; align-items: center; justify-content: space-between; border-top: 1px solid var(--border); padding-top: 32px; margin-top: 16px; }
+  .tb-nav-btn { display: inline-flex; align-items: center; gap: 6px; font-size: 13px; font-weight: 600; color: var(--text-muted); text-decoration: none; padding: 8px 14px; border-radius: 8px; border: 1px solid var(--border); transition: all 0.12s; }
+  .tb-nav-btn:hover { border-color: var(--border-hover); color: var(--text-primary); }
+  .tb-nav-btn.primary { background: #1a9e74; color: white; border-color: #1a9e74; }
+  .tb-nav-btn.primary:hover { background: #178a65; }
+  @media (max-width: 900px) { .page-wrap { grid-template-columns: 1fr; } .tb-sidebar { display: none; } .tb-main { padding: 40px 24px 80px; } .topbar-nav { display: none; } }
+
+</style>
+</head>
+<body>
+<div class="topbar">
+  <a href="../index.html" class="topbar-brand">AIO <span>Labs</span></a>
+  <nav class="topbar-nav">
+    <a href="../index.html" class="tnav-link"><span class="tnav-dot" style="background:#8b91ac"></span> Home</a>
+    <a href="../certification.html" class="tnav-link active"><span class="tnav-dot" style="background:#287BE8"></span> Certification</a>
+    <a href="../coaching.html" class="tnav-link"><span class="tnav-dot" style="background:#287BE8"></span> Coaching</a>
+    <a href="../micro-sessions/index.html" class="tnav-link"><span class="tnav-dot" style="background:#1A9E74"></span> Micro-Sessions</a>
+    <a href="../blog/index.html" class="tnav-link"><span class="tnav-dot" style="background:#6FF2C1"></span> Blog</a>
+    <a href="../my-team.html" class="tnav-link"><span class="tnav-dot" style="background:#8b91ac"></span> My Team</a>
+  </nav>
+  <div class="topbar-right">
+    <a href="https://claude.ai" target="_blank" class="buddy-launch-btn">🤖 AI Buddy</a>
+    <div class="topbar-stat">🔥 7</div>
+    <div class="topbar-stat">⭐ 1,240</div>
+    <div class="topbar-divider"></div>
+    <div class="topbar-avatar">DH</div>
+  </div>
+</div>
+
+<div class="page-wrap">
+
+  <aside class="tb-sidebar">
+    <div class="tb-sidebar-inner">
+      <div class="tb-sidebar-label">Mission 2 Briefs</div>
+      
+      <a href="#section-1" class="tb-nav-link">
+        <span class="tb-nav-num">SECTION 1</span>Welcome to Mission 2
+      </a>
+      <a href="#section-2" class="tb-nav-link">
+        <span class="tb-nav-num">SECTION 2</span>Brief 1: The Setup Time Problem
+      </a>
+      <a href="#section-3" class="tb-nav-link">
+        <span class="tb-nav-num">SECTION 3</span>Key Takeaways
+      </a>
+      <div class="tb-nav-divider"></div>
+      <a href="https://claude.ai" target="_blank" class="tb-buddy-btn">🤖 Open AI Buddy</a>
+    </div>
+  </aside>
+
+  <main class="tb-main">
+
+    <a href="mission-2.html" class="tb-back">← Back to Mission 2</a>
+
+    <div class="tb-hero">
+      <div class="tb-track-pill">Agentic AI for Business · Mission 02</div>
+      <h1 class="tb-title">From Prompts to Packaged AI</h1>
+      <p class="tb-sub">Turn a great prompt into a reusable AI tool your team can use on day one without asking you a single question.</p>
+    </div>
+
+    
+    <section class="brief-section" id="section-1">
+      <div class="brief-label">SECTION 1</div>
+      <h2 class="brief-title">Welcome to Mission 2</h2>
+      <div class="prose">
+        <h4>Welcome to Mission 2</h4>
+<p>You've completed Session 1. You identified opportunities. You selected one. You defined the problem. You set a FAST goal with a number attached.</p>
+<p>Now comes the part that turns that work into something real.</p>
+<p>You're about to build your first Packaged AI prototype. Not a concept. Not a plan. A working AI tool that someone on your team could use this week without asking you a single question.</p>
+<p>This is where good prompts become great systems.</p>
+<h4>Your Mission Briefs</h4>
+<p>Five briefs will walk you through the complete picture:</p>
+<p><strong>Brief 1: The Setup Time Problem</strong> - Why the invisible cost of setup time is the problem you're actually solving. (20 min)</p>
+<p><strong>Brief 2: Anatomy of Packaged AI</strong> - The three components (Data, Instructions, Interface) and how they fit together. (20 min)</p>
+<p><strong>Brief 3: Platform Options</strong> - ChatGPT Custom GPTs vs Claude Projects vs Gemini Gems. Same pattern. Different tools. (15 min)</p>
+<p><strong>Brief 4: Build Your Prototype</strong> - Step-by-step walkthrough of building your first packaged AI. (30 min)</p>
+<p><strong>Brief 5: Test and Ship</strong> - How to validate your build before you hand it to your team. (20 min)</p>
+<h4>Learning Guide</h4>
+<ul><li><strong>Teaching content</strong> that explains the concept</li><li><strong>A worked example</strong> showing exactly how it works in practice</li><li><strong>A starter prompt</strong> to use with your AI Buddy</li><li><strong>A key insight</strong> that connects to leadership, not just technology</li></ul>
+<p>At the end, you'll have practice challenges and a final project: your actual Packaged AI prototype for your selected item from Session 1.</p>
+<p>The test isn't whether it works for you. The test is whether someone else can use it on day one without asking you anything.</p>
+      </div>
+    </section>
+    <section class="brief-section" id="section-2">
+      <div class="brief-label">SECTION 2</div>
+      <h2 class="brief-title">Brief 1: The Setup Time Problem</h2>
+      <div class="prose">
+        <h4>Brief 1: The Setup Time Problem</h4>
+<h4>Teaching: The Real Cost of Starting Over</h4>
+<p>Here's what nobody measures: the time you spend setting up AI before you can actually use it.</p>
+<p>You open a tool. You explain your role. You upload the same file you uploaded yesterday. You describe the format you need. You re-explain the context. This takes five minutes. Maybe 10 if it's complex.</p>
+<p>That doesn't sound like much. But it happens four times a day. Five days a week. That's 100 minutes per week. That's 86 hours per year on setup alone. On one repeated task.</p>
+<p>Most people have five of these. Multiply by your team. If you have 10 people doing this, that's 860 hours per year. That's a full-time person. Spending time to be ready to work instead of working.</p>
+<p>Nobody tracks it because it feels like working. Setup time is invisible until you measure it. Then it's everywhere.</p>
+<p>The problem you identified in Session 1 is actually a setup time problem. Every time you manually do what AI could do, you're paying this hidden cost. Packaging solves it.</p>
+<div class="worked-example"><div class="worked-example-label">Worked Example</div><div class="prose"><h4>Worked Example: The Marketing Manager</h4></div></div>
+<p>Sarah manages content for a mid-size SaaS company. Every day, marketing teams ask her to turn rough ideas into brief formats. She opens Claude. She pastes in the company brand guide. She explains the brief template. She shows an example. She uploads the request. She gets the output.</p>
+<p>Five minutes. Every single time. Four times a day.</p>
+<p>When she packages it: She creates a Claude Project called "Content Brief Generator." She uploads the brand guide as permanent context. She writes system instructions using RACE that explain the template, the tone, the format. She adds conversation starters: "Turn this idea into a brief," "Brief for a technical audience," "Brief for a business audience." She uploads the template as a reference file.</p>
+<p>Now her team opens it. They see three conversation starters. They pick one. They type their idea. The AI generates the brief using her standards, her template, her tone. Two minutes instead of five. And no Sarah in the loop.</p>
+<p>The prompt worked. But the system is what scaled.</p>
+<p>> <strong>Want to learn more first? Ask your AI Buddy:</strong> "Walk me through the financial impact of setup time on my team. How much time does my team spend each week getting AI ready versus actually using it?"</p>
+<div class="key-insight"><div class="key-insight-label">Key Insight</div><p>#### Key Insight</p></div>
+<p>The prompt worked. The system didn't. Setup time is the invisible tax on every AI user. Packaging is how you eliminate it so your team has time to do actual work.</p>
+<h4>Brief 2: Anatomy of Packaged AI</h4>
+<h4>Teaching: Three Components That Make It Work</h4>
+<p>Every Packaged AI tool has three components. Custom GPTs have them. Claude Projects have them. Gemini Gems have them. Get all three right and your tool just works. Miss one and your team needs training.</p>
+<p><strong>Component 1: Data</strong></p>
+<p>This is what your AI knows. Not what the user tells it. What it already has.</p>
+<p>If you're building a customer response tool, this is your FAQ. Your tone guidelines. Your common product issues and how to address them. Your pricing. Your policies.</p>
+<p>If you're building a content tool, this is your brand guide. Your templates. Your style examples. Your do's and don'ts.</p>
+<p>If you're building a sales tool, this is your product info. Your competitive positioning. Your case studies. Your talking points.</p>
+<p>Data is the foundation. Your Packaged AI is only as good as what you feed it. Upload the real files. Not summaries. Not descriptions. The actual documents your team uses.</p>
+<p><strong>Component 2: Instructions</strong></p>
+<p>This is what your AI does. Not in general. Specifically. Using RACE.</p>
+<p><strong>Role:</strong> Who is the AI acting as? A customer service manager. A content editor. A sales coach. Be specific.</p>
+<p><strong>Action:</strong> What exactly does it do? Not "help with customer responses." But "take a customer email complaint, provide an empathetic response using our tone guidelines, and flag any issues that need escalation." Specific.</p>
+<p><strong>Context:</strong> What are the constraints? What format? What should it always do? What should it never do? "Always check the FAQ first. Never promise a timeline we can't meet. Always include a reference number."</p>
+<p><strong>Example:</strong> What does good output look like? Show it. Show bad output too. Show why it's bad. The more specific your instructions, the less explanation your team needs.</p>
+<p><strong>Component 3: Interface</strong></p>
+<p>This is how users interact. The name. The description. The conversation starters.</p>
+<p><strong>Name:</strong> Tells someone what this does without explanation. "Email Tone Adjuster." "Contract Reviewer." "Content Brief Generator."</p>
+<p><strong>Description:</strong> One sentence. What does it do? For whom? What format? "Takes customer emails and suggests responses using our tone guidelines and FAQ."</p>
+<p><strong>Conversation Starters:</strong> Pre-written prompts that appear when users open the tool. These are gold. They guide users to the right input. They show what the tool can do without a manual. "Respond to a complaint," "Respond to a feature request," "Respond to billing confusion."</p>
+<p>Get all three components right and your team can use it without training. They open the tool. They see what it does. They see examples. They pick a conversation starter. They get the output. No questions.</p>
+<div class="worked-example"><div class="worked-example-label">Worked Example</div><div class="prose"><h4>Worked Example: Email Tone Adjuster</h4></div></div>
+<p>We'll use the Email Tone Adjuster throughout this brief. Here's how all three components work together.</p>
+<p><strong>Data:</strong>
+- Company tone guidelines (friendly, helpful, never defensive)
+- FAQ document with 50 common customer issues
+- 10 example emails and ideal responses
+- Pricing page and policies
+- Common complaint scenarios and escalation rules</p>
+<p><strong>Instructions (RACE):</strong></p>
+<p>"You are an expert customer service manager who specializes in tone and empathy. You take incoming customer emails and generate professional, empathetic responses following our tone guidelines and FAQ. Role: Act as a senior customer service manager for our team. Action: For each customer email provided, (1) understand the core issue, (2) check the FAQ for relevant answers, (3) generate a response that's empathetic, helpful, and on-brand, (4) if the issue requires escalation, flag it. Context: Always prioritize empathy. Never promise timelines we can't keep. Always include a reference number. Always check the FAQ first before generating new answers. Format responses as: [Response Text] [Escalation Flag: Yes/No] [Reason if escalated]. Example: [show a sample customer email and an ideal response]"</p>
+<p>Name: Email Tone Adjuster</p>
+<p>Description: Takes customer emails and generates on-brand responses using our FAQ and tone guidelines.</p>
+<p>Conversation Starters:
+- "Respond to a billing complaint"
+- "Respond to a feature request"
+- "Respond to a technical issue with escalation check"</p>
+<p>> <strong>Want to learn more first? Ask your AI Buddy:</strong> "For my selected item from Session 1, break down what data, instructions, and interface I need to build a Packaged AI. Be specific about what files to upload, what RACE instructions to write, and what interface elements to include."</p>
+<div class="key-insight"><div class="key-insight-label">Key Insight</div><p>#### Key Insight</p></div>
+<p>Get all three components right and your team can use it without training. Miss one and you become the manual. Data without clear instructions means your team has to figure out how to use the information. Instructions without data means the AI has to ask for context every time. Interface without conversation starters means users have to know what to ask. Three components. All three matter.</p>
+<h4>Brief 3: Platform Options</h4>
+<h4>Teaching: Same Pattern, Different Tools</h4>
+<p>All three major platforms support Packaged AI. The names are different. The architecture is identical.</p>
+<p><strong>ChatGPT Custom GPTs</strong></p>
+<p>Custom GPTs let you upload files, write system instructions, and give your GPT a name and description. Users access it through ChatGPT. They can use it as long as you've shared it with them or published it. Data goes into file uploads or knowledge. Instructions go into the system prompt. Interface is the name and description and conversation starters.</p>
+<p>Strength: Most people already use ChatGPT. Low friction. Everyone knows how to chat.</p>
+<p>Limitation: All conversations are in ChatGPT. Less integration with other tools.</p>
+<p>Claude Projects let you upload files, write a system prompt, and name your project. Users access it at the top of Claude. Each project is its own context window. Data goes into files or contexts. Instructions go into the custom instructions area. Interface is the project name, description, and conversation starters.</p>
+<p>Strength: Separate context means cleaner conversations. You can build multiple Projects without interference. Good if you're already using Claude.</p>
+<p>Limitation: Requires a Claude subscription (usually already there if you use Claude Plus or Team).</p>
+<p>Gemini Gems work similarly. You build a Gem with custom instructions and uploaded context. Users access it through Gemini. Data goes into custom context. Instructions go into the system prompt. Interface is the name and description.</p>
+<p>Strength: Gemini is increasingly popular. Good integration with Google Workspace tools.</p>
+<p>Limitation: Newest platform. Still growing.</p>
+<p>The pattern is identical across all three. Data. Instructions. Interface. Learn it once, build on any platform.</p>
+<div class="worked-example"><div class="worked-example-label">Worked Example</div><div class="prose"><h4>Worked Example: Email Tone Adjuster on All Three</h4></div></div>
+<p>The Email Tone Adjuster (from Brief 2) works identically on all three platforms.</p>
+<p><strong>On ChatGPT Custom GPTs:</strong>
+- Upload FAQ, tone guidelines, examples as files
+- Set system prompt with RACE instructions
+- Name: "Email Tone Adjuster"
+- Add conversation starters in Custom Instructions
+- Share with your team</p>
+<p><strong>On Claude Projects:</strong>
+- Upload FAQ, tone guidelines, examples as project files
+- Set custom instructions with RACE
+- Name project: "Email Tone Adjuster"
+- Add conversation starters in the welcome message
+- Share project with teammates</p>
+<p><strong>On Gemini Gems:</strong>
+- Upload FAQ, tone guidelines, examples as custom context
+- Set custom instructions with RACE
+- Name: "Email Tone Adjuster"
+- Add conversation starters
+- Share with your team</p>
+<p>Same tool. Same outcome. Different interface.</p>
+<p>> <strong>Want to learn more first? Ask your AI Buddy:</strong> "Which platform should I use to build my Packaged AI? I'm planning to build [describe your item]. Help me pick between ChatGPT Custom GPTs, Claude Projects, and Gemini Gems based on my workflow and team setup."</p>
+<div class="key-insight"><div class="key-insight-label">Key Insight</div><p>#### Key Insight</p></div>
+<p>The platform is the tool. The pattern is the skill. Learn it once, build on any platform. The best choice is the platform your team is already using.</p>
+<h4>Brief 4: Build Your Prototype</h4>
+<h4>Teaching: Step-by-Step Build Process</h4>
+<p>You're going to build your Packaged AI for your selected item from Session 1. You have the problem statement. You have the FAST goal. Now you build.</p>
+<p>Five steps. 30 minutes total if you move fast. An hour if you're thorough. Both are fine.</p>
+<p><strong>Step 1: Create and Name Your Tool (2 minutes)</strong></p>
+<p>Open your platform. ChatGPT, Claude, or Gemini. Create a new Custom GPT, Project, or Gem.</p>
+<p>Give it a name that explains what it does. Not "AI Tool 1." But something that tells someone what this does in plain language. "Content Brief Generator." "Customer Email Responder." "Product Comparison Tool."</p>
+<p>Write a one-sentence description. What does it do? For whom? What format?</p>
+<p>Example: "Turns product feedback into prioritized feature requests using our product strategy framework."</p>
+<p>This is your interface starting. Users will see this. It needs to make sense on its own.</p>
+<p><strong>Step 2: Write Your System Prompt (5 minutes)</strong></p>
+<p>This is your instructions. RACE format. Write it all in one prompt or split it into sections depending on your platform.</p>
+<p>Role: Who is this AI acting as? Be specific.</p>
+<p>Action: What exactly does it do? A real action. With specifics.</p>
+<p>Context: What are the rules? What format? What should it always do? What should it never do?</p>
+<p>Example: Show what good output looks like. Show what bad output looks like.</p>
+<p>Don't skip the example. The AI learns from examples better than from rules.</p>
+<p>Make your RACE as specific as your domain allows. The more specific, the less your team has to explain every time.</p>
+<p><strong>Step 3: Identify and Upload Your Data (5 minutes)</strong></p>
+<p>What does your AI need to know to do this right?</p>
+<p>If it's a customer tool: tone guidelines, FAQ, common issues, pricing, policies.</p>
+<p>If it's a content tool: brand guide, templates, style examples, tone samples.</p>
+<p>If it's a sales tool: product info, positioning, case studies, talking points, competitor comparison.</p>
+<p>Upload the actual files. PDFs. Word docs. Text files. The real documents your team uses.</p>
+<p>If you don't have these documents yet, create them. Or start with a summary version. The key is: your AI has your standards built in. It doesn't have to ask every time.</p>
+<p><strong>Step 4: Add Conversation Starters (3 minutes)</strong></p>
+<p>Think about the three most common ways your team will use this tool.</p>
+<p>What are the most common requests? The most common starting points?</p>
+<p>Write three conversation starters that guide users toward these common use cases.</p>
+<p>Examples for an Email Tone Adjuster:
+- "Respond to a billing complaint"
+- "Respond to a feature request"
+- "Respond to a technical issue"</p>
+<p>Examples for a Content Brief Generator:
+- "Turn this idea into a brief for a technical audience"
+- "Turn this idea into a brief for a business audience"
+- "Quick one-liner brief for a blog post"</p>
+<p>These starters do two things. They guide users. And they show the AI a clean starting point. Users get value in under 10 seconds without training.</p>
+<p><strong>Step 5: Test the Happy Path (5 minutes)</strong></p>
+<p>Test it. Use a real example from your work. Not a fake example. Real.</p>
+<p>Does it work the way you designed it? Is the output usable? Can someone on your team take it and run?</p>
+<p>If it works: move to edge cases.</p>
+<p>If it doesn't: adjust your instructions or data and test again.</p>
+<p>You're not shipping until the happy path works.</p>
+<div class="worked-example"><div class="worked-example-label">Worked Example</div><div class="prose"><h4>Worked Example: Complete Build</h4></div></div>
+<p>We'll walk through building a complete Packaged AI for a specific problem.</p>
+<p><strong>Scenario:</strong> Sarah is a product manager at a SaaS company. In Session 1, she identified that the team spends hours turning customer feedback into prioritized feature requests. Her FAST goal: "Reduce time to turn feedback into prioritized request from 45 minutes to 15 minutes in the next 30 days." She selected this as her item.</p>
+<p><strong>Step 1: Create and Name</strong></p>
+<p>Platform: Claude Projects (she already uses Claude)</p>
+<p>Name: "Feature Request Prioritizer"</p>
+<p>Description: "Turns customer feedback into prioritized feature requests using our product strategy framework."</p>
+<p><strong>Step 2: Write System Prompt (RACE)</strong></p>
+<p>Role: You are a senior product manager who specializes in customer feedback analysis and feature prioritization.</p>
+<p>Action: For each piece of customer feedback provided, you will: (1) Extract the core need or problem, (2) Map it to our product strategy framework, (3) Generate a structured feature request using our template, (4) Assign a priority level (critical, high, medium, low) based on our prioritization rules.</p>
+<p>Context: Always reference our product strategy framework first. Categorize feedback as bug, small enhancement, medium feature, or major initiative. Critical issues are those affecting core workflows or security. High priority items solve problems for multiple customer segments. Never assign critical or high priority without clear business impact. Always include the original customer quote. Format as: [Feature Request Template with all required sections filled].</p>
+<p>Example: [Show a real customer feedback example and the ideal feature request output]</p>
+<p><strong>Step 3: Upload Data</strong></p>
+<ul><li>Product strategy framework (2-page document)</li><li>Feature request template (standardized format)</li><li>Prioritization rules (decision tree)</li><li>10 past examples of good feature requests</li><li>Competitive feature comparison (for context)</li></ul>
+<p>Real files. Sarah's actual documents.</p>
+<p><strong>Step 4: Add Conversation Starters</strong></p>
+<ul><li>"Prioritize this customer feedback"</li><li>"Turn this support ticket into a feature request"</li><li>"Bulk process these feedback items"</li></ul>
+<p>Happy path test: Sarah pastes in a real customer feedback email. The AI generates a feature request following her template, maps it to her strategy framework, and assigns a priority level. It's usable. She can take it directly to her planning meeting. Works.</p>
+<p>Edge case 1: What if the feedback is unclear? The AI asks for clarification instead of guessing.</p>
+<p>Edge case 2: What if it's a security issue? The AI flags it as critical and recommends escalation.</p>
+<p>> <strong>Want to learn more first? Ask your AI Buddy:</strong> "I'm building a Packaged AI for [describe your selected item from Session 1]. Walk me through exactly how I would write my RACE system prompt. Give me a template with my specific role, action, context, and example."</p>
+<div class="key-insight"><div class="key-insight-label">Key Insight</div><p>#### Key Insight</p></div>
+<p>The leadership test isn't whether it works for you. The test is whether someone else on your team can open it on day one, pick a conversation starter, and get usable output without asking you anything. That's the Packaged AI standard.</p>
+<h4>Brief 5: Test and Ship</h4>
+<h4>Teaching: Validation Before Handoff</h4>
+<p>You've built your Packaged AI. You tested the happy path. It works. Now comes validation.</p>
+<p>There's a difference between "it works for me" and "it works for anyone."</p>
+<p>Happy path testing: Does it work when everything goes right? When the user provides clear input? When they follow the conversation starter? Yes? Great. That's baseline.</p>
+<p>Edge case testing: What breaks? What happens with unclear input? What happens if someone asks for something outside your design? What happens if they provide too much context? Too little? Wrong format?</p>
+<p>Break it now. Every edge case you find now is a problem your team doesn't hit later.</p>
+<p>When you hit an edge case that's a real problem (the AI gets confused, the output is wrong, it doesn't follow your standards), you adjust.</p>
+<p>Adjust what? Usually one of three things:</p>
+<ol><li>Your data. Upload a clarifying document or example.</li><li>Your instructions. Make your RACE clearer or more specific.</li><li>Your conversation starters. Guide users away from the edge case or add a starter that handles it.</li></ol>
+<p>Test. Adjust. Test again.</p>
+<p>When you're confident that your team can use this without asking you questions, it's ready to ship.</p>
+<h4>Practice Challenges (45 minutes total)</h4>
+<p>Your AI Buddy is waiting to help with each of these.</p>
+<p><strong>Challenge 1: Map Your Data Layer (10 minutes)</strong></p>
+<p>What data does your Packaged AI need to know to do its job right?</p>
+<p>What are the reference documents? The standards? The templates? The examples?</p>
+<p>List them. Describe each one in one sentence.</p>
+<p>If you don't have these documents yet, describe what you would create.</p>
+<p>> <strong>Want to learn more first? Ask your AI Buddy:</strong> "For my Packaged AI on [your selected item], what data should I upload or create? List all the documents, guidelines, templates, and examples I should include."</p>
+<p>What good looks like: A specific list of 5-10 real or planned documents that your AI needs. Not vague. Specific files.</p>
+<p>Common mistakes: Being too vague ("upload customer info" instead of "upload our 15-page customer FAQ and 5 examples of ideal responses"). Not differentiating between documents you have and documents you need to create.</p>
+<p><strong>Challenge 2: Write Your RACE System Prompt (15 minutes)</strong></p>
+<p>Write your full RACE system prompt for your Packaged AI.</p>
+<p>Role: Who is your AI acting as?
+Action: What exactly does it do?
+Context: What are the rules, constraints, format?
+Example: What does good output look like?</p>
+<p>Write it complete. Not outline. The actual system prompt text.</p>
+<p>> <strong>Want to learn more first? Ask your AI Buddy:</strong> "Help me write my RACE system prompt for [your selected item]. Be specific about the role, action, context, and example. Here's my context: [your problem statement from Session 1]."</p>
+<p>What good looks like: A 200-400 word system prompt that's specific to your domain, not generic. Every section (Role, Action, Context, Example) is filled in with real specifics.</p>
+<p>Common mistakes: Being too generic. Making the action vague ("helps with content" instead of "converts a one-line content request into a full brief using our template"). Skipping the example.</p>
+<p><strong>Challenge 3: Design Your Interface (10 minutes)</strong></p>
+<p>Name: What's the name of your Packaged AI? Make it clear.</p>
+<p>Description: One sentence. What does it do? For whom? What format?</p>
+<p>Conversation Starters: Three conversation starters that guide your team to the three most common uses.</p>
+<p>> <strong>Want to learn more first? Ask your AI Buddy:</strong> "Design my interface. Give me a great name for my Packaged AI on [your item], a one-sentence description that explains what it does, and three conversation starters for the most common uses."</p>
+<p>What good looks like: A name someone could read without explanation and understand what the tool does. A description that sets clear expectations. Three conversation starters that cover the most common use cases.</p>
+<p>Common mistakes: Names that are too clever or vague ("AI Helper" instead of "Product Feedback Analyzer"). Descriptions that are too long or technical. Conversation starters that are too similar to each other.</p>
+<p><strong>Challenge 4: Test Your Build (10 minutes)</strong></p>
+<p>Create your Packaged AI using the platform of your choice.</p>
+<p>Add your name. Add your description. Add your system prompt. Upload your data. Add your conversation starters.</p>
+<p>Test it with three examples:</p>
+<ol><li>Happy path: A real example from your work. Does it work?</li><li>Edge case 1: What if the input is unclear or incomplete?</li><li>Edge case 2: What if the user asks for something outside your design?</li></ol>
+<p>Document what you found. What worked? What didn't? What would you adjust?</p>
+<p>> <strong>Want to learn more first? Ask your AI Buddy:</strong> "I'm about to test my Packaged AI. Give me three test cases I should run: one happy path, two edge cases that might break it. Then ask me what I learned from testing."</p>
+<p>What good looks like: Three actual test runs with documented results. Clear notes on what worked and what didn't. Specific ideas for what to adjust if something didn't work.</p>
+<p>Common mistakes: Testing only the happy path and skipping edge cases. Not documenting results. Moving forward without understanding where the tool breaks.</p>
+<h4>Final Project: Your Packaged AI Prototype</h4>
+<p>This is the real deliverable. Not a practice challenge. Your actual Packaged AI for your selected item from Session 1.</p>
+<p><strong>Part 1: Your Packaged AI Prototype</strong></p>
+<p>Create your tool using your platform of choice (ChatGPT Custom GPT, Claude Project, or Gemini Gem).</p>
+<p>Submit either:
+- A screenshot of your tool showing name, description, and conversation starters, OR
+- A written description of your tool with these elements included</p>
+<p>Include your system prompt (RACE).</p>
+<p><strong>Part 2: Test Results</strong></p>
+<p>Run three tests. Document the results.</p>
+<p>Test 1 - Happy Path: A real example from your work. What input did you use? What was the output? Is it usable?</p>
+<p>Test 2 - Edge Case 1: What input did you use? What was the output? Did it handle it well?</p>
+<p>Test 3 - Edge Case 2: What input did you use? What was the output? What did you learn?</p>
+<p>Show your three test examples and results. Explain what you learned from testing.</p>
+<p><strong>Part 3: The Leadership Test</strong></p>
+<p>Write one paragraph (150-200 words):</p>
+<p>Imagine a new hire joined your team tomorrow. They have no context about your business, your standards, or this tool. They open your Packaged AI for the first time. Explain how they could use it successfully on their first day without asking you a single question. What guides them? What makes it obvious what to do?</p>
+<p>This is the test. If you can't describe how a stranger would succeed with your tool, your data, instructions, or interface need work.</p>
+<p><strong>Part 4: Your FAST Goal Connection</strong></p>
+<p>Write one paragraph (100-150 words):</p>
+<p>You set a FAST goal in Session 1. Something specific and measurable. How does this Packaged AI prototype contribute to reaching that goal? What part of the goal does it address? What's the impact if your team starts using this tool?</p>
+<h4>Before You Submit Checklist</h4>
+<ul><li>[ ] I've created my Packaged AI on my chosen platform (ChatGPT, Claude, or Gemini)</li><li>[ ] My tool has a clear name that explains its purpose</li><li>[ ] My tool has a one-sentence description that sets expectations</li><li>[ ] I've written a complete RACE system prompt</li><li>[ ] I've uploaded or identified the data my tool needs to know</li><li>[ ] I've added 3 conversation starters for common use cases</li><li>[ ] I've tested the happy path and it works</li><li>[ ] I've tested two edge cases and documented what happened</li><li>[ ] I can explain how a new hire would use this tool successfully on day one</li><li>[ ] My tool addresses a specific part of my Session 1 FAST goal</li><li>[ ] My submission includes all four parts (Prototype, Test Results, Leadership Test, Goal Connection)</li></ul>
+      </div>
+    </section>
+    <section class="brief-section" id="section-3">
+      <div class="brief-label">SECTION 3</div>
+      <h2 class="brief-title">Key Takeaways</h2>
+      <div class="prose">
+        <h4>Key Takeaways</h4>
+<ol><li><strong>Setup time is the hidden cost.</strong> Five minutes of setup times four daily uses times five days equals 86 hours per year per person. Package your work and eliminate it.</li></ol>
+<ol><li><strong>Three components, all three required.</strong> Data (what your AI knows), Instructions (what your AI does via RACE), Interface (how users interact). Miss one and your team needs training.</li></ol>
+<ol><li><strong>The leadership test is the filter.</strong> Could a new hire use this on day one without asking you anything? If no, keep iterating.</li></ol>
+<ol><li><strong>Good prompts don't scale. Good systems do.</strong> You can write a perfect prompt. It disappears into chat history. Package it once. Use it forever.</li></ol>
+<ol><li><strong>Semi-automated is the bridge.</strong> Manual is typing everything every time. Automated is agents running alone. Semi-automated is you triggering, AI executing with your standards built in. Most people are stuck on manual. This mission moves you to semi-automated.</li></ol>
+<ol><li><strong>Platform doesn't matter. Pattern does.</strong> ChatGPT, Claude, Gemini. All three support the same pattern. Learn it once, build on any platform.</li></ol>
+<ol><li><strong>Your selected item gets the first prototype.</strong> You came in with a Session 1 FAST goal. This Packaged AI addresses part of it. Next session you wire it into a workflow. Session after that you add decision logic. You're building something real, one step at a time.</li></ol>
+<h4>Your Commitment</h4>
+<p>Name one repeated task you're going to package this week. Not someday. This week.</p>
+<p>It could be your Session 1 selected item. It could be something different. Whatever it is, the test isn't whether it works for you. The test is whether someone else on your team can open it and get value without calling you.</p>
+<p>What's your one thing?</p>
+<h4>Checkpoint: Quick Knowledge Check</h4>
+<p>Answer these four questions. Your AI Buddy will tell you if you're on track.</p>
+<p><strong>Question 1:</strong> If a team member spends 5 minutes setting up an AI tool four times daily, five days a week, how many hours per year is that on setup alone?</p>
+<p>A) 20 hours per year
+B) 86 hours per year
+C) 150 hours per year
+D) 260 hours per year</p>
+<p><strong>Correct Answer: B</strong> - 5 minutes x 4 times x 5 days = 100 minutes per week. 100 minutes per week x 52 weeks = 5,200 minutes per year. 5,200 minutes / 60 = 86.67 hours per year.</p>
+<p><strong>Question 2:</strong> What are the three components of Packaged AI?</p>
+<p>A) Platform, Plugins, Performance
+B) Data, Instructions, Interface
+C) Input, Processing, Output
+D) Chat, Documents, Feedback</p>
+<p><strong>Correct Answer: B</strong> - Every Packaged AI tool has Data (what it knows), Instructions (what it does, using RACE), and Interface (how users interact).</p>
+<p><strong>Question 3:</strong> RACE stands for:</p>
+<p>A) Rapid, Accurate, Clear, Effective
+B) Role, Action, Context, Example
+C) Request, Analyze, Create, Execute
+D) Retrieve, Analyze, Compose, Export</p>
+<p><strong>Correct Answer: B</strong> - RACE is a framework for writing clear system prompts: Role (who is the AI), Action (what it does), Context (constraints and rules), Example (what good looks like).</p>
+<p><strong>Question 4:</strong> The leadership test for Packaged AI is:</p>
+<p>A) Does it work for you?
+B) Did it cost less than hiring someone?
+C) Could a new hire use it on day one without asking you questions?
+D) How many features does it have?</p>
+<p><strong>Correct Answer: C</strong> - The leadership test is whether someone else on your team could open your tool, use it successfully, and get the right output without asking you for guidance. That's the standard.</p>
+<h4>Certificate of Completion</h4>
+<p>You've completed Mission 2. You're building momentum.</p>
+<p>You came in with a problem statement and a goal. You're leaving with a working prototype your team can use.</p>
+<p>In Session 3, you'll take this prototype and wire it into a workflow. A trigger fires. Data flows in. Your packaged AI processes it. The result goes where it needs to go. You stop pressing the button.</p>
+<h4>Course Experience Survey</h4>
+<p>Your feedback shapes the next sessions. Take two minutes. [Link to survey]</p>
+<h4>Words to Know</h4>
+<p><strong>Packaged AI</strong> - A reusable AI tool with three components (data, instructions, interface) built into a platform so users can access it without rebuilding it each time.</p>
+<p><strong>System Prompt</strong> - The permanent instructions that run every time someone uses your Packaged AI. Written using RACE framework.</p>
+<p><strong>RACE Framework</strong> - Role (who the AI is acting as), Action (what it does), Context (constraints and rules), Example (what good output looks like).</p>
+<p><strong>Interface</strong> - How users interact with your Packaged AI. Includes name, description, and conversation starters.</p>
+<p><strong>Conversation Starters</strong> - Pre-written prompts that guide users toward common use cases when they open your tool.</p>
+<p><strong>Data Layer</strong> - The reference documents, guidelines, templates, and examples your Packaged AI needs to do its job right.</p>
+<p><strong>Semi-Automated</strong> - Workflows where you trigger the AI execution but the data, instructions, and format are pre-configured. You press the button, AI executes with your standards built in.</p>
+<p><strong>Automation Spectrum</strong> - Manual (you do everything), Semi-Automated (you trigger, AI executes), Automated (agents run without you).</p>
+<p><strong>Custom GPT</strong> - ChatGPT's version of Packaged AI. Upload files, write instructions, name it, share it.</p>
+<p><strong>Claude Project</strong> - Claude's version of Packaged AI. Upload files, write custom instructions, name it, share it.</p>
+<p><strong>Gemini Gem</strong> - Google's version of Packaged AI. Upload context, write instructions, name it, share it.</p>
+<p><strong>Setup Time</strong> - Time spent getting AI ready to use before you can actually work (uploading files, explaining context, describing format).</p>
+<p><strong>The Leadership Test</strong> - Could a new hire use this tool on day one without asking you questions?</p>
+<p>> <strong>Your AI Buddy is always here.</strong> If any term in this list is unclear, ask your AI Buddy: "Explain [term] in plain language with an example from [your role or industry]."</p>
+<h4>Prompt Library</h4>
+<h4>CALCULATING SETUP TIME COST</h4>
+<pre style="background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:16px;font-family:JetBrains Mono,monospace;font-size:13px;line-height:1.6;overflow-x:auto;white-space:pre-wrap;">Audit my daily setup time. For one day, track every time I:
+- Re-explain a role or context
+- Re-upload a file or document
+- Re-describe a format or output type
+- Re-provide background information</pre>
+<p>For each instance, note: What did I do? How long did it take?</p>
+<p>Then calculate: If this happened 4 times daily, 5 days a week, how many hours per year would this be?</p>
+<p>What's the business impact if my team of [X people] spent this much time on setup instead of on core work?
+```</p>
+<h4>BUILDING YOUR DATA LAYER</h4>
+<pre style="background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:16px;font-family:JetBrains Mono,monospace;font-size:13px;line-height:1.6;overflow-x:auto;white-space:pre-wrap;">For my Packaged AI on [describe your selected item], what data should I create or upload?</pre>
+<p>Think about: What would your AI need to know to do this job right the first time? What reference documents? What standards? What examples?</p>
+<p>List specific documents with one-sentence descriptions of what each contains.</p>
+<p>For documents I don't have yet, what would I need to create?
+```</p>
+<h4>WRITING YOUR SYSTEM PROMPT (RACE TEMPLATE)</h4>
+<pre style="background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:16px;font-family:JetBrains Mono,monospace;font-size:13px;line-height:1.6;overflow-x:auto;white-space:pre-wrap;">I&#x27;m building a system prompt for my Packaged AI. Help me fill in RACE:</pre>
+<p>Role: I want my AI to act as a [describe role]. Specifically, I want it to [one specific responsibility].</p>
+<p>Action: The main action should be: [describe what it does step-by-step].</p>
+<p>Context: Here are my constraints and rules:
+- Format requirement: [describe format]
+- Always do: [list 2-3 must-do behaviors]
+- Never do: [list 2-3 must-not behaviors]
+- Context: [relevant background for the AI to understand]</p>
+<p>Example: Here's a real example of good output: [provide example]. Here's what makes this good: [explain]. Here's an example of bad output: [provide example]. Here's what makes this bad: [explain].</p>
+<p>Now write my full RACE system prompt in one cohesive block.
+```</p>
+<h4>DESIGNING YOUR INTERFACE</h4>
+<pre style="background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:16px;font-family:JetBrains Mono,monospace;font-size:13px;line-height:1.6;overflow-x:auto;white-space:pre-wrap;">I&#x27;m building a Packaged AI for [describe your item]. Help me design the interface:</pre>
+<p>Name: What's a clear, one-word or two-word name that explains what this tool does? [I suggest: ...]</p>
+<p>Description: Write a one-sentence description. What does it do? For whom? In what format?</p>
+<p>Conversation Starters: What are the three most common use cases for this tool? Create three conversation starters that guide users toward these uses. Format each as: "[Action] to [specific outcome]"
+```</p>
+<h4>TESTING YOUR PACKAGED AI</h4>
+<pre style="background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:16px;font-family:JetBrains Mono,monospace;font-size:13px;line-height:1.6;overflow-x:auto;white-space:pre-wrap;">Help me test my Packaged AI. I&#x27;ve built a tool on [platform] called [name].</pre>
+<p>Happy path test: Here's a real example from my work: [provide input]. What output did the AI generate? Is it usable? What would I need to adjust?</p>
+<p>Edge case test 1: What if [describe unusual scenario]? How would my tool handle this?</p>
+<p>Edge case test 2: What if [describe different unusual scenario]? How would my tool handle this?</p>
+<p>For any edge cases that don't work, what should I adjust: my data, my instructions, or my interface?
+```</p>
+<h4>ACROSS THE FOUR OFFICES: PACKAGED AI BY ROLE</h4>
+<pre style="background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:16px;font-family:JetBrains Mono,monospace;font-size:13px;line-height:1.6;overflow-x:auto;white-space:pre-wrap;">I&#x27;m a [revenue officer / insight officer / delivery officer / trust officer].</pre>
+<p>Build a Packaged AI prototype for my most repeated task. What would I call it? What would the system prompt look like? What data would it need? What would the three conversation starters be?</p>
+<p>Focus on: A tool I could test with my team this week. Something that actually saves time or improves quality.
+```</p>
+<p>> <strong>More prompts added each session.</strong> [PROMPT LIBRARY - Full version in Lark, link provided by Kate]</p>
+<p>End of Mission 2: From Prompts to Packaged AI</p>
+      </div>
+    </section>
+
+    <div class="tb-bottom-nav">
+      <a href="mission-2.html" class="tb-nav-btn">← Mission 2 Hub</a>
+      <a href="mission-2-prompts.html" class="tb-nav-btn primary">Prompt Library →</a>
+    </div>
+
+  </main>
+</div>
+</body>
+</html>

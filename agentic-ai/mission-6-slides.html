@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Slide Deck — Mission 6: From Prototype to Production — AI Officer Institute</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../shared/styles.css">
+<style>
+  :root {
+    --royal: #287BE8;
+    --ease: cubic-bezier(0.4, 0, 0.2, 1);
+    --radius: 12px;
+    --shadow-sm: 0 1px 3px rgba(4,16,45,0.07);
+    --shadow-hover: 0 6px 24px rgba(4,16,45,0.10);
+    --text-tertiary: #8b91ac;
+    --border-hover: #b0b6cc;
+  }
+  body { background: var(--surface); }
+
+  body { background: #0d1117; }
+  .slides-header { position: fixed; top: 56px; left: 0; right: 0; background: rgba(13,17,23,0.95); border-bottom: 1px solid rgba(255,255,255,0.08); padding: 0 32px; height: 48px; display: flex; align-items: center; z-index: 50; gap: 16px; }
+  .slides-back { display: inline-flex; align-items: center; gap: 6px; font-size: 12px; font-weight: 600; color: rgba(255,255,255,0.5); text-decoration: none; transition: color 0.12s; }
+  .slides-back:hover { color: rgba(255,255,255,0.85); }
+  .slides-title { font-size: 13px; font-weight: 600; color: rgba(255,255,255,0.65); margin-left: 8px; }
+  .slides-counter { font-family: 'JetBrains Mono', monospace; font-size: 11px; color: rgba(255,255,255,0.35); margin-left: auto; }
+  .slides-wrapper { padding-top: 104px; padding-bottom: 80px; display: flex; flex-direction: column; align-items: center; gap: 0; }
+  .slide { width: 100%; max-width: 900px; min-height: 520px; margin: 0 auto 3px; display: flex; flex-direction: column; justify-content: center; padding: 60px 80px; position: relative; }
+  .slide-title-card { background: var(--navy); min-height: 600px; }
+  .slide-dark { background: #161b22; }
+  .slide-light { background: white; }
+  .slide-mint { background: rgba(26,158,116,0.1); border: 1px solid rgba(26,158,116,0.2); }
+  .slide-blue { background: rgba(40,123,232,0.12); border: 1px solid rgba(40,123,232,0.2); }
+  .slide-num { position: absolute; top: 28px; right: 32px; font-family: 'JetBrains Mono', monospace; font-size: 11px; font-weight: 700; color: rgba(255,255,255,0.2); }
+  .slide-light .slide-num { color: rgba(4,16,45,0.2); }
+  .slide-eyebrow { font-size: 11px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 16px; color: rgba(111,242,193,0.8); }
+  .slide-eyebrow.mint { color: #1a9e74; }
+  .slide-eyebrow.blue { color: rgba(40,123,232,0.9); }
+  .slide-eyebrow.muted { color: rgba(255,255,255,0.4); }
+  .slide-h1 { font-size: 52px; font-weight: 700; letter-spacing: -1.5px; line-height: 1.05; color: white; margin-bottom: 24px; }
+  .slide-h1 .accent { color: #6FF2C1; }
+  .slide-h2 { font-size: 36px; font-weight: 700; letter-spacing: -0.8px; line-height: 1.15; color: white; margin-bottom: 20px; }
+  .slide-h2.dark { color: var(--navy); }
+  .slide-h3 { font-size: 28px; font-weight: 700; letter-spacing: -0.5px; line-height: 1.2; color: white; margin-bottom: 16px; }
+  .slide-h3.dark { color: var(--navy); }
+  .slide-body { font-size: 18px; line-height: 1.65; color: rgba(255,255,255,0.75); max-width: 660px; }
+  .slide-body.dark { color: rgba(4,16,45,0.7); }
+  .slide-body strong { color: white; font-weight: 700; }
+  .slide-body.dark strong { color: var(--navy); }
+  .slide-list { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 14px; }
+  .slide-list li { display: flex; align-items: flex-start; gap: 12px; font-size: 17px; line-height: 1.5; }
+  .slide-list li .bullet { width: 24px; height: 24px; border-radius: 6px; flex-shrink: 0; background: rgba(26,158,116,0.2); color: #1a9e74; font-family: 'JetBrains Mono', monospace; font-size: 11px; font-weight: 700; display: flex; align-items: center; justify-content: center; margin-top: 2px; }
+  .slide-list li .text { color: rgba(255,255,255,0.8); }
+  .slide-list li .text strong { color: white; display: block; margin-bottom: 2px; }
+
+</style>
+</head>
+<body>
+<div class="topbar">
+  <a href="../index.html" class="topbar-brand">AIO <span>Labs</span></a>
+  <nav class="topbar-nav">
+    <a href="../index.html" class="tnav-link"><span class="tnav-dot" style="background:#8b91ac"></span> Home</a>
+    <a href="../certification.html" class="tnav-link active"><span class="tnav-dot" style="background:#287BE8"></span> Certification</a>
+    <a href="../coaching.html" class="tnav-link"><span class="tnav-dot" style="background:#287BE8"></span> Coaching</a>
+    <a href="../micro-sessions/index.html" class="tnav-link"><span class="tnav-dot" style="background:#1A9E74"></span> Micro-Sessions</a>
+    <a href="../blog/index.html" class="tnav-link"><span class="tnav-dot" style="background:#6FF2C1"></span> Blog</a>
+    <a href="../my-team.html" class="tnav-link"><span class="tnav-dot" style="background:#8b91ac"></span> My Team</a>
+  </nav>
+  <div class="topbar-right">
+    <a href="https://claude.ai" target="_blank" class="buddy-launch-btn">🤖 AI Buddy</a>
+    <div class="topbar-stat">🔥 7</div>
+    <div class="topbar-stat">⭐ 1,240</div>
+    <div class="topbar-divider"></div>
+    <div class="topbar-avatar">DH</div>
+  </div>
+</div>
+
+<div class="slides-header">
+  <a href="mission-6.html" class="slides-back">← Mission 6</a>
+  <span class="slides-title">From Prototype to Production</span>
+  <span class="slides-counter">25 slides</span>
+</div>
+
+<div class="slides-wrapper">
+  
+  <div class="slide slide-title-card">
+    <span class="slide-num">1 / 25</span>
+    <div class="slide-eyebrow">Agentic AI for Business — Mission 6</div>
+    <h1 class="slide-h1">Title Slide</h1>
+    
+    <ul class="slide-list"><li><span class="bullet">1</span><span class="text">Agentic AI Essentials</span></li><li><span class="bullet">2</span><span class="text">From Prototype to Production</span></li><li><span class="bullet">3</span><span class="text">Mission 6</span></li><li><span class="bullet">4</span><span class="text">The prototype proved it works. The production brief makes it last.</span></li><li><span class="bullet">5</span><span class="text">#AIOfficerCertification | Dave Hajdu | dave@ai-officer.com</span></li></ul>
+  </div>
+  <div class="slide slide-dark">
+    <span class="slide-num">2 / 25</span>
+    
+    <h2 class="slide-h2">Continuity Bridge</h2>
+    
+    <ul class="slide-list"><li><span class="bullet">1</span><span class="text">Mission 1: You defined the problem.</span></li><li><span class="bullet">2</span><span class="text">Mission 2: You packaged the AI.</span></li><li><span class="bullet">3</span><span class="text">Mission 3: You wired the workflow.</span></li><li><span class="bullet">4</span><span class="text">Mission 4: You added decision logic.</span></li><li><span class="bullet">5</span><span class="text">Mission 5: You designed the agent.</span></li><li><span class="bullet">6</span><span class="text">Today: You write the spec to deploy it.</span></li></ul>
+  </div>
+  <div class="slide slide-mint">
+    <span class="slide-num">3 / 25</span>
+    
+    <h2 class="slide-h2">Today&#x27;s Agenda</h2>
+    
+    <ul class="slide-list"><li><span class="bullet">1</span><span class="text">What production actually means</span></li><li><span class="bullet">2</span><span class="text">The AIO and the AI Engineer</span></li><li><span class="bullet">3</span><span class="text">The production brief - and what it does</span></li><li><span class="bullet">4</span><span class="text">Governance, handoff, and the pre-launch review</span></li><li><span class="bullet">5</span><span class="text">Your capstone: write your full production brief</span></li></ul>
+  </div>
+  <div class="slide slide-light">
+    <span class="slide-num">4 / 25</span>
+    
+    <h2 class="slide-h2 dark">Section Divider - The Gap</h2>
+    
+    <ul class="slide-list"><li><span class="bullet">1</span><span class="text">Part 1</span></li><li><span class="bullet">2</span><span class="text">From Prototype to Production</span></li></ul>
+  </div>
+  <div class="slide slide-dark">
+    <span class="slide-num">5 / 25</span>
+    
+    <h2 class="slide-h2">What You Built</h2>
+    
+    <ul class="slide-list"><li><span class="bullet">1</span><span class="text">You built a prototype.</span></li><li><span class="bullet">2</span><span class="text">It works when you run it.</span></li><li><span class="bullet">3</span><span class="text">That is not the same as production.</span></li></ul>
+  </div>
+  <div class="slide slide-dark">
+    <span class="slide-num">6 / 25</span>
+    
+    <h2 class="slide-h2">What Production Actually Means</h2>
+    
+    <ul class="slide-list"><li><span class="bullet">1</span><span class="text">Infrastructure. Security. Scale.</span></li><li><span class="bullet">2</span><span class="text">Compliance. Monitoring. Maintenance.</span></li><li><span class="bullet">3</span><span class="text">None of that is in your prototype.</span></li></ul>
+  </div>
+  <div class="slide slide-dark">
+    <span class="slide-num">7 / 25</span>
+    
+    <h2 class="slide-h2">The AIO and the AI Engineer</h2>
+    
+    <ul class="slide-list"><li><span class="bullet">1</span><span class="text">You designed the system. They build the production version.</span></li><li><span class="bullet">2</span><span class="text">Neither can do it alone.</span></li></ul>
+  </div>
+  <div class="slide slide-mint">
+    <span class="slide-num">8 / 25</span>
+    
+    <h2 class="slide-h2">Your Production Brief Is the Spec</h2>
+    
+    <ul class="slide-list"><li><span class="bullet">1</span><span class="text">Not a summary. Not instructions for yourself.</span></li><li><span class="bullet">2</span><span class="text">The document you hand to an AI Engineer so they can build exactly what you designed.</span></li></ul>
+  </div>
+  <div class="slide slide-light">
+    <span class="slide-num">9 / 25</span>
+    
+    <h2 class="slide-h2 dark">Section Divider - The Production Brief</h2>
+    
+    <ul class="slide-list"><li><span class="bullet">1</span><span class="text">Part 2</span></li><li><span class="bullet">2</span><span class="text">The Production Brief</span></li></ul>
+  </div>
+  <div class="slide slide-dark">
+    <span class="slide-num">10 / 25</span>
+    
+    <h2 class="slide-h2">One Document, Three Audiences</h2>
+    
+    <ul class="slide-list"><li><span class="bullet">1</span><span class="text">Your CEO reads it. Your AI Engineer builds from it. Your team uses it.</span></li><li><span class="bullet">2</span><span class="text">One document. Three audiences.</span></li></ul>
+  </div>
+  <div class="slide slide-dark">
+    <span class="slide-num">11 / 25</span>
+    
+    <h2 class="slide-h2">The Six Components</h2>
+    
+    <ul class="slide-list"><li><span class="bullet">1</span><span class="text">What It Is. Why It Matters. What It Needs.</span></li><li><span class="bullet">2</span><span class="text">Who Owns It. Who Runs It. How You Know It Works.</span></li></ul>
+  </div>
+  <div class="slide slide-dark">
+    <span class="slide-num">12 / 25</span>
+    
+    <h2 class="slide-h2">Component 3 - What It Needs</h2>
+    
+    <ul class="slide-list"><li><span class="bullet">1</span><span class="text">Written for the AI Engineer.</span></li><li><span class="bullet">2</span><span class="text">Specific enough to build from.</span></li></ul>
+  </div>
+  <div class="slide slide-mint">
+    <span class="slide-num">13 / 25</span>
+    
+    <h2 class="slide-h2">Component 4 - Who Owns It</h2>
+    
+    <ul class="slide-list"><li><span class="bullet">1</span><span class="text">Name one person. Not &quot;the team.&quot;</span></li><li><span class="bullet">2</span><span class="text">The AI Officer owns the program. The engineer owns the infrastructure.</span></li></ul>
+  </div>
+  <div class="slide slide-light">
+    <span class="slide-num">14 / 25</span>
+    
+    <h2 class="slide-h2 dark">Component 6 - How You Know It Works</h2>
+    
+    <ul class="slide-list"><li><span class="bullet">1</span><span class="text">Metrics are not just for leadership.</span></li><li><span class="bullet">2</span><span class="text">They tell the engineer what to build.</span></li></ul>
+  </div>
+  <div class="slide slide-dark">
+    <span class="slide-num">15 / 25</span>
+    
+    <h2 class="slide-h2">Worked Example - Production Brief</h2>
+    
+    <ul class="slide-list"><li><span class="bullet">1</span><span class="text">Lead Qualification Agent - Revenue Office</span></li><li><span class="bullet">2</span><span class="text">4 hours per lead. Target: 45 minutes. 250 hours reclaimed per year.</span></li></ul>
+  </div>
+  <div class="slide slide-dark">
+    <span class="slide-num">16 / 25</span>
+    
+    <h2 class="slide-h2">Section Divider - Governance and Handoff</h2>
+    
+    <ul class="slide-list"><li><span class="bullet">1</span><span class="text">Part 3</span></li><li><span class="bullet">2</span><span class="text">Governance, Handoff, and the Pre-launch Review</span></li></ul>
+  </div>
+  <div class="slide slide-dark">
+    <span class="slide-num">17 / 25</span>
+    
+    <h2 class="slide-h2">The Governance Loop</h2>
+    
+    <ul class="slide-list"><li><span class="bullet">1</span><span class="text">The engineer maintains the infrastructure.</span></li><li><span class="bullet">2</span><span class="text">You own the program.</span></li></ul>
+  </div>
+  <div class="slide slide-mint">
+    <span class="slide-num">18 / 25</span>
+    
+    <h2 class="slide-h2">The Pre-launch Review</h2>
+    
+    <ul class="slide-list"><li><span class="bullet">1</span><span class="text">Before go-live, you check the build against the brief.</span></li><li><span class="bullet">2</span><span class="text">Not a technical audit. A requirements audit.</span></li></ul>
+  </div>
+  <div class="slide slide-light">
+    <span class="slide-num">19 / 25</span>
+    
+    <h2 class="slide-h2 dark">Section Divider - Your Capstone</h2>
+    
+    <ul class="slide-list"><li><span class="bullet">1</span><span class="text">Part 4</span></li><li><span class="bullet">2</span><span class="text">Your Capstone</span></li></ul>
+  </div>
+  <div class="slide slide-dark">
+    <span class="slide-num">20 / 25</span>
+    
+    <h2 class="slide-h2">Brief 5 - What You&#x27;re Writing</h2>
+    
+    <ul class="slide-list"><li><span class="bullet">1</span><span class="text">A real document for a real program.</span></li><li><span class="bullet">2</span><span class="text">Clear enough for an engineer to build from. Clear enough for a leader to approve.</span></li></ul>
+  </div>
+  <div class="slide slide-dark">
+    <span class="slide-num">21 / 25</span>
+    
+    <h2 class="slide-h2">Exercise - Write Your Production Brief</h2>
+    
+    <ul class="slide-list"><li><span class="bullet">1</span><span class="text">Exercise: Write Your Production Brief</span></li><li><span class="bullet">2</span><span class="text">Step 1: What It Is - 8 min</span></li><li><span class="bullet">3</span><span class="text">Step 2: Why It Matters - 8 min</span></li><li><span class="bullet">4</span><span class="text">Step 3: What It Needs - 8 min</span></li><li><span class="bullet">5</span><span class="text">Step 4: Who Owns It - 8 min</span></li><li><span class="bullet">6</span><span class="text">Step 5: Who Runs It - 10 min</span></li></ul>
+  </div>
+  <div class="slide slide-dark">
+    <span class="slide-num">22 / 25</span>
+    
+    <h2 class="slide-h2">Before You Submit</h2>
+    
+    <ul class="slide-list"><li><span class="bullet">1</span><span class="text">Could an AI Engineer build from this?</span></li><li><span class="bullet">2</span><span class="text">Could leadership approve this?</span></li><li><span class="bullet">3</span><span class="text">Could your team use this?</span></li></ul>
+  </div>
+  <div class="slide slide-mint">
+    <span class="slide-num">23 / 25</span>
+    
+    <h2 class="slide-h2">Closing Reflection</h2>
+    
+    <ul class="slide-list"><li><span class="bullet">1</span><span class="text">You designed it. Engineering built it. You own it.</span></li><li><span class="bullet">2</span><span class="text">That is the AI Officer role in production.</span></li></ul>
+  </div>
+  <div class="slide slide-light">
+    <span class="slide-num">24 / 25</span>
+    
+    <h2 class="slide-h2 dark">Your Commitment</h2>
+    
+    <ul class="slide-list"><li><span class="bullet">1</span><span class="text">What is one step you will take in the next seven days?</span></li><li><span class="bullet">2</span><span class="text">Share it with your cohort in AIO Labs.</span></li></ul>
+  </div>
+  <div class="slide slide-dark">
+    <span class="slide-num">25 / 25</span>
+    
+    <h2 class="slide-h2">Thank You</h2>
+    
+    <ul class="slide-list"><li><span class="bullet">1</span><span class="text">You are certified.</span></li><li><span class="bullet">2</span><span class="text">Agentic AI Essentials - Complete.</span></li><li><span class="bullet">3</span><span class="text">[QR Code - Session Feedback]</span></li><li><span class="bullet">4</span><span class="text">dave@ai-officer.com | ai-officer.com</span></li></ul>
+  </div>
+</div>
+
+</body>
+</html>

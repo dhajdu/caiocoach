@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Slide Deck — Mission 3: Wire the Workflow — AI Officer Institute</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../shared/styles.css">
+<style>
+  :root {
+    --royal: #287BE8;
+    --ease: cubic-bezier(0.4, 0, 0.2, 1);
+    --radius: 12px;
+    --shadow-sm: 0 1px 3px rgba(4,16,45,0.07);
+    --shadow-hover: 0 6px 24px rgba(4,16,45,0.10);
+    --text-tertiary: #8b91ac;
+    --border-hover: #b0b6cc;
+  }
+  body { background: var(--surface); }
+
+  body { background: #0d1117; }
+  .slides-header { position: fixed; top: 56px; left: 0; right: 0; background: rgba(13,17,23,0.95); border-bottom: 1px solid rgba(255,255,255,0.08); padding: 0 32px; height: 48px; display: flex; align-items: center; z-index: 50; gap: 16px; }
+  .slides-back { display: inline-flex; align-items: center; gap: 6px; font-size: 12px; font-weight: 600; color: rgba(255,255,255,0.5); text-decoration: none; transition: color 0.12s; }
+  .slides-back:hover { color: rgba(255,255,255,0.85); }
+  .slides-title { font-size: 13px; font-weight: 600; color: rgba(255,255,255,0.65); margin-left: 8px; }
+  .slides-counter { font-family: 'JetBrains Mono', monospace; font-size: 11px; color: rgba(255,255,255,0.35); margin-left: auto; }
+  .slides-wrapper { padding-top: 104px; padding-bottom: 80px; display: flex; flex-direction: column; align-items: center; gap: 0; }
+  .slide { width: 100%; max-width: 900px; min-height: 520px; margin: 0 auto 3px; display: flex; flex-direction: column; justify-content: center; padding: 60px 80px; position: relative; }
+  .slide-title-card { background: var(--navy); min-height: 600px; }
+  .slide-dark { background: #161b22; }
+  .slide-light { background: white; }
+  .slide-mint { background: rgba(26,158,116,0.1); border: 1px solid rgba(26,158,116,0.2); }
+  .slide-blue { background: rgba(40,123,232,0.12); border: 1px solid rgba(40,123,232,0.2); }
+  .slide-num { position: absolute; top: 28px; right: 32px; font-family: 'JetBrains Mono', monospace; font-size: 11px; font-weight: 700; color: rgba(255,255,255,0.2); }
+  .slide-light .slide-num { color: rgba(4,16,45,0.2); }
+  .slide-eyebrow { font-size: 11px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 16px; color: rgba(111,242,193,0.8); }
+  .slide-eyebrow.mint { color: #1a9e74; }
+  .slide-eyebrow.blue { color: rgba(40,123,232,0.9); }
+  .slide-eyebrow.muted { color: rgba(255,255,255,0.4); }
+  .slide-h1 { font-size: 52px; font-weight: 700; letter-spacing: -1.5px; line-height: 1.05; color: white; margin-bottom: 24px; }
+  .slide-h1 .accent { color: #6FF2C1; }
+  .slide-h2 { font-size: 36px; font-weight: 700; letter-spacing: -0.8px; line-height: 1.15; color: white; margin-bottom: 20px; }
+  .slide-h2.dark { color: var(--navy); }
+  .slide-h3 { font-size: 28px; font-weight: 700; letter-spacing: -0.5px; line-height: 1.2; color: white; margin-bottom: 16px; }
+  .slide-h3.dark { color: var(--navy); }
+  .slide-body { font-size: 18px; line-height: 1.65; color: rgba(255,255,255,0.75); max-width: 660px; }
+  .slide-body.dark { color: rgba(4,16,45,0.7); }
+  .slide-body strong { color: white; font-weight: 700; }
+  .slide-body.dark strong { color: var(--navy); }
+  .slide-list { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 14px; }
+  .slide-list li { display: flex; align-items: flex-start; gap: 12px; font-size: 17px; line-height: 1.5; }
+  .slide-list li .bullet { width: 24px; height: 24px; border-radius: 6px; flex-shrink: 0; background: rgba(26,158,116,0.2); color: #1a9e74; font-family: 'JetBrains Mono', monospace; font-size: 11px; font-weight: 700; display: flex; align-items: center; justify-content: center; margin-top: 2px; }
+  .slide-list li .text { color: rgba(255,255,255,0.8); }
+  .slide-list li .text strong { color: white; display: block; margin-bottom: 2px; }
+
+</style>
+</head>
+<body>
+<div class="topbar">
+  <a href="../index.html" class="topbar-brand">AIO <span>Labs</span></a>
+  <nav class="topbar-nav">
+    <a href="../index.html" class="tnav-link"><span class="tnav-dot" style="background:#8b91ac"></span> Home</a>
+    <a href="../certification.html" class="tnav-link active"><span class="tnav-dot" style="background:#287BE8"></span> Certification</a>
+    <a href="../coaching.html" class="tnav-link"><span class="tnav-dot" style="background:#287BE8"></span> Coaching</a>
+    <a href="../micro-sessions/index.html" class="tnav-link"><span class="tnav-dot" style="background:#1A9E74"></span> Micro-Sessions</a>
+    <a href="../blog/index.html" class="tnav-link"><span class="tnav-dot" style="background:#6FF2C1"></span> Blog</a>
+    <a href="../my-team.html" class="tnav-link"><span class="tnav-dot" style="background:#8b91ac"></span> My Team</a>
+  </nav>
+  <div class="topbar-right">
+    <a href="https://claude.ai" target="_blank" class="buddy-launch-btn">🤖 AI Buddy</a>
+    <div class="topbar-stat">🔥 7</div>
+    <div class="topbar-stat">⭐ 1,240</div>
+    <div class="topbar-divider"></div>
+    <div class="topbar-avatar">DH</div>
+  </div>
+</div>
+
+<div class="slides-header">
+  <a href="mission-3.html" class="slides-back">← Mission 3</a>
+  <span class="slides-title">Wire the Workflow</span>
+  <span class="slides-counter">28 slides</span>
+</div>
+
+<div class="slides-wrapper">
+  
+  <div class="slide slide-title-card">
+    <span class="slide-num">1 / 28</span>
+    <div class="slide-eyebrow">Agentic AI for Business — Mission 3</div>
+    <h1 class="slide-h1">Title Slide</h1>
+    
+    <ul class="slide-list"><li><span class="bullet">1</span><span class="text">Agentic AI Essentials</span></li><li><span class="bullet">2</span><span class="text">Wire the Workflow</span></li><li><span class="bullet">3</span><span class="text">Mission 2</span></li><li><span class="bullet">4</span><span class="text">You built a tool. Now build a system.</span></li><li><span class="bullet">5</span><span class="text">#AIOfficerCertification | Dave Hajdu | dave@ai-officer.com</span></li></ul>
+  </div>
+  <div class="slide slide-dark">
+    <span class="slide-num">2 / 28</span>
+    
+    <h2 class="slide-h2">Continuity Bridge</h2>
+    
+    <ul class="slide-list"><li><span class="bullet">1</span><span class="text">Mission 1: You packaged your AI.</span></li><li><span class="bullet">2</span><span class="text">Mission 2: You wire it into a system.</span></li><li><span class="bullet">3</span><span class="text">Today you stop being the bottleneck.</span></li></ul>
+  </div>
+  <div class="slide slide-mint">
+    <span class="slide-num">3 / 28</span>
+    
+    <h2 class="slide-h2">Today&#x27;s Agenda</h2>
+    
+    <ul class="slide-list"><li><span class="bullet">1</span><span class="text">1. Beyond the button</span></li><li><span class="bullet">2</span><span class="text">2. The 5-Part Workflow Blueprint</span></li><li><span class="bullet">3</span><span class="text">3. Build your first workflow</span></li><li><span class="bullet">4</span><span class="text">4. What you just unlocked</span></li></ul>
+  </div>
+  <div class="slide slide-light">
+    <span class="slide-num">4 / 28</span>
+    
+    <h2 class="slide-h2 dark">You Became the Bottleneck</h2>
+    
+    <ul class="slide-list"><li><span class="bullet">1</span><span class="text">The AI is fast.</span></li><li><span class="bullet">2</span><span class="text">You are slow.</span></li></ul>
+  </div>
+  <div class="slide slide-dark">
+    <span class="slide-num">5 / 28</span>
+    
+    <h2 class="slide-h2">The 95% Problem</h2>
+    
+    <ul class="slide-list"><li><span class="bullet">1</span><span class="text">95% of companies fail to get ROI from AI.</span></li><li><span class="bullet">2</span><span class="text">Not because AI doesn&#x27;t work.</span></li><li><span class="bullet">3</span><span class="text">Because they don&#x27;t have workflows figured out.</span></li></ul>
+  </div>
+  <div class="slide slide-dark">
+    <span class="slide-num">6 / 28</span>
+    
+    <h2 class="slide-h2">What Is a Workflow?</h2>
+    
+    <ul class="slide-list"><li><span class="bullet">1</span><span class="text">A workflow is just work that flows.</span></li><li><span class="bullet">2</span><span class="text">Trigger starts it. Steps happen. Output gets delivered.</span></li></ul>
+  </div>
+  <div class="slide slide-dark">
+    <span class="slide-num">7 / 28</span>
+    
+    <h2 class="slide-h2">The AI Officer&#x27;s Job</h2>
+    
+    <ul class="slide-list"><li><span class="bullet">1</span><span class="text">Finding workflows is the job.</span></li><li><span class="bullet">2</span><span class="text">Every company has dozens hiding in plain sight.</span></li></ul>
+  </div>
+  <div class="slide slide-mint">
+    <span class="slide-num">8 / 28</span>
+    
+    <h2 class="slide-h2">Automation Spectrum</h2>
+    
+    <ul class="slide-list"><li><span class="bullet">1</span><span class="text">Manual -- you do everything.</span></li><li><span class="bullet">2</span><span class="text">Semi-Automated -- AI helps.</span></li><li><span class="bullet">3</span><span class="text">Automated -- the workflow runs without you.</span></li></ul>
+  </div>
+  <div class="slide slide-light">
+    <span class="slide-num">9 / 28</span>
+    
+    <h2 class="slide-h2 dark">The 5-Part Workflow Blueprint</h2>
+    
+    <ul class="slide-list"><li><span class="bullet">1</span><span class="text">1. Trigger -- what starts it</span></li><li><span class="bullet">2</span><span class="text">2. Data -- what info is needed</span></li><li><span class="bullet">3</span><span class="text">3. AI Step -- what AI does</span></li><li><span class="bullet">4</span><span class="text">4. Action -- where output goes</span></li><li><span class="bullet">5</span><span class="text">5. Log -- what gets recorded</span></li></ul>
+  </div>
+  <div class="slide slide-dark">
+    <span class="slide-num">10 / 28</span>
+    
+    <h2 class="slide-h2">Trigger</h2>
+    
+    <ul class="slide-list"><li><span class="bullet">1</span><span class="text">What starts the workflow.</span></li><li><span class="bullet">2</span><span class="text">Time-based. Event-based. Manual.</span></li><li><span class="bullet">3</span><span class="text">A good trigger means you don&#x27;t have to remember.</span></li></ul>
+  </div>
+  <div class="slide slide-dark">
+    <span class="slide-num">11 / 28</span>
+    
+    <h2 class="slide-h2">Data</h2>
+    
+    <ul class="slide-list"><li><span class="bullet">1</span><span class="text">What information is needed.</span></li><li><span class="bullet">2</span><span class="text">Sometimes it comes from the trigger. Sometimes you need to fetch it.</span></li><li><span class="bullet">3</span><span class="text">Your workflow is only as good as your data.</span></li></ul>
+  </div>
+  <div class="slide slide-dark">
+    <span class="slide-num">12 / 28</span>
+    
+    <h2 class="slide-h2">AI Step</h2>
+    
+    <ul class="slide-list"><li><span class="bullet">1</span><span class="text">What AI does with the data.</span></li><li><span class="bullet">2</span><span class="text">Generate. Transform. Extract. Classify.</span></li><li><span class="bullet">3</span><span class="text">This is your Packaged AI, now inside a system.</span></li></ul>
+  </div>
+  <div class="slide slide-mint">
+    <span class="slide-num">13 / 28</span>
+    
+    <h2 class="slide-h2">Action</h2>
+    
+    <ul class="slide-list"><li><span class="bullet">1</span><span class="text">Where output goes.</span></li><li><span class="bullet">2</span><span class="text">Send it. Assign it. Update it.</span></li><li><span class="bullet">3</span><span class="text">This is where real work happens.</span></li></ul>
+  </div>
+  <div class="slide slide-light">
+    <span class="slide-num">14 / 28</span>
+    
+    <h2 class="slide-h2 dark">Log</h2>
+    
+    <ul class="slide-list"><li><span class="bullet">1</span><span class="text">AI doesn&#x27;t remember.</span></li><li><span class="bullet">2</span><span class="text">Your logs become its memory.</span></li></ul>
+  </div>
+  <div class="slide slide-dark">
+    <span class="slide-num">15 / 28</span>
+    
+    <h2 class="slide-h2">The Pattern Works Everywhere</h2>
+    
+    <ul class="slide-list"><li><span class="bullet">1</span><span class="text">Make.com. Zapier. n8n. Power Automate.</span></li><li><span class="bullet">2</span><span class="text">Different tools. Same pattern.</span></li><li><span class="bullet">3</span><span class="text">Trigger -- Data -- AI -- Action -- Log.</span></li></ul>
+  </div>
+  <div class="slide slide-dark">
+    <span class="slide-num">16 / 28</span>
+    
+    <h2 class="slide-h2">Build Example -- Lead Response Workflow</h2>
+    
+    <ul class="slide-list"><li><span class="bullet">1</span><span class="text">Trigger: New row in Google Sheets.</span></li><li><span class="bullet">2</span><span class="text">Data: Lead details.</span></li><li><span class="bullet">3</span><span class="text">AI: Generate personalized response.</span></li><li><span class="bullet">4</span><span class="text">Action: Send email via Gmail.</span></li><li><span class="bullet">5</span><span class="text">Log: Record activity in spreadsheet.</span></li></ul>
+  </div>
+  <div class="slide slide-dark">
+    <span class="slide-num">17 / 28</span>
+    
+    <h2 class="slide-h2">Exercise -- Step 1: Trigger</h2>
+    
+    <ul class="slide-list"><li><span class="bullet">1</span><span class="text">Exercise: Set up your trigger.</span></li><li><span class="bullet">2</span><span class="text">Watch for new rows in Google Sheets.</span></li><li><span class="bullet">3</span><span class="text">When a new row appears, the workflow starts.</span></li></ul>
+  </div>
+  <div class="slide slide-mint">
+    <span class="slide-num">18 / 28</span>
+    
+    <h2 class="slide-h2">Exercise -- Step 2: AI Step</h2>
+    
+    <ul class="slide-list"><li><span class="bullet">1</span><span class="text">Exercise: Connect your AI step.</span></li><li><span class="bullet">2</span><span class="text">Feed the lead data into your prompt.</span></li><li><span class="bullet">3</span><span class="text">Get a personalized response back.</span></li></ul>
+  </div>
+  <div class="slide slide-light">
+    <span class="slide-num">19 / 28</span>
+    
+    <h2 class="slide-h2 dark">Exercise -- Step 3: Action</h2>
+    
+    <ul class="slide-list"><li><span class="bullet">1</span><span class="text">Exercise: Set up the action.</span></li><li><span class="bullet">2</span><span class="text">Send the AI-generated email via Gmail.</span></li><li><span class="bullet">3</span><span class="text">The response goes out without you touching it.</span></li></ul>
+  </div>
+  <div class="slide slide-dark">
+    <span class="slide-num">20 / 28</span>
+    
+    <h2 class="slide-h2">Exercise -- Step 4: Log</h2>
+    
+    <ul class="slide-list"><li><span class="bullet">1</span><span class="text">Exercise: Set up the log.</span></li><li><span class="bullet">2</span><span class="text">Write the results back to your spreadsheet.</span></li><li><span class="bullet">3</span><span class="text">Timestamp. Input. Output. Status.</span></li></ul>
+  </div>
+  <div class="slide slide-dark">
+    <span class="slide-num">21 / 28</span>
+    
+    <h2 class="slide-h2">Exercise -- Step 5: Test</h2>
+    
+    <ul class="slide-list"><li><span class="bullet">1</span><span class="text">Exercise: Run the full workflow.</span></li><li><span class="bullet">2</span><span class="text">Add a test lead. Then check everything.</span></li><li><span class="bullet">3</span><span class="text">Did the trigger fire? Did AI respond? Did the email send? Did the log update?</span></li></ul>
+  </div>
+  <div class="slide slide-dark">
+    <span class="slide-num">22 / 28</span>
+    
+    <h2 class="slide-h2">The Moment</h2>
+    
+    <ul class="slide-list"><li><span class="bullet">1</span><span class="text">You add a test lead.</span></li><li><span class="bullet">2</span><span class="text">Then check your inbox.</span></li><li><span class="bullet">3</span><span class="text">That email was written and sent without you.</span></li></ul>
+  </div>
+  <div class="slide slide-mint">
+    <span class="slide-num">23 / 28</span>
+    
+    <h2 class="slide-h2">When It Breaks</h2>
+    
+    <ul class="slide-list"><li><span class="bullet">1</span><span class="text">Click the error. Read it.</span></li><li><span class="bullet">2</span><span class="text">Most fixes are obvious.</span></li></ul>
+  </div>
+  <div class="slide slide-light">
+    <span class="slide-num">24 / 28</span>
+    
+    <h2 class="slide-h2 dark">What You Just Unlocked</h2>
+    
+    <ul class="slide-list"><li><span class="bullet">1</span><span class="text">You built a system, not a tool.</span></li><li><span class="bullet">2</span><span class="text">Trigger watches. Data flows. AI processes. Action delivers. Log tracks.</span></li></ul>
+  </div>
+  <div class="slide slide-dark">
+    <span class="slide-num">25 / 28</span>
+    
+    <h2 class="slide-h2">What&#x27;s Next</h2>
+    
+    <ul class="slide-list"><li><span class="bullet">1</span><span class="text">Your workflow treats everything the same.</span></li><li><span class="bullet">2</span><span class="text">But inputs aren&#x27;t the same.</span></li><li><span class="bullet">3</span><span class="text">Next mission: add the logic layer.</span></li></ul>
+  </div>
+  <div class="slide slide-dark">
+    <span class="slide-num">26 / 28</span>
+    
+    <h2 class="slide-h2">The Stack</h2>
+    
+    <ul class="slide-list"><li><span class="bullet">1</span><span class="text">Mission 1: Packaged AI.</span></li><li><span class="bullet">2</span><span class="text">Mission 2: Workflow.</span></li><li><span class="bullet">3</span><span class="text">Mission 3: Logic layer.</span></li><li><span class="bullet">4</span><span class="text">Mission 4: Agents.</span></li><li><span class="bullet">5</span><span class="text">Each builds on the last.</span></li></ul>
+  </div>
+  <div class="slide slide-dark">
+    <span class="slide-num">27 / 28</span>
+    
+    <h2 class="slide-h2">Your Commitment</h2>
+    
+    <ul class="slide-list"><li><span class="bullet">1</span><span class="text">Name one workflow you will ship this week.</span></li><li><span class="bullet">2</span><span class="text">Not a concept. Not a draft.</span></li><li><span class="bullet">3</span><span class="text">Something that runs with real inputs.</span></li></ul>
+  </div>
+  <div class="slide slide-mint">
+    <span class="slide-num">28 / 28</span>
+    
+    <h2 class="slide-h2">Thank You</h2>
+    
+    <ul class="slide-list"><li><span class="bullet">1</span><span class="text">Thank you.</span></li><li><span class="bullet">2</span><span class="text">[QR Code Placeholder -- Session Feedback]</span></li><li><span class="bullet">3</span><span class="text">#AIOfficerCertification | Dave Hajdu | dave@ai-officer.com | ai-officer.com</span></li></ul>
+  </div>
+</div>
+
+</body>
+</html>

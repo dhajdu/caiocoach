@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Words to Know — Mission 2: From Prompts to Packaged AI — AI Officer Institute</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../shared/styles.css">
+<style>
+  :root {
+    --royal: #287BE8;
+    --ease: cubic-bezier(0.4, 0, 0.2, 1);
+    --radius: 12px;
+    --shadow-sm: 0 1px 3px rgba(4,16,45,0.07);
+    --shadow-hover: 0 6px 24px rgba(4,16,45,0.10);
+    --text-tertiary: #8b91ac;
+    --border-hover: #b0b6cc;
+  }
+  body { background: var(--surface); }
+
+  .page-main { max-width: 760px; margin: 0 auto; padding: 80px 40px 100px; }
+  .wtk-back { display: inline-flex; align-items: center; gap: 6px; font-size: 13px; font-weight: 600; color: var(--text-muted); text-decoration: none; margin-bottom: 32px; transition: color 0.12s; }
+  .wtk-back:hover { color: var(--text-primary); }
+  .wtk-hero { margin-bottom: 40px; }
+  .wtk-track-pill { display: inline-flex; align-items: center; gap: 7px; font-size: 11px; font-weight: 700; letter-spacing: 0.7px; text-transform: uppercase; padding: 5px 12px; border-radius: 20px; background: rgba(4,16,45,0.06); color: var(--text-secondary); border: 1px solid var(--border); margin-bottom: 14px; }
+  .wtk-title { font-size: 30px; font-weight: 700; color: var(--text-primary); letter-spacing: -0.5px; line-height: 1.15; margin-bottom: 10px; }
+  .wtk-sub { font-size: 15px; color: var(--text-secondary); line-height: 1.6; }
+  .wtk-note { background: white; border: 1px solid var(--border); border-radius: var(--radius); padding: 16px 20px; margin-bottom: 40px; font-size: 14px; color: var(--text-secondary); line-height: 1.6; }
+  .wtk-category { font-size: 10px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: var(--text-muted); padding-bottom: 10px; border-bottom: 1px solid var(--border); margin-bottom: 16px; margin-top: 40px; }
+  .wtk-category:first-of-type { margin-top: 0; }
+  .term-card { background: white; border: 1px solid var(--border); border-radius: var(--radius); padding: 20px 22px; margin-bottom: 10px; box-shadow: var(--shadow-sm); }
+  .term-header { display: flex; align-items: flex-start; justify-content: space-between; gap: 16px; margin-bottom: 8px; }
+  .term-name { font-size: 16px; font-weight: 700; color: var(--text-primary); line-height: 1.2; }
+  .term-badge { font-family: 'JetBrains Mono', monospace; font-size: 10px; font-weight: 700; padding: 3px 8px; border-radius: 5px; white-space: nowrap; flex-shrink: 0; background: rgba(26,158,116,0.08); color: #1a9e74; border: 1px solid rgba(26,158,116,0.15); }
+  .term-def { font-size: 14px; color: var(--text-secondary); line-height: 1.7; }
+  .term-example { margin-top: 10px; padding-top: 10px; border-top: 1px solid var(--surface); font-size: 13px; color: var(--text-muted); line-height: 1.6; font-style: italic; }
+  .term-example strong { color: var(--text-secondary); font-style: normal; }
+  .wtk-bottom-nav { display: flex; align-items: center; justify-content: space-between; border-top: 1px solid var(--border); padding-top: 32px; margin-top: 16px; }
+  .wtk-nav-btn { display: inline-flex; align-items: center; gap: 6px; font-size: 13px; font-weight: 600; color: var(--text-muted); text-decoration: none; padding: 8px 14px; border-radius: 8px; border: 1px solid var(--border); transition: all 0.12s; }
+  .wtk-nav-btn:hover { border-color: var(--border-hover); color: var(--text-primary); }
+  .wtk-nav-btn.primary { background: var(--navy); color: white; border-color: var(--navy); }
+  .wtk-nav-btn.primary:hover { opacity: 0.88; }
+  @media (max-width: 760px) { .page-main { padding: 70px 20px 80px; } .topbar-nav { display: none; } }
+
+</style>
+</head>
+<body>
+<div class="topbar">
+  <a href="../index.html" class="topbar-brand">AIO <span>Labs</span></a>
+  <nav class="topbar-nav">
+    <a href="../index.html" class="tnav-link"><span class="tnav-dot" style="background:#8b91ac"></span> Home</a>
+    <a href="../certification.html" class="tnav-link active"><span class="tnav-dot" style="background:#287BE8"></span> Certification</a>
+    <a href="../coaching.html" class="tnav-link"><span class="tnav-dot" style="background:#287BE8"></span> Coaching</a>
+    <a href="../micro-sessions/index.html" class="tnav-link"><span class="tnav-dot" style="background:#1A9E74"></span> Micro-Sessions</a>
+    <a href="../blog/index.html" class="tnav-link"><span class="tnav-dot" style="background:#6FF2C1"></span> Blog</a>
+    <a href="../my-team.html" class="tnav-link"><span class="tnav-dot" style="background:#8b91ac"></span> My Team</a>
+  </nav>
+  <div class="topbar-right">
+    <a href="https://claude.ai" target="_blank" class="buddy-launch-btn">🤖 AI Buddy</a>
+    <div class="topbar-stat">🔥 7</div>
+    <div class="topbar-stat">⭐ 1,240</div>
+    <div class="topbar-divider"></div>
+    <div class="topbar-avatar">DH</div>
+  </div>
+</div>
+
+<main class="page-main">
+
+  <a href="mission-2.html" class="wtk-back">← Back to Mission 2</a>
+
+  <div class="wtk-hero">
+    <div class="wtk-track-pill">🔤 Words to Know</div>
+    <h1 class="wtk-title">Mission 2 — Key Terms</h1>
+    <p class="wtk-sub">The vocabulary you need to understand and apply this mission's concepts. When in doubt, ask your AI Buddy.</p>
+  </div>
+
+  <div class="wtk-note">
+    These terms appear across the briefs, challenges, and prompts for Mission 2. Read them before you start, or use this page as a reference while you work.
+  </div>
+
+  <div class="wtk-category">All Terms — Mission 2</div>
+  
+  <div class="term-card">
+    <div class="term-header">
+      <div class="term-name">Agentic AI Essentials - Session 2: From Prompts to Packaged AI</div>
+      <span class="term-badge">Term</span>
+    </div>
+    <div class="term-def">---</div>
+    
+  </div>
+  <div class="term-card">
+    <div class="term-header">
+      <div class="term-name">Core Concepts</div>
+      <span class="term-badge">Term</span>
+    </div>
+    <div class="term-def">Packaged AI
+A reusable AI tool built into a platform (ChatGPT, Claude, or Gemini) that combines three components: data (reference documents and guidelines), instructions (system prompt using RACE), and interface (name, description, conversation starters). The purpose is so your team can access the tool without rebuilding it each time.</div>
+    
+  </div>
+  <div class="term-card">
+    <div class="term-header">
+      <div class="term-name">The Automation Spectrum</div>
+      <span class="term-badge">Term</span>
+    </div>
+    <div class="term-def">Manual
+You type everything, every time you use AI. You explain the role, upload the files, describe the format, provide the data, every single use. Most people are stuck here.</div>
+    
+  </div>
+  <div class="term-card">
+    <div class="term-header">
+      <div class="term-name">Platform Options</div>
+      <span class="term-badge">Term</span>
+    </div>
+    <div class="term-def">Custom GPT
+ChatGPT&#x27;s version of Packaged AI. You upload files, write system instructions, give your GPT a name and description, and add conversation starters. Users access it through ChatGPT. All conversations remain in ChatGPT.</div>
+    
+  </div>
+  <div class="term-card">
+    <div class="term-header">
+      <div class="term-name">The Leadership Test</div>
+      <span class="term-badge">Term</span>
+    </div>
+    <div class="term-def">The Leadership Test
+The core measure of whether your Packaged AI is ready to hand off to your team: Could a new hire use this tool on day one without asking you a single question? They should be able to open the tool, see what it does, pick a conversation starter, and get usable output without any guidance from you. If the answer is no, your data, instructions, or interface need more work.</div>
+    
+  </div>
+  <div class="term-card">
+    <div class="term-header">
+      <div class="term-name">Related Concepts</div>
+      <span class="term-badge">Term</span>
+    </div>
+    <div class="term-def">Good Prompts Don&#x27;t Scale
+A problem most people don&#x27;t measure: You write a great prompt. It works perfectly. You get the output you need. And then it disappears into chat history. Next week you need the same thing and you start from scratch. The prompt worked. The system didn&#x27;t. Packaging solves this.</div>
+    
+  </div>
+  <div class="term-card">
+    <div class="term-header">
+      <div class="term-name">Session 1 Connection</div>
+      <span class="term-badge">Term</span>
+    </div>
+    <div class="term-def">These terms build on what you learned in Session 1:</div>
+    
+  </div>
+  <div class="term-card">
+    <div class="term-header">
+      <div class="term-name">Looking Ahead to Session 3</div>
+      <span class="term-badge">Term</span>
+    </div>
+    <div class="term-def">Workflow
+In Session 3, you&#x27;ll take your Packaged AI and wire it into a workflow. A trigger causes it to run, data flows in, your AI processes it, and the result goes to an output destination. This moves you from semi-automated (you trigger) to something closer to automated.</div>
+    
+  </div>
+  <div class="term-card">
+    <div class="term-header">
+      <div class="term-name">Quick Reference</div>
+      <span class="term-badge">Term</span>
+    </div>
+    <div class="term-def">| Term | Simple Definition |
+|------|------------------|
+| Packaged AI | A reusable AI tool with data, instructions, and interface built in |
+| System Prompt | The permanent instructions for your AI |
+| RACE | Role, Action, Context, Example - framework for system prompts |
+| Interface | How users interact (name, description, starters) |
+| Data Layer | The documents and guidelines your AI needs |
+|</div>
+    
+  </div>
+
+  <div class="wtk-bottom-nav">
+    <a href="mission-2-prompts.html" class="wtk-nav-btn">← Prompt Library</a>
+    <a href="mission-2-slides.html" class="wtk-nav-btn primary">Slide Deck →</a>
+  </div>
+
+</main>
+</body>
+</html>

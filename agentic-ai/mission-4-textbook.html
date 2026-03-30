@@ -1,0 +1,576 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mission 4 Briefs — Teach Your Workflow to Decide — AI Officer Institute</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../shared/styles.css">
+<style>
+  :root {
+    --royal: #287BE8;
+    --ease: cubic-bezier(0.4, 0, 0.2, 1);
+    --radius: 12px;
+    --shadow-sm: 0 1px 3px rgba(4,16,45,0.07);
+    --shadow-hover: 0 6px 24px rgba(4,16,45,0.10);
+    --text-tertiary: #8b91ac;
+    --border-hover: #b0b6cc;
+  }
+  body { background: var(--surface); }
+
+  .page-wrap { display: grid; grid-template-columns: 240px 1fr; min-height: 100vh; padding-top: 56px; }
+  .tb-sidebar { position: sticky; top: 56px; height: calc(100vh - 56px); overflow-y: auto; background: white; border-right: 1px solid var(--border); padding: 28px 0; }
+  .tb-sidebar-inner { padding: 0 20px; }
+  .tb-sidebar-label { font-size: 10px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: var(--text-muted); margin-bottom: 12px; padding: 0 4px; }
+  .tb-nav-link { display: block; padding: 8px 12px; border-radius: 8px; font-size: 13px; font-weight: 500; color: var(--text-secondary); text-decoration: none; transition: all 0.12s; margin-bottom: 2px; line-height: 1.4; }
+  .tb-nav-link:hover { background: var(--surface); color: var(--text-primary); }
+  .tb-nav-link.active { background: rgba(26,158,116,0.08); color: #1a9e74; font-weight: 600; }
+  .tb-nav-num { font-family: 'JetBrains Mono', monospace; font-size: 10px; font-weight: 700; color: var(--text-muted); display: block; margin-bottom: 1px; }
+  .tb-nav-divider { height: 1px; background: var(--border); margin: 14px 0; }
+  .tb-buddy-btn { display: flex; align-items: center; gap: 8px; width: 100%; margin-top: 20px; padding: 10px 12px; border-radius: 8px; background: rgba(26,158,116,0.07); border: 1px solid rgba(26,158,116,0.2); color: #1a9e74; font-size: 13px; font-weight: 600; cursor: pointer; text-decoration: none; transition: all 0.15s; }
+  .tb-buddy-btn:hover { background: rgba(26,158,116,0.12); }
+  .tb-main { padding: 48px 60px 100px; max-width: 780px; }
+  .tb-back { display: inline-flex; align-items: center; gap: 6px; font-size: 13px; font-weight: 600; color: var(--text-muted); text-decoration: none; margin-bottom: 32px; transition: color 0.12s; }
+  .tb-back:hover { color: var(--text-primary); }
+  .tb-hero { margin-bottom: 48px; }
+  .tb-track-pill { display: inline-flex; align-items: center; gap: 7px; font-size: 11px; font-weight: 700; letter-spacing: 0.7px; text-transform: uppercase; padding: 5px 12px; border-radius: 20px; background: rgba(26,158,116,0.1); color: #1a9e74; border: 1px solid rgba(26,158,116,0.2); margin-bottom: 14px; }
+  .tb-title { font-size: 32px; font-weight: 700; color: var(--text-primary); letter-spacing: -0.5px; line-height: 1.15; margin-bottom: 10px; }
+  .tb-sub { font-size: 15px; color: var(--text-secondary); line-height: 1.65; max-width: 560px; }
+  .brief-section { margin-bottom: 64px; scroll-margin-top: 80px; }
+  .brief-label { font-family: 'JetBrains Mono', monospace; font-size: 10px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: #1a9e74; margin-bottom: 6px; }
+  .brief-title { font-size: 24px; font-weight: 700; color: var(--text-primary); letter-spacing: -0.3px; line-height: 1.2; margin-bottom: 20px; padding-bottom: 16px; border-bottom: 2px solid var(--border); }
+  .prose { color: var(--text-secondary); line-height: 1.75; font-size: 15px; }
+  .prose p { margin-bottom: 18px; }
+  .prose h3 { font-size: 17px; font-weight: 700; color: var(--text-primary); letter-spacing: -0.2px; margin: 32px 0 10px; }
+  .prose h4 { font-size: 14px; font-weight: 700; color: var(--text-primary); text-transform: uppercase; letter-spacing: 0.5px; margin: 24px 0 8px; }
+  .prose ul, .prose ol { padding-left: 20px; margin-bottom: 18px; display: flex; flex-direction: column; gap: 6px; }
+  .prose li { font-size: 14.5px; line-height: 1.65; }
+  .prose strong { font-weight: 700; color: var(--text-primary); }
+  .prose code { font-family: 'JetBrains Mono', monospace; font-size: 13px; background: var(--surface); padding: 2px 6px; border-radius: 4px; border: 1px solid var(--border); }
+  .key-insight { background: rgba(26,158,116,0.05); border: 1px solid rgba(26,158,116,0.15); border-left: 3px solid #1a9e74; border-radius: 0 var(--radius) var(--radius) 0; padding: 18px 22px; margin: 28px 0; }
+  .key-insight-label { font-size: 10px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: #1a9e74; margin-bottom: 8px; }
+  .key-insight p { font-size: 14px; color: var(--text-primary); line-height: 1.65; margin: 0; }
+  .starter-prompt { background: rgba(40,123,232,0.04); border: 1px solid rgba(40,123,232,0.18); border-radius: var(--radius); padding: 20px 22px; margin: 24px 0; }
+  .starter-prompt-label { display: flex; align-items: center; gap: 8px; font-size: 11px; font-weight: 700; letter-spacing: 0.7px; text-transform: uppercase; color: #287BE8; margin-bottom: 12px; }
+  .starter-prompt-text { font-size: 14px; color: var(--text-primary); line-height: 1.7; font-style: italic; background: white; padding: 14px 16px; border-radius: 8px; border: 1px solid rgba(40,123,232,0.15); }
+  .worked-example { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 20px 22px; margin: 24px 0; }
+  .worked-example-label { font-size: 10px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: var(--text-muted); margin-bottom: 12px; }
+  .tb-bottom-nav { display: flex; align-items: center; justify-content: space-between; border-top: 1px solid var(--border); padding-top: 32px; margin-top: 16px; }
+  .tb-nav-btn { display: inline-flex; align-items: center; gap: 6px; font-size: 13px; font-weight: 600; color: var(--text-muted); text-decoration: none; padding: 8px 14px; border-radius: 8px; border: 1px solid var(--border); transition: all 0.12s; }
+  .tb-nav-btn:hover { border-color: var(--border-hover); color: var(--text-primary); }
+  .tb-nav-btn.primary { background: #1a9e74; color: white; border-color: #1a9e74; }
+  .tb-nav-btn.primary:hover { background: #178a65; }
+  @media (max-width: 900px) { .page-wrap { grid-template-columns: 1fr; } .tb-sidebar { display: none; } .tb-main { padding: 40px 24px 80px; } .topbar-nav { display: none; } }
+
+</style>
+</head>
+<body>
+<div class="topbar">
+  <a href="../index.html" class="topbar-brand">AIO <span>Labs</span></a>
+  <nav class="topbar-nav">
+    <a href="../index.html" class="tnav-link"><span class="tnav-dot" style="background:#8b91ac"></span> Home</a>
+    <a href="../certification.html" class="tnav-link active"><span class="tnav-dot" style="background:#287BE8"></span> Certification</a>
+    <a href="../coaching.html" class="tnav-link"><span class="tnav-dot" style="background:#287BE8"></span> Coaching</a>
+    <a href="../micro-sessions/index.html" class="tnav-link"><span class="tnav-dot" style="background:#1A9E74"></span> Micro-Sessions</a>
+    <a href="../blog/index.html" class="tnav-link"><span class="tnav-dot" style="background:#6FF2C1"></span> Blog</a>
+    <a href="../my-team.html" class="tnav-link"><span class="tnav-dot" style="background:#8b91ac"></span> My Team</a>
+  </nav>
+  <div class="topbar-right">
+    <a href="https://claude.ai" target="_blank" class="buddy-launch-btn">🤖 AI Buddy</a>
+    <div class="topbar-stat">🔥 7</div>
+    <div class="topbar-stat">⭐ 1,240</div>
+    <div class="topbar-divider"></div>
+    <div class="topbar-avatar">DH</div>
+  </div>
+</div>
+
+<div class="page-wrap">
+
+  <aside class="tb-sidebar">
+    <div class="tb-sidebar-inner">
+      <div class="tb-sidebar-label">Mission 4 Briefs</div>
+      
+      <a href="#section-1" class="tb-nav-link">
+        <span class="tb-nav-num">SECTION 1</span>Welcome to Mission 4
+      </a>
+      <a href="#section-2" class="tb-nav-link">
+        <span class="tb-nav-num">SECTION 2</span>Brief 1: The Linear Workflow Problem
+      </a>
+      <a href="#section-3" class="tb-nav-link">
+        <span class="tb-nav-num">SECTION 3</span>Key Takeaways
+      </a>
+      <div class="tb-nav-divider"></div>
+      <a href="https://claude.ai" target="_blank" class="tb-buddy-btn">🤖 Open AI Buddy</a>
+    </div>
+  </aside>
+
+  <main class="tb-main">
+
+    <a href="mission-4.html" class="tb-back">← Back to Mission 4</a>
+
+    <div class="tb-hero">
+      <div class="tb-track-pill">Agentic AI for Business · Mission 04</div>
+      <h1 class="tb-title">Teach Your Workflow to Decide</h1>
+      <p class="tb-sub">Add intelligence to your automation. Classify inputs. Route to the right response. Different inputs, different treatment.</p>
+    </div>
+
+    
+    <section class="brief-section" id="section-1">
+      <div class="brief-label">SECTION 1</div>
+      <h2 class="brief-title">Welcome to Mission 4</h2>
+      <div class="prose">
+        <h4>Welcome to Mission 4</h4>
+<p>You've completed Session 3. You built a workflow. Data flows in. Your packaged AI processes it. The result goes where it needs to go. You stopped pressing the button.</p>
+<p>But your workflow treats every input the same way.</p>
+<p>That's the problem we fix today.</p>
+<p>A smart workflow doesn't just respond. It listens first. It classifies what it's hearing. Then it routes to the right response. Your workflow needs this intelligence layer. Not a new tool. A new way of thinking.</p>
+<p>This mission adds logic to your automation. Different inputs get different treatment. A glowing review gets one response. A furious complaint gets another. The pattern: Classify. Route. Respond.</p>
+<h4>Your Mission Briefs</h4>
+<p>Five briefs will walk you through the complete picture:</p>
+<p><strong>Brief 1: The Linear Workflow Problem</strong> - Your Session 3 workflow is fast. It's not smart. Why linear workflows miss nuance and what it costs. (20 min)</p>
+<p><strong>Brief 2: Classify, Route, Respond</strong> - The three-step pattern that adds intelligence. Classifiers label. Routers direct. Responses vary. (20 min)</p>
+<p><strong>Brief 3: The Tiny Decision Canvas</strong> - Design on paper before you wire in a system. If you can't sketch it, you can't build it. (15 min)</p>
+<p><strong>Brief 4: Build the Logic Layer</strong> - Step-by-step walkthrough of adding classification and routing to your Session 3 workflow. (30 min)</p>
+<p><strong>Brief 5: Test, Validate, and Ship</strong> - How to validate your logic layer before your team uses it. (25 min)</p>
+<h4>Learning Guide</h4>
+<ul><li><strong>Teaching content</strong> that explains the concept</li><li><strong>A worked example</strong> showing exactly how it works in practice (using Jordan as your student character)</li><li><strong>A starter prompt</strong> to use with your AI Buddy</li><li><strong>A key insight</strong> that connects to leadership, not just technology</li></ul>
+<p>At the end, you'll have practice challenges and a final project: your upgraded Session 3 workflow with a logic layer that handles multiple input types intelligently.</p>
+<p>The test isn't whether it works for you. The test is whether your team can send different inputs and get appropriately different responses without your involvement.</p>
+<p><strong>What You Need Before Starting:</strong></p>
+<ul><li>Your Session 3 workflow (from Mission 3)</li><li>A list of different input types your workflow receives</li><li>Your automation platform of choice (Make, Zapier, or equivalent)</li><li>10 minutes to sketch your decision logic on paper</li></ul>
+<p><strong>Rules of the Road:</strong></p>
+<ol><li><strong>Classifiers must output clean labels.</strong> One word, no explanation. If your classifier reasons through its answer, your router can't read it.</li></ol>
+<ol><li><strong>The router is dumb logic.</strong> It doesn't think. If A then B. That's its job. All the intelligence lives in the classifier.</li></ol>
+<ol><li><strong>Design on paper first.</strong> If you can't draw your logic branches on one page, the system is too complex to build. Simplify before you wire.</li></ol>
+<ol><li><strong>Test edge cases, not just happy paths.</strong> What breaks your classifier? What inputs don't fit your categories? Find those now.</li></ol>
+      </div>
+    </section>
+    <section class="brief-section" id="section-2">
+      <div class="brief-label">SECTION 2</div>
+      <h2 class="brief-title">Brief 1: The Linear Workflow Problem</h2>
+      <div class="prose">
+        <h4>Brief 1: The Linear Workflow Problem</h4>
+<h4>Teaching: Why One-Size-Fits-All Doesn't Work</h4>
+<p>Your Mission 3 workflow is fast. It's not smart. That's the problem we fix today.</p>
+<p>A linear workflow treats every input the same way. Customer writes praise. System sends response A. Customer writes complaint. System sends response A. That's broken.</p>
+<p>Think about how a smart receptionist works. A call comes in. They listen first. "Is this a new lead or an angry customer?" Once they know the answer, they pick the right script. They transfer to the right department. They change their tone. They adjust their urgency.</p>
+<p>Your workflow needs the same intelligence. The mental model is simple:
+- First listen.
+- Then decide.
+- Then respond.</p>
+<p>Right now you're skipping the listen and decide steps. You're jumping straight to respond.</p>
+<p>Every input gets the same treatment. That works if every input is identical. But they're not. Praise should get a warm thank you. Complaints should get an apology and a solution. Suggestions should get documentation and a timeline. One generic response can't do all three well.</p>
+<p>A linear workflow is blind to nuance. It's not your fault. You haven't added the decision layer yet.</p>
+<div class="worked-example"><div class="worked-example-label">Worked Example</div><div class="prose"><h4>Worked Example: Jordan's Customer Feedback Automation</h4></div></div>
+<p>Jordan works in customer success at a retail company. In Mission 3, Jordan built a workflow that triggers whenever customer feedback comes in. The workflow reads the feedback. Packaged AI writes a response. The response goes out. It logs the interaction.</p>
+<p>The problem: every customer gets the same template response. "Thank you for reaching out. We appreciate your feedback and will review it." Send. Log. Done.</p>
+<p>A glowing review gets that response. "Your team was amazing. Best service ever." Response: "Thank you for reaching out. We appreciate your feedback and will review it."</p>
+<p>A furious complaint gets the same response. "I've been waiting three days for my package and have no idea where it is. This is ridiculous." Response: "Thank you for reaching out. We appreciate your feedback and will review it."</p>
+<p>Both customers got the same thing. The praise customer feels like they're being brushed off. The complaint customer feels like they're being ignored. Neither is satisfied.</p>
+<p>After Jordan adds a logic layer:</p>
+<p>Feedback comes in: "Your team was amazing!"</p>
+<p>Classifier reads it: "This is PRAISE."</p>
+<p>Router sends it down the praise path.</p>
+<p>Praise response prompt fires: "This customer left praise. Write a warm, genuine thank you. Ask if they'd consider leaving a public review."</p>
+<p>Output: "Thank you so much! Your kind words mean everything to our team. Would you consider sharing this review on our site?"</p>
+<p>Same workflow. Completely different response. And this one is appropriate.</p>
+<p>Second input: "I've been waiting three days for my package."</p>
+<p>Classifier: "This is COMPLAINT."</p>
+<p>Router sends down complaint path.</p>
+<p>Complaint response prompt: "This customer reported a problem. Apologize. Ask what we can do to help. Offer a specific next step."</p>
+<p>Output: "I'm truly sorry you're experiencing this. I want to help. Can you reply with your order number? I'll personally look into your tracking right away."</p>
+<p>Personalized. Appropriate. Effective.</p>
+<div class="starter-prompt"><div class="starter-prompt-label">🤖 Starter Prompt</div><div class="starter-prompt-text">#### Starter Prompt for Your AI Buddy</div></div>
+<div class="starter-prompt"><div class="starter-prompt-label">🤖 Starter Prompt</div><div class="starter-prompt-text">Ask your AI Buddy: &quot;I built a workflow in Session 3. Right now every input gets the same treatment. Walk me through where this workflow is blind to nuance. Show me three different inputs my system receives that should probably get three different responses. For each, describe what the current response is and what it should be instead.</div></div>
+<div class="key-insight"><div class="key-insight-label">Key Insight</div><p>#### Key Insight</p></div>
+<p>Before AI responds, it needs to know what it's responding to. Classification comes before response. Always. This is a leadership principle, not a technical one. It's the difference between hearing and listening. A linear system hears input. A smart system listens first, understands context, then chooses a response. That's maturity in automation.</p>
+<h4>Brief 2: Classify, Route, Respond</h4>
+<h4>Teaching: The Three-Step Intelligence Layer</h4>
+<p>The pattern has three steps. Learn it once. You'll use it everywhere.</p>
+<p>The classifier is an AI step with one simple job: read the input, apply a label, output that label and nothing else.</p>
+<p>System prompt: "Classify this input as PRAISE, COMPLAINT, or SUGGESTION. Output ONLY one word. No explanation. No punctuation. Just the word."</p>
+<p>That's tight. No reasoning. No explanation. One clean label.</p>
+<p>Why? Because your router needs to read that label and route based on it. If the classifier starts explaining itself ("This is clearly PRAISE because the customer said..."), your router can't parse that. It gets confused. The routing logic breaks.</p>
+<p>Clean input. Clean output. One word. That's the requirement.</p>
+<p>The router is simpler than the classifier because it's not AI. It's logic. If-then. That's all.</p>
+<p>If label = PRAISE, go to path A.
+If label = COMPLAINT, go to path B.
+If label = SUGGESTION, go to path C.</p>
+<p>The router is traffic control. No thinking. Just direction. Which path does this labeled input belong in? Route it there.</p>
+<p>This happens in your automation platform. Make. Zapier. Whatever you use. You set up a conditional step. If the classifier output contains the word "PRAISE", route to the praise response step. Simple.</p>
+<p>Then each path has its own response step. Same structure. Different AI prompt for each path.</p>
+<p>Praise path has an AI prompt designed for happy customers: "This customer left praise. Write a warm, genuine thank you. Keep it brief. Ask if they'd consider sharing this as a review."</p>
+<p>Complaint path has a prompt designed for problem-solving: "This customer reported a problem. Start with a genuine apology. Ask what we can do to help. Offer a specific next step."</p>
+<p>Suggestion path has a prompt designed for capturing ideas: "This customer shared an idea. Thank them. Confirm you've documented it. Tell them how ideas are reviewed."</p>
+<p>Same five-part workflow from Mission 3 (Trigger, Data, AI, Action, Log). But now there's intelligence in the middle. Three classifiers categories. Three routers paths. Three responses, each tuned for its input type.</p>
+<p>One workflow. Three different behaviors. That's the pattern.</p>
+<div class="worked-example"><div class="worked-example-label">Worked Example</div><div class="prose"><h4>Worked Example: Jordan's Complete Three-Step Build</h4></div></div>
+<p>Jordan is building this for customer feedback.</p>
+<p>System prompt: "You are a feedback classifier. Read the following feedback. Classify it as PRAISE, COMPLAINT, or SUGGESTION. Output ONLY one word. No explanation. No punctuation. Just the word."</p>
+<p>Test inputs and outputs:</p>
+<ul><li>Input: "Your team was so helpful on my last order!" Output: PRAISE</li><li>Input: "My package is late again and I still don't have tracking." Output: COMPLAINT</li><li>Input: "Have you ever thought about offering a subscription?" Output: SUGGESTION</li><li>Input: "I love your product!" Output: PRAISE</li><li>Input: "The app keeps crashing on login." Output: COMPLAINT</li></ul>
+<p>Clean outputs. Consistent. One word each. The classifier is working.</p>
+<p>If classifier output = "PRAISE", route to Praise Response path.
+If classifier output = "COMPLAINT", route to Complaint Response path.
+If classifier output = "SUGGESTION", route to Suggestion Response path.</p>
+<p>Jordan sets this up in Make (or Zapier). Conditional logic. Simple and clean.</p>
+<p><strong>Praise Response Path:</strong></p>
+<p>System prompt: "A customer left positive feedback. Write a warm, genuine thank you. Keep it brief. Two sentences max. End by asking if they'd consider sharing this as a public review. Sound authentic, not corporate."</p>
+<p>Sample output: "Thank you so much! Your kind words mean everything to our team. Would you consider sharing your experience on our review page?"</p>
+<p><strong>Complaint Response Path:</strong></p>
+<p>System prompt: "A customer reported a problem. Start with a genuine apology. Ask what we can do to help. Offer a specific next step you can take immediately. Sound like you care about solving this."</p>
+<p>Sample output: "I'm truly sorry you're experiencing this. I want to help you get your package. Can you reply with your order number? I'll personally check your tracking right now and follow up with an update in 2 hours."</p>
+<p><strong>Suggestion Response Path:</strong></p>
+<p>System prompt: "A customer shared an idea. Thank them for thinking about your business. Confirm you've documented it. Tell them how suggestions are reviewed (e.g., 'Our product team reviews all suggestions monthly'). Sound grateful and professional."</p>
+<p>Sample output: "Thank you for this suggestion! We love hearing ideas from our customers. I've documented this and passed it to our product team. We review suggestions monthly and will let you know if we move forward."</p>
+<p>Same workflow. Three different starting prompts. Three different outputs. All appropriate to the input type.</p>
+<div class="starter-prompt"><div class="starter-prompt-label">🤖 Starter Prompt</div><div class="starter-prompt-text">#### Starter Prompt for Your AI Buddy</div></div>
+<div class="starter-prompt"><div class="starter-prompt-label">🤖 Starter Prompt</div><div class="starter-prompt-text">Ask your AI Buddy: &quot;Help me define the input types for my workflow. What are the main types of input my system receives? For each type, what&#x27;s the key difference in how I should respond? Let&#x27;s list minimum three types and then write a tight classifier system prompt that labels each one with a single word.</div></div>
+<div class="key-insight"><div class="key-insight-label">Key Insight</div><p>#### Key Insight</p></div>
+<p>The classifier is the foundation. If it can't label correctly, nothing else works. A router with bad input produces bad routing. Responses built on bad classification create confusion. Every decision system's success depends on getting the classification right first. That's a leadership lesson too. You can't route to the right solution if you haven't diagnosed the problem correctly. Diagnosis first. Then routing. Then response.</p>
+<h4>Brief 3: The Tiny Decision Canvas</h4>
+<h4>Teaching: Design on Paper First</h4>
+<p>Here's the hard truth: if you can't sketch your logic on paper, you can't wire it in a system.</p>
+<p>Before you open your automation platform, grab a piece of paper. Actually grab it. Or open a doc. Something you can write on.</p>
+<p>The Tiny Decision Canvas is simple. For each input type you identified, write two things:</p>
+<p><strong>First:</strong> What does this type mean? A clear definition. Not vague. Specific.</p>
+<p>"PRAISE: The customer expresses satisfaction, thanks, or positive emotion. Not reporting a problem. They're happy."</p>
+<p>Not: "PRAISE: Good feedback."</p>
+<p><strong>Second:</strong> What happens next? The action. The response. The follow-up.</p>
+<p>"Action: Thank them warmly. Ask if they'd consider a public review. Log as positive sentiment. Follow up: Add to customer success file for renewal conversations."</p>
+<p>Not: "Send a response."</p>
+<p>Why? Because if your logic is too complex to draw on a page, it's too complex to automate. You'll get confused. Your classifier will get confused. Your router will send things to the wrong place. Your responses will miss the point.</p>
+<p>A one-page canvas forces clarity. It forces you to answer hard questions before you build.</p>
+<p>Mistake 1: Too many categories. You defined eight types of input. Eight is too many. More than five is a problem. Your classifier will get confused. Your router will have too many paths. Simplify. Combine types that are similar. Narrow to the essential differences.</p>
+<p>Mistake 2: Categories that overlap. You defined COMPLAINT and ISSUE. A customer reports a technical issue. Is that COMPLAINT or ISSUE? Both? Neither? If something could fit two categories, you haven't defined them clearly. Go back. Clarify the boundary between categories.</p>
+<p>Mistake 3: Missing the action step. You identified types but didn't think through what to do. "We have PRAISE, COMPLAINT, and SUGGESTION." Great. For each one, what happens next? If you can't answer that, you're not ready to build.</p>
+<p>Fix these before you move forward.</p>
+<div class="worked-example"><div class="worked-example-label">Worked Example</div><div class="prose"><h4>Worked Example: Jordan's Tiny Decision Canvas for Customer Feedback</h4></div></div>
+<p><strong>INPUT TYPE 1: PRAISE</strong></p>
+<p>Definition: The customer expresses satisfaction, thanks, or positive emotion about their experience or service. They might mention what specifically went well. This is not a suggestion for improvement. It's appreciation.</p>
+<p>Action:
+- Thank them warmly and specifically (reference what they praised)
+- Ask if they would consider sharing their experience as a public review
+- Log interaction as "positive sentiment"
+- Follow-up: Add to customer success file; use in renewal conversations</p>
+<p><strong>INPUT TYPE 2: COMPLAINT</strong></p>
+<p>Definition: The customer reports a problem, issue, or dissatisfaction. Something Jordan's company did or failed to do caused harm or inconvenience. They're frustrated. They want it fixed.</p>
+<p>Action:
+- Start with genuine apology (not defensive)
+- Understand what the specific problem is (ask clarifying questions if needed)
+- Offer a concrete next step (not vague promises)
+- Take ownership (don't blame processes or other departments)
+- Follow-up: Track resolution; check in to confirm satisfaction</p>
+<p><strong>INPUT TYPE 3: SUGGESTION</strong></p>
+<p>Definition: The customer proposes an idea, feature, or improvement. They're not describing a problem they're having right now. They're thinking about what would be better. Forward-looking. Constructive.</p>
+<p>Action:
+- Thank them for thinking about the company
+- Confirm you've documented the idea
+- Explain where ideas go and when they'll hear back (e.g., "Our product team reviews all suggestions monthly. You'll hear from us by the 15th of next month.")
+- Sound grateful, not dismissive
+- Follow-up: Monthly review with product team; track status</p>
+<p>This canvas is one page. A colleague could read it and understand Jordan's logic immediately. No confusion. No overlap. Clear actions. This is the blueprint for the automated system.</p>
+<div class="starter-prompt"><div class="starter-prompt-label">🤖 Starter Prompt</div><div class="starter-prompt-text">#### Starter Prompt for Your AI Buddy</div></div>
+<div class="starter-prompt"><div class="starter-prompt-label">🤖 Starter Prompt</div><div class="starter-prompt-text">Ask your AI Buddy: &quot;Walk me through my use case. Help me define my input types. For each type, help me write a clear definition and the action I&#x27;ll take. By the end, I&#x27;ll have a one-page canvas that shows my decision logic clearly. If something isn&#x27;t clear or overlaps, let me know.</div></div>
+<div class="key-insight"><div class="key-insight-label">Key Insight</div><p>#### Key Insight</p></div>
+<p>If you can't draw the branches on paper, you can't wire them in a system. This is about clarity before complexity. The best automated systems look simple because the thinking was done first. The worst ones look complicated because the designer tried to build before thinking. Take the time to think on paper. It saves time when you build.</p>
+<h4>Brief 4: Build the Logic Layer</h4>
+<h4>Teaching: Four Steps to Add Intelligence</h4>
+<p>You're going to upgrade your Mission 3 workflow to handle multiple input types. You have your Tiny Decision Canvas. You know your categories. You know what should happen for each one. Now you build.</p>
+<p>Four steps. 30 minutes if you move fast. An hour if you're thorough. Both are fine.</p>
+<p><strong>Step 1: Create Your Classifier Prompt (5 minutes)</strong></p>
+<p>Write your system prompt for the classifier AI step.</p>
+<p>It must say: "Output ONLY one word" and "No explanation."</p>
+<p>No exceptions. If your classifier starts reasoning through its answer, the router can't read that. You need clean labels.</p>
+<p>Example: "You are a feedback classifier. Read the following feedback. Classify it as PRAISE, COMPLAINT, or SUGGESTION. Output ONLY one word. No explanation. No punctuation. Just the word."</p>
+<p>Tight. Clear. One job.</p>
+<p>Now test it. Feed it five different inputs from your categories. Does it output one word consistently? "PRAISE". Not "PRAISE because the customer said..." Just "PRAISE".</p>
+<p>If it reasons through its answer, your system prompt isn't tight enough. Tighten it. Make it more direct. Test again.</p>
+<p>If it sometimes says "PRAISE/COMPLAINT" (blending categories), your categories overlap. Go back to your Tiny Decision Canvas. Clarify the boundaries.</p>
+<p>Don't move to Step 2 until your classifier outputs clean labels consistently.</p>
+<p><strong>Step 2: Build Your Router (5 minutes)</strong></p>
+<p>This is the easiest step because it's not AI. It's logic.</p>
+<p>In your automation platform (Make, Zapier, etc.), add a conditional step.</p>
+<p>If the classifier output contains "PRAISE", route to Path A.
+If the classifier output contains "COMPLAINT", route to Path B.
+If the classifier output contains "SUGGESTION", route to Path C.</p>
+<p>Simple if-then branching. Every platform has this. Look for "Router", "Conditional", or "Branch" in your tool.</p>
+<p>Test it. Feed a labeled input through. Does it route to the right path? Does the output go where it should?</p>
+<p><strong>Step 3: Write Three Distinct Response Prompts (10 minutes)</strong></p>
+<p>Each path needs its own AI step. Each AI step needs its own system prompt. Each prompt should be designed for that specific input type.</p>
+<p>The praise prompt should sound different from the complaint prompt. The tone is different. The action is different. The urgency is different.</p>
+<p>Path A (Praise Response):
+System prompt: "A customer left positive feedback. Write a warm, genuine thank you. Keep it brief. Two sentences max. End by asking if they would consider sharing this as a public review. Sound authentic, not corporate."</p>
+<p>Path B (Complaint Response):
+System prompt: "A customer reported a problem. Start with a genuine apology. Ask what we can do to help. Offer a specific next step you can take immediately. Sound like you care about solving this."</p>
+<p>Path C (Suggestion Response):
+System prompt: "A customer shared an idea. Thank them for thinking about your business. Confirm you have documented it. Tell them how ideas are reviewed. Sound grateful and professional."</p>
+<p>Each one tuned. Each one appropriate to the input type. Not generic. Specific to the category.</p>
+<p><strong>Step 4: Set Up Logging for Each Path (3 minutes)</strong></p>
+<p>You want to track data. Which input types are coming in most? Which paths are being triggered? What's the distribution?</p>
+<p>Add a logging step after each path's response. Log should capture:
+- Input type (from classifier label)
+- Response generated
+- Timestamp
+- Any additional context</p>
+<p>Over a week or month, you'll see patterns. "We're getting 60% praise, 30% complaints, 10% suggestions." That data tells you about your customers or your business. It tells you what's working and what's not.</p>
+<div class="worked-example"><div class="worked-example-label">Worked Example</div><div class="prose"><h4>Worked Example: Jordan's Complete Build</h4></div></div>
+<p><strong>Scenario:</strong> Jordan has the Tiny Decision Canvas. Three input types. Clear definitions. Clear actions. Now Jordan builds.</p>
+<p><strong>Step 1: Classifier Prompt</strong></p>
+<p>System prompt: "You are a feedback classifier. Read the following feedback. Classify it as PRAISE, COMPLAINT, or SUGGESTION. Output ONLY one word. No explanation. No punctuation. Just the word."</p>
+<p>Test inputs:
+- "Your team was amazing!" → Output: PRAISE ✓
+- "The app keeps crashing." → Output: COMPLAINT ✓
+- "Have you thought about adding subscriptions?" → Output: SUGGESTION ✓
+- "I love your service!" → Output: PRAISE ✓
+- "Still waiting for my refund after 2 weeks." → Output: COMPLAINT ✓</p>
+<p>Classifier working. Clean outputs.</p>
+<p><strong>Step 2: Router in Make</strong></p>
+<p>Conditional router step:
+``<code>
+If classifier_output = "PRAISE" → go to Praise Response step
+If classifier_output = "COMPLAINT" → go to Complaint Response step
+If classifier_output = "SUGGESTION" → go to Suggestion Response step
+</code>``</p>
+<p>Test: Input "Your team was amazing!" gets classified as PRAISE and routes to Praise Response step. Works.</p>
+<p><strong>Step 3: Three Response Prompts</strong></p>
+<p>Praise Response AI step:
+"A customer left positive feedback. Write a warm, genuine thank you. Keep it brief. Two sentences max. End by asking if they would consider sharing this as a public review. Sound authentic."</p>
+<p>Complaint Response AI step:
+"A customer reported a problem. Start with a genuine apology. Ask what we can do to help. Offer a specific next step. Sound like you care about solving this."</p>
+<p>Suggestion Response AI step:
+"A customer shared an idea. Thank them for thinking about your business. Confirm you have documented it. Tell them when they'll hear back."</p>
+<p>After each path fires, log the interaction:
+- Type: [from classifier]
+- Response: [from AI]
+- Timestamp: [automatic]</p>
+<p><strong>Updated Workflow Structure:</strong></p>
+<ol><li>Trigger: Customer feedback received</li><li>Data: Extract feedback text</li><li>Classifier AI: Outputs PRAISE, COMPLAINT, or SUGGESTION</li><li>Router: Conditional branch based on label</li><li>Action: Send response via email/platform</li><li>Log: Record type, response, timestamp</li></ol>
+<p>Same workflow from Mission 3. Enhanced with logic. Now it's intelligent.</p>
+<div class="starter-prompt"><div class="starter-prompt-label">🤖 Starter Prompt</div><div class="starter-prompt-text">#### Starter Prompt for Your AI Buddy</div></div>
+<div class="starter-prompt"><div class="starter-prompt-label">🤖 Starter Prompt</div><div class="starter-prompt-text">Ask your AI Buddy: &quot;I&#x27;m building my logic layer. Here&#x27;s my Tiny Decision Canvas: [share your canvas]. Help me write a classifier system prompt that handles these categories. Then help me test it with 5 different examples. Does it output clean labels every time? If not, how should I tighten the prompt?</div></div>
+<div class="key-insight"><div class="key-insight-label">Key Insight</div><p>#### Key Insight</p></div>
+<p>The router doesn't think. It just directs. All the intelligence is in the classifier. That's the inversion from how many people think about automation. You'd expect the "smarts" to be in the routing. But no. The routing is dumb logic. The thinking happens in classification. Get that reversed and your system will fail. This is a leadership principle too. Where are the actual decisions being made in your business? Not in the routing of work. In the diagnosis. In understanding what you're dealing with. That diagnosis is everything.</p>
+<h4>Brief 5: Test, Validate, and Ship</h4>
+<h4>Teaching: Validation Before Handoff</h4>
+<p>You've built your logic layer. Your classifier works. Your router routes. Your responses vary. It works when everything goes right.</p>
+<p>Now comes validation. There's a difference between "it works for me" and "it works for anyone."</p>
+<p><strong>Happy Path Testing</strong></p>
+<p>Does it work when everything goes right? When the user provides clear input? When they follow your expected format? Yes? Great. That's baseline. But baseline isn't enough.</p>
+<p><strong>Edge Case Testing</strong></p>
+<p>What breaks? What happens with unclear input? What happens if someone asks for something outside your design? What happens if they provide too much context? Too little? Wrong format?</p>
+<p>Ambiguous input is where classifiers struggle. A customer says "Your product is amazing but I wish it had X feature." Is that PRAISE or SUGGESTION? Both? Your classifier has to pick one. Does it pick consistently?</p>
+<p>A customer writes one word: "Crashed." Is that a COMPLAINT? Maybe. But maybe it's incomplete. Your classifier has to decide.</p>
+<p>A very long message that mentions multiple issues. Does your classifier stay focused on the overall type? Or does it get confused by multiple signals?</p>
+<p>Break your classifier now. Every edge case you find now is a problem your team doesn't hit later.</p>
+<p><strong>Adjustment Process</strong></p>
+<p>When you hit an edge case that's a real problem (the AI gets confused, the output is wrong, it doesn't follow your standards), you adjust.</p>
+<p>Adjust what? Usually one of three things:</p>
+<ol><li><strong>Your classifier prompt.</strong> Make it tighter. More specific. Add examples of edge cases to the system prompt.</li></ol>
+<ol><li><strong>Your categories.</strong> Maybe your overlap is bigger than you thought. Maybe you need four categories instead of three.</li></ol>
+<ol><li><strong>Your router.</strong> Maybe a gray-area input should go to a default path instead of trying to pick between two.</li></ol>
+<p>Test. Adjust. Test again.</p>
+<p><strong>Validation Timeline</strong></p>
+<p>Don't scale this to your team after one day of testing. Run real inputs through for a week. Collect 20 or 30 real examples. Let your classifier label them. Do you like the distribution you're seeing? Are there inputs that don't fit any category? That tells you whether your canvas was complete.</p>
+<p>When you're confident that your team can use this without asking you questions and without the system breaking, it's ready to ship.</p>
+<h4>Practice Challenges (45 minutes total)</h4>
+<p>Your AI Buddy is waiting to help with each of these.</p>
+<p><strong>Challenge 1: Complete Your Tiny Decision Canvas (15 minutes)</strong></p>
+<p>Take your input types. Define each one clearly. Write the action for each one. Make it one page.</p>
+<p>Get specific. Not vague.</p>
+<p>Not: "PRAISE - positive feedback. Action: respond positively."</p>
+<p>But: "PRAISE - The customer expresses satisfaction or appreciation for a specific experience. Action: Thank them warmly, reference what they praised, ask for public review."</p>
+<p>> <strong>Want to learn more first? Ask your AI Buddy:</strong> "Help me complete my Tiny Decision Canvas. Here's my workflow and my input types: [share them]. For each type, help me write a clear definition (what distinguishes it from the others?) and the specific action I should take."</p>
+<p>What good looks like: Three to five clearly defined input types. For each, a definition that distinguishes it from the others. For each, an action that's specific and concrete.</p>
+<p>Common mistakes: Categories that overlap. Actions that are too vague. Missing categories that don't fit your three types.</p>
+<p><strong>Challenge 2: Build and Test Your Classifier (10 minutes)</strong></p>
+<p>Write the classifier system prompt. The one that will output clean labels.</p>
+<p>Then feed it five test inputs. At least one of each type. Ideally include one edge case. Document the outputs. Did it classify correctly every time?</p>
+<p>> <strong>Want to learn more first? Ask your AI Buddy:</strong> "Help me write a classifier system prompt for my categories: [list them]. The prompt needs to output ONLY one word per input with no explanation. Then help me come up with 5 test inputs (at least one per category, one edge case). What should the classifier output for each?"</p>
+<p>What good looks like: A tight system prompt that produces one-word outputs consistently. Five test cases with documented results. All outputs match your expected labels.</p>
+<p>Common mistakes: Prompts that allow explanation. Test inputs that are all clear examples (no edge cases). Not verifying the outputs are actually one word.</p>
+<p><strong>Challenge 3: Add the Router (10 minutes)</strong></p>
+<p>Wire the if-then logic in your automation platform. If the classifier outputs PRAISE, direct to Path A. If COMPLAINT, Path B. If SUGGESTION, Path C.</p>
+<p>Test that the routing logic works. Feed through one example of each type. Does each one go to the right path?</p>
+<p>> <strong>Want to learn more first? Ask your AI Buddy:</strong> "Help me set up the router in [your platform]. I have three classifier outputs (PRAISE, COMPLAINT, SUGGESTION) and three response paths. Walk me through the conditional logic I need to set up. Then help me test that each output routes to the right path."</p>
+<p>What good looks like: A working conditional router. Three test inputs that each route to the correct path. No errors.</p>
+<p>Common mistakes: Router configured for wrong values (looking for "PRAISE" when classifier outputs just "PRAISE"). Not testing the routing.</p>
+<p><strong>Challenge 4: Test All Paths (10 minutes)</strong></p>
+<p>Run one complete test for each path. Pick a realistic input. Let it flow through the entire workflow (trigger to log). Document the output.</p>
+<p>Does the praise path sound warm? Does the complaint path sound helpful? Does the suggestion path sound grateful?</p>
+<p>> <strong>Want to learn more first? Ask your AI Buddy:</strong> "I've built my complete workflow with three paths. Help me test each path. For each path, suggest a realistic example input. Then I'll run it through and show you the output. Does each path produce the right kind of response?"</p>
+<p>What good looks like: Three complete workflow tests (one per path). Each test shows input, classifier output, router decision, and final response. Responses are appropriate to the input type.</p>
+<p>Common mistakes: Testing only happy path, not edge cases. Not checking if responses match the intended tone. Moving forward without validating each path separately.</p>
+<h4>Final Project: Your Upgraded Mission 3 Workflow</h4>
+<p>This is the real deliverable. Not a practice challenge. Your actual workflow with a logic layer. Your Mission 3 workflow, upgraded.</p>
+<p><strong>Part 1: Your Tiny Decision Canvas</strong></p>
+<p>List your input types. Minimum three. For each type, write:
+- Clear definition (what distinguishes it?)
+- Specific action (what happens next?)</p>
+<p>Keep to one page. If it doesn't fit on one page, simplify.</p>
+<p>Submit either:
+- A photo of your handwritten canvas, OR
+- A typed version in a doc</p>
+<p>Clarity over presentation.</p>
+<p><strong>Part 2: Your Classifier System Prompt</strong></p>
+<p>The exact system prompt for your classifier AI step.</p>
+<p>Include:
+- Your categories (PRAISE, COMPLAINT, SUGGESTION, etc.)
+- The "Output ONLY one word" constraint
+- Any specific guidance on edge cases</p>
+<p>> Example: "You are a feedback classifier. Read the following feedback. Classify it as PRAISE, COMPLAINT, or SUGGESTION. Output ONLY one word. No explanation. No punctuation. For ambiguous inputs that mention both praise and ideas, prioritize the dominant emotion."</p>
+<p><strong>Part 3: Your Complete Workflow Map</strong></p>
+<p>Draw or describe your updated workflow from end to end:</p>
+<ol><li>Trigger: [what triggers the workflow?]</li><li>Data: [what data flows in?]</li><li>Classifier: [your classifier step]</li><li>Router: [your three conditional paths]</li><li>Action: [how does output go out?]</li><li>Log: [what gets logged?]</li></ol>
+<p>Describe or draw this clearly. A colleague should be able to read your workflow map and understand how logic flows.</p>
+<p><strong>Part 4: Test Results Documentation</strong></p>
+<p>Run three complete workflow tests. One input per category.</p>
+<p>For each test, document:
+- <strong>Input:</strong> What did the customer say?
+- <strong>Classified As:</strong> What did the classifier output?
+- <strong>Path Taken:</strong> Which path did the router direct to?
+- <strong>Final Response:</strong> What was the output?
+- <strong>Assessment:</strong> Was this response appropriate for the input type? Why or why not?</p>
+<p>Test 1:
+- Input: "Your team was amazing on my last order!"
+- Classified As: PRAISE
+- Path Taken: Praise Response
+- Final Response: "Thank you so much! Your kind words mean everything to our team. Would you consider sharing this review?"
+- Assessment: Perfect. Warm tone, specific reference, asks for review. Appropriate for praise.</p>
+<p><strong>Part 5: Edge Case Testing</strong></p>
+<p>Identify one edge case. An input that's ambiguous or tricky.</p>
+<p>Run it through your system.</p>
+<p>Document:
+- <strong>Edge Case Input:</strong> What made this tricky?
+- <strong>Classified As:</strong> What did the classifier output?
+- <strong>Was it correct?</strong> Did it classify appropriately?
+- <strong>What you learned:</strong> Did this reveal any gaps in your system?</p>
+<p>This shows you tested beyond happy path.</p>
+<h4>Before You Submit Checklist</h4>
+<ul><li>[ ] I've completed my Tiny Decision Canvas with minimum three input types</li><li>[ ] Each type has a clear definition that distinguishes it from others</li><li>[ ] Each type has a specific action that's concrete, not vague</li><li>[ ] I've written a classifier system prompt that outputs one word only</li><li>[ ] I've tested my classifier with five different inputs including one edge case</li><li>[ ] My classifier outputs clean labels (one word, no explanation) consistently</li><li>[ ] I've set up the router logic in my automation platform (Make, Zapier, etc.)</li><li>[ ] I've tested that inputs route to the correct paths</li><li>[ ] I've written three distinct response prompts (one for each path)</li><li>[ ] I've tested all three paths with realistic examples</li><li>[ ] Each response is appropriate in tone and action for its input type</li><li>[ ] I've set up logging to capture type, response, and timestamp</li><li>[ ] I can explain my workflow map clearly to a colleague</li><li>[ ] My submission includes all five parts (Canvas, Classifier, Workflow Map, Test Results, Edge Case Testing)</li></ul>
+      </div>
+    </section>
+    <section class="brief-section" id="section-3">
+      <div class="brief-label">SECTION 3</div>
+      <h2 class="brief-title">Key Takeaways</h2>
+      <div class="prose">
+        <h4>Key Takeaways</h4>
+<ol><li><strong>Before AI responds, it needs to know what it's responding to.</strong> Classification comes before response. Every time. This is logic and leadership principle.</li></ol>
+<ol><li><strong>The classifier is the foundation.</strong> If it can't label correctly, nothing else works. Bad classification breaks routing. Bad routing creates bad responses. Get classification right first.</li></ol>
+<ol><li><strong>The router doesn't think. It just directs.</strong> All the intelligence is in the classifier. The router is dumb logic (if A then B). Don't expect the router to be smart. Make the classifier smart.</li></ol>
+<ol><li><strong>Design on paper before you wire in a system.</strong> If you can't sketch your logic on one page, the system is too complex. Simplify before you build.</li></ol>
+<ol><li><strong>This pattern works across all four offices.</strong> Classify. Route. Respond. Whether you're in operations, delivery, revenue, or insights, this pattern applies. It's not mission-specific. It's a fundamental structure for intelligent systems.</li></ol>
+<ol><li><strong>Personalization at scale.</strong> You're now treating different inputs differently automatically. Different tones. Different actions. Different responses. Same efficiency. That's what scale looks like in the AI era. Not automation that's one-size-fits-all. Automation that adapts.</li></ol>
+<ol><li><strong>You're adding intelligence, not just speed.</strong> An automated system without classification is fast but dumb. Fast and dumb is the opposite of useful. Add the logic layer and you've got something that actually works.</li></ol>
+<ol><li><strong>Test edge cases, not just happy paths.</strong> Your system works when everything is clear and fits your categories. Real life is messy. Test what breaks. Test ambiguous inputs. Fix those before your team uses this.</li></ol>
+<h4>Your Commitment</h4>
+<p>Name one workflow you're going to add a logic layer to this week. Not someday. This week.</p>
+<p>It could be the Mission 3 workflow you're upgrading here. It could be something different. Whatever it is, the test is whether the logic actually makes a difference. Does your system give different inputs different treatment? If yes, you've succeeded.</p>
+<p>What's your one thing? Describe it briefly. The workflow. The input types. The key decision you're making.</p>
+<h4>Checkpoint: Quick Knowledge Check</h4>
+<p>Answer these five questions. Your AI Buddy will tell you if you're on track.</p>
+<p><strong>Question 1:</strong> What is the purpose of a classifier in a workflow?</p>
+<p>A) To generate responses to customer inputs
+B) To read input and assign a single label to indicate type or category
+C) To route data to the correct database
+D) To log all interactions</p>
+<p><strong>Correct Answer: B</strong> - A classifier's single job is to read an input and assign a clean label. The label tells the system what type of input it is so the router can direct it appropriately. The classifier is pure diagnosis.</p>
+<p><strong>Question 2:</strong> What makes a good classifier system prompt?</p>
+<p>A) It explains the reasoning behind the classification
+B) It outputs one word with no explanation, using a tight constraint
+C) It provides three possible classifications so the AI can choose the best one
+D) It includes examples of every possible input</p>
+<p><strong>Correct Answer: B</strong> - A good classifier outputs one clean word (PRAISE, COMPLAINT, SUGGESTION) with absolutely no explanation or reasoning. If it explains itself, the router can't parse it. Tightness is the requirement.</p>
+<p><strong>Question 3:</strong> What does the router do in a Classify, Route, Respond system?</p>
+<p>A) It uses AI to decide which path is best
+B) It applies logic (if-then) to direct input to different paths based on the classifier label
+C) It writes the response for each input
+D) It tests the classifier for accuracy</p>
+<p><strong>Correct Answer: B</strong> - The router is dumb logic. If the classifier says "PRAISE", route to Path A. If "COMPLAINT", route to Path B. No AI. No thinking. Just directing based on the label.</p>
+<p><strong>Question 4:</strong> What is the Tiny Decision Canvas and why does it matter?</p>
+<p>A) A template for writing system prompts for classifiers
+B) A one-page design tool where you define input types, their meanings, and corresponding actions before building
+C) A testing framework for validating classifier accuracy
+D) A log file that tracks all decisions made by the system</p>
+<p><strong>Correct Answer: B</strong> - The Tiny Decision Canvas is your blueprint. For each input type, you define what it means and what should happen. It forces clarity before complexity. If you can't sketch it on one page, the system is too complicated to build.</p>
+<p><strong>Question 5:</strong> Why does the Classify, Route, Respond pattern work across all four offices?</p>
+<p>A) It only applies to customer-facing workflows
+B) It depends on the tool you're using
+C) It's a fundamental structure for intelligent decision-making that applies anywhere you get different input types that need different treatment
+D) It requires specific AI models to work</p>
+<p><strong>Correct Answer: C</strong> - This pattern isn't specific to customer service. A revenue officer might classify sales leads. A delivery officer might classify project requests. An insight officer might classify data sources. Different domains. Same pattern. Same power.</p>
+<h4>Certificate of Completion</h4>
+<p>You've completed Mission 4. You've added intelligence to your automation.</p>
+<p>You came in with a workflow that treated every input the same way. You're leaving with a system that classifies input, routes appropriately, and responds with nuance.</p>
+<p>In Session 5, you'll take this logic layer and turn it into an agent. A system that doesn't just respond to requests. A system that sees what needs doing and does it. A system that runs without waiting for your trigger.</p>
+<p>That's when automation becomes truly powerful.</p>
+<h4>Course Experience Survey</h4>
+<p>Your feedback shapes the next sessions. Take two minutes. [Link to survey]</p>
+<h4>Words to Know</h4>
+<p><strong>Classifier</strong> - An AI step that reads input and outputs a single label or category. One job. One output. Clean and tight.</p>
+<p><strong>Router</strong> - Logic (if-then) that directs input to different paths based on the classifier label. Not AI. Just smart traffic control.</p>
+<p><strong>Logic Layer</strong> - The decision-making intelligence added to a workflow between input and response. What makes workflows smart instead of just fast.</p>
+<p><strong>Decision Tree</strong> - A branching structure where each branch represents a different input type and its corresponding actions. Like a flowchart.</p>
+<p><strong>Input Type</strong> - A distinct category of input that should be handled differently from other categories. Different tone. Different action. Different follow-up.</p>
+<p><strong>Classification</strong> - The process of assigning a label to input based on its characteristics. Diagnosis before response.</p>
+<p><strong>Tiny Decision Canvas</strong> - A one-page template for defining input types, what they mean, and what happens next. Design before build.</p>
+<p><strong>Branching Logic</strong> - Conditional pathways in a workflow where different inputs take different routes based on their classification.</p>
+<p><strong>Personalization at Scale</strong> - Treating different inputs differently (different tones, different actions, different responses) automatically while maintaining efficiency. That's maturity in automation.</p>
+<p><strong>Conditional Path</strong> - A route through a workflow that is triggered only when a specific condition (like a classifier label = PRAISE) is met. Different paths for different types.</p>
+<p><strong>Edge Case</strong> - An unusual input that doesn't fit your expected categories or that's ambiguous. The thing that breaks your system if you don't think about it.</p>
+<p>> <strong>Your AI Buddy is always here.</strong> If any term in this list is unclear, ask your AI Buddy: "Explain [term] in plain language with an example from [your role or industry]."</p>
+<h4>Prompt Library</h4>
+<h4>DEFINING YOUR INPUT TYPES</h4>
+<pre style="background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:16px;font-family:JetBrains Mono,monospace;font-size:13px;line-height:1.6;overflow-x:auto;white-space:pre-wrap;">I have a workflow that treats every input the same way. Help me identify different input types that should get different treatment.</pre>
+<p>My workflow is: [describe your trigger and what the workflow does].</p>
+<p>What are three to five distinct types of input my system might receive? For each type, what makes it different? What should the response be?</p>
+<p>Once we identify the types, help me define each one clearly.
+```</p>
+<h4>WRITING A TIGHT CLASSIFIER PROMPT</h4>
+<pre style="background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:16px;font-family:JetBrains Mono,monospace;font-size:13px;line-height:1.6;overflow-x:auto;white-space:pre-wrap;">I need to classify inputs into these categories: [list your categories].</pre>
+<p>Write a classifier system prompt that:
+- Tells the AI to output ONE word only
+- Lists the categories clearly
+- Says "No explanation"
+- Includes guidance on edge cases: [describe any ambiguous situations]</p>
+<p>Then give me 5 test inputs (at least one per category, one edge case) and tell me what the classifier should output for each.
+```</p>
+<h4>BUILDING YOUR TINY DECISION CANVAS</h4>
+<pre style="background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:16px;font-family:JetBrains Mono,monospace;font-size:13px;line-height:1.6;overflow-x:auto;white-space:pre-wrap;">Help me design my Tiny Decision Canvas. I have these input types: [list them].</pre>
+<p>For each type, help me write:
+1. A clear definition (what distinguishes this type from others?)
+2. The specific action I should take (not vague, concrete)</p>
+<p>Make this simple and clear. One page. By the end I should be able to show this to a colleague and they'd understand my logic immediately.
+```</p>
+<h4>SETTING UP YOUR ROUTER</h4>
+<pre style="background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:16px;font-family:JetBrains Mono,monospace;font-size:13px;line-height:1.6;overflow-x:auto;white-space:pre-wrap;">I&#x27;m building a router in [your platform: Make, Zapier, etc.].</pre>
+<p>I have three classifier outputs: [list them, e.g., PRAISE, COMPLAINT, SUGGESTION].</p>
+<p>I have three corresponding AI response steps: [list them].</p>
+<p>Walk me through the conditional logic I need to set up. If classifier output = X, route to step Y.</p>
+<p>Then help me test that each type actually routes to the right step.
+```</p>
+<h4>TESTING YOUR CLASSIFIER EDGE CASES</h4>
+<pre style="background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:16px;font-family:JetBrains Mono,monospace;font-size:13px;line-height:1.6;overflow-x:auto;white-space:pre-wrap;">I&#x27;ve built a classifier that outputs: [list your categories].</pre>
+<p>Here are ambiguous inputs my system might receive: [describe 2-3 edge cases].</p>
+<p>For each one, run it through my classifier. What does it output? Is that the right classification? If not, how should I adjust my classifier prompt or my category definitions?</p>
+<p>Help me identify gaps in my system before my team uses it.
+```</p>
+<h4>ACROSS THE FOUR OFFICES: CLASSIFY, ROUTE, RESPOND</h4>
+<pre style="background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:16px;font-family:JetBrains Mono,monospace;font-size:13px;line-height:1.6;overflow-x:auto;white-space:pre-wrap;">I&#x27;m a [revenue officer / insight officer / delivery officer / trust officer].</pre>
+<p>Help me identify one workflow in my role that could benefit from a Classify, Route, Respond logic layer. What are the input types? What are the different response paths? What would the classifier need to determine?</p>
+<p>Sketch out my logic layer using the Tiny Decision Canvas.
+```</p>
+<p>> <strong>More prompts added each session.</strong> [PROMPT LIBRARY - Full version in Lark, link provided by Kate]</p>
+<p>End of Mission 4: Teach Your Workflow to Decide</p>
+      </div>
+    </section>
+
+    <div class="tb-bottom-nav">
+      <a href="mission-4.html" class="tb-nav-btn">← Mission 4 Hub</a>
+      <a href="mission-4-prompts.html" class="tb-nav-btn primary">Prompt Library →</a>
+    </div>
+
+  </main>
+</div>
+</body>
+</html>

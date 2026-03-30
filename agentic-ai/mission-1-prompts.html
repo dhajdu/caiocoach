@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Prompt Library — Mission 1: AI Program Planning — AI Officer Institute</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../shared/styles.css">
+<style>
+  :root {
+    --royal: #287BE8;
+    --ease: cubic-bezier(0.4, 0, 0.2, 1);
+    --radius: 12px;
+    --shadow-sm: 0 1px 3px rgba(4,16,45,0.07);
+    --shadow-hover: 0 6px 24px rgba(4,16,45,0.10);
+    --text-tertiary: #8b91ac;
+    --border-hover: #b0b6cc;
+  }
+  body { background: var(--surface); }
+
+  .page-main { max-width: 760px; margin: 0 auto; padding: 80px 40px 100px; }
+  .pl-back { display: inline-flex; align-items: center; gap: 6px; font-size: 13px; font-weight: 600; color: var(--text-muted); text-decoration: none; margin-bottom: 32px; transition: color 0.12s; }
+  .pl-back:hover { color: var(--text-primary); }
+  .pl-hero { margin-bottom: 40px; }
+  .pl-track-pill { display: inline-flex; align-items: center; gap: 7px; font-size: 11px; font-weight: 700; letter-spacing: 0.7px; text-transform: uppercase; padding: 5px 12px; border-radius: 20px; background: rgba(26,158,116,0.1); color: #1a9e74; border: 1px solid rgba(26,158,116,0.2); margin-bottom: 14px; }
+  .pl-title { font-size: 30px; font-weight: 700; color: var(--text-primary); letter-spacing: -0.5px; line-height: 1.15; margin-bottom: 10px; }
+  .pl-sub { font-size: 15px; color: var(--text-secondary); line-height: 1.6; }
+  .pl-intro-note { background: rgba(26,158,116,0.05); border: 1px solid rgba(26,158,116,0.18); border-radius: var(--radius); padding: 16px 20px; margin-bottom: 40px; font-size: 14px; color: var(--text-secondary); line-height: 1.6; }
+  .pl-section { margin-bottom: 48px; }
+  .pl-section-label { font-size: 10px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: var(--text-muted); padding-bottom: 10px; border-bottom: 1px solid var(--border); margin-bottom: 20px; }
+  .prompt-card { background: white; border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden; margin-bottom: 16px; box-shadow: var(--shadow-sm); }
+  .prompt-card-header { display: flex; align-items: flex-start; justify-content: space-between; gap: 16px; padding: 16px 20px 12px; }
+  .prompt-card-meta { flex: 1; }
+  .prompt-tag { font-family: 'JetBrains Mono', monospace; font-size: 10px; font-weight: 700; letter-spacing: 0.5px; text-transform: uppercase; margin-bottom: 4px; color: #1a9e74; }
+  .prompt-name { font-size: 15px; font-weight: 700; color: var(--text-primary); margin-bottom: 3px; }
+  .prompt-desc { font-size: 13px; color: var(--text-secondary); line-height: 1.5; }
+  .copy-btn { background: var(--surface); border: 1px solid var(--border); border-radius: 7px; padding: 6px 12px; font-size: 12px; font-weight: 600; color: var(--text-muted); cursor: pointer; transition: all 0.12s; white-space: nowrap; flex-shrink: 0; font-family: 'DM Sans', sans-serif; }
+  .copy-btn:hover { border-color: #1a9e74; color: #1a9e74; background: rgba(26,158,116,0.05); }
+  .copy-btn.copied { border-color: #1a9e74; color: #1a9e74; background: rgba(26,158,116,0.08); }
+  .prompt-text-block { background: #f8f9fc; border-top: 1px solid var(--border); padding: 16px 20px; font-family: 'JetBrains Mono', monospace; font-size: 13px; color: var(--text-primary); line-height: 1.65; white-space: pre-wrap; word-break: break-word; }
+  .pl-bottom-nav { display: flex; align-items: center; justify-content: space-between; border-top: 1px solid var(--border); padding-top: 32px; margin-top: 16px; }
+  .pl-nav-btn { display: inline-flex; align-items: center; gap: 6px; font-size: 13px; font-weight: 600; color: var(--text-muted); text-decoration: none; padding: 8px 14px; border-radius: 8px; border: 1px solid var(--border); transition: all 0.12s; }
+  .pl-nav-btn:hover { border-color: var(--border-hover); color: var(--text-primary); }
+  .pl-nav-btn.primary { background: #1a9e74; color: white; border-color: #1a9e74; }
+  .pl-nav-btn.primary:hover { background: #178a65; }
+  @media (max-width: 760px) { .page-main { padding: 70px 20px 80px; } .topbar-nav { display: none; } }
+
+</style>
+</head>
+<body>
+<div class="topbar">
+  <a href="../index.html" class="topbar-brand">AIO <span>Labs</span></a>
+  <nav class="topbar-nav">
+    <a href="../index.html" class="tnav-link"><span class="tnav-dot" style="background:#8b91ac"></span> Home</a>
+    <a href="../certification.html" class="tnav-link active"><span class="tnav-dot" style="background:#287BE8"></span> Certification</a>
+    <a href="../coaching.html" class="tnav-link"><span class="tnav-dot" style="background:#287BE8"></span> Coaching</a>
+    <a href="../micro-sessions/index.html" class="tnav-link"><span class="tnav-dot" style="background:#1A9E74"></span> Micro-Sessions</a>
+    <a href="../blog/index.html" class="tnav-link"><span class="tnav-dot" style="background:#6FF2C1"></span> Blog</a>
+    <a href="../my-team.html" class="tnav-link"><span class="tnav-dot" style="background:#8b91ac"></span> My Team</a>
+  </nav>
+  <div class="topbar-right">
+    <a href="https://claude.ai" target="_blank" class="buddy-launch-btn">🤖 AI Buddy</a>
+    <div class="topbar-stat">🔥 7</div>
+    <div class="topbar-stat">⭐ 1,240</div>
+    <div class="topbar-divider"></div>
+    <div class="topbar-avatar">DH</div>
+  </div>
+</div>
+
+<main class="page-main">
+
+  <a href="mission-1.html" class="pl-back">← Back to Mission 1</a>
+
+  <div class="pl-hero">
+    <div class="pl-track-pill">💬 Prompt Library</div>
+    <h1 class="pl-title">Mission 1 — Challenge Prompts</h1>
+    <p class="pl-sub">Every prompt is copy-paste ready. Replace anything in <strong style="color:#1a9e74;">[brackets]</strong> with your specific information.</p>
+  </div>
+
+  <div class="pl-intro-note">
+    Use these prompts with your AI Buddy in AIO Labs, or copy them into Claude, ChatGPT, or Gemini. Add your own context to get better results.
+  </div>
+
+  <div class="pl-section">
+    <div class="pl-section-label">All Prompts — Mission 1</div>
+    <p style="color:var(--text-muted);font-size:14px;">Prompts for this mission are being prepared.</p>
+  </div>
+
+  <div class="pl-bottom-nav">
+    <a href="mission-1-textbook.html" class="pl-nav-btn">← Mission Briefs</a>
+    <a href="mission-1-words.html" class="pl-nav-btn primary">Words to Know →</a>
+  </div>
+
+</main>
+
+<script>
+function copyPrompt(btn) {
+  const pre = btn.closest('.prompt-card').querySelector('.prompt-text-block');
+  navigator.clipboard.writeText(pre.textContent.trim()).then(() => {
+    btn.textContent = '✓ Copied';
+    btn.classList.add('copied');
+    setTimeout(() => { btn.textContent = 'Copy'; btn.classList.remove('copied'); }, 1800);
+  });
+}
+</script>
+</body>
+</html>

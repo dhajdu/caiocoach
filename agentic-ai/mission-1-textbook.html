@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mission 1 Briefs — AI Program Planning — AI Officer Institute</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../shared/styles.css">
+<style>
+  :root {
+    --royal: #287BE8;
+    --ease: cubic-bezier(0.4, 0, 0.2, 1);
+    --radius: 12px;
+    --shadow-sm: 0 1px 3px rgba(4,16,45,0.07);
+    --shadow-hover: 0 6px 24px rgba(4,16,45,0.10);
+    --text-tertiary: #8b91ac;
+    --border-hover: #b0b6cc;
+  }
+  body { background: var(--surface); }
+
+  .page-wrap { display: grid; grid-template-columns: 240px 1fr; min-height: 100vh; padding-top: 56px; }
+  .tb-sidebar { position: sticky; top: 56px; height: calc(100vh - 56px); overflow-y: auto; background: white; border-right: 1px solid var(--border); padding: 28px 0; }
+  .tb-sidebar-inner { padding: 0 20px; }
+  .tb-sidebar-label { font-size: 10px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: var(--text-muted); margin-bottom: 12px; padding: 0 4px; }
+  .tb-nav-link { display: block; padding: 8px 12px; border-radius: 8px; font-size: 13px; font-weight: 500; color: var(--text-secondary); text-decoration: none; transition: all 0.12s; margin-bottom: 2px; line-height: 1.4; }
+  .tb-nav-link:hover { background: var(--surface); color: var(--text-primary); }
+  .tb-nav-link.active { background: rgba(26,158,116,0.08); color: #1a9e74; font-weight: 600; }
+  .tb-nav-num { font-family: 'JetBrains Mono', monospace; font-size: 10px; font-weight: 700; color: var(--text-muted); display: block; margin-bottom: 1px; }
+  .tb-nav-divider { height: 1px; background: var(--border); margin: 14px 0; }
+  .tb-buddy-btn { display: flex; align-items: center; gap: 8px; width: 100%; margin-top: 20px; padding: 10px 12px; border-radius: 8px; background: rgba(26,158,116,0.07); border: 1px solid rgba(26,158,116,0.2); color: #1a9e74; font-size: 13px; font-weight: 600; cursor: pointer; text-decoration: none; transition: all 0.15s; }
+  .tb-buddy-btn:hover { background: rgba(26,158,116,0.12); }
+  .tb-main { padding: 48px 60px 100px; max-width: 780px; }
+  .tb-back { display: inline-flex; align-items: center; gap: 6px; font-size: 13px; font-weight: 600; color: var(--text-muted); text-decoration: none; margin-bottom: 32px; transition: color 0.12s; }
+  .tb-back:hover { color: var(--text-primary); }
+  .tb-hero { margin-bottom: 48px; }
+  .tb-track-pill { display: inline-flex; align-items: center; gap: 7px; font-size: 11px; font-weight: 700; letter-spacing: 0.7px; text-transform: uppercase; padding: 5px 12px; border-radius: 20px; background: rgba(26,158,116,0.1); color: #1a9e74; border: 1px solid rgba(26,158,116,0.2); margin-bottom: 14px; }
+  .tb-title { font-size: 32px; font-weight: 700; color: var(--text-primary); letter-spacing: -0.5px; line-height: 1.15; margin-bottom: 10px; }
+  .tb-sub { font-size: 15px; color: var(--text-secondary); line-height: 1.65; max-width: 560px; }
+  .brief-section { margin-bottom: 64px; scroll-margin-top: 80px; }
+  .brief-label { font-family: 'JetBrains Mono', monospace; font-size: 10px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: #1a9e74; margin-bottom: 6px; }
+  .brief-title { font-size: 24px; font-weight: 700; color: var(--text-primary); letter-spacing: -0.3px; line-height: 1.2; margin-bottom: 20px; padding-bottom: 16px; border-bottom: 2px solid var(--border); }
+  .prose { color: var(--text-secondary); line-height: 1.75; font-size: 15px; }
+  .prose p { margin-bottom: 18px; }
+  .prose h3 { font-size: 17px; font-weight: 700; color: var(--text-primary); letter-spacing: -0.2px; margin: 32px 0 10px; }
+  .prose h4 { font-size: 14px; font-weight: 700; color: var(--text-primary); text-transform: uppercase; letter-spacing: 0.5px; margin: 24px 0 8px; }
+  .prose ul, .prose ol { padding-left: 20px; margin-bottom: 18px; display: flex; flex-direction: column; gap: 6px; }
+  .prose li { font-size: 14.5px; line-height: 1.65; }
+  .prose strong { font-weight: 700; color: var(--text-primary); }
+  .prose code { font-family: 'JetBrains Mono', monospace; font-size: 13px; background: var(--surface); padding: 2px 6px; border-radius: 4px; border: 1px solid var(--border); }
+  .key-insight { background: rgba(26,158,116,0.05); border: 1px solid rgba(26,158,116,0.15); border-left: 3px solid #1a9e74; border-radius: 0 var(--radius) var(--radius) 0; padding: 18px 22px; margin: 28px 0; }
+  .key-insight-label { font-size: 10px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: #1a9e74; margin-bottom: 8px; }
+  .key-insight p { font-size: 14px; color: var(--text-primary); line-height: 1.65; margin: 0; }
+  .starter-prompt { background: rgba(40,123,232,0.04); border: 1px solid rgba(40,123,232,0.18); border-radius: var(--radius); padding: 20px 22px; margin: 24px 0; }
+  .starter-prompt-label { display: flex; align-items: center; gap: 8px; font-size: 11px; font-weight: 700; letter-spacing: 0.7px; text-transform: uppercase; color: #287BE8; margin-bottom: 12px; }
+  .starter-prompt-text { font-size: 14px; color: var(--text-primary); line-height: 1.7; font-style: italic; background: white; padding: 14px 16px; border-radius: 8px; border: 1px solid rgba(40,123,232,0.15); }
+  .worked-example { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 20px 22px; margin: 24px 0; }
+  .worked-example-label { font-size: 10px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: var(--text-muted); margin-bottom: 12px; }
+  .tb-bottom-nav { display: flex; align-items: center; justify-content: space-between; border-top: 1px solid var(--border); padding-top: 32px; margin-top: 16px; }
+  .tb-nav-btn { display: inline-flex; align-items: center; gap: 6px; font-size: 13px; font-weight: 600; color: var(--text-muted); text-decoration: none; padding: 8px 14px; border-radius: 8px; border: 1px solid var(--border); transition: all 0.12s; }
+  .tb-nav-btn:hover { border-color: var(--border-hover); color: var(--text-primary); }
+  .tb-nav-btn.primary { background: #1a9e74; color: white; border-color: #1a9e74; }
+  .tb-nav-btn.primary:hover { background: #178a65; }
+  @media (max-width: 900px) { .page-wrap { grid-template-columns: 1fr; } .tb-sidebar { display: none; } .tb-main { padding: 40px 24px 80px; } .topbar-nav { display: none; } }
+
+</style>
+</head>
+<body>
+<div class="topbar">
+  <a href="../index.html" class="topbar-brand">AIO <span>Labs</span></a>
+  <nav class="topbar-nav">
+    <a href="../index.html" class="tnav-link"><span class="tnav-dot" style="background:#8b91ac"></span> Home</a>
+    <a href="../certification.html" class="tnav-link active"><span class="tnav-dot" style="background:#287BE8"></span> Certification</a>
+    <a href="../coaching.html" class="tnav-link"><span class="tnav-dot" style="background:#287BE8"></span> Coaching</a>
+    <a href="../micro-sessions/index.html" class="tnav-link"><span class="tnav-dot" style="background:#1A9E74"></span> Micro-Sessions</a>
+    <a href="../blog/index.html" class="tnav-link"><span class="tnav-dot" style="background:#6FF2C1"></span> Blog</a>
+    <a href="../my-team.html" class="tnav-link"><span class="tnav-dot" style="background:#8b91ac"></span> My Team</a>
+  </nav>
+  <div class="topbar-right">
+    <a href="https://claude.ai" target="_blank" class="buddy-launch-btn">🤖 AI Buddy</a>
+    <div class="topbar-stat">🔥 7</div>
+    <div class="topbar-stat">⭐ 1,240</div>
+    <div class="topbar-divider"></div>
+    <div class="topbar-avatar">DH</div>
+  </div>
+</div>
+
+<div class="page-wrap">
+
+  <aside class="tb-sidebar">
+    <div class="tb-sidebar-inner">
+      <div class="tb-sidebar-label">Mission 1 Briefs</div>
+      
+      <a href="#lesson-1" class="tb-nav-link">
+        <span class="tb-nav-num">LESSON 1</span>Welcome to Agentic AI for Business
+      </a>
+      <a href="#lesson-2" class="tb-nav-link">
+        <span class="tb-nav-num">LESSON 2</span>Your Mission Briefs
+      </a>
+      <a href="#lesson-3" class="tb-nav-link">
+        <span class="tb-nav-num">LESSON 3</span>How to Get the Most Out of This Session
+      </a>
+      <a href="#brief-1" class="tb-nav-link">
+        <span class="tb-nav-num">BRIEF 1</span>The Diagnostic Lens for Your Business
+      </a>
+      <a href="#brief-2" class="tb-nav-link">
+        <span class="tb-nav-num">BRIEF 2</span>Not All Opportunities Are the Same
+      </a>
+      <a href="#brief-3" class="tb-nav-link">
+        <span class="tb-nav-num">BRIEF 3</span>Your Blueprint for This Series
+      </a>
+      <a href="#brief-4" class="tb-nav-link">
+        <span class="tb-nav-num">BRIEF 4</span>Why SMART Goals Don&#x27;t Work for AI
+      </a>
+      <a href="#brief-5" class="tb-nav-link">
+        <span class="tb-nav-num">BRIEF 5</span>The Final Build
+      </a>
+      <div class="tb-nav-divider"></div>
+      <a href="https://claude.ai" target="_blank" class="tb-buddy-btn">🤖 Open AI Buddy</a>
+    </div>
+  </aside>
+
+  <main class="tb-main">
+
+    <a href="mission-1.html" class="tb-back">← Back to Mission 1</a>
+
+    <div class="tb-hero">
+      <div class="tb-track-pill">Agentic AI for Business · Mission 01</div>
+      <h1 class="tb-title">AI Program Planning</h1>
+      <p class="tb-sub">Scan your business for AI opportunities. Define the problem. Set a measurable goal. Build your six-session roadmap.</p>
+    </div>
+
+    
+    <section class="brief-section" id="lesson-1">
+      <div class="brief-label">Lesson 1</div>
+      <h2 class="brief-title">Welcome to Agentic AI for Business</h2>
+      <div class="prose">
+        <h4>Welcome to Agentic AI for Business</h4>
+<p>Watch the intro video to get oriented before you start.</p>
+<p>Welcome to Agentic AI for Business.</p>
+<p>If you're coming from the Generative AI Essentials series, you already know how to create with AI. You can prompt, produce, and output at a level most people around you haven't reached yet. That is a real skill. And it's not enough.</p>
+<p>The gap in most organizations right now isn't people who can use AI. It's leaders who can build AI programs. Structured initiatives where AI is applied to a real business problem, with a clear owner, measurable outcomes, and a plan that someone else can run without you in the room.</p>
+<p>That's what this series teaches you. Not how to use AI better. How to lead AI programs that deliver results.</p>
+<p><strong>This is Session 1. Your job today: build your AI roadmap.</strong></p>
+<p>You'll scan your business for AI opportunities across four offices. You'll pick one to develop over the next five sessions. You'll define the problem, set a real goal, and configure an AI advisor that will stay with you through the entire series.</p>
+<p>By the end of this session, you won't just have a list of ideas. You'll have the foundation of a real AI program.</p>
+<h4>Mission Goals</h4>
+<p>By the end of this mission you will be able to:</p>
+<ul><li>Apply the Four Offices framework to identify AI opportunities in your own business</li><li>Categorize each opportunity by type: Packaged AI, Automated Workflow, or Agentic Workflow</li><li>Write a problem statement that is specific enough to be credible to leadership</li><li>Set a FAST goal with a measurable ROI number</li><li>Configure a Claude Project as your AI advisor for the rest of the series</li></ul>
+      </div>
+    </section>
+    <section class="brief-section" id="lesson-2">
+      <div class="brief-label">Lesson 2</div>
+      <h2 class="brief-title">Your Mission Briefs</h2>
+      <div class="prose">
+        <h4>Your Mission Briefs</h4>
+<p>Here is what you are building in this session. Every brief connects to the next. Don't skip any of them.</p>
+<p><strong>Brief 1: The Four Offices of the Future</strong>
+The diagnostic framework for scanning your business. Every AI opportunity lives in one of four offices. This is how you find them.
+<em>Estimated time: 20 minutes</em></p>
+<p><strong>Brief 2: Three Types of AI</strong>
+Not all opportunities are the same. Knowing whether you're building a prompt, a workflow, or an agent changes everything about how you approach it.
+<em>Estimated time: 15 minutes</em></p>
+<p><strong>Brief 3: The 5D Framework</strong>
+Your blueprint for the series. Five steps. Every AI program you build here follows this pattern. Today you work through the first two.
+<em>Estimated time: 15 minutes</em></p>
+<p><strong>Brief 4: FAST Goals and ROI</strong>
+If you can't put a number on it, you can't prove it worked. FAST goals are built for the speed AI moves at.
+<em>Estimated time: 15 minutes</em></p>
+<p><strong>Brief 5: Build Your Roadmap and Your AI Advisor</strong>
+This is the final build. You assemble everything into a complete AI roadmap, pick your item, and configure the AI advisor you'll use for all six sessions.
+<em>Estimated time: 30 minutes</em></p>
+      </div>
+    </section>
+    <section class="brief-section" id="lesson-3">
+      <div class="brief-label">Lesson 3</div>
+      <h2 class="brief-title">How to Get the Most Out of This Session</h2>
+      <div class="prose">
+        <h4>How to Get the Most Out of This Session</h4>
+<p>This session is different from the Generative AI Essentials series. You're not learning skills you'll apply later. You're building the actual foundation of a real program - your program, for your business.</p>
+<p><strong>Work from your real business.</strong> Every prompt in this session asks about your actual organization and your actual role. The more specific your answers, the more useful your roadmap. Don't use a hypothetical. Use the real thing.</p>
+<p><strong>Save everything.</strong> Your roadmap, your problem statement, your FAST goal - these are the inputs for every session in this series. If you lose them, you lose your starting point.</p>
+<p><strong>Let AI push you.</strong> The prompts in this session are designed to ask you questions, not just give you answers. When AI pushes you to be more specific, that's the session working. Lean into it.</p>
+<p><strong>Pick one thing and commit.</strong> You're going to identify multiple AI opportunities today. You only develop one of them over the next five sessions. The hardest part is often the decision. Make it and move forward.</p>
+<p><strong>The grading criteria are structural, not content-based.</strong> Your AI Buddy doesn't need to know your business to grade your final project. It checks whether your roadmap has the right components, whether your problem statement is specific enough, and whether your FAST goal has a real number in it. Focus on being specific.</p>
+<h4>Rules of the Road</h4>
+<ul><li>Use one continuous AI chat across Briefs 1 through 4. Every prompt builds on the last.</li><li>For Brief 5, you'll open a new Claude Project. That's your AI advisor for the series.</li><li>If AI gives you a generic answer, your input was too vague. Add more context and try again.</li><li>Your AI Buddy is always here to help. If you're stuck on any brief, ask: "Help me think through [the specific thing you're stuck on]."</li></ul>
+<h2>SECTION 2: MISSION BRIEFS</h2>
+      </div>
+    </section>
+    <section class="brief-section" id="brief-1">
+      <div class="brief-label">Brief 1</div>
+      <h2 class="brief-title">The Diagnostic Lens for Your Business</h2>
+      <div class="prose">
+        <h4>The Diagnostic Lens for Your Business</h4>
+<p>Most organizations are trying to figure out where AI fits by looking at their existing departments and asking "where can we bolt this on?" That approach produces pilots that don't connect to outcomes.</p>
+<p>The Four Offices is a different starting point. It organizes every business outcome into four categories - not by department, but by result. When you look at your business through this lens, the AI opportunities become visible in a way they weren't before. So do the gaps.</p>
+<p><strong>Revenue</strong> - Everything that touches your customer and drives growth. Sales, marketing, retention, expansion. The metric: customers won and customers kept.</p>
+<p><strong>Talent</strong> - The full lifecycle of your people. Hiring, onboarding, development, performance, culture. The metric: engagement and output.</p>
+<p><strong>Operations</strong> - Everything that keeps the business running. Processes, systems, quality, compliance, reporting. The metric: cost of non-revenue generating work.</p>
+<p><strong>Innovation</strong> - Everything about building what's next. New products, new markets, new experiments. The metric: what becomes possible that wasn't before.</p>
+<p>Every AI opportunity in your business lives in one of these four offices. Not two. Not somewhere in between. One.</p>
+<h4>A Note on the 50/50 Era</h4>
+<p>Leadership used to be 100% about people. Hiring, developing, holding accountable, building culture. Most leaders have spent their entire careers getting good at that.</p>
+<p>The job changed. Half of every workflow is becoming AI. The leaders who figure out how to design, plan, and lead that mixed team - human capacity and AI capacity working together - are the ones who will build organizations that outperform. That's what this series is about. The Four Offices is how you see where the work splits.</p>
+<h4>Worked Example</h4>
+<p><strong>Jordan is an HR Manager at a 150-person professional services firm.</strong></p>
+<p>Using the Four Offices lens, here is what Jordan's roadmap scan revealed:</p>
+<p><strong>Revenue Office</strong>
+- Proposal writing is slow. Sales team spends 6 hours per proposal and loses 30% of deals on response time.</p>
+<p><strong>Talent Office</strong>
+- Resume screening takes 3 hours per role. Hiring managers flag it as the most frustrating part of their week.
+- Onboarding materials are outdated and inconsistent. New hires regularly say they didn't feel prepared after their first 30 days.
+- Exit interview data sits in spreadsheets that nobody reads. Patterns in why people leave are invisible.</p>
+<p><strong>Operations Office</strong>
+- Monthly HR reporting takes Jordan 4 hours each month pulling data from 3 different systems.
+- Employee handbook is 3 years out of date. Keeping it current is nobody's job.</p>
+<p><strong>Innovation Office</strong>
+- Jordan has wanted to build a career development resource for 18 months but hasn't had time.</p>
+<p>Jordan identified 7 opportunities across four offices. The diagnostic took 20 minutes.</p>
+<h4>Your Turn: Scan Your Business</h4>
+<p>Open your AI tool. Paste the prompt below. Use one continuous chat for this and the next three briefs.</p>
+<p>> <strong>Want to learn more first? Ask your AI Buddy:</strong> "Explain the Four Offices framework and give me examples relevant to my role in [your industry]."</p>
+<pre style="background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:16px;font-family:JetBrains Mono,monospace;font-size:13px;line-height:1.6;overflow-x:auto;white-space:pre-wrap;">You are my AI strategic advisor. I am going to describe my organization
+and my role. Ask me questions one at a time in a conversational tone.
+Wait for my answer before asking the next question.</pre>
+<p>Start by learning: what my organization does, roughly how many people
+are in it, and what my specific role is.</p>
+<p>Then help me identify at least 5 processes across my business where AI
+could create real value - either saving significant time, reducing cost,
+improving quality, or enabling something new. For each process, tell me
+which Office it belongs to: Revenue, Talent, Operations, or Innovation.</p>
+<p>Rank them by potential impact. At the end, give me a clean summary I
+can save. Use this format:</p>
+<p>MY AI ROADMAP - [DATE]
+Business: [what I do, size, my role]</p>
+<p>Opportunity 1 ([Office]): [process] - Why it matters: [one line]
+Opportunity 2 ([Office]): [process] - Why it matters: [one line]
+...continue for all opportunities...</p>
+<p>Highest-impact opportunity: [your recommendation and why]
+```</p>
+<p>Save the summary. You'll use it in Brief 5.</p>
+<h4>Key Insight</h4>
+<p>The Four Offices doesn't tell you where to start. It tells you where the value is. Once you can see all the opportunities at once, the priority becomes obvious. Most teams don't start with the highest-value opportunity because they've never seen all of them in the same place. This exercise changes that.</p>
+<p><strong>The AI Officer's job is not to find one AI use case. It's to see the whole board.</strong></p>
+      </div>
+    </section>
+    <section class="brief-section" id="brief-2">
+      <div class="brief-label">Brief 2</div>
+      <h2 class="brief-title">Not All Opportunities Are the Same</h2>
+      <div class="prose">
+        <h4>Not All Opportunities Are the Same</h4>
+<p>Look at your roadmap from Brief 1. The opportunities on that list don't all feel the same. Some seem simple. Some seem complex. Some feel ambitious. That intuition is right - and there's a framework for it.</p>
+<p>Every AI program you build fits into one of three categories. Knowing which category you're in before you start determines how you build it, how long it takes, and what kind of support you need.</p>
+<h4>Packaged AI</h4>
+<p>A Packaged AI solution is a well-designed prompt - or set of prompts - that gets consistent, high-quality results every time, and that anyone on your team can run without asking you how.</p>
+<p>The key word is <em>consistent</em>. A prompt that works for you because you know how to nudge it is not packaged. A prompt that works for your colleague the first time they try it - that's packaged.</p>
+<p>Most AI opportunities start here. It's the lowest barrier to entry, requires no engineering, and often delivers significant ROI quickly. It's also the foundation for everything more complex. You can't automate what you haven't first learned to prompt well.</p>
+<p><strong>Signs you're building Packaged AI:</strong> One person runs it. The output is a document, analysis, or communication. No external systems involved.</p>
+<h4>Automated Workflow</h4>
+<p>An Automated Workflow is what happens when a packaged prompt gets wired into a process. A trigger fires it automatically. A form submission. A file upload. A scheduled time. The workflow runs - AI reads the inputs, processes them, and delivers the output - without anyone pressing go.</p>
+<p>The key design question in an automated workflow is: where does a human stay in the loop? Where does AI decide alone, and where does it flag something for review? That split is the core of workflow design.</p>
+<p><strong>Signs you're building an Automated Workflow:</strong> Multiple steps. A trigger that starts the process. An output that goes somewhere (an email, a file, a dashboard). Can be built with no-code tools like Make, Zapier, or n8n.</p>
+<h4>Agentic Workflow</h4>
+<p>An Agentic Workflow is the most advanced type. AI doesn't just follow a script - it makes decisions based on the situation, takes actions, and knows when it has reached the edge of its authority. It escalates. It loops back. It handles edge cases. It runs without supervision.</p>
+<p>Building this requires a documented workflow, clear decision logic, defined escalation paths, and a prototype that's been tested enough to trust at scale. This is Sessions 4 and 5 territory.</p>
+<p><strong>Signs you're building an Agentic Workflow:</strong> AI needs to make judgment calls. The process has conditional paths. The output is an action taken in another system, not just a document.</p>
+<h4>Worked Example</h4>
+<p><strong>Back to Jordan's roadmap:</strong></p>
+<p>Jordan's roadmap has 7 opportunities. Zero are Agentic at this stage - and that's right. You earn your way to agents by mastering the simpler types first.</p>
+<h4>Your Turn: Label Your Roadmap</h4>
+<p>Go back to your roadmap summary from Brief 1. For each opportunity, add a label: <strong>Packaged AI, Automated Workflow, or Agentic Workflow.</strong></p>
+<p>> <strong>Want to learn more first? Ask your AI Buddy:</strong> "Explain the difference between Packaged AI, Automated Workflow, and Agentic Workflow with examples from [your industry]."</p>
+<pre style="background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:16px;font-family:JetBrains Mono,monospace;font-size:13px;line-height:1.6;overflow-x:auto;white-space:pre-wrap;">Here is my AI roadmap: [paste your roadmap summary from Brief 1]</pre>
+<p>For each opportunity, add a label: Packaged AI, Automated Workflow,
+or Agentic Workflow. Use the following definitions:</p>
+<p>Packaged AI: A well-designed prompt that gets consistent results.
+One person runs it. No external system connections required.</p>
+<p>Automated Workflow: Multiple steps connected together. A trigger
+starts the process. Output goes somewhere automatically. Requires
+a tool like Make, Zapier, or n8n.</p>
+<p>Agentic Workflow: AI makes decisions, takes actions, and escalates
+when it reaches the edge of its authority. Requires clear decision
+logic and significant testing.</p>
+<p>After labeling all opportunities, tell me: which one should I
+develop first for maximum impact? Explain your recommendation.
+```</p>
+<h4>Key Insight</h4>
+<p>Most teams start with the most impressive-sounding opportunity. They jump to agentic workflows before they've built a single packaged prompt. That's why they fail. The organizations getting real ROI from AI right now are not the ones with the most sophisticated technology. They're the ones who built something simple, proved it worked, and scaled from there.</p>
+<p><strong>Build the simple thing well. Everything else follows from that.</strong></p>
+      </div>
+    </section>
+    <section class="brief-section" id="brief-3">
+      <div class="brief-label">Brief 3</div>
+      <h2 class="brief-title">Your Blueprint for This Series</h2>
+      <div class="prose">
+        <h4>Your Blueprint for This Series</h4>
+<p>Every AI program in this series follows the same five-step pattern. Not because it's a rule - because it's how programs actually get built and delivered. Skip a step and you'll feel it three sessions later.</p>
+<p><strong>Define</strong> - Who feels the problem? What does it specifically cost? What does success look like?</p>
+<p><strong>Discover</strong> - What data does AI need to do this well? Where does that data live? Is it clean enough to use?</p>
+<p><strong>Design</strong> - What does the workflow look like end to end? Where does AI fit? Where does a human stay in the loop?</p>
+<p><strong>Determine</strong> - What does success look like as a measurable outcome? How will you track it before you build, not after?</p>
+<p><strong>Deploy</strong> - How do you train the people who will run this? What are the guardrails? How do you maintain and improve it over time?</p>
+<p>Today you work through <strong>Define</strong> and <strong>Discover</strong>. The next four sessions take you through <strong>Design, Determine, and Deploy.</strong></p>
+<h4>The Most Important Step</h4>
+<p>Define is where most AI programs fail - not because people do it badly, but because they skip it.</p>
+<p>They have an idea. They open a tool. They start building. Three months later, they can't explain what the program was supposed to do or prove that it helped.</p>
+<p>Define forces you to answer four things before you touch a tool:</p>
+<p><strong>Who specifically feels this problem?</strong> Not "the team." Which role? Which person? How often?</p>
+<p><strong>What does it cost?</strong> In hours per week, in dollars, in missed opportunities. A rough number beats no number.</p>
+<p><strong>Why now?</strong> What has changed that makes solving this possible or urgent?</p>
+<p><strong>What does success look like?</strong> If this works, what is measurably different?</p>
+<p>A problem statement that answers all four is the foundation everything else gets built on.</p>
+<h4>Worked Example</h4>
+<p>Jordan picked "resume screening" as the item to develop.</p>
+<p>Here is Jordan's four-line problem statement after the Define exercise:</p>
+<p><em>"Hiring managers at [Firm] spend an average of 3 hours per open role screening resumes before interviewing. At 30 open roles per year and an average hiring manager hourly cost of $80, that's $7,200 per year in manual screening time - not counting the decisions that get delayed because the manager is overloaded. AI-assisted screening could reduce this to 30 minutes per role, saving 75% of the time and $5,400 annually. With recent improvements in AI document processing and the volume of applications increasing 40% since last year, this is the right time to build this."</em></p>
+<p>Four clear lines. One number. A credible why now.</p>
+<h4>Your Turn: Write the Problem Statement</h4>
+<p>Use the same AI chat from Brief 1. Paste the prompt below and work through it for your selected opportunity.</p>
+<p>> <strong>Want to learn more first? Ask your AI Buddy:</strong> "Explain the 5D Framework and show me an example problem statement using the Define phase for a process in [your industry]."</p>
+<pre style="background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:16px;font-family:JetBrains Mono,monospace;font-size:13px;line-height:1.6;overflow-x:auto;white-space:pre-wrap;">We are now in the Define phase of the 5D Framework.</pre>
+<p>My selected opportunity is: [paste your opportunity here]</p>
+<p>Help me write a clear problem statement. Ask me questions one at
+a time to draw out the following:</p>
+<ol><li>Who specifically feels this problem - which role, how often?</li><li>What does this problem cost - in time, money, or missed value?</li><li>Why is now the right time to solve this?</li><li>What does success look like - if this works, what is measurably</li></ol>
+<p>After I answer, write my problem statement in four lines. Make it
+specific enough that someone who doesn't know my business could
+understand exactly what we are solving and why it matters.
+```</p>
+<h4>Key Insight</h4>
+<p>The problem statement is not a formality. It is the thing that gets leadership to say yes. Anyone can say "we should use AI for X." The person who walks in with a four-line problem statement - who, cost, why now, what success looks like - is the person who gets budget.</p>
+<p><strong>Problem first. AI second. ROI always.</strong></p>
+      </div>
+    </section>
+    <section class="brief-section" id="brief-4">
+      <div class="brief-label">Brief 4</div>
+      <h2 class="brief-title">Why SMART Goals Don&#x27;t Work for AI</h2>
+      <div class="prose">
+        <h4>Why SMART Goals Don't Work for AI</h4>
+<p>You have probably used SMART goals before. Specific, Measurable, Achievable, Relevant, Time-bound. They were built for work that doesn't change much between when you set the goal and when you review it.</p>
+<p>AI tools improve weekly. What seemed ambitious in January is trivially easy by March because the capability doubled. SMART goals have a cycle-length problem you can't fix by writing better goals.</p>
+<p>MIT Sloan Management Review research found that FAST goals deliver significantly more value than SMART goals - and the reason is the cadence and the ambition, not just the criteria.</p>
+<p><strong>F - Frequently discussed.</strong> Reviewed weekly, not annually. AI moves fast. Your goals need to keep up.</p>
+<p><strong>A - Ambitious.</strong> Beyond what feels comfortable. Conservative goals in AI produce conservative results.</p>
+<p><strong>S - Specific.</strong> A real number you can track. Not "improve" or "reduce" - a measurable target.</p>
+<p><strong>T - Transparent.</strong> Visible to your whole team. When everyone sees the goal, everyone owns it.</p>
+<h4>Four Ways AI Creates ROI</h4>
+<p>When setting goals for an AI program, the value almost always falls into four buckets.</p>
+<p><strong>Time saved</strong> - Things that used to take hours now take minutes. Multiply hours saved by hourly cost and you have a number.</p>
+<p><strong>Cost reduced</strong> - Fewer vendors. Less rework. Fewer errors to fix. Direct spend that goes away.</p>
+<p><strong>Quality improved</strong> - Output is more consistent, more accurate, or more professional. Harder to quantify but often the most valuable over time.</p>
+<p><strong>Speed increased</strong> - You respond faster, deliver faster, close faster. Time-to-outcome is often the metric leadership cares about most.</p>
+<p>Most AI programs will hit at least two of these. Your job is to figure out which ones apply and attach real numbers.</p>
+<h4>The Difference Between Weak and Strong</h4>
+<h4>Worked Example</h4>
+<p><strong>Jordan's FAST goal for resume screening:</strong></p>
+<p><em>"Reduce hiring manager time per role from 3 hours to 45 minutes by the end of Session 3. Review weekly against active roles in progress. ROI target: $5,400 in recovered hiring manager time annually."</em></p>
+<p>Frequently discussed: yes, weekly against active roles.
+Ambitious: 75% reduction - not 10%.
+Specific: 3 hours to 45 minutes, $5,400.
+Transparent: shared with the HR team and the VP of People.</p>
+<h4>Your Turn: Write One FAST Goal</h4>
+<p>> <strong>Want to learn more first? Ask your AI Buddy:</strong> "Show me how to write a FAST goal for an AI program in [your industry], using the four components: Frequently discussed, Ambitious, Specific, and Transparent."</p>
+<pre style="background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:16px;font-family:JetBrains Mono,monospace;font-size:13px;line-height:1.6;overflow-x:auto;white-space:pre-wrap;">Help me write one FAST goal for my AI program.</pre>
+<p>Here is my problem statement: [paste your four-line problem statement]</p>
+<p>A FAST goal is:
+- Frequently discussed (reviewed weekly, not annually)
+- Ambitious (not just 10% better - push past what feels comfortable)
+- Specific (a real number I can track)
+- Transparent (something I could share with my whole team)</p>
+<p>First, ask me: what is the baseline today? How long does this take,
+or what does it cost? Then help me set an ambitious but credible
+target. Ask me follow-up questions if my number is too conservative.</p>
+<p>Write the final goal in two sentences. Include a measurable outcome,
+a timeline, and the ROI value.
+```</p>
+<h4>Key Insight</h4>
+<p>You cannot prove an AI program worked if you didn't define what "worked" means before you started. This is where most programs die - not in the build, but in the inability to prove the value after.</p>
+<p><strong>The goal you write today is the thing you'll point to in Session 6 when you say: here's what we promised, here's what we delivered.</strong></p>
+      </div>
+    </section>
+    <section class="brief-section" id="brief-5">
+      <div class="brief-label">Brief 5</div>
+      <h2 class="brief-title">The Final Build</h2>
+      <div class="prose">
+        <h4>The Final Build</h4>
+<p>You have everything you need. Now you put it together.</p>
+<p>In this brief, you'll complete your AI roadmap, configure your AI advisor for the series, and submit your final project to your AI Buddy for feedback and certification credit.</p>
+<h4>Practice Challenges</h4>
+<p>Work through these in order. Each one takes 5-10 minutes.</p>
+<p><strong>Challenge 1: Complete Your Roadmap</strong> <em>(10 minutes)</em>
+Your roadmap from Brief 1 has opportunities. Now add two columns to each item: the type (Packaged AI, Automated Workflow, or Agentic) and a difficulty rating (Easy, Medium, or Hard) based on how much data organization and documentation work is needed before AI can help. Use AI to help you rate them.</p>
+<p><strong>Challenge 2: Confirm Your Selection</strong> <em>(5 minutes)</em>
+Based on your complete roadmap, confirm the item you're developing over the next five sessions. Write a one-sentence commitment: "I am building [item] because [reason], and I expect it to deliver [FAST goal outcome] by [timeline]."</p>
+<p><strong>Challenge 3: Refine Your Problem Statement</strong> <em>(10 minutes)</em>
+Take your four-line problem statement from Brief 3. Use AI to pressure-test it. Ask: "What is missing from this problem statement? What would a skeptical CFO push back on?" Revise until it's tight.</p>
+<p><strong>Challenge 4: Stress-Test Your FAST Goal</strong> <em>(5 minutes)</em>
+Take your FAST goal from Brief 4. Paste it into AI and ask: "Is this goal ambitious enough? If an AI program cut this process by 80% instead of [your target], what would that be worth?" Revise if needed.</p>
+<h4>Ready to go deeper? Head to AIO Labs.</h4>
+<p>Complete your challenges and submit your work to your AI Buddy for feedback. Your AI Buddy will review your roadmap structure, problem statement, and FAST goal - and tell you exactly what to sharpen before Session 2.</p>
+<p>[LAUNCH IN AIO LABS - lab.ai-officer.com]</p>
+<h4>Final Project</h4>
+<p><div class="final-project-badge">Certification Project</div></p>
+<p><strong>Your AI Roadmap: Session 1</strong></p>
+<p>This is your Session 1 certification deliverable. Submit all four parts to your AI Buddy for grading and feedback.</p>
+<p><strong>Part 1: Your AI Roadmap</strong></p>
+<p>A complete roadmap with at least 5 AI opportunities. For each opportunity: the Office it belongs to (Revenue, Talent, Operations, or Innovation), the type (Packaged AI, Automated Workflow, or Agentic Workflow), and a difficulty rating (Easy, Medium, or Hard).</p>
+<p><strong>Part 2: Your Problem Statement</strong></p>
+<p>Four lines for your selected item. Who feels the problem. What it costs. Why now. What success looks like. At least one specific number.</p>
+<p><strong>Part 3: Your FAST Goal</strong></p>
+<p>One goal. Two sentences. A measurable outcome and a timeline. The ROI value in dollars or hours saved.</p>
+<p><strong>Part 4: Your AI Advisor Setup</strong></p>
+<p>Paste the Project Instructions from your Claude Project. This confirms you've configured your AI advisor with your business context, selected opportunity, problem statement, and FAST goal.</p>
+<p><strong>Before You Submit</strong></p>
+<ul><li>Roadmap has at least 5 opportunities, each mapped to an Office and a type</li><li>Problem statement has all four elements and at least one specific number</li><li>FAST goal has a measurable target and a ROI value</li><li>Claude Project is configured with full context</li></ul>
+<p><strong>Submit to your AI Buddy for feedback.</strong></p>
+<h2>SECTION 3: WRAP-UP</h2>
+<h3>Key Takeaways</h3>
+<p><strong>The job is 50% people. 50% AI.</strong> Most leaders have only been trained for one half. The AI Officer is trained for both. That's the capability this series builds.</p>
+<p><strong>Every AI opportunity lives in one of four offices.</strong> Revenue, Talent, Operations, Innovation. The diagnostic scan takes 20 minutes. Most teams have never done it. Now you have.</p>
+<p><strong>Name the type before you build.</strong> Packaged AI, Automated Workflow, Agentic Workflow. The answer changes how you build it, how long it takes, and whether you need engineering support. Getting this wrong costs months.</p>
+<p><strong>Define the problem before you touch a tool.</strong> Who feels it, what it costs, why now, what success looks like. Four lines. A number. This is the foundation everything else is built on.</p>
+<p><strong>A FAST goal is not a formality.</strong> It's the thing that gets budget approved and programs scaled. If you can't put a number on it, you can't prove it worked.</p>
+<p><strong>Start simple. Earn your way to agents.</strong> The organizations getting real ROI are not the ones with the most sophisticated AI. They're the ones who built something simple, proved it worked, and scaled.</p>
+<p><strong>Your AI Buddy is your thinking partner, not just your grader.</strong> Use it throughout the series to stress-test your thinking, pressure-test your goals, and get feedback before you submit.</p>
+<h4>Your Commitment</h4>
+<p>Before you close this session: write down one thing you will do differently based on what you learned today.</p>
+<p>Start: "I will start defining a problem statement before I propose any new AI initiative."</p>
+<p>Stop: "I will stop launching AI tools without first identifying which Office the opportunity belongs to."</p>
+<p>Continue: "I will keep building my Four Offices diagnostic habit and use it to evaluate every new AI idea."</p>
+<p>One thing. Write it down.</p>
+<h3>Checkpoint</h3>
+<p>Test your understanding before moving to Session 2.</p>
+<p><strong>Question 1:</strong> A colleague sends you a proposal to "use AI to improve our marketing." Which of the following is the correct first response as an AI Officer?</p>
+<p>A) Ask which AI tools they want to use
+B) Ask what specific problem in the Revenue or another Office they are trying to solve
+C) Build a prototype and show them what's possible
+D) Set up a SMART goal for the initiative</p>
+<p><em>Correct answer: B. The Four Offices lens always comes before the technology. You need to know which Office this belongs to and what the specific problem is before any other conversation.</em></p>
+<p><strong>Question 2:</strong> Jordan has 7 AI opportunities on her roadmap. She wants to start with the most ambitious one - a full agentic workflow for onboarding. What is the risk?</p>
+<p>A) Agentic workflows take too long to build
+B) She hasn't yet built a packaged prompt for any part of the process, and agentic workflows require a proven workflow underneath them
+C) The Talent Office is not a good place to start with AI
+D) She needs engineering support before she can define the problem</p>
+<p><em>Correct answer: B. Agentic workflows are built on top of documented, proven workflows. Starting with agents before mastering packaged AI is one of the most common reasons AI programs fail.</em></p>
+<p><strong>Question 3:</strong> What is the difference between a SMART goal and a FAST goal?</p>
+<p>A) FAST goals don't need to be measurable
+B) FAST goals are reviewed annually rather than quarterly
+C) FAST goals are reviewed frequently, set ambitiously, and are visible to the full team - not just set and filed away
+D) FAST goals are only used for AI programs</p>
+<p><em>Correct answer: C. The key differences are cadence (reviewed weekly), ambition (pushed past comfortable), and transparency (visible to everyone on the team).</em></p>
+<p><strong>Question 4:</strong> You've written this problem statement: "We want to use AI to help our sales team be more efficient." What is wrong with it?</p>
+<p>A) It mentions a department instead of a specific Office
+B) It has no specific person, no cost, no why now, and no definition of success
+C) It is too ambitious
+D) It should mention a specific tool</p>
+<p><em>Correct answer: B. A strong problem statement has four elements: who specifically feels the pain, what it costs, why now, and what success looks like. This statement has none of them.</em></p>
+<h3>Certificate of Completion</h3>
+<p><strong>You completed Session 1 of Agentic AI for Business.</strong></p>
+<p>You scanned your business across the Four Offices. You identified AI opportunities, categorized them by type, and picked one to develop. You defined the problem. You set a FAST goal. You configured your AI advisor.</p>
+<p>That is the foundation of a real AI program. Most people in your organization have not done this work.</p>
+<p><strong>Your progress in the Agentic AI for Business series:</strong></p>
+<p><strong>Session 2: From Prompts to Packaged AI</strong></p>
+<p>In Session 2, you take your selected item and build the first working prototype. You'll learn the difference between a prompt that works and a packaged AI solution that anyone on your team can run. You'll vibe-code something real - and you'll leave with something you could hand to a colleague today.</p>
+<p>Bring your AI advisor. Bring your problem statement. Session 2 starts where this one ends.</p>
+<p>[COMPLETE SESSION 1 IN AIO LABS - lab.ai-officer.com]</p>
+<h3>Course Experience Survey</h3>
+<p>How was this session? Your feedback shapes the next one.</p>
+<p>[SURVEY PLACEHOLDER - link provided by Kate]</p>
+<h3>Words to Know</h3>
+<p><strong>Four Offices</strong> - A diagnostic framework for scanning a business for AI opportunities. The four offices are Revenue (growth), Talent (people), Operations (processes), and Innovation (what's next). Every AI opportunity belongs to one of them.</p>
+<p><strong>Packaged AI</strong> - A well-designed prompt or set of prompts that delivers consistent results and can be run by anyone on the team without guidance. The starting point for most AI programs.</p>
+<p><strong>Automated Workflow</strong> - A connected sequence of steps that runs automatically when a trigger fires. AI handles the logic at each step. Built with no-code tools like Make, Zapier, or n8n.</p>
+<p><strong>Agentic Workflow</strong> - An AI program that acts, makes decisions, and escalates when it reaches the edge of its authority. Built on a proven documented workflow with clear decision logic.</p>
+<p><strong>5D Framework</strong> - The five-step pattern for building AI programs: Define, Discover, Design, Determine, Deploy. Every program in this series follows this framework.</p>
+<p><strong>Define</strong> - The first phase of the 5D Framework. Establishing who feels the problem, what it specifically costs, why now is the right time, and what success looks like.</p>
+<p><strong>Discover</strong> - The second phase of the 5D Framework. Mapping what data and information AI needs to do the job well, where that data lives, and whether it is clean enough to use.</p>
+<p><strong>FAST Goals</strong> - Frequently discussed, Ambitious, Specific, Transparent. A goal-setting framework built for the speed AI moves at. Replaces the slower cycle of SMART goals for AI programs.</p>
+<p><strong>50/50 Era</strong> - The current moment in which half of every professional workflow is becoming AI. Leadership now requires skills for managing both human capacity and AI capacity.</p>
+<p><strong>ROI (Return on Investment)</strong> - In AI programs, ROI typically falls into four types: time saved, cost reduced, quality improved, and speed increased. At least one type should be quantified before any program begins.</p>
+<p><strong>Problem Statement</strong> - A four-part statement that defines an AI program before any tool is selected: who feels the problem, what it costs, why now, and what success looks like.</p>
+<p><strong>AI Program</strong> - A structured initiative where a team applies AI to solve a specific business problem, with clear ownership, measurable outcomes, and a defined finish line.</p>
+<p>> <strong>Want definitions in your own language or examples from your industry?</strong> Ask your AI Buddy: "Explain [term] with an example relevant to [your role/industry]."</p>
+<h3>Prompt Library</h3>
+<p>The full Session 1 Prompt Library - including all role prompts, scanning templates, and the AI advisor setup prompt - is in Lark.</p>
+<p>[PROMPT LIBRARY LINK - placeholder, provided by Kate]</p>
+      </div>
+    </section>
+
+    <div class="tb-bottom-nav">
+      <a href="mission-1.html" class="tb-nav-btn">← Mission 1 Hub</a>
+      <a href="mission-1-prompts.html" class="tb-nav-btn primary">Prompt Library →</a>
+    </div>
+
+  </main>
+</div>
+</body>
+</html>

@@ -3,692 +3,319 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Session 2: From Prompts to Packaged AI - AI Officer Institute</title>
-<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<title>Mission 2: From Prompts to Packaged AI — Agentic AI for Business — AI Officer Institute</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="../shared/styles.css">
+<style>
+  :root {
+    --royal: #287BE8;
+    --ease: cubic-bezier(0.4, 0, 0.2, 1);
+    --radius: 12px;
+    --shadow-sm: 0 1px 3px rgba(4,16,45,0.07);
+    --shadow-hover: 0 6px 24px rgba(4,16,45,0.10);
+    --text-tertiary: #8b91ac;
+    --border-hover: #b0b6cc;
+  }
+  body { background: var(--surface); }
+
+  .topbar-right { display: flex; align-items: center; gap: 10px; margin-left: auto; }
+  .topbar-stat { display: flex; align-items: center; gap: 5px; font-family: 'JetBrains Mono', monospace; font-size: 13px; font-weight: 600; color: rgba(255,255,255,0.7); background: rgba(255,255,255,0.07); padding: 5px 12px; border-radius: 6px; }
+  .topbar-avatar { width: 32px; height: 32px; border-radius: 50%; background: var(--blue); display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 700; color: white; }
+
+  .page-main { max-width: 1060px; margin: 0 auto; padding: 80px 40px 100px; }
+  .mission-back { display: inline-flex; align-items: center; gap: 6px; font-size: 13px; font-weight: 600; color: var(--text-muted); text-decoration: none; margin-bottom: 28px; transition: color 0.12s; }
+  .mission-back:hover { color: var(--text-primary); }
+  .mission-header { margin-bottom: 32px; }
+  .mission-meta { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; margin-bottom: 14px; }
+  .mission-track-pill { display: inline-flex; align-items: center; gap: 7px; font-size: 11px; font-weight: 700; letter-spacing: 0.7px; text-transform: uppercase; padding: 5px 12px; border-radius: 20px; background: rgba(26,158,116,0.1); color: #1a9e74; border: 1px solid rgba(26,158,116,0.2); }
+  .mission-track-pill .dot { width: 5px; height: 5px; border-radius: 50%; background: #1a9e74; }
+  .mission-title { font-size: 34px; font-weight: 700; color: var(--text-primary); letter-spacing: -0.5px; line-height: 1.15; margin-bottom: 10px; }
+  .mission-sub { font-size: 15px; color: var(--text-secondary); line-height: 1.6; max-width: 640px; }
+  .mission-body { display: grid; grid-template-columns: 1fr 300px; gap: 24px; align-items: start; }
+
+  .objective-card { background: white; border: 1px solid var(--border); border-radius: var(--radius); padding: 28px; margin-bottom: 20px; box-shadow: var(--shadow-sm); }
+  .objective-label { font-size: 10px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: #1a9e74; margin-bottom: 12px; }
+  .objective-intro { font-size: 14px; color: var(--text-secondary); line-height: 1.65; margin-bottom: 16px; }
+  .objective-list { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 8px; }
+  .objective-list li { display: flex; align-items: baseline; gap: 10px; font-size: 13.5px; color: var(--text-primary); line-height: 1.5; }
+  .objective-list li::before { content: '→'; font-weight: 700; color: #1a9e74; flex-shrink: 0; font-size: 12px; }
+
+  .challenge-head { display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px; }
+  .challenge-head-title { font-size: 16px; font-weight: 700; color: var(--text-primary); letter-spacing: -0.2px; }
+  .challenge-head-meta { font-size: 12px; color: var(--text-muted); font-family: 'JetBrains Mono', monospace; }
+
+  .challenge-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; margin-bottom: 12px; }
+  .chal-card { background: white; border: 1px solid var(--border); border-radius: var(--radius); padding: 18px 20px; display: flex; flex-direction: column; gap: 8px; box-shadow: var(--shadow-sm); transition: all 0.15s var(--ease); }
+  .chal-card:hover { box-shadow: var(--shadow-hover); transform: translateY(-1px); border-color: rgba(26,158,116,0.3); }
+  .chal-card.final { grid-column: 1 / -1; background: white; border-color: rgba(26,158,116,0.2); flex-direction: row; align-items: flex-start; gap: 20px; }
+  .chal-top { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
+  .chal-num { font-family: 'JetBrains Mono', monospace; font-size: 10px; font-weight: 700; padding: 3px 8px; border-radius: 5px; background: rgba(26,158,116,0.1); color: #1a9e74; }
+  .chal-num.final-num { background: rgba(26,158,116,0.08); color: #1a9e74; font-size: 11px; }
+  .chal-status { font-size: 10px; font-weight: 700; letter-spacing: 0.3px; padding: 3px 8px; border-radius: 5px; text-transform: uppercase; background: rgba(26,158,116,0.08); color: #1a9e74; border: 1px solid rgba(26,158,116,0.15); }
+  .chal-body { flex: 1; }
+  .chal-title { font-size: 14px; font-weight: 700; color: var(--text-primary); line-height: 1.3; margin-bottom: 5px; }
+  .chal-desc { font-size: 12.5px; color: var(--text-secondary); line-height: 1.55; }
+  .chal-footer { display: flex; align-items: center; justify-content: space-between; padding-top: 10px; border-top: 1px solid var(--surface); margin-top: 2px; }
+  .chal-time { font-family: 'JetBrains Mono', monospace; font-size: 10px; font-weight: 600; color: var(--text-muted); }
+  .chal-cta { font-size: 12px; font-weight: 700; text-decoration: none; color: #1a9e74; transition: opacity 0.12s; }
+  .chal-cta:hover { opacity: 0.7; }
+
+  .briefs-section { margin-top: 20px; }
+  .briefs-label { font-size: 10px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: var(--text-muted); margin-bottom: 10px; padding-bottom: 8px; border-bottom: 1px solid var(--border); }
+  .brief-row { display: flex; align-items: center; gap: 12px; padding: 10px 0; border-bottom: 1px solid var(--surface); }
+  .brief-row:last-child { border-bottom: none; }
+  .brief-tag { font-family: 'JetBrains Mono', monospace; font-size: 10px; font-weight: 700; color: #1a9e74; background: rgba(26,158,116,0.08); padding: 3px 8px; border-radius: 4px; flex-shrink: 0; white-space: nowrap; }
+  .brief-title-text { font-size: 13px; font-weight: 600; color: var(--text-primary); flex: 1; }
+  .brief-time { font-family: 'JetBrains Mono', monospace; font-size: 10px; color: var(--text-muted); flex-shrink: 0; }
+
+  .resource-stack-label { font-size: 10px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: var(--text-muted); margin-bottom: 4px; }
+  .resource-stack { display: flex; flex-direction: column; gap: 10px; }
+  .resource-card { background: white; border: 1px solid var(--border); border-radius: var(--radius); padding: 16px 18px; text-decoration: none; color: inherit; display: flex; align-items: center; gap: 14px; box-shadow: var(--shadow-sm); transition: all 0.15s var(--ease); }
+  .resource-card:hover { border-color: rgba(26,158,116,0.35); box-shadow: 0 4px 16px rgba(4,16,45,0.09); transform: translateY(-1px); }
+  .resource-icon { width: 38px; height: 38px; border-radius: 10px; flex-shrink: 0; display: flex; align-items: center; justify-content: center; font-size: 17px; }
+  .resource-info { flex: 1; min-width: 0; }
+  .resource-tag { font-size: 10px; font-weight: 700; letter-spacing: 0.7px; text-transform: uppercase; color: var(--text-muted); margin-bottom: 2px; }
+  .resource-title { font-size: 14px; font-weight: 700; color: var(--text-primary); }
+  .resource-desc { font-size: 11.5px; color: var(--text-secondary); margin-top: 1px; }
+  .resource-arrow { font-size: 14px; color: var(--text-muted); flex-shrink: 0; }
+
+  .mission-progress { display: flex; align-items: center; gap: 10px; margin-bottom: 32px; }
+  .mp-track { flex: 1; height: 4px; border-radius: 2px; background: var(--border); overflow: hidden; }
+  .mp-fill { height: 100%; border-radius: 2px; background: #1a9e74; }
+  .mp-label { font-family: 'JetBrains Mono', monospace; font-size: 11px; font-weight: 700; color: #1a9e74; white-space: nowrap; }
+
+  .mission-nav-strip { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 40px; }
+  .mission-nav-btn { display: flex; flex-direction: column; gap: 3px; background: white; border: 1px solid var(--border); border-radius: var(--radius); padding: 16px 20px; text-decoration: none; color: inherit; box-shadow: var(--shadow-sm); transition: all 0.15s var(--ease); }
+  .mission-nav-btn:hover { border-color: rgba(26,158,116,0.3); box-shadow: var(--shadow-hover); }
+  .mission-nav-btn.disabled { opacity: 0.45; pointer-events: none; }
+  .mission-nav-btn.next { align-items: flex-end; text-align: right; }
+  .mnav-dir { font-size: 10px; font-weight: 700; letter-spacing: 0.7px; text-transform: uppercase; color: var(--text-muted); }
+  .mnav-title { font-size: 14px; font-weight: 700; color: var(--text-primary); line-height: 1.3; }
+  .mnav-track { font-size: 11px; color: var(--text-muted); }
+
+  @media (max-width: 900px) {
+    .page-main { padding: 70px 20px 80px; }
+    .mission-body { grid-template-columns: 1fr; }
+    .challenge-grid { grid-template-columns: 1fr; }
+    .chal-card.final { flex-direction: column; }
+    .topbar-nav { display: none; }
+    .mission-nav-strip { grid-template-columns: 1fr; }
+  }
+
+</style>
 </head>
 <body>
-
 <div class="topbar">
-  <a href="../index.html" class="topbar-brand">AI Officer <span>Institute</span></a>
-  <div class="topbar-divider"></div>
+  <a href="../index.html" class="topbar-brand">AIO <span>Labs</span></a>
   <nav class="topbar-nav">
-      <a href="../index.html" class="tnav-link">Hub</a>
-      <a href="../generative-ai/mission-1.html" class="tnav-link"><span class="tnav-dot" style="background:#D1458B"></span>Generative AI</a>
-      <a href="../agentic-ai/mission-1.html" class="tnav-link active"><span class="tnav-dot" style="background:#287BE8"></span>Agentic AI</a>
-      <a href="../micro-sessions/cowork-first-workflow.html" class="tnav-link"><span class="tnav-dot" style="background:#1a9e74"></span>Micro-Sessions</a>
-    <a href="../blog/index.html" class="tnav-link"><span class="tnav-dot" style="background:#6FF2C1"></span>Blog</a>
+    <a href="../index.html" class="tnav-link"><span class="tnav-dot" style="background:#8b91ac"></span> Home</a>
+    <a href="../certification.html" class="tnav-link active"><span class="tnav-dot" style="background:#287BE8"></span> Certification</a>
+    <a href="../coaching.html" class="tnav-link"><span class="tnav-dot" style="background:#287BE8"></span> Coaching</a>
+    <a href="../micro-sessions/index.html" class="tnav-link"><span class="tnav-dot" style="background:#1A9E74"></span> Micro-Sessions</a>
+    <a href="../blog/index.html" class="tnav-link"><span class="tnav-dot" style="background:#6FF2C1"></span> Blog</a>
+    <a href="../my-team.html" class="tnav-link"><span class="tnav-dot" style="background:#8b91ac"></span> My Team</a>
   </nav>
+  <div class="topbar-right">
+    <a href="https://claude.ai" target="_blank" class="buddy-launch-btn">🤖 AI Buddy</a>
+    <div class="topbar-stat">🔥 7</div>
+    <div class="topbar-stat">⭐ 1,240</div>
+    <div class="topbar-divider"></div>
+    <div class="topbar-avatar">DH</div>
+  </div>
 </div>
-<div class="layout">
-  <nav class="sidebar">
 
-    <a href="../index.html" class="sidebar-hub">&larr; Back to Hub
-    </a>
-    <div class="sidebar-mission-title">
-      <div class="smt-track" style="color: #287BE8">
-        <span class="smt-dot" style="background: #287BE8"></span>
-        Agentic AI
+<main class="page-main">
+
+  <a href="../certification.html" class="mission-back">← Certification Journey</a>
+
+  <div class="mission-header">
+    <div class="mission-meta">
+      <span class="mission-track-pill"><span class="dot"></span> Agentic AI · Mission 02</span>
+    </div>
+    <h1 class="mission-title">From Prompts to Packaged AI</h1>
+    <p class="mission-sub">Turn a great prompt into a reusable AI tool your team can use on day one without asking you a single question.</p>
+  </div>
+
+  <div class="mission-progress">
+    <div class="mp-track"><div class="mp-fill" style="width:0%;"></div></div>
+    <span class="mp-label">Not started</span>
+  </div>
+
+  <div class="mission-body">
+
+    <div>
+
+      <div class="objective-card">
+        <div class="objective-label">Mission Objective</div>
+        <p class="objective-intro">Turn a great prompt into a reusable AI tool your team can use on day one without asking you a single question.</p>
+        <ul class="objective-list"><li>The Setup Time Problem — Brief 1</li>
+<li>Anatomy of Packaged AI — Brief 2</li>
+<li>Platform Options — Brief 3</li>
+<li>Build Your Prototype — Brief 4</li>
+        </ul>
+      </div>
+
+      <div class="challenge-head">
+        <span class="challenge-head-title">Mission Challenges</span>
+        <span class="challenge-head-meta">4 practice · 1 final</span>
+      </div>
+
+      <div class="challenge-grid">
+        
+        <div class="chal-card">
+          <div class="chal-top">
+            <span class="chal-num">C1</span>
+            <span class="chal-status">Active</span>
+          </div>
+          <div class="chal-title">Map Your Data Layer</div>
+          <div class="chal-desc">Identify what data your Packaged AI needs to know to do its job right. List the specific reference documents, guidelines, templates, and examples your AI should</div>
+          <div class="chal-footer">
+            <span class="chal-time">10 minutes</span>
+            <a href="#" class="chal-cta">Start →</a>
+          </div>
+        </div>
+        <div class="chal-card">
+          <div class="chal-top">
+            <span class="chal-num">C2</span>
+            <span class="chal-status">Active</span>
+          </div>
+          <div class="chal-title">Write Your RACE System Prompt</div>
+          <div class="chal-desc">Write your complete, working system prompt for your Packaged AI using the RACE framework. This should be 200-400 words and specific to your domain, not generic.</div>
+          <div class="chal-footer">
+            <span class="chal-time">15 minutes</span>
+            <a href="#" class="chal-cta">Start →</a>
+          </div>
+        </div>
+        <div class="chal-card">
+          <div class="chal-top">
+            <span class="chal-num">C3</span>
+            <span class="chal-status">Active</span>
+          </div>
+          <div class="chal-title">Design Your Interface</div>
+          <div class="chal-desc">Design the three interface elements: name, description, and conversation starters.</div>
+          <div class="chal-footer">
+            <span class="chal-time">10 minutes</span>
+            <a href="#" class="chal-cta">Start →</a>
+          </div>
+        </div>
+        <div class="chal-card">
+          <div class="chal-top">
+            <span class="chal-num">C4</span>
+            <span class="chal-status">Active</span>
+          </div>
+          <div class="chal-title">Test Your Build</div>
+          <div class="chal-desc">Create your actual Packaged AI on your chosen platform (ChatGPT Custom GPT, Claude Project, or Gemini Gem). Then run three test cases to validate it works.</div>
+          <div class="chal-footer">
+            <span class="chal-time">10 minutes (but you&#x27;ll iterate as you build)</span>
+            <a href="#" class="chal-cta">Start →</a>
+          </div>
+        </div>
+        
+        <div class="chal-card final">
+          <div class="chal-body">
+            <div class="chal-top" style="margin-bottom:8px;">
+              <span class="chal-num final-num">★ Final Project</span>
+              <span class="chal-status">Open</span>
+            </div>
+            <div class="chal-title">Your Packaged AI Prototype</div>
+            <div class="chal-desc">This is your real deliverable. Not a practice challenge. Your actual working Packaged AI for your selected item from Session 1.</div>
+          </div>
+          <div style="margin-left:auto;flex-shrink:0;display:flex;flex-direction:column;align-items:flex-end;justify-content:space-between;min-height:72px;">
+            <span class="chal-time" style="font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--text-muted);">1-2 hours</span>
+            <a href="#" class="chal-cta">Begin →</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="briefs-section">
+        <div class="briefs-label">Mission Briefs</div>
+        
+          <div class="brief-row">
+            <span class="brief-tag">Brief 1</span>
+            <span class="brief-title-text">The Setup Time Problem</span>
+            <span class="brief-time">20 min</span>
+          </div>
+          <div class="brief-row">
+            <span class="brief-tag">Brief 2</span>
+            <span class="brief-title-text">Anatomy of Packaged AI</span>
+            <span class="brief-time">20 min</span>
+          </div>
+          <div class="brief-row">
+            <span class="brief-tag">Brief 3</span>
+            <span class="brief-title-text">Platform Options</span>
+            <span class="brief-time">15 min</span>
+          </div>
+          <div class="brief-row">
+            <span class="brief-tag">Brief 4</span>
+            <span class="brief-title-text">Build Your Prototype</span>
+            <span class="brief-time">30 min</span>
+          </div>
+          <div class="brief-row">
+            <span class="brief-tag">Brief 5</span>
+            <span class="brief-title-text">Test and Ship</span>
+            <span class="brief-time">20 min</span>
+          </div>
+      </div>
+
+    </div>
+
+    <div>
+      <div class="resource-stack-label">Mission Resources</div>
+      <div class="resource-stack">
+        <a href="mission-2-textbook.html" class="resource-card">
+          <div class="resource-icon" style="background:rgba(40,123,232,0.1);">📖</div>
+          <div class="resource-info">
+            <div class="resource-tag">Text Book</div>
+            <div class="resource-title">Mission 2 Briefs</div>
+            <div class="resource-desc">All five briefs from this mission</div>
+          </div>
+          <div class="resource-arrow">→</div>
+        </a>
+        <a href="mission-2-prompts.html" class="resource-card">
+          <div class="resource-icon" style="background:rgba(26,158,116,0.1);">💬</div>
+          <div class="resource-info">
+            <div class="resource-tag">Prompt Library</div>
+            <div class="resource-title">Challenge Prompts</div>
+            <div class="resource-desc">Copy-paste prompts for every challenge</div>
+          </div>
+          <div class="resource-arrow">→</div>
+        </a>
+        <a href="mission-2-words.html" class="resource-card">
+          <div class="resource-icon" style="background:rgba(4,16,45,0.06);">🔤</div>
+          <div class="resource-info">
+            <div class="resource-tag">Words to Know</div>
+            <div class="resource-title">Key Terms</div>
+            <div class="resource-desc">Definitions for every key concept in this mission</div>
+          </div>
+          <div class="resource-arrow">→</div>
+        </a>
+        <a href="mission-2-slides.html" class="resource-card">
+          <div class="resource-icon" style="background:rgba(111,242,193,0.2);">📊</div>
+          <div class="resource-info">
+            <div class="resource-tag">Slide Deck</div>
+            <div class="resource-title">Mission 2 Slides</div>
+            <div class="resource-desc">Visual summary of all key concepts</div>
+          </div>
+          <div class="resource-arrow">→</div>
+        </a>
       </div>
     </div>
-    <div class="sidebar-section">
-      <div class="sidebar-label">Introduction</div>
-      <a href="#overview" class="sidebar-item"><span class="sidebar-num"></span>Overview</a>
-      <a href="#mission-briefs" class="sidebar-item"><span class="sidebar-num"></span>Mission Briefs</a>
-    </div>
-    <div class="sidebar-section">
-      <div class="sidebar-label">Mission Briefs</div>
-      <a href="#brief1" class="sidebar-item"><span class="sidebar-num">01</span>The Setup Time Problem</a>
-      <a href="#brief2" class="sidebar-item"><span class="sidebar-num">02</span>Anatomy of Packaged AI</a>
-      <a href="#brief3" class="sidebar-item"><span class="sidebar-num">03</span>Platform Options</a>
-      <a href="#brief4" class="sidebar-item"><span class="sidebar-num">04</span>Build Your Prototype</a>
-      <a href="#brief5" class="sidebar-item"><span class="sidebar-num">05</span>Test and Ship</a>
-    </div>
-    <div class="sidebar-section">
-      <div class="sidebar-label">Wrap-Up</div>
-      <a href="#takeaways" class="sidebar-item"><span class="sidebar-num"></span>Key Takeaways</a>
-      <a href="#checkpoint" class="sidebar-item"><span class="sidebar-num"></span>Checkpoint</a>
-      <a href="#certificate" class="sidebar-item"><span class="sidebar-num"></span>Certificate</a>
-    </div>
 
-  </nav>
-  <main class="main">
-<!-- Overview Section -->
-        <div class="section active" id="section-overview">
-            <h1>From Prompts to Packaged AI</h1>
-            <p style="font-size: 18px; color: var(--text-light); margin-bottom: 32px;">Session 2 of Agentic AI Essentials</p>
-
-            <div class="video-card">
-                <div class="play-button">▶</div>
-                <h3>Welcome to Session 2</h3>
-                <p>You've completed Session 1. You identified opportunities. You selected one. You defined the problem. You set a FAST goal with a number attached. Now comes the part that turns that work into something real.</p>
-            </div>
-
-            <h3>Your Mission</h3>
-            <p>Build your first Packaged AI prototype. Not a concept. Not a plan. A working AI tool that someone on your team could use this week without asking you a single question.</p>
-
-            <div class="goal-list">
-                <ul>
-                    <li><strong>Brief 1:</strong> The Setup Time Problem - Why invisible costs matter</li>
-                    <li><strong>Brief 2:</strong> Anatomy of Packaged AI - Data, Instructions, Interface</li>
-                    <li><strong>Brief 3:</strong> Platform Options - ChatGPT, Claude, Gemini</li>
-                    <li><strong>Brief 4:</strong> Build Your Prototype - Step-by-step walkthrough</li>
-                    <li><strong>Brief 5:</strong> Test and Ship - Validation before handoff</li>
-                </ul>
-            </div>
-
-            <p><strong>Time to complete:</strong> 2 hours for deep learning, 1 hour for fast-track</p>
-
-            <p>Each brief includes teaching content, a worked example, a starter prompt for your AI Buddy, and a key insight. At the end, you'll submit your actual Packaged AI prototype for your selected item from Session 1.</p>
-        </div>
-
-        <!-- Mission Briefs Overview -->
-        <div class="section" id="section-mission-briefs">
-            <h2>Mission Briefs Overview</h2>
-
-            <div class="brief-cards">
-                <div class="brief-card" onclick="document.querySelector('[data-section=\"brief1\"]').click()">
-                    <div class="brief-num">1</div>
-                    <h4>The Setup Time Problem</h4>
-                    <p>Discover why setup time is the invisible cost of every AI workflow and how to measure its impact on your team.</p>
-                    <p style="margin-top: 12px; color: var(--blue); font-weight: 600;">20 min</p>
-                </div>
-
-                <div class="brief-card" onclick="document.querySelector('[data-section=\"brief2\"]').click()">
-                    <div class="brief-num">2</div>
-                    <h4>Anatomy of Packaged AI</h4>
-                    <p>Learn the three components (Data, Instructions, Interface) that make Packaged AI work and how to build them.</p>
-                    <p style="margin-top: 12px; color: var(--blue); font-weight: 600;">20 min</p>
-                </div>
-
-                <div class="brief-card" onclick="document.querySelector('[data-section=\"brief3\"]').click()">
-                    <div class="brief-num">3</div>
-                    <h4>Platform Options</h4>
-                    <p>Understand ChatGPT Custom GPTs vs Claude Projects vs Gemini Gems. Same pattern. Different tools.</p>
-                    <p style="margin-top: 12px; color: var(--blue); font-weight: 600;">15 min</p>
-                </div>
-
-                <div class="brief-card" onclick="document.querySelector('[data-section=\"brief4\"]').click()">
-                    <div class="brief-num">4</div>
-                    <h4>Build Your Prototype</h4>
-                    <p>Step-by-step walkthrough: name, instructions, conversation starters, data, testing.</p>
-                    <p style="margin-top: 12px; color: var(--blue); font-weight: 600;">30 min</p>
-                </div>
-
-                <div class="brief-card" onclick="document.querySelector('[data-section=\"brief5\"]').click()">
-                    <div class="brief-num">5</div>
-                    <h4>Test and Ship</h4>
-                    <p>Validate your build with practice challenges and a final project: your actual Packaged AI prototype.</p>
-                    <p style="margin-top: 12px; color: var(--blue); font-weight: 600;">45 min + final project</p>
-                </div>
-            </div>
-        </div>
-
-        <!-- Brief 1 -->
-        <div class="section" id="section-brief1">
-            <h2>Brief 1: The Setup Time Problem</h2>
-
-            <h3>The Hidden Cost</h3>
-            <p>Here's what nobody measures: the time you spend setting up AI before you can actually use it. You open a tool. You explain your role. You upload the same file you uploaded yesterday. You describe the format you need. This takes 5 minutes.</p>
-
-            <p>That doesn't sound like much. But it happens 4 times a day, 5 days a week.</p>
-
-            <div class="time-grid">
-                <div class="time-item">
-                    <div class="time-label">Setup per use</div>
-                    <div class="time-value">5 min</div>
-                </div>
-                <div class="time-item">
-                    <div class="time-label">Per week</div>
-                    <div class="time-value">100 min</div>
-                </div>
-                <div class="time-item">
-                    <div class="time-label">Per year</div>
-                    <div class="time-value">86 hrs</div>
-                </div>
-                <div class="time-item">
-                    <div class="time-label">Per team (10 people)</div>
-                    <div class="time-value">860 hrs</div>
-                </div>
-            </div>
-
-            <p>Nobody tracks it because it feels like working. Setup time is invisible until you measure it. Then it's everywhere.</p>
-
-            <h3>Good Prompts Don't Scale</h3>
-            <p>You spend 20 minutes crafting a perfect prompt. You get exactly what you need. And it disappears into chat history. Next week you need the same thing and you start from scratch. The prompt worked. The system didn't.</p>
-
-            <div class="insight">
-                <div class="insight-label">Key Insight</div>
-                <p>Setup time is the invisible tax on every AI user. Packaging is how you eliminate it.</p>
-            </div>
-
-            <h3>The Worked Example</h3>
-            <p><strong>Sarah's situation:</strong> She's a marketing manager. Every day, teams ask her to turn rough ideas into brief formats. She opens Claude. She pastes the brand guide. She explains the template. She shows an example. She uploads the request. Five minutes. Four times a day.</p>
-
-            <div class="compare-block">
-                <div class="compare-side without">
-                    <h4>Without Packaging</h4>
-                    <ul style="margin-left: 20px; margin-top: 12px;">
-                        <li>Open AI tool</li>
-                        <li>Paste brand guide</li>
-                        <li>Explain template</li>
-                        <li>Show example</li>
-                        <li>Paste request</li>
-                        <li>Get output</li>
-                    </ul>
-                    <p style="margin-top: 16px; font-weight: 600;">5 minutes x 4 times = 20 minutes daily</p>
-                </div>
-                <div class="compare-side with">
-                    <h4>With Packaging</h4>
-                    <ul style="margin-left: 20px; margin-top: 12px;">
-                        <li>Open Content Brief Generator</li>
-                        <li>Pick a conversation starter</li>
-                        <li>Type your idea</li>
-                        <li>Get output</li>
-                    </ul>
-                    <p style="margin-top: 16px; font-weight: 600;">2 minutes x 4 times = 8 minutes daily</p>
-                </div>
-            </div>
-
-            <div class="pro-tip">
-                <div class="pro-tip-label">Your AI Buddy Can Help</div>
-                <p>"Walk me through the financial impact of setup time on my team. How much time does my team spend each week getting AI ready versus actually using it?"</p>
-            </div>
-        </div>
-
-        <!-- Brief 2 -->
-        <div class="section" id="section-brief2">
-            <h2>Brief 2: Anatomy of Packaged AI</h2>
-
-            <h3>Three Components</h3>
-            <p>Every Packaged AI tool has three components. Get all three right and your tool just works. Miss one and your team needs training.</p>
-
-            <div class="fw-grid">
-                <div class="fw-block">
-                    <span class="fw-name">DATA</span>
-                    <p style="font-size: 14px; margin-bottom: 12px;">What does it know?</p>
-                    <div class="fw-letters">
-                        <div class="fw-letter">
-                            <div class="fw-letter-char">D</div>
-                            <div class="fw-letter-text">Documents</div>
-                        </div>
-                        <div class="fw-letter">
-                            <div class="fw-letter-char">A</div>
-                            <div class="fw-letter-text">Assets</div>
-                        </div>
-                        <div class="fw-letter">
-                            <div class="fw-letter-char">T</div>
-                            <div class="fw-letter-text">Templates</div>
-                        </div>
-                        <div class="fw-letter">
-                            <div class="fw-letter-char">A</div>
-                            <div class="fw-letter-text">Answers</div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="fw-block">
-                    <span class="fw-name">INSTRUCTIONS</span>
-                    <p style="font-size: 14px; margin-bottom: 12px;">What does it do?</p>
-                    <div class="fw-letters">
-                        <div class="fw-letter">
-                            <div class="fw-letter-char">R</div>
-                            <div class="fw-letter-text">Role</div>
-                        </div>
-                        <div class="fw-letter">
-                            <div class="fw-letter-char">A</div>
-                            <div class="fw-letter-text">Action</div>
-                        </div>
-                        <div class="fw-letter">
-                            <div class="fw-letter-char">C</div>
-                            <div class="fw-letter-text">Context</div>
-                        </div>
-                        <div class="fw-letter">
-                            <div class="fw-letter-char">E</div>
-                            <div class="fw-letter-text">Example</div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="fw-block">
-                    <span class="fw-name">INTERFACE</span>
-                    <p style="font-size: 14px; margin-bottom: 12px;">How do users interact?</p>
-                    <div class="fw-letters">
-                        <div class="fw-letter">
-                            <div class="fw-letter-char">I</div>
-                            <div class="fw-letter-text">Identity</div>
-                        </div>
-                        <div class="fw-letter">
-                            <div class="fw-letter-char">N</div>
-                            <div class="fw-letter-text">Name</div>
-                        </div>
-                        <div class="fw-letter">
-                            <div class="fw-letter-char">T</div>
-                            <div class="fw-letter-text">Text</div>
-                        </div>
-                        <div class="fw-letter">
-                            <div class="fw-letter-char">A</div>
-                            <div class="fw-letter-text">Access</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <h3>Component 1: Data</h3>
-            <p>This is what your AI knows. Not what the user tells it. What it already has built in.</p>
-            <ul style="margin-left: 20px;">
-                <li>Reference documents and guidelines</li>
-                <li>Templates and examples</li>
-                <li>FAQs and policies</li>
-                <li>Style guides and tone samples</li>
-            </ul>
-            <p><strong>Rule:</strong> Upload real files. Not summaries. Not descriptions. The actual documents your team uses.</p>
-
-            <h3>Component 2: Instructions (RACE)</h3>
-            <p>This is what your AI does. Specifically. Using RACE:</p>
-            <ul style="margin-left: 20px;">
-                <li><strong>Role:</strong> Who is the AI acting as?</li>
-                <li><strong>Action:</strong> What exactly does it do?</li>
-                <li><strong>Context:</strong> What constraints? What format? What always? What never?</li>
-                <li><strong>Example:</strong> What does good output look like?</li>
-            </ul>
-
-            <h3>Component 3: Interface</h3>
-            <p>This is how users interact:</p>
-            <ul style="margin-left: 20px;">
-                <li><strong>Name:</strong> "Email Tone Adjuster" (tells someone what it does)</li>
-                <li><strong>Description:</strong> One sentence. What? For whom? Format?</li>
-                <li><strong>Conversation Starters:</strong> Three pre-written prompts for common uses</li>
-            </ul>
-
-            <div class="insight">
-                <div class="insight-label">Key Insight</div>
-                <p>Get all three components right and your team can use it without training. Miss one and you become the manual.</p>
-            </div>
-
-            <div class="pro-tip">
-                <div class="pro-tip-label">Your AI Buddy Can Help</div>
-                <p>"For my selected item from Session 1, break down what data, instructions, and interface I need. Be specific about files to upload, RACE instructions to write, and interface elements."</p>
-            </div>
-        </div>
-
-        <!-- Brief 3 -->
-        <div class="section" id="section-brief3">
-            <h2>Brief 3: Platform Options</h2>
-
-            <h3>The Same Pattern, Three Platforms</h3>
-            <p>All three major platforms support Packaged AI. The names are different. The architecture is identical.</p>
-
-            <div class="brief-cards">
-                <div class="brief-card">
-                    <h4>ChatGPT Custom GPTs</h4>
-                    <p><strong>How it works:</strong> Upload files, write system instructions, add name and description. Users access via ChatGPT.</p>
-                    <p><strong>Data:</strong> File uploads</p>
-                    <p><strong>Instructions:</strong> System prompt</p>
-                    <p><strong>Interface:</strong> Name, description, conversation starters</p>
-                </div>
-
-                <div class="brief-card">
-                    <h4>Claude Projects</h4>
-                    <p><strong>How it works:</strong> Upload files, write custom instructions, name your project. Separate context window per project.</p>
-                    <p><strong>Data:</strong> Project files</p>
-                    <p><strong>Instructions:</strong> Custom instructions</p>
-                    <p><strong>Interface:</strong> Project name, description, welcome message</p>
-                </div>
-
-                <div class="brief-card">
-                    <h4>Gemini Gems</h4>
-                    <p><strong>How it works:</strong> Upload context, write custom instructions, name your Gem. Access via Gemini.</p>
-                    <p><strong>Data:</strong> Custom context</p>
-                    <p><strong>Instructions:</strong> Custom instructions</p>
-                    <p><strong>Interface:</strong> Name, description, conversation starters</p>
-                </div>
-            </div>
-
-            <div class="insight">
-                <div class="insight-label">Key Insight</div>
-                <p>The platform is the tool. The pattern is the skill. Learn it once, build on any platform.</p>
-            </div>
-
-            <div class="pro-tip">
-                <div class="pro-tip-label">Your AI Buddy Can Help</div>
-                <p>"Which platform should I use for my Packaged AI? I'm planning to build [describe]. Help me choose between ChatGPT, Claude Projects, and Gemini Gems."</p>
-            </div>
-        </div>
-
-        <!-- Brief 4 -->
-        <div class="section" id="section-brief4">
-            <h2>Brief 4: Build Your Prototype</h2>
-
-            <h3>Five Steps to Your First Packaged AI</h3>
-
-            <h4>Step 1: Create and Name Your Tool (2 min)</h4>
-            <p>Open your platform. Create a new Custom GPT, Project, or Gem. Give it a name that explains what it does. Write a one-sentence description.</p>
-
-            <h4>Step 2: Write Your System Prompt (5 min)</h4>
-            <p>Use RACE format:</p>
-            <div class="prompt-block">
-                <span class="prompt-label">RACE Template</span>
-                <pre>Role: [Who is this AI acting as? Be specific.]
-
-Action: [What exactly does it do? Real actions, with specifics.]
-
-Context: [What are the rules? What format? What always? What never?]
-
-Example: [Show good output. Show bad output and why.]</pre>
-            </div>
-
-            <h4>Step 3: Identify and Upload Your Data (5 min)</h4>
-            <p>What does your AI need to know? Upload the actual files your team uses:</p>
-            <ul style="margin-left: 20px;">
-                <li>Reference documents and style guides</li>
-                <li>Templates and examples</li>
-                <li>FAQs and policies</li>
-                <li>Decision frameworks</li>
-            </ul>
-
-            <h4>Step 4: Add Conversation Starters (3 min)</h4>
-            <p>Think about three common uses. Write conversation starters that guide users:</p>
-            <ul style="margin-left: 20px;">
-                <li>Starter 1: [First common use]</li>
-                <li>Starter 2: [Second common use]</li>
-                <li>Starter 3: [Third common use]</li>
-            </ul>
-
-            <h4>Step 5: Test the Happy Path (5 min)</h4>
-            <p>Use a real example from your work. Does it work the way you designed it? Is the output usable?</p>
-
-            <div class="insight">
-                <div class="insight-label">Key Insight</div>
-                <p>The leadership test isn't whether it works for you. It's whether someone else on your team can open it on day one and get usable output without asking you anything.</p>
-            </div>
-
-            <div class="pro-tip">
-                <div class="pro-tip-label">Your AI Buddy Can Help</div>
-                <p>"I'm building a Packaged AI for [my item]. Walk me through exactly how I would write my RACE system prompt with role, action, context, and example."</p>
-            </div>
-        </div>
-
-        <!-- Brief 5 -->
-        <div class="section" id="section-brief5">
-            <h2>Brief 5: Test and Ship</h2>
-
-            <h3>Validation Before Handoff</h3>
-            <p>You've built your Packaged AI. You tested the happy path. Now validate it works for others.</p>
-
-            <h3>Practice Challenges</h3>
-
-            <div class="challenge-card">
-                <div class="challenge-badge">Challenge 1</div>
-                <h4>Map Your Data Layer (10 min)</h4>
-                <p>What data does your Packaged AI need to know? List all reference documents, guidelines, templates, examples.</p>
-                <p><strong>What good looks like:</strong> A specific list of 5-10 real documents.</p>
-                <div class="pro-tip">
-                    <div class="pro-tip-label">Your AI Buddy Can Help</div>
-                    <p>"What data should I upload for my Packaged AI on [my item]? List specific documents and files."</p>
-                </div>
-            </div>
-
-            <div class="challenge-card">
-                <div class="challenge-badge">Challenge 2</div>
-                <h4>Write Your RACE System Prompt (15 min)</h4>
-                <p>Write your complete RACE system prompt for your Packaged AI. 200-400 words, specific to your domain.</p>
-                <p><strong>What good looks like:</strong> Every section (Role, Action, Context, Example) filled with real specifics.</p>
-                <div class="pro-tip">
-                    <div class="pro-tip-label">Your AI Buddy Can Help</div>
-                    <p>"Help me write my RACE system prompt for [my item]. Here's my problem statement: [paste]."</p>
-                </div>
-            </div>
-
-            <div class="challenge-card">
-                <div class="challenge-badge">Challenge 3</div>
-                <h4>Design Your Interface (10 min)</h4>
-                <p>Write your tool's name, one-sentence description, and three conversation starters.</p>
-                <p><strong>What good looks like:</strong> A clear name, focused description, three distinct conversation starters for common uses.</p>
-                <div class="pro-tip">
-                    <div class="pro-tip-label">Your AI Buddy Can Help</div>
-                    <p>"Design my interface. Give me a name for my Packaged AI on [my item], a description, and three conversation starters."</p>
-                </div>
-            </div>
-
-            <div class="challenge-card">
-                <div class="challenge-badge">Challenge 4</div>
-                <h4>Test Your Build (10 min)</h4>
-                <p>Create your Packaged AI. Test it with: happy path, edge case 1, edge case 2. Document results.</p>
-                <p><strong>What good looks like:</strong> Three test runs with clear documentation of what worked and what didn't.</p>
-                <div class="pro-tip">
-                    <div class="pro-tip-label">Your AI Buddy Can Help</div>
-                    <p>"I'm testing my Packaged AI. Give me three test cases: one happy path, two edge cases that might break it."</p>
-                </div>
-            </div>
-
-            <h3 style="margin-top: 48px;">Final Project: Your Packaged AI Prototype</h3>
-            <p>This is your deliverable. Submit four parts:</p>
-
-            <h4>Part 1: Your Packaged AI Prototype</h4>
-            <p>Screenshot or description showing: name, description, system prompt (RACE), uploaded data files.</p>
-
-            <h4>Part 2: Test Results</h4>
-            <p>Three tests with input/output documentation:</p>
-            <ul style="margin-left: 20px;">
-                <li>Happy path test (real example from your work)</li>
-                <li>Edge case 1</li>
-                <li>Edge case 2</li>
-            </ul>
-
-            <h4>Part 3: The Leadership Test</h4>
-            <p>One paragraph (150-200 words): Could a new hire use this on day one without asking you anything? Explain how.</p>
-
-            <h4>Part 4: Your FAST Goal Connection</h4>
-            <p>One paragraph (100-150 words): How does this prototype contribute to your Session 1 FAST goal?</p>
-
-            <h3>Grading Rubric</h3>
-            <table class="rubric-table">
-                <tr>
-                    <th>Criteria</th>
-                    <th>Excellent (4)</th>
-                    <th>Good (3)</th>
-                    <th>Needs Work (2)</th>
-                </tr>
-                <tr>
-                    <td><strong>Tool Completeness</strong></td>
-                    <td>Clear name, description, complete RACE, uploaded data</td>
-                    <td>Most elements present, one unclear</td>
-                    <td>Missing key elements</td>
-                </tr>
-                <tr>
-                    <td><strong>Test Coverage</strong></td>
-                    <td>Three distinct tests (happy path + 2 edge cases) with clear documentation</td>
-                    <td>Main use case and one edge case tested</td>
-                    <td>Testing is partial or unclear</td>
-                </tr>
-                <tr>
-                    <td><strong>Leadership Test</strong></td>
-                    <td>Clear explanation of how new hire succeeds on day one without questions</td>
-                    <td>Explains usage but some elements unclear</td>
-                    <td>Vague explanation or missing</td>
-                </tr>
-                <tr>
-                    <td><strong>Goal Connection</strong></td>
-                    <td>Specific connection to Session 1 FAST goal with clear impact</td>
-                    <td>Connects to goal with some specifics</td>
-                    <td>Generic or unclear connection</td>
-                </tr>
-            </table>
-
-            <h3>Before You Submit</h3>
-            <div class="checklist">
-                <div class="checklist-item">
-                    <input type="checkbox">
-                    <span>I've created my Packaged AI on my chosen platform</span>
-                </div>
-                <div class="checklist-item">
-                    <input type="checkbox">
-                    <span>My tool has a clear name that explains its purpose</span>
-                </div>
-                <div class="checklist-item">
-                    <input type="checkbox">
-                    <span>I've written a complete RACE system prompt</span>
-                </div>
-                <div class="checklist-item">
-                    <input type="checkbox">
-                    <span>I've uploaded the data my tool needs</span>
-                </div>
-                <div class="checklist-item">
-                    <input type="checkbox">
-                    <span>I've added 3 conversation starters</span>
-                </div>
-                <div class="checklist-item">
-                    <input type="checkbox">
-                    <span>I've tested the happy path and it works</span>
-                </div>
-                <div class="checklist-item">
-                    <input type="checkbox">
-                    <span>I've tested two edge cases and documented results</span>
-                </div>
-                <div class="checklist-item">
-                    <input type="checkbox">
-                    <span>My submission includes all four required parts</span>
-                </div>
-            </div>
-
-            <button class="cta-button" style="margin-top: 32px;">Submit Your Final Project</button>
-        </div>
-
-        <!-- Key Takeaways -->
-        <div class="section" id="section-takeaways">
-            <h2>Key Takeaways</h2>
-
-            <div class="words-to-know">
-                <div class="word-item">
-                    <div class="word-term">Setup time is the hidden cost</div>
-                    <p>Five minutes of setup times four daily uses times five days equals 86 hours per year. Package your work and eliminate it.</p>
-                </div>
-                <div class="word-item">
-                    <div class="word-term">Three components, all required</div>
-                    <p>Data (what your AI knows), Instructions (what your AI does via RACE), Interface (how users interact). Miss one and your team needs training.</p>
-                </div>
-                <div class="word-item">
-                    <div class="word-term">The leadership test is the filter</div>
-                    <p>Could a new hire use this on day one without asking you anything? If no, keep iterating on your data, instructions, or interface.</p>
-                </div>
-                <div class="word-item">
-                    <div class="word-term">Good prompts don't scale</div>
-                    <p>You can write a perfect prompt. It disappears into chat history. Package it once. Use it forever.</p>
-                </div>
-                <div class="word-item">
-                    <div class="word-term">Semi-automated is the bridge</div>
-                    <p>Manual is typing everything every time. Automated is agents running alone. Semi-automated is you triggering, AI executing with your standards built in.</p>
-                </div>
-                <div class="word-item">
-                    <div class="word-term">Platform doesn't matter. Pattern does</div>
-                    <p>ChatGPT, Claude, Gemini all support the same pattern. Learn it once, build on any platform.</p>
-                </div>
-                <div class="word-item">
-                    <div class="word-term">Your selected item gets the first prototype</div>
-                    <p>You came in with a Session 1 FAST goal. This Packaged AI addresses part of it. Next session you wire it into a workflow.</p>
-                </div>
-            </div>
-
-            <h3 style="margin-top: 48px;">Your Commitment</h3>
-            <p>Name one repeated task you're going to package this week. Not someday. This week.</p>
-            <p>It could be your Session 1 selected item. It could be something different. The test is whether someone else on your team can use it without calling you.</p>
-            <p style="margin-top: 32px; font-weight: 600; color: var(--blue);">What's your one thing?</p>
-        </div>
-
-        <!-- Checkpoint -->
-        <div class="section" id="section-checkpoint">
-            <h2>Checkpoint: Knowledge Check</h2>
-
-            <h3>Question 1</h3>
-            <p>If a team member spends 5 minutes setting up an AI tool 4 times daily, 5 days per week, how many hours per year is that on setup alone?</p>
-            <div style="margin-left: 20px; margin-bottom: 24px;">
-                <label style="display: block; margin-bottom: 8px;"><input type="radio" name="q1"> A) 20 hours per year</label>
-                <label style="display: block; margin-bottom: 8px;"><input type="radio" name="q1"> B) 86 hours per year</label>
-                <label style="display: block; margin-bottom: 8px;"><input type="radio" name="q1"> C) 150 hours per year</label>
-                <label style="display: block; margin-bottom: 8px;"><input type="radio" name="q1"> D) 260 hours per year</label>
-            </div>
-            <p style="color: var(--blue); font-weight: 600;">Correct Answer: B - 5 min × 4 times × 5 days = 100 min/week. 100 min/week × 52 weeks = 5,200 min/year. 5,200 min ÷ 60 = 86.67 hours/year.</p>
-
-            <h3>Question 2</h3>
-            <p>What are the three components of Packaged AI?</p>
-            <div style="margin-left: 20px; margin-bottom: 24px;">
-                <label style="display: block; margin-bottom: 8px;"><input type="radio" name="q2"> A) Platform, Plugins, Performance</label>
-                <label style="display: block; margin-bottom: 8px;"><input type="radio" name="q2"> B) Data, Instructions, Interface</label>
-                <label style="display: block; margin-bottom: 8px;"><input type="radio" name="q2"> C) Input, Processing, Output</label>
-                <label style="display: block; margin-bottom: 8px;"><input type="radio" name="q2"> D) Chat, Documents, Feedback</label>
-            </div>
-            <p style="color: var(--blue); font-weight: 600;">Correct Answer: B - Every Packaged AI tool has Data (what it knows), Instructions (what it does, using RACE), and Interface (how users interact).</p>
-
-            <h3>Question 3</h3>
-            <p>RACE stands for:</p>
-            <div style="margin-left: 20px; margin-bottom: 24px;">
-                <label style="display: block; margin-bottom: 8px;"><input type="radio" name="q3"> A) Rapid, Accurate, Clear, Effective</label>
-                <label style="display: block; margin-bottom: 8px;"><input type="radio" name="q3"> B) Role, Action, Context, Example</label>
-                <label style="display: block; margin-bottom: 8px;"><input type="radio" name="q3"> C) Request, Analyze, Create, Execute</label>
-                <label style="display: block; margin-bottom: 8px;"><input type="radio" name="q3"> D) Retrieve, Analyze, Compose, Export</label>
-            </div>
-            <p style="color: var(--blue); font-weight: 600;">Correct Answer: B - RACE is a framework for writing clear system prompts: Role (who is the AI), Action (what it does), Context (constraints and rules), Example (what good looks like).</p>
-
-            <h3>Question 4</h3>
-            <p>The leadership test for Packaged AI is:</p>
-            <div style="margin-left: 20px; margin-bottom: 24px;">
-                <label style="display: block; margin-bottom: 8px;"><input type="radio" name="q4"> A) Does it work for you?</label>
-                <label style="display: block; margin-bottom: 8px;"><input type="radio" name="q4"> B) Did it cost less than hiring someone?</label>
-                <label style="display: block; margin-bottom: 8px;"><input type="radio" name="q4"> C) Could a new hire use it on day one without asking you questions?</label>
-                <label style="display: block; margin-bottom: 8px;"><input type="radio" name="q4"> D) How many features does it have?</label>
-            </div>
-            <p style="color: var(--blue); font-weight: 600;">Correct Answer: C - The leadership test is whether someone else on your team could use your tool successfully on their first day without asking you for guidance.</p>
-        </div>
-
-        <!-- Certificate -->
-        <div class="section" id="section-certificate">
-            <h2>Certificate of Completion</h2>
-
-            <div class="certificate-card">
-                <h3 style="margin-top: 0;">Session 2 Complete</h3>
-                <p>You came in with a problem statement and a goal. You're leaving with a working prototype your team can use.</p>
-
-                <div class="progress-dots">
-                    <div class="progress-item">
-                        <div class="progress-dot done"></div>
-                        <div class="progress-label">Session 1<br>AI Program<br>Planning</div>
-                    </div>
-                    <div class="progress-item">
-                        <div class="progress-dot current"></div>
-                        <div class="progress-label">Session 2<br>From Prompts to<br>Packaged AI</div>
-                    </div>
-                    <div class="progress-item">
-                        <div class="progress-dot"></div>
-                        <div class="progress-label">Session 3<br>Wire the<br>Workflow</div>
-                    </div>
-                    <div class="progress-item">
-                        <div class="progress-dot"></div>
-                        <div class="progress-label">Session 4<br>Teach Your<br>Workflow</div>
-                    </div>
-                    <div class="progress-item">
-                        <div class="progress-dot"></div>
-                        <div class="progress-label">Session 5<br>Unleash the<br>Agent</div>
-                    </div>
-                    <div class="progress-item">
-                        <div class="progress-dot"></div>
-                        <div class="progress-label">Session 6<br>Prototype to<br>Production</div>
-                    </div>
-                </div>
-            </div>
-
-            <h3>What's Next: Session 3 Preview</h3>
-            <p>In Session 3, you'll take this prototype and wire it into a workflow. A trigger fires. Data flows in. Your packaged AI processes it. The result goes where it needs to go. You stop pressing the button.</p>
-
-            <p>This is where Packaged AI becomes semi-automated.</p>
-
-            <h3>Course Experience Survey</h3>
-            <p>Your feedback shapes the next sessions. [Link to survey placeholder]</p>
-        </div>
-    </div>
-  </main>
-</div>
-
-<script src="../shared/nav.js"></script>
+  </div>
+
+  <div class="mission-nav-strip">
+    <a href="mission-1.html" class="mission-nav-btn prev">
+      <span class="mnav-dir">← Previous</span>
+      <span class="mnav-title">AI Program Planning</span>
+      <span class="mnav-track">Agentic AI · Mission 01</span>
+    </a>
+    <a href="mission-3.html" class="mission-nav-btn next">
+      <span class="mnav-dir">Next →</span>
+      <span class="mnav-title">Wire the Workflow</span>
+      <span class="mnav-track">Agentic AI · Mission 03</span>
+    </a>
+  </div>
+
+</main>
 </body>
 </html>

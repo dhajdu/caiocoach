@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Slide Deck — Mission 2: From Prompts to Packaged AI — AI Officer Institute</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../shared/styles.css">
+<style>
+  :root {
+    --royal: #287BE8;
+    --ease: cubic-bezier(0.4, 0, 0.2, 1);
+    --radius: 12px;
+    --shadow-sm: 0 1px 3px rgba(4,16,45,0.07);
+    --shadow-hover: 0 6px 24px rgba(4,16,45,0.10);
+    --text-tertiary: #8b91ac;
+    --border-hover: #b0b6cc;
+  }
+  body { background: var(--surface); }
+
+  body { background: #0d1117; }
+  .slides-header { position: fixed; top: 56px; left: 0; right: 0; background: rgba(13,17,23,0.95); border-bottom: 1px solid rgba(255,255,255,0.08); padding: 0 32px; height: 48px; display: flex; align-items: center; z-index: 50; gap: 16px; }
+  .slides-back { display: inline-flex; align-items: center; gap: 6px; font-size: 12px; font-weight: 600; color: rgba(255,255,255,0.5); text-decoration: none; transition: color 0.12s; }
+  .slides-back:hover { color: rgba(255,255,255,0.85); }
+  .slides-title { font-size: 13px; font-weight: 600; color: rgba(255,255,255,0.65); margin-left: 8px; }
+  .slides-counter { font-family: 'JetBrains Mono', monospace; font-size: 11px; color: rgba(255,255,255,0.35); margin-left: auto; }
+  .slides-wrapper { padding-top: 104px; padding-bottom: 80px; display: flex; flex-direction: column; align-items: center; gap: 0; }
+  .slide { width: 100%; max-width: 900px; min-height: 520px; margin: 0 auto 3px; display: flex; flex-direction: column; justify-content: center; padding: 60px 80px; position: relative; }
+  .slide-title-card { background: var(--navy); min-height: 600px; }
+  .slide-dark { background: #161b22; }
+  .slide-light { background: white; }
+  .slide-mint { background: rgba(26,158,116,0.1); border: 1px solid rgba(26,158,116,0.2); }
+  .slide-blue { background: rgba(40,123,232,0.12); border: 1px solid rgba(40,123,232,0.2); }
+  .slide-num { position: absolute; top: 28px; right: 32px; font-family: 'JetBrains Mono', monospace; font-size: 11px; font-weight: 700; color: rgba(255,255,255,0.2); }
+  .slide-light .slide-num { color: rgba(4,16,45,0.2); }
+  .slide-eyebrow { font-size: 11px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 16px; color: rgba(111,242,193,0.8); }
+  .slide-eyebrow.mint { color: #1a9e74; }
+  .slide-eyebrow.blue { color: rgba(40,123,232,0.9); }
+  .slide-eyebrow.muted { color: rgba(255,255,255,0.4); }
+  .slide-h1 { font-size: 52px; font-weight: 700; letter-spacing: -1.5px; line-height: 1.05; color: white; margin-bottom: 24px; }
+  .slide-h1 .accent { color: #6FF2C1; }
+  .slide-h2 { font-size: 36px; font-weight: 700; letter-spacing: -0.8px; line-height: 1.15; color: white; margin-bottom: 20px; }
+  .slide-h2.dark { color: var(--navy); }
+  .slide-h3 { font-size: 28px; font-weight: 700; letter-spacing: -0.5px; line-height: 1.2; color: white; margin-bottom: 16px; }
+  .slide-h3.dark { color: var(--navy); }
+  .slide-body { font-size: 18px; line-height: 1.65; color: rgba(255,255,255,0.75); max-width: 660px; }
+  .slide-body.dark { color: rgba(4,16,45,0.7); }
+  .slide-body strong { color: white; font-weight: 700; }
+  .slide-body.dark strong { color: var(--navy); }
+  .slide-list { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 14px; }
+  .slide-list li { display: flex; align-items: flex-start; gap: 12px; font-size: 17px; line-height: 1.5; }
+  .slide-list li .bullet { width: 24px; height: 24px; border-radius: 6px; flex-shrink: 0; background: rgba(26,158,116,0.2); color: #1a9e74; font-family: 'JetBrains Mono', monospace; font-size: 11px; font-weight: 700; display: flex; align-items: center; justify-content: center; margin-top: 2px; }
+  .slide-list li .text { color: rgba(255,255,255,0.8); }
+  .slide-list li .text strong { color: white; display: block; margin-bottom: 2px; }
+
+</style>
+</head>
+<body>
+<div class="topbar">
+  <a href="../index.html" class="topbar-brand">AIO <span>Labs</span></a>
+  <nav class="topbar-nav">
+    <a href="../index.html" class="tnav-link"><span class="tnav-dot" style="background:#8b91ac"></span> Home</a>
+    <a href="../certification.html" class="tnav-link active"><span class="tnav-dot" style="background:#287BE8"></span> Certification</a>
+    <a href="../coaching.html" class="tnav-link"><span class="tnav-dot" style="background:#287BE8"></span> Coaching</a>
+    <a href="../micro-sessions/index.html" class="tnav-link"><span class="tnav-dot" style="background:#1A9E74"></span> Micro-Sessions</a>
+    <a href="../blog/index.html" class="tnav-link"><span class="tnav-dot" style="background:#6FF2C1"></span> Blog</a>
+    <a href="../my-team.html" class="tnav-link"><span class="tnav-dot" style="background:#8b91ac"></span> My Team</a>
+  </nav>
+  <div class="topbar-right">
+    <a href="https://claude.ai" target="_blank" class="buddy-launch-btn">🤖 AI Buddy</a>
+    <div class="topbar-stat">🔥 7</div>
+    <div class="topbar-stat">⭐ 1,240</div>
+    <div class="topbar-divider"></div>
+    <div class="topbar-avatar">DH</div>
+  </div>
+</div>
+
+<div class="slides-header">
+  <a href="mission-2.html" class="slides-back">← Mission 2</a>
+  <span class="slides-title">From Prompts to Packaged AI</span>
+  <span class="slides-counter">22 slides</span>
+</div>
+
+<div class="slides-wrapper">
+  
+  <div class="slide slide-title-card">
+    <span class="slide-num">1 / 22</span>
+    <div class="slide-eyebrow">Agentic AI for Business — Mission 2</div>
+    <h1 class="slide-h1">Title Slide</h1>
+    
+    <ul class="slide-list"><li><span class="bullet">1</span><span class="text">Agentic AI Essentials</span></li><li><span class="bullet">2</span><span class="text">From Prompts to Packaged AI</span></li><li><span class="bullet">3</span><span class="text">Mission 1</span></li><li><span class="bullet">4</span><span class="text">Stop rebuilding from scratch. Package what works so anyone can use it.</span></li><li><span class="bullet">5</span><span class="text">#AIOfficerCertification | Dave Hajdu | dave@ai-officer.com</span></li></ul>
+  </div>
+  <div class="slide slide-dark">
+    <span class="slide-num">2 / 22</span>
+    
+    <h2 class="slide-h2">The Future Is Already Here</h2>
+    
+    <ul class="slide-list"><li><span class="bullet">1</span><span class="text">The future of work isn&#x27;t coming.</span></li><li><span class="bullet">2</span><span class="text">It&#x27;s clocking in beside you.</span></li></ul>
+  </div>
+  <div class="slide slide-mint">
+    <span class="slide-num">3 / 22</span>
+    
+    <h2 class="slide-h2">Today&#x27;s Agenda</h2>
+    
+    <ul class="slide-list"><li><span class="bullet">1</span><span class="text">1. The Setup Time Problem</span></li><li><span class="bullet">2</span><span class="text">2. The Automation Spectrum</span></li><li><span class="bullet">3</span><span class="text">3. Anatomy of Packaged AI</span></li><li><span class="bullet">4</span><span class="text">4. Build Your Packaged AI</span></li></ul>
+  </div>
+  <div class="slide slide-light">
+    <span class="slide-num">4 / 22</span>
+    
+    <h2 class="slide-h2 dark">The Memory Problem</h2>
+    
+    <ul class="slide-list"><li><span class="bullet">1</span><span class="text">AI memory is like a beloved grandparent.</span></li><li><span class="bullet">2</span><span class="text">Full of stories -- but not always the ones you need right now.</span></li></ul>
+  </div>
+  <div class="slide slide-dark">
+    <span class="slide-num">5 / 22</span>
+    
+    <h2 class="slide-h2">Exercise -- How Much Setup Time?</h2>
+    
+    <ul class="slide-list"><li><span class="bullet">1</span><span class="text">Exercise: How much time per day do you spend setting up AI?</span></li><li><span class="bullet">2</span><span class="text">Think about every time you re-explain a role, re-upload a file, re-describe a format.</span></li><li><span class="bullet">3</span><span class="text">Share your number in the chat.</span></li></ul>
+  </div>
+  <div class="slide slide-dark">
+    <span class="slide-num">6 / 22</span>
+    
+    <h2 class="slide-h2">The Real Cost</h2>
+    
+    <ul class="slide-list"><li><span class="bullet">1</span><span class="text">5 min setup x 4 times daily x 5 days = 100 min/week</span></li><li><span class="bullet">2</span><span class="text">That&#x27;s 86 hours per year on setup alone.</span></li></ul>
+  </div>
+  <div class="slide slide-dark">
+    <span class="slide-num">7 / 22</span>
+    
+    <h2 class="slide-h2">Good Prompts Don&#x27;t Scale</h2>
+    
+    <ul class="slide-list"><li><span class="bullet">1</span><span class="text">You write a great prompt. It works perfectly.</span></li><li><span class="bullet">2</span><span class="text">Next week you can&#x27;t find it.</span></li></ul>
+  </div>
+  <div class="slide slide-mint">
+    <span class="slide-num">8 / 22</span>
+    
+    <h2 class="slide-h2">The Automation Spectrum</h2>
+    
+    <ul class="slide-list"><li><span class="bullet">1</span><span class="text">Manual -- you type everything, every time.</span></li><li><span class="bullet">2</span><span class="text">Semi-Automated -- you trigger, AI executes.</span></li><li><span class="bullet">3</span><span class="text">Automated -- agents run without you.</span></li></ul>
+  </div>
+  <div class="slide slide-light">
+    <span class="slide-num">9 / 22</span>
+    
+    <h2 class="slide-h2 dark">Where Packaged AI Fits</h2>
+    
+    <ul class="slide-list"><li><span class="bullet">1</span><span class="text">Most people are stuck at manual.</span></li><li><span class="bullet">2</span><span class="text">This mission moves you to semi-automated.</span></li></ul>
+  </div>
+  <div class="slide slide-dark">
+    <span class="slide-num">10 / 22</span>
+    
+    <h2 class="slide-h2">Anatomy of Packaged AI</h2>
+    
+    <ul class="slide-list"><li><span class="bullet">1</span><span class="text">Data -- what does it know?</span></li><li><span class="bullet">2</span><span class="text">Instructions -- what does it do?</span></li><li><span class="bullet">3</span><span class="text">Interface -- how do users interact?</span></li></ul>
+  </div>
+  <div class="slide slide-dark">
+    <span class="slide-num">11 / 22</span>
+    
+    <h2 class="slide-h2">Data</h2>
+    
+    <ul class="slide-list"><li><span class="bullet">1</span><span class="text">Reference docs and style guides.</span></li><li><span class="bullet">2</span><span class="text">Templates and examples.</span></li><li><span class="bullet">3</span><span class="text">Product info and FAQs.</span></li></ul>
+  </div>
+  <div class="slide slide-dark">
+    <span class="slide-num">12 / 22</span>
+    
+    <h2 class="slide-h2">Instructions (RACE)</h2>
+    
+    <ul class="slide-list"><li><span class="bullet">1</span><span class="text">Role. Action. Context. Example.</span></li><li><span class="bullet">2</span><span class="text">A clear system prompt is the difference between useful and useless.</span></li></ul>
+  </div>
+  <div class="slide slide-mint">
+    <span class="slide-num">13 / 22</span>
+    
+    <h2 class="slide-h2">Interface</h2>
+    
+    <ul class="slide-list"><li><span class="bullet">1</span><span class="text">Name that explains the purpose.</span></li><li><span class="bullet">2</span><span class="text">Description that sets expectations.</span></li><li><span class="bullet">3</span><span class="text">Conversation starters that guide input.</span></li></ul>
+  </div>
+  <div class="slide slide-light">
+    <span class="slide-num">14 / 22</span>
+    
+    <h2 class="slide-h2 dark">Platform Options</h2>
+    
+    <ul class="slide-list"><li><span class="bullet">1</span><span class="text">ChatGPT -- Custom GPTs</span></li><li><span class="bullet">2</span><span class="text">Claude -- Projects</span></li><li><span class="bullet">3</span><span class="text">Google -- Gemini Gems</span></li></ul>
+  </div>
+  <div class="slide slide-dark">
+    <span class="slide-num">15 / 22</span>
+    
+    <h2 class="slide-h2">Example Build -- Email Tone Adjuster</h2>
+    
+    <ul class="slide-list"><li><span class="bullet">1</span><span class="text">Input: raw email + desired tone.</span></li><li><span class="bullet">2</span><span class="text">Output: polished email.</span></li></ul>
+  </div>
+  <div class="slide slide-dark">
+    <span class="slide-num">16 / 22</span>
+    
+    <h2 class="slide-h2">Exercise -- Step 1: Configuration</h2>
+    
+    <ul class="slide-list"><li><span class="bullet">1</span><span class="text">Exercise: Set up your Packaged AI tool.</span></li><li><span class="bullet">2</span><span class="text">Go to your platform. Create a new Custom GPT, Project, or Gem. Give it a name and description.</span></li></ul>
+  </div>
+  <div class="slide slide-dark">
+    <span class="slide-num">17 / 22</span>
+    
+    <h2 class="slide-h2">Exercise -- Step 2: Instructions</h2>
+    
+    <ul class="slide-list"><li><span class="bullet">1</span><span class="text">Exercise: Write your system prompt using RACE.</span></li><li><span class="bullet">2</span><span class="text">Role: Professional communication editor.</span></li><li><span class="bullet">3</span><span class="text">Action: Rewrite email to match the requested tone.</span></li><li><span class="bullet">4</span><span class="text">Context: Ask for tone if not provided. Preserve meaning. Do not add or remove information.</span></li><li><span class="bullet">5</span><span class="text">Example: Include a sample input and output.</span></li></ul>
+  </div>
+  <div class="slide slide-mint">
+    <span class="slide-num">18 / 22</span>
+    
+    <h2 class="slide-h2">Exercise -- Step 3: Interface</h2>
+    
+    <ul class="slide-list"><li><span class="bullet">1</span><span class="text">Exercise: Add conversation starters.</span></li><li><span class="bullet">2</span><span class="text">&quot;Make this more professional.&quot;</span></li><li><span class="bullet">3</span><span class="text">&quot;Soften this email.&quot;</span></li><li><span class="bullet">4</span><span class="text">&quot;Make this shorter and direct.&quot;</span></li></ul>
+  </div>
+  <div class="slide slide-light">
+    <span class="slide-num">19 / 22</span>
+    
+    <h2 class="slide-h2 dark">Exercise -- Step 4: Data</h2>
+    
+    <ul class="slide-list"><li><span class="bullet">1</span><span class="text">Exercise: Upload your tone reference.</span></li><li><span class="bullet">2</span><span class="text">Professional -- clear, respectful, action-oriented.</span></li><li><span class="bullet">3</span><span class="text">Friendly -- warm, conversational.</span></li><li><span class="bullet">4</span><span class="text">Direct -- brief, no fluff.</span></li></ul>
+  </div>
+  <div class="slide slide-dark">
+    <span class="slide-num">20 / 22</span>
+    
+    <h2 class="slide-h2">Exercise -- Step 5: Test</h2>
+    
+    <ul class="slide-list"><li><span class="bullet">1</span><span class="text">Exercise: Test your build.</span></li><li><span class="bullet">2</span><span class="text">Happy path -- does it work as expected?</span></li><li><span class="bullet">3</span><span class="text">Edge cases -- what happens with unusual input?</span></li><li><span class="bullet">4</span><span class="text">Break it before you ship it.</span></li></ul>
+  </div>
+  <div class="slide slide-dark">
+    <span class="slide-num">21 / 22</span>
+    
+    <h2 class="slide-h2">Your Commitment</h2>
+    
+    <ul class="slide-list"><li><span class="bullet">1</span><span class="text">What is one repeated task you will package this week?</span></li><li><span class="bullet">2</span><span class="text">Not a concept. A real tool someone else on your team can use.</span></li></ul>
+  </div>
+  <div class="slide slide-dark">
+    <span class="slide-num">22 / 22</span>
+    
+    <h2 class="slide-h2">Thank You</h2>
+    
+    <ul class="slide-list"><li><span class="bullet">1</span><span class="text">Thank you.</span></li><li><span class="bullet">2</span><span class="text">[QR Code Placeholder -- Session Feedback]</span></li><li><span class="bullet">3</span><span class="text">#AIOfficerCertification | Dave Hajdu | dave@ai-officer.com | ai-officer.com</span></li></ul>
+  </div>
+</div>
+
+</body>
+</html>

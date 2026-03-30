@@ -216,6 +216,7 @@
   .mcard.mcard-active:hover  { box-shadow: var(--shadow-hover); transform: translateY(-1px); border-color: rgba(40,123,232,0.55); }
   .mcard.done { background: var(--surface); border-color: var(--border); }
   a.mcard.done:hover { box-shadow: var(--shadow-hover); transform: translateY(-1px); border-color: var(--border-hover); background: white; }
+  a.mcard:not(.done):not(.locked-card):hover { box-shadow: var(--shadow-hover); transform: translateY(-1px); border-color: rgba(40,123,232,0.4); }
   .mcard.locked-card { opacity: 0.45; pointer-events: none; }
 
   .mcard-top { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
@@ -232,6 +233,7 @@
   }
   .status-done    { background: rgba(26,158,116,0.1); color: #1a9e74; }
   .status-active  { background: rgba(40,123,232,0.1); color: #287BE8; }
+  .status-age     { background: rgba(26,158,116,0.1); color: #1A9E74; }
   .status-locked  { background: var(--surface); color: var(--text-muted); border: 1px solid var(--border); }
   .status-coming  { background: rgba(4,16,45,0.05); color: var(--text-muted); }
 
@@ -341,7 +343,7 @@
   <div class="journey-hero-body">
     <div class="journey-hero-label">Certification Journey · Dave Hajdu</div>
     <h1>You're 36% of the way to<br><em>AI Officer Certified</em></h1>
-    <p class="journey-hero-sub">You're on Mission 3 of Generative AI. Complete it to unlock Mission 4 — then finish Track 1 and move into Agentic AI to earn your full AI Officer certification.</p>
+    <p class="journey-hero-sub">You're on Mission 3 of Generative AI. Complete it to unlock Mission 4 — then continue into Agentic AI to earn your full AI Officer certification.</p>
     <div class="journey-cta">
       <a href="generative-ai/mission-3.html" class="btn btn-white">Continue Mission 3 →</a>
     </div>
@@ -356,13 +358,13 @@
         <div class="path-step-status">65%</div>
       </div>
       <div class="path-arrow">↓</div>
-      <div class="path-step locked">
+      <div class="path-step">
         <div class="path-step-icon">🤖</div>
         <div class="path-step-info">
           <div class="path-step-name">Agentic AI</div>
           <div class="path-step-sub">0 of 6 missions</div>
         </div>
-        <div class="path-step-status">Locked</div>
+        <div class="path-step-status">0%</div>
       </div>
       <div class="path-arrow">↓</div>
       <div class="path-step locked">
@@ -429,7 +431,7 @@
       </a>
 
       <!-- Mission 2 — Done -->
-      <div class="mcard done">
+      <a href="generative-ai/mission-2.html" class="mcard done">
         <div class="done-check">✓</div>
         <div class="mcard-top">
           <span class="mcard-badge badge-gen">Mission 02</span>
@@ -441,7 +443,7 @@
           <div class="mcard-brief done-brief"><span class="mcard-brief-num">C2</span>Become a Data Detective</div>
           <div class="mcard-brief done-brief"><span class="mcard-brief-num">★</span>Clean at Scale</div>
         </div>
-      </div>
+      </a>
 
       <!-- Mission 3 — Active -->
       <a href="generative-ai/mission-3.html" class="mcard mcard-active">
@@ -460,11 +462,11 @@
         <div class="mcard-action">Continue Mission →</div>
       </a>
 
-      <!-- Mission 4 — Locked -->
-      <div class="mcard locked-card">
+      <!-- Mission 4 — Active -->
+      <a href="generative-ai/mission-4.html" class="mcard">
         <div class="mcard-top">
           <span class="mcard-badge badge-gen">Mission 04</span>
-          <span class="mcard-status status-locked">Locked</span>
+          <span class="mcard-status status-active">Active</span>
         </div>
         <div class="mcard-title">Prompting Perfect Visuals</div>
         <div class="mcard-briefs">
@@ -474,7 +476,7 @@
           <div class="mcard-brief"><span class="mcard-brief-num">C4</span>Build BOLT's Style DNA</div>
           <div class="mcard-brief"><span class="mcard-brief-num">★</span>Complete Visual Campaign</div>
         </div>
-      </div>
+      </a>
 
     </div>
   </div>
@@ -487,7 +489,7 @@
       <span class="track-pill pill-age"><span class="dot"></span> Track 2</span>
       <div class="track-header-info">
         <div class="track-header-title">Agentic AI Essentials</div>
-        <div class="track-header-sub">Unlocks when you complete Generative AI</div>
+        <div class="track-header-sub">6 missions · Build real AI-powered workflows</div>
       </div>
       <div class="track-progress-block">
         <div class="track-progress-row">
@@ -498,12 +500,12 @@
           <div class="progress-fill fill-age" style="width: 0%;"></div>
         </div>
       </div>
-      <span class="track-cert-badge locked">🔒 Agentic AI Specialist</span>
+      <span class="track-cert-badge">🎯 Agentic AI Specialist</span>
     </div>
 
     <div class="mgrid">
-      <div class="mcard locked-card">
-        <div class="mcard-top"><span class="mcard-badge badge-age">Mission 01</span><span class="mcard-status status-locked">Locked</span></div>
+      <a href="agentic-ai/mission-1.html" class="mcard">
+        <div class="mcard-top"><span class="mcard-badge badge-age">Mission 01</span><span class="mcard-status status-age">Active</span></div>
         <div class="mcard-title">AI Program Planning</div>
         <div class="mcard-briefs">
           <div class="mcard-brief"><span class="mcard-brief-num">C1</span>Complete Your Roadmap</div>
@@ -512,9 +514,9 @@
           <div class="mcard-brief"><span class="mcard-brief-num">C4</span>Stress-Test Your FAST Goal</div>
           <div class="mcard-brief"><span class="mcard-brief-num">★</span>Your AI Roadmap</div>
         </div>
-      </div>
-      <div class="mcard locked-card">
-        <div class="mcard-top"><span class="mcard-badge badge-age">Mission 02</span><span class="mcard-status status-locked">Locked</span></div>
+      </a>
+      <a href="agentic-ai/mission-2.html" class="mcard">
+        <div class="mcard-top"><span class="mcard-badge badge-age">Mission 02</span><span class="mcard-status status-age">Active</span></div>
         <div class="mcard-title">From Prompts to Packaged AI</div>
         <div class="mcard-briefs">
           <div class="mcard-brief"><span class="mcard-brief-num">C1</span>Map Your Data Layer</div>
@@ -523,9 +525,9 @@
           <div class="mcard-brief"><span class="mcard-brief-num">C4</span>Test Your Build</div>
           <div class="mcard-brief"><span class="mcard-brief-num">★</span>Your Packaged AI Prototype</div>
         </div>
-      </div>
-      <div class="mcard locked-card">
-        <div class="mcard-top"><span class="mcard-badge badge-age">Mission 03</span><span class="mcard-status status-locked">Locked</span></div>
+      </a>
+      <a href="agentic-ai/mission-3.html" class="mcard">
+        <div class="mcard-top"><span class="mcard-badge badge-age">Mission 03</span><span class="mcard-status status-age">Active</span></div>
         <div class="mcard-title">Wire the Workflow</div>
         <div class="mcard-briefs">
           <div class="mcard-brief"><span class="mcard-brief-num">C1</span>Map Your Workflow on Paper</div>
@@ -534,9 +536,9 @@
           <div class="mcard-brief"><span class="mcard-brief-num">C4</span>Run the Full Test</div>
           <div class="mcard-brief"><span class="mcard-brief-num">★</span>Deliver Your Final Project</div>
         </div>
-      </div>
-      <div class="mcard locked-card">
-        <div class="mcard-top"><span class="mcard-badge badge-age">Mission 04</span><span class="mcard-status status-locked">Locked</span></div>
+      </a>
+      <a href="agentic-ai/mission-4.html" class="mcard">
+        <div class="mcard-top"><span class="mcard-badge badge-age">Mission 04</span><span class="mcard-status status-age">Active</span></div>
         <div class="mcard-title">Teach Your Workflow to Decide</div>
         <div class="mcard-briefs">
           <div class="mcard-brief"><span class="mcard-brief-num">C1</span>Complete Your Tiny Decision Canvas</div>
@@ -545,9 +547,9 @@
           <div class="mcard-brief"><span class="mcard-brief-num">C4</span>Test All Paths</div>
           <div class="mcard-brief"><span class="mcard-brief-num">★</span>Your Complete Logic Layer</div>
         </div>
-      </div>
-      <div class="mcard locked-card">
-        <div class="mcard-top"><span class="mcard-badge badge-age">Mission 05</span><span class="mcard-status status-locked">Locked</span></div>
+      </a>
+      <a href="agentic-ai/mission-5.html" class="mcard">
+        <div class="mcard-top"><span class="mcard-badge badge-age">Mission 05</span><span class="mcard-status status-age">Active</span></div>
         <div class="mcard-title">Unleash the Agent</div>
         <div class="mcard-briefs">
           <div class="mcard-brief"><span class="mcard-brief-num">C1</span>Define Your Agent Mission</div>
@@ -556,10 +558,10 @@
           <div class="mcard-brief"><span class="mcard-brief-num">C4</span>Set Success Metrics</div>
           <div class="mcard-brief"><span class="mcard-brief-num">★</span>Complete Your Agent</div>
         </div>
-      </div>
-      <div class="mcard locked-card">
+      </a>
+      <a href="agentic-ai/mission-6.html" class="mcard">
         <div class="mcard-top"><span class="mcard-badge badge-age">Mission 06</span><span class="mcard-status status-coming">Coming Soon</span></div>
-        <div class="mcard-title">Deploy at Scale</div>
+        <div class="mcard-title">From Prototype to Production</div>
         <div class="mcard-briefs">
           <div class="mcard-brief"><span class="mcard-brief-num">C1</span>Write Technical Requirements</div>
           <div class="mcard-brief"><span class="mcard-brief-num">C2</span>Define Governance Ownership</div>
@@ -567,7 +569,7 @@
           <div class="mcard-brief"><span class="mcard-brief-num">C4</span>Write the Engineer's Handoff Checklist</div>
           <div class="mcard-brief"><span class="mcard-brief-num">★</span>Your Production Brief</div>
         </div>
-      </div>
+      </a>
     </div>
   </div>
 

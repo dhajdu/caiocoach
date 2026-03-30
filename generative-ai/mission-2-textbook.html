@@ -19,50 +19,11 @@
   body { background: var(--surface); }
 
   .page-wrap {
-    display: grid;
-    grid-template-columns: 240px 1fr;
-    min-height: 100vh;
     padding-top: 56px;
   }
 
-  /* ── Sidebar ── */
-  .tb-sidebar {
-    position: sticky; top: 56px; height: calc(100vh - 56px);
-    overflow-y: auto; background: white;
-    border-right: 1px solid var(--border);
-    padding: 28px 0;
-  }
-  .tb-sidebar-inner { padding: 0 20px; }
-  .tb-sidebar-label {
-    font-size: 10px; font-weight: 700; letter-spacing: 1px;
-    text-transform: uppercase; color: var(--text-muted);
-    margin-bottom: 12px; padding: 0 4px;
-  }
-  .tb-nav-link {
-    display: block; padding: 8px 12px; border-radius: 8px;
-    font-size: 13px; font-weight: 500; color: var(--text-secondary);
-    text-decoration: none; transition: all 0.12s; margin-bottom: 2px;
-    line-height: 1.4;
-  }
-  .tb-nav-link:hover { background: var(--surface); color: var(--text-primary); }
-  .tb-nav-link.active { background: rgba(40,123,232,0.08); color: #287BE8; font-weight: 600; }
-  .tb-nav-num {
-    font-family: 'JetBrains Mono', monospace; font-size: 10px;
-    font-weight: 700; color: var(--text-muted); display: block; margin-bottom: 1px;
-  }
-  .tb-nav-divider { height: 1px; background: var(--border); margin: 14px 0; }
-
-  .tb-buddy-btn {
-    display: flex; align-items: center; gap: 8px; width: 100%;
-    margin-top: 20px; padding: 10px 12px; border-radius: 8px;
-    background: rgba(40,123,232,0.07); border: 1px solid rgba(40,123,232,0.2);
-    color: #287BE8; font-size: 13px; font-weight: 600; cursor: pointer;
-    text-decoration: none; transition: all 0.15s;
-  }
-  .tb-buddy-btn:hover { background: rgba(40,123,232,0.12); }
-
   /* ── Main content ── */
-  .tb-main { padding: 48px 60px 100px; max-width: 780px; }
+  .tb-main { max-width: 760px; margin: 0 auto; padding: 80px 40px 100px; }
 
   .tb-back {
     display: inline-flex; align-items: center; gap: 6px;
@@ -178,10 +139,10 @@
   .tb-nav-btn.primary:hover { background: #1a6fd1; }
 
   @media (max-width: 900px) {
-    .page-wrap { grid-template-columns: 1fr; }
-    .tb-sidebar { display: none; }
     .tb-main { padding: 40px 24px 80px; }
     .topbar-nav { display: none; }
+    .race-grid { grid-template-columns: 1fr; }
+    .kingdom-grid { grid-template-columns: 1fr; }
   }
 </style>
 </head>
@@ -208,39 +169,6 @@
 </div>
 
 <div class="page-wrap">
-
-  <!-- ══════ SIDEBAR ══════ -->
-  <aside class="tb-sidebar">
-    <div class="tb-sidebar-inner">
-      <div class="tb-sidebar-label">Mission 2 Briefs</div>
-
-      <a href="#brief-intro" class="tb-nav-link">
-        <span class="tb-nav-num">INTRO</span>Overview &amp; Learning Guide
-      </a>
-      <div class="tb-nav-divider"></div>
-      <a href="#brief-1" class="tb-nav-link">
-        <span class="tb-nav-num">BRIEF 1</span>The Truth About AI Failure
-      </a>
-      <a href="#brief-2" class="tb-nav-link">
-        <span class="tb-nav-num">BRIEF 2</span>How AI Actually Processes Your Data
-      </a>
-      <a href="#brief-3" class="tb-nav-link">
-        <span class="tb-nav-num">BRIEF 3</span>Implementation and Safety
-      </a>
-      <a href="#brief-4" class="tb-nav-link">
-        <span class="tb-nav-num">BRIEF 4</span>The Right AI for the Right Job
-      </a>
-      <a href="#brief-5" class="tb-nav-link">
-        <span class="tb-nav-num">BRIEF 5</span>The BOLT Data Challenge
-      </a>
-      <div class="tb-nav-divider"></div>
-      <a href="#wrap-up" class="tb-nav-link">
-        <span class="tb-nav-num">WRAP-UP</span>Key Takeaways
-      </a>
-
-      <a href="https://claude.ai" target="_blank" class="tb-buddy-btn">🤖 Open AI Buddy</a>
-    </div>
-  </aside>
 
   <!-- ══════ MAIN ══════ -->
   <main class="tb-main">

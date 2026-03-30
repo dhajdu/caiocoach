@@ -1,0 +1,796 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mission 1 Briefs — Enter the AI Officer</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../shared/styles.css">
+<style>
+  :root {
+    --royal: #287BE8;
+    --ease: cubic-bezier(0.4, 0, 0.2, 1);
+    --radius: 12px;
+    --shadow-sm: 0 1px 3px rgba(4,16,45,0.07);
+    --shadow-hover: 0 6px 24px rgba(4,16,45,0.10);
+    --text-tertiary: #8b91ac;
+    --border-hover: #b0b6cc;
+  }
+  body { background: var(--surface); }
+
+  .page-wrap {
+    display: grid;
+    grid-template-columns: 240px 1fr;
+    min-height: 100vh;
+    padding-top: 56px;
+  }
+
+  /* ── Sidebar ── */
+  .tb-sidebar {
+    position: sticky; top: 56px; height: calc(100vh - 56px);
+    overflow-y: auto; background: white;
+    border-right: 1px solid var(--border);
+    padding: 28px 0;
+  }
+  .tb-sidebar-inner { padding: 0 20px; }
+  .tb-sidebar-label {
+    font-size: 10px; font-weight: 700; letter-spacing: 1px;
+    text-transform: uppercase; color: var(--text-muted);
+    margin-bottom: 12px; padding: 0 4px;
+  }
+  .tb-nav-link {
+    display: block; padding: 8px 12px; border-radius: 8px;
+    font-size: 13px; font-weight: 500; color: var(--text-secondary);
+    text-decoration: none; transition: all 0.12s; margin-bottom: 2px;
+    line-height: 1.4;
+  }
+  .tb-nav-link:hover { background: var(--surface); color: var(--text-primary); }
+  .tb-nav-link.active { background: rgba(40,123,232,0.08); color: #287BE8; font-weight: 600; }
+  .tb-nav-num {
+    font-family: 'JetBrains Mono', monospace; font-size: 10px;
+    font-weight: 700; color: var(--text-muted); display: block; margin-bottom: 1px;
+  }
+  .tb-nav-divider { height: 1px; background: var(--border); margin: 14px 0; }
+
+  .tb-buddy-btn {
+    display: flex; align-items: center; gap: 8px; width: 100%;
+    margin-top: 20px; padding: 10px 12px; border-radius: 8px;
+    background: rgba(40,123,232,0.07); border: 1px solid rgba(40,123,232,0.2);
+    color: #287BE8; font-size: 13px; font-weight: 600; cursor: pointer;
+    text-decoration: none; transition: all 0.15s;
+  }
+  .tb-buddy-btn:hover { background: rgba(40,123,232,0.12); }
+
+  /* ── Main content ── */
+  .tb-main { padding: 48px 60px 100px; max-width: 780px; }
+
+  .tb-back {
+    display: inline-flex; align-items: center; gap: 6px;
+    font-size: 13px; font-weight: 600; color: var(--text-muted);
+    text-decoration: none; margin-bottom: 32px; transition: color 0.12s;
+  }
+  .tb-back:hover { color: var(--text-primary); }
+
+  .tb-hero { margin-bottom: 48px; }
+  .tb-track-pill {
+    display: inline-flex; align-items: center; gap: 7px;
+    font-size: 11px; font-weight: 700; letter-spacing: 0.7px;
+    text-transform: uppercase; padding: 5px 12px; border-radius: 20px;
+    background: rgba(40,123,232,0.1); color: #287BE8;
+    border: 1px solid rgba(40,123,232,0.2); margin-bottom: 14px;
+  }
+  .tb-title {
+    font-size: 32px; font-weight: 700; color: var(--text-primary);
+    letter-spacing: -0.5px; line-height: 1.15; margin-bottom: 10px;
+  }
+  .tb-sub { font-size: 15px; color: var(--text-secondary); line-height: 1.65; max-width: 560px; }
+
+  /* ── Brief section ── */
+  .brief-section { margin-bottom: 64px; scroll-margin-top: 80px; }
+  .brief-label {
+    font-family: 'JetBrains Mono', monospace; font-size: 10px; font-weight: 700;
+    letter-spacing: 1px; text-transform: uppercase; color: #287BE8;
+    margin-bottom: 6px;
+  }
+  .brief-title {
+    font-size: 24px; font-weight: 700; color: var(--text-primary);
+    letter-spacing: -0.3px; line-height: 1.2; margin-bottom: 20px;
+    padding-bottom: 16px; border-bottom: 2px solid var(--border);
+  }
+
+  /* ── Prose ── */
+  .prose { color: var(--text-secondary); line-height: 1.75; font-size: 15px; }
+  .prose p { margin-bottom: 18px; }
+  .prose h3 {
+    font-size: 17px; font-weight: 700; color: var(--text-primary);
+    letter-spacing: -0.2px; margin: 32px 0 10px;
+  }
+  .prose h4 {
+    font-size: 14px; font-weight: 700; color: var(--text-primary);
+    text-transform: uppercase; letter-spacing: 0.5px;
+    margin: 24px 0 8px;
+  }
+  .prose ul, .prose ol {
+    padding-left: 20px; margin-bottom: 18px; display: flex; flex-direction: column; gap: 6px;
+  }
+  .prose li { font-size: 14.5px; line-height: 1.65; }
+  .prose strong { font-weight: 700; color: var(--text-primary); }
+
+  /* ── Key insight box ── */
+  .key-insight {
+    background: rgba(40,123,232,0.05); border: 1px solid rgba(40,123,232,0.15);
+    border-left: 3px solid #287BE8; border-radius: 0 var(--radius) var(--radius) 0;
+    padding: 18px 22px; margin: 28px 0;
+  }
+  .key-insight-label {
+    font-size: 10px; font-weight: 700; letter-spacing: 1px;
+    text-transform: uppercase; color: #287BE8; margin-bottom: 8px;
+  }
+  .key-insight p { font-size: 14px; color: var(--text-primary); line-height: 1.65; margin: 0; }
+
+  /* ── Starter prompt box ── */
+  .starter-prompt {
+    background: rgba(26,158,116,0.04); border: 1px solid rgba(26,158,116,0.18);
+    border-radius: var(--radius); padding: 20px 22px; margin: 24px 0;
+  }
+  .starter-prompt-label {
+    display: flex; align-items: center; gap: 8px;
+    font-size: 11px; font-weight: 700; letter-spacing: 0.7px;
+    text-transform: uppercase; color: #1a9e74; margin-bottom: 12px;
+  }
+  .starter-prompt-text {
+    font-size: 14px; color: var(--text-primary); line-height: 1.7;
+    font-style: italic; background: white; padding: 14px 16px;
+    border-radius: 8px; border: 1px solid rgba(26,158,116,0.15);
+  }
+
+  /* ── Belief / move cards ── */
+  .belief-grid { display: flex; flex-direction: column; gap: 10px; margin: 16px 0 24px; }
+  .belief-card {
+    display: flex; gap: 14px; align-items: flex-start;
+    background: white; border: 1px solid var(--border);
+    border-radius: 10px; padding: 16px 18px;
+  }
+  .belief-num {
+    font-family: 'JetBrains Mono', monospace; font-size: 11px; font-weight: 700;
+    color: white; background: #287BE8; border-radius: 6px;
+    padding: 3px 8px; flex-shrink: 0; margin-top: 1px;
+  }
+  .belief-num.move { background: #1a9e74; }
+  .belief-content strong { font-size: 14px; font-weight: 700; color: var(--text-primary); display: block; margin-bottom: 3px; }
+  .belief-content p { font-size: 13.5px; color: var(--text-secondary); line-height: 1.6; margin: 0; }
+
+  /* ── RACE boxes ── */
+  .race-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 16px 0 24px; }
+  .race-card {
+    background: white; border: 1px solid var(--border);
+    border-radius: 10px; padding: 16px 18px;
+  }
+  .race-letter {
+    font-family: 'JetBrains Mono', monospace; font-size: 22px; font-weight: 700;
+    color: #287BE8; line-height: 1; margin-bottom: 6px;
+  }
+  .race-name { font-size: 13px; font-weight: 700; color: var(--text-primary); margin-bottom: 4px; }
+  .race-desc { font-size: 13px; color: var(--text-secondary); line-height: 1.5; }
+
+  /* ── Kingdom cards ── */
+  .kingdom-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; margin: 16px 0 24px; }
+  .kingdom-card {
+    background: white; border: 1px solid var(--border);
+    border-radius: 10px; padding: 16px 18px; text-align: center;
+  }
+  .kingdom-name { font-size: 15px; font-weight: 700; color: var(--text-primary); margin-bottom: 4px; }
+  .kingdom-tag { font-size: 11px; font-weight: 700; color: #287BE8; margin-bottom: 8px; }
+  .kingdom-desc { font-size: 12.5px; color: var(--text-secondary); line-height: 1.5; }
+
+  /* ── Worked example ── */
+  .worked-example {
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: var(--radius); padding: 20px 22px; margin: 24px 0;
+  }
+  .worked-example-label {
+    font-size: 10px; font-weight: 700; letter-spacing: 1px;
+    text-transform: uppercase; color: var(--text-muted); margin-bottom: 12px;
+  }
+
+  /* ── Back link at bottom ── */
+  .tb-bottom-nav {
+    display: flex; align-items: center; justify-content: space-between;
+    border-top: 1px solid var(--border); padding-top: 32px; margin-top: 16px;
+  }
+  .tb-nav-btn {
+    display: inline-flex; align-items: center; gap: 6px;
+    font-size: 13px; font-weight: 600; color: var(--text-muted);
+    text-decoration: none; padding: 8px 14px; border-radius: 8px;
+    border: 1px solid var(--border); transition: all 0.12s;
+  }
+  .tb-nav-btn:hover { border-color: var(--border-hover); color: var(--text-primary); }
+  .tb-nav-btn.primary {
+    background: #287BE8; color: white; border-color: #287BE8;
+  }
+  .tb-nav-btn.primary:hover { background: #1a6fd1; }
+
+  @media (max-width: 900px) {
+    .page-wrap { grid-template-columns: 1fr; }
+    .tb-sidebar { display: none; }
+    .tb-main { padding: 40px 24px 80px; }
+    .topbar-nav { display: none; }
+    .race-grid { grid-template-columns: 1fr; }
+    .kingdom-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ═══════════════ TOP BAR ═══════════════ -->
+<div class="topbar">
+  <a href="../index.html" class="topbar-brand">AIO <span>Labs</span></a>
+  <nav class="topbar-nav">
+    <a href="../index.html" class="tnav-link"><span class="tnav-dot" style="background:#8b91ac"></span> Home</a>
+    <a href="../certification.html" class="tnav-link active"><span class="tnav-dot" style="background:#287BE8"></span> Certification</a>
+    <a href="#" class="tnav-link"><span class="tnav-dot" style="background:#287BE8"></span> Coaching</a>
+    <a href="../micro-sessions/index.html" class="tnav-link"><span class="tnav-dot" style="background:#1A9E74"></span> Micro-Sessions</a>
+    <a href="../blog/index.html" class="tnav-link"><span class="tnav-dot" style="background:#6FF2C1"></span> Blog</a>
+    <a href="#" class="tnav-link"><span class="tnav-dot" style="background:#8b91ac"></span> My Team</a>
+  </nav>
+  <div class="topbar-right">
+    <a href="https://claude.ai" target="_blank" class="buddy-launch-btn">🤖 AI Buddy</a>
+    <div class="topbar-stat">🔥 7</div>
+    <div class="topbar-stat">⭐ 1,240</div>
+    <div class="topbar-divider"></div>
+    <div class="topbar-avatar">DH</div>
+  </div>
+</div>
+
+<div class="page-wrap">
+
+  <!-- ══════ SIDEBAR ══════ -->
+  <aside class="tb-sidebar">
+    <div class="tb-sidebar-inner">
+      <div class="tb-sidebar-label">Mission 1 Briefs</div>
+
+      <a href="#brief-intro" class="tb-nav-link">
+        <span class="tb-nav-num">INTRO</span>Overview &amp; Learning Guide
+      </a>
+      <div class="tb-nav-divider"></div>
+      <a href="#brief-1" class="tb-nav-link">
+        <span class="tb-nav-num">BRIEF 1</span>The Other 50%
+      </a>
+      <a href="#brief-2" class="tb-nav-link">
+        <span class="tb-nav-num">BRIEF 2</span>The AI Officer Mindset
+      </a>
+      <a href="#brief-3" class="tb-nav-link">
+        <span class="tb-nav-num">BRIEF 3</span>What is AI?
+      </a>
+      <a href="#brief-4" class="tb-nav-link">
+        <span class="tb-nav-num">BRIEF 4</span>The Path to 99% Accuracy
+      </a>
+      <a href="#brief-5" class="tb-nav-link">
+        <span class="tb-nav-num">BRIEF 5</span>Meet the Models
+      </a>
+      <div class="tb-nav-divider"></div>
+      <a href="#wrap-up" class="tb-nav-link">
+        <span class="tb-nav-num">WRAP-UP</span>Key Takeaways
+      </a>
+
+      <a href="https://claude.ai" target="_blank" class="tb-buddy-btn">🤖 Open AI Buddy</a>
+    </div>
+  </aside>
+
+  <!-- ══════ MAIN ══════ -->
+  <main class="tb-main">
+
+    <a href="mission-1.html" class="tb-back">← Back to Mission 1</a>
+
+    <div class="tb-hero">
+      <div class="tb-track-pill">Generative AI Essentials · Mission 01</div>
+      <h1 class="tb-title">Enter the AI Officer</h1>
+      <p class="tb-sub">Mindset is the foundation. Five briefs that build your operating system as an AI Officer — from the other 50% to the AI kingdoms. Read them in order, or jump to what you need.</p>
+    </div>
+
+    <!-- ══════════════════════════════════════
+         INTRO
+    ═══════════════════════════════════════ -->
+    <section class="brief-section" id="brief-intro">
+      <div class="brief-label">Introduction</div>
+      <h2 class="brief-title">Mission Goal &amp; How to Learn</h2>
+
+      <div class="prose">
+        <p>You're not here to become a developer. You're not here to learn every tool. You're here to become the person who walks into any room, looks at any process, and knows where AI fits, where it doesn't, and how to build a plan that actually delivers.</p>
+
+        <h3>By the end of this mission, you'll be able to:</h3>
+      </div>
+
+      <div class="belief-grid">
+        <div class="belief-card">
+          <span class="belief-num">01</span>
+          <div class="belief-content">
+            <strong>Explain the 50/50 Era</strong>
+            <p>Understand what the other 50% of leadership actually requires</p>
+          </div>
+        </div>
+        <div class="belief-card">
+          <span class="belief-num">02</span>
+          <div class="belief-content">
+            <strong>Apply the Six Beliefs</strong>
+            <p>The personal operating system that guides every AI Officer</p>
+          </div>
+        </div>
+        <div class="belief-card">
+          <span class="belief-num">03</span>
+          <div class="belief-content">
+            <strong>Use RACE and the AI Interview</strong>
+            <p>Structure any AI task and find the gaps in your thinking</p>
+          </div>
+        </div>
+        <div class="belief-card">
+          <span class="belief-num">04</span>
+          <div class="belief-content">
+            <strong>Evaluate AI Models</strong>
+            <p>Understand why "what's the best AI?" is the wrong question</p>
+          </div>
+        </div>
+        <div class="belief-card">
+          <span class="belief-num">05</span>
+          <div class="belief-content">
+            <strong>Build a Personal Learning Plan</strong>
+            <p>Specific to your role, your goals, and your schedule</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="prose">
+        <h3>A New Way to Learn</h3>
+        <p>Every mission starts with a challenge, not a chapter. You learn by doing the work, not by reading about it. Meet your AI Buddy — your coach, tutor, and grading agent, available 24/7. He's memorized all the course material. If you're stuck on a concept, ask him. If you don't understand a term, ask him. If you want someone to walk you through a challenge step by step, ask him.</p>
+        <p><strong>Don't Google it. Buddy it.</strong></p>
+
+        <h3>The AI Officer's Starter Kit</h3>
+        <ol>
+          <li><strong>Your input drives AI output.</strong> AI is 99% accurate when you give it the right data and the right instructions. Give it vague, get vague back.</li>
+          <li><strong>You don't write prompts.</strong> You organize your thinking. That's what RACE does. That's what the AI Interview does.</li>
+          <li><strong>The AI Officer's job is to lead AI programs</strong>, not use AI tools. Every challenge, every brief is building toward that.</li>
+        </ol>
+      </div>
+    </section>
+
+    <!-- ══════════════════════════════════════
+         BRIEF 1
+    ═══════════════════════════════════════ -->
+    <section class="brief-section" id="brief-1">
+      <div class="brief-label">Brief 1</div>
+      <h2 class="brief-title">The Other 50%</h2>
+
+      <div class="prose">
+        <p>Leadership has changed. Not because leaders got worse. Because half the job is new.</p>
+        <p>For decades, leadership meant one thing: leading people. Strategy, communication, hiring, culture, decision-making under pressure. That's the human side. It's what MBA programs teach. It's what executive coaches develop. It still matters — it's half the job.</p>
+        <p>But now there's another half. And almost nobody has been trained for it.</p>
+        <p><strong>The other 50% is leading AI.</strong> Not using AI tools. Not typing better prompts. Leading AI programs that deliver measurable results for your organization. Designing them. Making the data decisions. Building the logic. Owning the workflows. Measuring the ROI.</p>
+
+        <h3>What Leading AI Actually Means</h3>
+        <p>Leading people means you know how to hire, develop, motivate, and align a team around a goal. Leading AI means you know how to design a program, prepare the data, define the workflow, choose the right tools, set the success metrics, and get a return on investment.</p>
+        <p>Most organizations are trying to skip straight to the tools. They buy ChatGPT licenses, run a lunch-and-learn, and expect results. That's like hiring a team with no onboarding, no goals, and no manager, then wondering why nothing gets done. AI without leadership is just an expensive experiment.</p>
+
+        <h3>Why 95% Are Failing</h3>
+        <p>MIT found that despite $30–40 billion in enterprise AI investment, 95% of organizations are seeing no measurable return. Everyone says AI is working. They feel more productive. But there's no ROI. Companies map AI to tools instead of outcomes. They ask "how do we use AI?" when they should be asking "what problem are we solving, what data do we need, and how do we measure success?"</p>
+        <p>The organizations getting results have someone who owns the AI program — who defines the problem before buying the tool, fixes the data before feeding the model, designs the workflow before asking the team to adopt it. <strong>That someone is the AI Officer.</strong></p>
+
+        <h3>What You're Learning in This Program</h3>
+        <ol>
+          <li><strong>Mindset</strong> — That's this mission. Before you can lead AI, you need to see your work differently.</li>
+          <li><strong>Data</strong> — That's Mission 2. The #1 reason AI programs fail is bad data.</li>
+          <li><strong>Logic</strong> — That's Mission 3. Stack frameworks, produce professional deliverables.</li>
+          <li><strong>Visuals</strong> — That's Mission 4. Turn your deliverables into content your team can execute.</li>
+        </ol>
+
+        <h3>The AI Officer</h3>
+        <p>The AI Officer is not a job title. It's a capability. It means you're the person in the room who knows how to lead AI. Not the person who knows the most tools. Not the person who writes the fanciest prompts. The person who can look at any process, identify where AI fits, design the program, and deliver results.</p>
+        <p>You can carry this capability as a marketing manager, a project lead, an operations director, a CEO. The title doesn't matter. What matters is you're the one who makes AI work. And the leaders who figure this out first win.</p>
+      </div>
+
+      <div class="key-insight">
+        <div class="key-insight-label">Key Insight</div>
+        <p>Half of leadership is leading people. Half is leading AI. Most leaders have been trained on the people half their entire career. Almost nobody has been trained to lead AI. That's not about using tools better — it's about designing programs, owning the data, building the logic, and delivering ROI. That's the other 50%. That's what this program teaches.</p>
+      </div>
+
+      <div class="starter-prompt">
+        <div class="starter-prompt-label">💬 Starter Prompt — AI Buddy</div>
+        <div class="starter-prompt-text">"I'm a [your job title] at a [your company type]. I want to understand what the AI half of my leadership role looks like. Ask me about my daily work, my team, and where I spend the most time. Then tell me which parts of my job are 'leading people' and which parts could become 'leading AI' — meaning where I could design an AI program to deliver better results."</div>
+      </div>
+    </section>
+
+    <!-- ══════════════════════════════════════
+         BRIEF 2
+    ═══════════════════════════════════════ -->
+    <section class="brief-section" id="brief-2">
+      <div class="brief-label">Brief 2</div>
+      <h2 class="brief-title">The AI Officer Mindset</h2>
+
+      <div class="prose">
+        <p>Now you know what the other 50% is. This brief is about how you operate inside it. The AI Officer mindset is your personal operating system — six beliefs that guide your thinking and five moves you make every day.</p>
+
+        <h3>The 6 Beliefs of an AI Officer</h3>
+      </div>
+
+      <div class="belief-grid">
+        <div class="belief-card">
+          <span class="belief-num">1</span>
+          <div class="belief-content">
+            <strong>Accuracy follows clarity.</strong>
+            <p>AI performs at the level of your thinking. If you give it a vague request, you get a vague answer. Your clarity drives its intelligence — not the other way around.</p>
+          </div>
+        </div>
+        <div class="belief-card">
+          <span class="belief-num">2</span>
+          <div class="belief-content">
+            <strong>AI is like a Buddy that learns you.</strong>
+            <p>The more you organize information about yourself — your goals, role, industry — the better AI works for you. Pick one model and stick with it. Mastery beats variety.</p>
+          </div>
+        </div>
+        <div class="belief-card">
+          <span class="belief-num">3</span>
+          <div class="belief-content">
+            <strong>Frameworks turn chaos into clarity.</strong>
+            <p>AI rewards structured thinkers. Use a framework to organize what you know before handing it to AI. Don't guess. Design.</p>
+          </div>
+        </div>
+        <div class="belief-card">
+          <span class="belief-num">4</span>
+          <div class="belief-content">
+            <strong>Information is the new creativity.</strong>
+            <p>AI runs on context, not vibes. The more structured your information, the more original and insightful the output. Order in, wisdom out.</p>
+          </div>
+        </div>
+        <div class="belief-card">
+          <span class="belief-num">5</span>
+          <div class="belief-content">
+            <strong>Curiosity drives mastery.</strong>
+            <p>AI is your personal PhD. The people who get the most out of AI aren't the most technical — they're the ones who are curious. They try things. They break things. Progress favors the curious.</p>
+          </div>
+        </div>
+        <div class="belief-card">
+          <span class="belief-num">6</span>
+          <div class="belief-content">
+            <strong>AI needs a human in the loop.</strong>
+            <p>AI can scale knowledge, but it can't set direction or define meaning. It still needs a driver — a human mind to guide, question, and create with purpose. Be the orchestrator.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="prose">
+        <h3>The 5 Daily Moves</h3>
+        <p>What does the AI Officer actually do every day?</p>
+      </div>
+
+      <div class="belief-grid">
+        <div class="belief-card">
+          <span class="belief-num move">1</span>
+          <div class="belief-content">
+            <strong>Find problems worth solving.</strong>
+            <p>Not every problem needs AI. Your filter: where does an AI program cut cost or increase revenue? Define one business goal and one metric that proves value.</p>
+          </div>
+        </div>
+        <div class="belief-card">
+          <span class="belief-num move">2</span>
+          <div class="belief-content">
+            <strong>Become a data detective.</strong>
+            <p>Meeting notes, spreadsheets, files named "test123" — all data, most of it chaos. Figure out where your information lives and what needs to be cleaned up before AI can use it.</p>
+          </div>
+        </div>
+        <div class="belief-card">
+          <span class="belief-num move">3</span>
+          <div class="belief-content">
+            <strong>Build or buy.</strong>
+            <p>Build when the problem is unique to your business. Buy when speed matters more than customization. The AI Officer knows the difference.</p>
+          </div>
+        </div>
+        <div class="belief-card">
+          <span class="belief-num move">4</span>
+          <div class="belief-content">
+            <strong>Orchestrate AI.</strong>
+            <p>Put the right tools in the right order. Feed them the right context. Add checkpoints. Watch the numbers. Sequence the workflow and make sure nothing falls through the cracks.</p>
+          </div>
+        </div>
+        <div class="belief-card">
+          <span class="belief-num move">5</span>
+          <div class="belief-content">
+            <strong>Plan like a pro.</strong>
+            <p>Define the goal, the data, the tools, the people, the checkpoints, the success metrics, and the timeline. Tight enough to present to leadership. Flexible enough to adapt as you learn.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="key-insight">
+        <div class="key-insight-label">Key Insight</div>
+        <p>The AI Officer mindset is not about being technical. It's about seeing your work differently. Six beliefs guide your thinking. Five moves shape your day. The people who adopt this mindset don't just get better at AI — they get better at leading, because they start seeing every process as a system they can improve.</p>
+      </div>
+
+      <div class="starter-prompt">
+        <div class="starter-prompt-label">💬 Starter Prompt — AI Buddy</div>
+        <div class="starter-prompt-text">"I want to practice the five daily moves of an AI Officer on a real task from my work. Ask me about my role and what I spend the most time on. Then help me pick one task and walk through all five moves: find the problem worth solving, identify the data, decide build or buy, design how to orchestrate it, and sketch a plan."</div>
+      </div>
+    </section>
+
+    <!-- ══════════════════════════════════════
+         BRIEF 3
+    ═══════════════════════════════════════ -->
+    <section class="brief-section" id="brief-3">
+      <div class="brief-label">Brief 3</div>
+      <h2 class="brief-title">What is AI? What is it Not? Where Did it Come From?</h2>
+
+      <div class="prose">
+        <p>Before you can lead AI, you need to understand what it actually is, what it's not, and where it came from. Not to become an engineer — to make better decisions about when to use it, when not to, and how to explain it to your team.</p>
+
+        <h3>The Definition</h3>
+        <p>AI is simply the quest of humans to make a machine think like a human. Everything else — the models, the tools, the hype — comes back to this one idea. The answer so far is <em>sort of</em>. It's getting really good at specific things, but it's still a long way from thinking like you and me.</p>
+
+        <h3>The Evolution of AI</h3>
+      </div>
+
+      <div class="belief-grid">
+        <div class="belief-card">
+          <span class="belief-num">Now</span>
+          <div class="belief-content">
+            <strong>Narrow AI (1956 to today)</strong>
+            <p>AI that's really good at specific tasks — reads an X-ray better than a doctor, writes a report in seconds, wins at chess. But it can only do what it's built to do. It doesn't understand anything. It processes and predicts. This is what you're working with.</p>
+          </div>
+        </div>
+        <div class="belief-card">
+          <span class="belief-num">~2035</span>
+          <div class="belief-content">
+            <strong>AGI — Artificial General Intelligence</strong>
+            <p>AI that can reason like a human across any domain. Estimated 2030–2040. Still hypothetical.</p>
+          </div>
+        </div>
+        <div class="belief-card">
+          <span class="belief-num">?</span>
+          <div class="belief-content">
+            <strong>Super-Intelligence</strong>
+            <p>AI smarter than all of us combined. Self-improving. We don't know when or if that happens.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="prose">
+        <h3>What AI Actually Does</h3>
+        <p>AI is code that learns from massive amounts of data, recognizes patterns, makes predictions, and follows your instructions. It's not magic. It's not conscious. It's a <strong>prediction machine</strong>. It doesn't know you, doesn't know your company — it predicts the next word based on patterns. Which means the patterns you feed it — your data, your context, your instructions — are everything.</p>
+
+        <h3>AI Doesn't Understand You</h3>
+        <p>This is the biggest misconception. AI doesn't understand you. It recognizes patterns within a narrow context window, then predicts what comes next. That's it. Pattern matching and prediction. Not understanding.</p>
+        <p>When AI says "I understand," it's a speech pattern, not a truth. It saw that phrase follow certain inputs a million times in training data, so it predicts that phrase fits here. The words feel warm. The mechanism is cold.</p>
+
+        <h3>AI Can Perform Like It Does</h3>
+        <p>Here's the good news. AI doesn't need to remember you. It just needs the right context in the moment. And that's something you control. When you feed AI a well-structured prompt with relevant background, constraints, and examples, it performs like it knows you. It doesn't — but the output looks the same.</p>
+        <ul>
+          <li><strong>Context is the cheat code.</strong> Drop in your role, audience, constraints, past decisions.</li>
+          <li><strong>Data is the shortcut.</strong> Paste in transcripts, strategy docs, or last quarter's numbers.</li>
+          <li><strong>Examples are the steering wheel.</strong> Show the AI what good looks like.</li>
+          <li><strong>Prompt frameworks do the heavy lifting.</strong> Structures like RACE force you to front-load the context AI can't infer.</li>
+        </ul>
+      </div>
+
+      <div class="worked-example">
+        <div class="worked-example-label">Worked Example — Same Question, Two Inputs</div>
+        <div class="prose">
+          <p><strong>Bare prompt:</strong> "Write me a marketing email."<br>
+          → Generic, forgettable. Could be about anything.</p>
+          <p><strong>Structured prompt:</strong> "You are a marketing manager at a premium beverage company launching BOLT, targeting health-conscious millennials. Write a launch announcement to retail partners. Tone: professional but energetic. Include three selling points: clean ingredients, $3.99 price point, 87% repurchase intent."<br>
+          → Same model. Sounds like it came from someone inside the company.</p>
+          <p style="margin-bottom:0"><strong>The difference isn't the AI. It's you.</strong></p>
+        </div>
+      </div>
+
+      <div class="key-insight">
+        <div class="key-insight-label">Key Insight</div>
+        <p>AI is a prediction machine, not a thinking machine. It doesn't understand you, remember you, or care about your goals. But when you bring the right context, the right data, and the right structure, it performs like it does. The AI Officer's job is to close that gap — to make AI informed enough to be useful, and to know when it's not.</p>
+      </div>
+
+      <div class="starter-prompt">
+        <div class="starter-prompt-label">💬 Starter Prompt — AI Buddy</div>
+        <div class="starter-prompt-text">"I want to understand the difference between what AI can and can't do. Explain it to me using examples from my industry. Ask me what industry I'm in and what kind of work I do, then give me three things AI would be great at in my role and three things where I'd still need human judgment."</div>
+      </div>
+    </section>
+
+    <!-- ══════════════════════════════════════
+         BRIEF 4
+    ═══════════════════════════════════════ -->
+    <section class="brief-section" id="brief-4">
+      <div class="brief-label">Brief 4</div>
+      <h2 class="brief-title">The Path to 99% Accuracy</h2>
+
+      <div class="prose">
+        <p>This is where you stop guessing and start structuring. AI is 99% accurate when you get the prompt and the data right. The framework is how you get there.</p>
+
+        <h3>The Most Important Idea in This Program</h3>
+        <p>You don't write the prompt. You organize what you know. AI does the rest. Most people try to write the perfect prompt from scratch. The right approach is to organize your thinking first, and then let AI take it from there.</p>
+
+        <h3>Your Starter Framework: RACE</h3>
+        <p>RACE is your foundation for any structured AI task.</p>
+      </div>
+
+      <div class="race-grid">
+        <div class="race-card">
+          <div class="race-letter">R</div>
+          <div class="race-name">Role</div>
+          <div class="race-desc">Who is the AI acting as? A sales strategist? An HR manager? A copywriter? Give it an identity.</div>
+        </div>
+        <div class="race-card">
+          <div class="race-letter">A</div>
+          <div class="race-name">Action</div>
+          <div class="race-desc">What should it do? Write an email? Analyze data? Create a plan? Be specific.</div>
+        </div>
+        <div class="race-card">
+          <div class="race-letter">C</div>
+          <div class="race-name">Context</div>
+          <div class="race-desc">What's the situation? What are the numbers? What are the constraints? This is where most people fall short.</div>
+        </div>
+        <div class="race-card">
+          <div class="race-letter">E</div>
+          <div class="race-name">Example</div>
+          <div class="race-desc">What does good look like? Show it the finish line. One example of tone or format changes everything.</div>
+        </div>
+      </div>
+
+      <div class="prose">
+        <h3>The Real Skill: The AI Interview</h3>
+        <p>The real skill is learning to let AI ask you the right questions before it starts working. You just say: <em>"I need help with this task. Before you start, ask me 3–4 questions so you can do this well."</em> Then answer the questions.</p>
+        <p>AI will find gaps in your thinking that you didn't know were there. It will pull details out of you that you never would have thought to include.</p>
+        <p><strong>RACE teaches you how to organize your thinking. The AI Interview teaches you how to think better.</strong> The progression is bare prompt → framework → conversation. Conversation wins every time.</p>
+
+        <h3>Watch Out For</h3>
+        <ul>
+          <li>AI will <strong>hallucinate</strong> — make stuff up and sound completely confident doing it.</li>
+          <li>It can have <strong>bias</strong> baked into its training data.</li>
+          <li>Be careful about <strong>privacy</strong> — don't feed it sensitive information.</li>
+          <li>Sometimes the right answer is <strong>not to automate at all</strong>.</li>
+        </ul>
+      </div>
+
+      <div class="worked-example">
+        <div class="worked-example-label">Worked Example — The Three Levels</div>
+        <div class="prose">
+          <p><strong>Bare prompt:</strong> "Write me an email about a product launch."<br>→ Generic. Could be about anything. You'd never send it.</p>
+          <p><strong>RACE:</strong> Role = marketing manager at Buddy Bevs. Action = launch email to retail partners. Context = BOLT, health-conscious millennials, $3.99, clean ingredients. Example = professional but energetic, three key selling points.<br>→ Specific. On-brand. You could edit and send it.</p>
+          <p style="margin-bottom:0"><strong>AI Interview:</strong> "I need to write a launch email. Before you start, ask me everything you need to know." AI asks: Who is the audience? What's the call to action? What tone does your brand use?<br>→ Sounds like it came from someone inside the company. Because your answers made it yours.</p>
+        </div>
+      </div>
+
+      <div class="key-insight">
+        <div class="key-insight-label">Key Insight</div>
+        <p>You don't write the prompt. You organize what you know. RACE is the foundation that structures your thinking. The AI Interview is the master skill that finds the gaps. The progression is bare prompt → framework → conversation. Conversation wins every time.</p>
+      </div>
+
+      <div class="starter-prompt">
+        <div class="starter-prompt-label">💬 Starter Prompt — AI Buddy</div>
+        <div class="starter-prompt-text">"I want to practice the progression from bare prompt to RACE to AI Interview. Give me a simple business task — like writing an email or summarizing a report — and walk me through all three approaches so I can see the difference in the output."</div>
+      </div>
+    </section>
+
+    <!-- ══════════════════════════════════════
+         BRIEF 5
+    ═══════════════════════════════════════ -->
+    <section class="brief-section" id="brief-5">
+      <div class="brief-label">Brief 5</div>
+      <h2 class="brief-title">Meet the Models: The AI Kingdoms</h2>
+
+      <div class="prose">
+        <p>You don't need to understand how the engine works. You need to understand what fuel each one runs best on. That's the AI Officer's approach to choosing tools.</p>
+
+        <h3>What Is an LLM?</h3>
+        <p>A large language model (LLM) is a pattern prediction machine. It's trained on a massive amount of text to guess what comes next in a sentence. An LLM is the full brain. A model is the side of the brain you use — GPT-4o is a model within ChatGPT. Opus 4.6 is a model within Claude. Same brain, different models, each optimized for a different job.</p>
+
+        <h3>The AI Kingdoms</h3>
+        <p>If you understand what data each AI was trained on, you'll know what it's best at. Whenever you're trying to figure out the best AI, <strong>follow the money behind the data.</strong></p>
+      </div>
+
+      <div class="kingdom-grid">
+        <div class="kingdom-card">
+          <div class="kingdom-name">ChatGPT</div>
+          <div class="kingdom-tag">The All-Rounder</div>
+          <div class="kingdom-desc">Funded by Microsoft. Great for writing, daily tasks, and business workflows. Does a lot of things well. Most people start here.</div>
+        </div>
+        <div class="kingdom-card">
+          <div class="kingdom-name">Gemini</div>
+          <div class="kingdom-tag">The Producer</div>
+          <div class="kingdom-desc">Google's unmatched visual data from YouTube and Google Photos. Best for image generation, video, and deeply integrated into Google Workspace.</div>
+        </div>
+        <div class="kingdom-card">
+          <div class="kingdom-name">Claude</div>
+          <div class="kingdom-tag">The Thoughtful Pro</div>
+          <div class="kingdom-desc">Best at writing and coding. Data advantage from the world's largest bookstore and the world's largest cloud computing platform.</div>
+        </div>
+      </div>
+
+      <div class="prose">
+        <h3>The Rest of the Landscape</h3>
+        <ul>
+          <li><strong>Grok (xAI)</strong> — Built by Elon Musk's team with real-time access to X. Good for current events and social trends.</li>
+          <li><strong>Deepseek</strong> — China's rising model, fluent in English and Chinese, worth watching.</li>
+          <li><strong>Llama (Meta)</strong> — Open-source with a billion downloads. The experimental one.</li>
+        </ul>
+
+        <h3>AI In the Tools You Already Use</h3>
+        <p>AI isn't just in standalone tools anymore. Microsoft Office, Canva, Notion, Slack, Google Search — AI is being built into everything. But for every useful integration, there are a thousand apps that are basically just a pretty wrapper around a prompt, charging you a monthly fee to do something you could do yourself in two minutes with the right model. This is why the AI Officer mindset matters — when you understand the models and the data, you don't need to chase every shiny new tool.</p>
+
+        <h3>Picking Your First Tool</h3>
+        <p>For this program, you need one tool. Commit to one so you build mastery instead of jumping between tools every week:</p>
+        <ul>
+          <li>All-rounder for writing and data analysis → <strong>ChatGPT</strong></li>
+          <li>Best writing and coding with deep project organization → <strong>Claude</strong></li>
+          <li>Team lives in Google Workspace → <strong>Gemini</strong></li>
+        </ul>
+        <p>Open it now. Create a project called "AI Officer — Mission 1." That's your cockpit.</p>
+      </div>
+
+      <div class="key-insight">
+        <div class="key-insight-label">Key Insight</div>
+        <p>The AI Officer doesn't ask "what's the best AI?" The AI Officer asks "what's the best AI for this job?" Right now, the job is learning. Pick one tool and go deep. In Mission 2, you'll learn how to evaluate tools for programs at the organizational level. For now: follow the money behind the data.</p>
+      </div>
+
+      <div class="starter-prompt">
+        <div class="starter-prompt-label">💬 Starter Prompt — AI Buddy</div>
+        <div class="starter-prompt-text">"I'm trying to decide which AI tool to commit to for my certification program. Ask me about my work environment, the tools my team uses, and what kind of tasks I want to start with. Then recommend which AI Kingdom is the best fit and explain why."</div>
+      </div>
+    </section>
+
+    <!-- ══════════════════════════════════════
+         WRAP-UP
+    ═══════════════════════════════════════ -->
+    <section class="brief-section" id="wrap-up">
+      <div class="brief-label">Wrap-Up</div>
+      <h2 class="brief-title">Key Takeaways</h2>
+
+      <div class="belief-grid">
+        <div class="belief-card">
+          <span class="belief-num">→</span>
+          <div class="belief-content">
+            <strong>The 50/50 Era</strong>
+            <p>Half of leadership is leading people. Half is leading AI. Most leaders have only been trained for one. That's the other 50%.</p>
+          </div>
+        </div>
+        <div class="belief-card">
+          <span class="belief-num">→</span>
+          <div class="belief-content">
+            <strong>Accuracy follows clarity</strong>
+            <p>AI performs at the level of your thinking. The clearer your data, direction, and definition of "good," the smarter the output.</p>
+          </div>
+        </div>
+        <div class="belief-card">
+          <span class="belief-num">→</span>
+          <div class="belief-content">
+            <strong>You don't write the prompt</strong>
+            <p>You organize what you know. RACE structures your thinking. The AI Interview finds the gaps. Conversation wins every time.</p>
+          </div>
+        </div>
+        <div class="belief-card">
+          <span class="belief-num">→</span>
+          <div class="belief-content">
+            <strong>AI doesn't understand you — but it can perform like it does</strong>
+            <p>The gap between "useless response" and "how did it know that?" is almost never the model. It's the prompt. It's the data. It's you.</p>
+          </div>
+        </div>
+        <div class="belief-card">
+          <span class="belief-num">→</span>
+          <div class="belief-content">
+            <strong>The AI Officer is not a job title</strong>
+            <p>It's a capability. Six beliefs guide your thinking. Five moves shape your day. The people who adopt this mindset get better at leading.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="prose">
+        <h3>Your Commitment</h3>
+        <p>Before you close out: name one habit you will start, stop, or continue this week. Not a tool. A behavior. Something your manager would notice.</p>
+      </div>
+    </section>
+
+    <!-- Bottom nav -->
+    <div class="tb-bottom-nav">
+      <a href="mission-1.html" class="tb-nav-btn">← Mission 1 Hub</a>
+      <a href="mission-1-prompts.html" class="tb-nav-btn primary">Prompt Library →</a>
+    </div>
+
+  </main>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Prompt Library — Mission 1: Enter the AI Officer</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../shared/styles.css">
+<style>
+  :root {
+    --royal: #287BE8;
+    --ease: cubic-bezier(0.4, 0, 0.2, 1);
+    --radius: 12px;
+    --shadow-sm: 0 1px 3px rgba(4,16,45,0.07);
+    --shadow-hover: 0 6px 24px rgba(4,16,45,0.10);
+    --text-tertiary: #8b91ac;
+    --border-hover: #b0b6cc;
+  }
+  body { background: var(--surface); }
+
+  .page-main { max-width: 760px; margin: 0 auto; padding: 80px 40px 100px; }
+
+  .pl-back {
+    display: inline-flex; align-items: center; gap: 6px;
+    font-size: 13px; font-weight: 600; color: var(--text-muted);
+    text-decoration: none; margin-bottom: 32px; transition: color 0.12s;
+  }
+  .pl-back:hover { color: var(--text-primary); }
+
+  .pl-hero { margin-bottom: 40px; }
+  .pl-track-pill {
+    display: inline-flex; align-items: center; gap: 7px;
+    font-size: 11px; font-weight: 700; letter-spacing: 0.7px;
+    text-transform: uppercase; padding: 5px 12px; border-radius: 20px;
+    background: rgba(26,158,116,0.1); color: #1a9e74;
+    border: 1px solid rgba(26,158,116,0.2); margin-bottom: 14px;
+  }
+  .pl-title {
+    font-size: 30px; font-weight: 700; color: var(--text-primary);
+    letter-spacing: -0.5px; line-height: 1.15; margin-bottom: 10px;
+  }
+  .pl-sub { font-size: 15px; color: var(--text-secondary); line-height: 1.6; }
+
+  /* Intro note */
+  .pl-intro-note {
+    background: rgba(26,158,116,0.05); border: 1px solid rgba(26,158,116,0.18);
+    border-radius: var(--radius); padding: 16px 20px; margin-bottom: 40px;
+    font-size: 14px; color: var(--text-secondary); line-height: 1.6;
+  }
+
+  /* Section heading */
+  .pl-section { margin-bottom: 48px; }
+  .pl-section-label {
+    font-size: 10px; font-weight: 700; letter-spacing: 1px;
+    text-transform: uppercase; color: var(--text-muted);
+    margin-bottom: 4px; padding-bottom: 10px;
+    border-bottom: 1px solid var(--border); margin-bottom: 20px;
+  }
+
+  /* Prompt card */
+  .prompt-card {
+    background: white; border: 1px solid var(--border);
+    border-radius: var(--radius); overflow: hidden;
+    margin-bottom: 16px; box-shadow: var(--shadow-sm);
+  }
+  .prompt-card-header {
+    display: flex; align-items: flex-start; justify-content: space-between;
+    gap: 16px; padding: 16px 20px 12px;
+  }
+  .prompt-card-meta { flex: 1; }
+  .prompt-tag {
+    font-family: 'JetBrains Mono', monospace; font-size: 10px; font-weight: 700;
+    letter-spacing: 0.5px; text-transform: uppercase; margin-bottom: 4px;
+    color: #1a9e74;
+  }
+  .prompt-name { font-size: 15px; font-weight: 700; color: var(--text-primary); margin-bottom: 3px; }
+  .prompt-desc { font-size: 13px; color: var(--text-secondary); line-height: 1.5; }
+  .copy-btn {
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: 7px; padding: 6px 12px;
+    font-size: 12px; font-weight: 600; color: var(--text-muted);
+    cursor: pointer; transition: all 0.12s; white-space: nowrap; flex-shrink: 0;
+    font-family: 'DM Sans', sans-serif;
+  }
+  .copy-btn:hover { border-color: #1a9e74; color: #1a9e74; background: rgba(26,158,116,0.05); }
+  .copy-btn.copied { border-color: #1a9e74; color: #1a9e74; background: rgba(26,158,116,0.08); }
+
+  .prompt-text-block {
+    background: #f8f9fc; border-top: 1px solid var(--border);
+    padding: 16px 20px;
+    font-family: 'JetBrains Mono', monospace; font-size: 13px;
+    color: var(--text-primary); line-height: 1.65;
+    white-space: pre-wrap; word-break: break-word;
+  }
+  .prompt-text-block .bracket { color: #287BE8; font-weight: 700; }
+
+  /* Bottom nav */
+  .pl-bottom-nav {
+    display: flex; align-items: center; justify-content: space-between;
+    border-top: 1px solid var(--border); padding-top: 32px; margin-top: 16px;
+  }
+  .pl-nav-btn {
+    display: inline-flex; align-items: center; gap: 6px;
+    font-size: 13px; font-weight: 600; color: var(--text-muted);
+    text-decoration: none; padding: 8px 14px; border-radius: 8px;
+    border: 1px solid var(--border); transition: all 0.12s;
+  }
+  .pl-nav-btn:hover { border-color: var(--border-hover); color: var(--text-primary); }
+  .pl-nav-btn.primary { background: #1a9e74; color: white; border-color: #1a9e74; }
+  .pl-nav-btn.primary:hover { background: #178a65; }
+
+  @media (max-width: 760px) {
+    .page-main { padding: 70px 20px 80px; }
+    .topbar-nav { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ═══════════════ TOP BAR ═══════════════ -->
+<div class="topbar">
+  <a href="../index.html" class="topbar-brand">AIO <span>Labs</span></a>
+  <nav class="topbar-nav">
+    <a href="../index.html" class="tnav-link"><span class="tnav-dot" style="background:#8b91ac"></span> Home</a>
+    <a href="../certification.html" class="tnav-link active"><span class="tnav-dot" style="background:#287BE8"></span> Certification</a>
+    <a href="#" class="tnav-link"><span class="tnav-dot" style="background:#287BE8"></span> Coaching</a>
+    <a href="../micro-sessions/index.html" class="tnav-link"><span class="tnav-dot" style="background:#1A9E74"></span> Micro-Sessions</a>
+    <a href="../blog/index.html" class="tnav-link"><span class="tnav-dot" style="background:#6FF2C1"></span> Blog</a>
+    <a href="#" class="tnav-link"><span class="tnav-dot" style="background:#8b91ac"></span> My Team</a>
+  </nav>
+  <div class="topbar-right">
+    <a href="https://claude.ai" target="_blank" class="buddy-launch-btn">🤖 AI Buddy</a>
+    <div class="topbar-stat">🔥 7</div>
+    <div class="topbar-stat">⭐ 1,240</div>
+    <div class="topbar-divider"></div>
+    <div class="topbar-avatar">DH</div>
+  </div>
+</div>
+
+<main class="page-main">
+
+  <a href="mission-1.html" class="pl-back">← Back to Mission 1</a>
+
+  <div class="pl-hero">
+    <div class="pl-track-pill">💬 Prompt Library</div>
+    <h1 class="pl-title">Mission 1 — Challenge Prompts</h1>
+    <p class="pl-sub">Every prompt is copy-paste ready. Replace anything in <strong style="color:#287BE8;">[brackets]</strong> with your specific information. Use these with any AI tool — ChatGPT, Claude, or Gemini.</p>
+  </div>
+
+  <div class="pl-intro-note">
+    💡 <strong>How to use these:</strong> Copy any prompt, paste it into your AI tool, fill in the brackets with your real context. The more specific you are in the brackets, the better the output. Generic answers get generic results.
+  </div>
+
+
+  <!-- ─── BRIEF 1 ─── -->
+  <div class="pl-section">
+    <div class="pl-section-label">Brief 1 — The Other 50%</div>
+
+    <div class="prompt-card">
+      <div class="prompt-card-header">
+        <div class="prompt-card-meta">
+          <div class="prompt-tag">Starter Prompt</div>
+          <div class="prompt-name">Map Your AI Half</div>
+          <div class="prompt-desc">Understand what the AI Officer role looks like specifically in your job</div>
+        </div>
+        <button class="copy-btn" onclick="copyPrompt(this)">Copy</button>
+      </div>
+      <pre class="prompt-text-block">I'm a <span class="bracket">[your job title]</span> at a <span class="bracket">[your company type]</span>. I want to understand what the AI half of my leadership role looks like. Ask me about my daily work, my team, and where I spend the most time. Then tell me which parts of my job are 'leading people' and which parts could become 'leading AI' — meaning where I could design an AI program to deliver better results.</pre>
+    </div>
+  </div>
+
+
+  <!-- ─── BRIEF 2 ─── -->
+  <div class="pl-section">
+    <div class="pl-section-label">Brief 2 — The AI Officer Mindset</div>
+
+    <div class="prompt-card">
+      <div class="prompt-card-header">
+        <div class="prompt-card-meta">
+          <div class="prompt-tag">Starter Prompt</div>
+          <div class="prompt-name">Practice the 5 Daily Moves</div>
+          <div class="prompt-desc">Walk through all five daily moves on a real task from your work</div>
+        </div>
+        <button class="copy-btn" onclick="copyPrompt(this)">Copy</button>
+      </div>
+      <pre class="prompt-text-block">I want to practice the five daily moves of an AI Officer on a real task from my work. Ask me about my role and what I spend the most time on. Then help me pick one task and walk through all five moves: find the problem worth solving, identify the data, decide build or buy, design how to orchestrate it, and sketch a plan.</pre>
+    </div>
+  </div>
+
+
+  <!-- ─── BRIEF 3 ─── -->
+  <div class="pl-section">
+    <div class="pl-section-label">Brief 3 — What is AI?</div>
+
+    <div class="prompt-card">
+      <div class="prompt-card-header">
+        <div class="prompt-card-meta">
+          <div class="prompt-tag">Starter Prompt</div>
+          <div class="prompt-name">AI Can vs. Can't — Your Industry</div>
+          <div class="prompt-desc">Get specific AI capability examples tailored to your role and industry</div>
+        </div>
+        <button class="copy-btn" onclick="copyPrompt(this)">Copy</button>
+      </div>
+      <pre class="prompt-text-block">I want to understand the difference between what AI can and can't do. Explain it to me using examples from my industry. Ask me what industry I'm in and what kind of work I do, then give me three things AI would be great at in my role and three things where I'd still need human judgment.</pre>
+    </div>
+  </div>
+
+
+  <!-- ─── BRIEF 4 ─── -->
+  <div class="pl-section">
+    <div class="pl-section-label">Brief 4 — The Path to 99% Accuracy</div>
+
+    <div class="prompt-card">
+      <div class="prompt-card-header">
+        <div class="prompt-card-meta">
+          <div class="prompt-tag">Starter Prompt</div>
+          <div class="prompt-name">Bare Prompt → RACE → AI Interview</div>
+          <div class="prompt-desc">Practice the full progression and see the difference in output quality</div>
+        </div>
+        <button class="copy-btn" onclick="copyPrompt(this)">Copy</button>
+      </div>
+      <pre class="prompt-text-block">I want to practice the progression from bare prompt to RACE to AI Interview. Give me a simple business task — like writing an email or summarizing a report — and walk me through all three approaches so I can see the difference in the output.</pre>
+    </div>
+
+    <div class="prompt-card">
+      <div class="prompt-card-header">
+        <div class="prompt-card-meta">
+          <div class="prompt-tag">Challenge 1 — C1</div>
+          <div class="prompt-name">See How AI Follows Your Lead</div>
+          <div class="prompt-desc">Ask the same question four different ways. See how your input changes everything.</div>
+        </div>
+        <button class="copy-btn" onclick="copyPrompt(this)">Copy</button>
+      </div>
+      <pre class="prompt-text-block">I'm going to ask you the same question four different ways. After each version, tell me what you're able to infer about the task and what gaps you have. Show me how the output quality changes.
+
+Question 1 (bare): "Write an email about a new product."
+
+Question 2 (with role): "You are a marketing manager. Write an email about a new product."
+
+Question 3 (with RACE): "Role: Marketing manager at a beverage company. Action: Write a launch email to retail partners. Context: New energy drink called BOLT, targeting health-conscious millennials, $3.99, clean ingredients. Example: Professional but energetic tone."
+
+Question 4 (AI Interview): Before writing anything, ask me 3-4 questions that will help you write a much better email than the previous versions.</pre>
+    </div>
+
+    <div class="prompt-card">
+      <div class="prompt-card-header">
+        <div class="prompt-card-meta">
+          <div class="prompt-tag">Challenge 2 — C2</div>
+          <div class="prompt-name">From Bare Prompt to AI Interview</div>
+          <div class="prompt-desc">Write the same email three ways. See the jump from generic to professional.</div>
+        </div>
+        <button class="copy-btn" onclick="copyPrompt(this)">Copy</button>
+      </div>
+      <pre class="prompt-text-block">I need to write an email for <span class="bracket">[describe your task]</span> at my company.
+
+First, write it from just this information. Don't ask me anything.
+
+Then, write it again using the RACE framework. I'll fill in:
+- Role: <span class="bracket">[who the AI is acting as]</span>
+- Action: <span class="bracket">[what it should write]</span>
+- Context: <span class="bracket">[the situation, audience, key details]</span>
+- Example: <span class="bracket">[what good looks like for tone/format]</span>
+
+Finally, before writing a third version, ask me 3-4 questions. Then write the best version you can.
+
+Compare all three. Tell me what changed and why.</pre>
+    </div>
+
+    <div class="prompt-card">
+      <div class="prompt-card-header">
+        <div class="prompt-card-meta">
+          <div class="prompt-tag">Challenge 3 — C3</div>
+          <div class="prompt-name">Prove It — The BOLT Newsletter</div>
+          <div class="prompt-desc">No template. No rounds. Deliver a newsletter announcement worth sending.</div>
+        </div>
+        <button class="copy-btn" onclick="copyPrompt(this)">Copy</button>
+      </div>
+      <pre class="prompt-text-block">You are a senior copywriter at Buddy Bevs, a premium beverage company. Dana Reyes, our VP of Marketing, needs a company newsletter announcement for our new product BOLT launching next month.
+
+BOLT is a clean-ingredient energy drink targeting health-conscious millennials. Key facts:
+- Price: $3.99 per can
+- Positioning: Clean energy — no artificial flavors, no artificial colors
+- Pilot data: 87% repurchase intent in test markets
+- Available in three flavors: Citrus Surge, Berry Blast, and Original
+
+The announcement goes to our full company — about 200 people. Dana wants people to feel proud and excited. Tone: energetic, professional, not overly corporate.
+
+Write a newsletter-ready announcement. One draft. Make it something Dana would approve without editing.</pre>
+    </div>
+  </div>
+
+
+  <!-- ─── BRIEF 5 ─── -->
+  <div class="pl-section">
+    <div class="pl-section-label">Brief 5 — Meet the Models</div>
+
+    <div class="prompt-card">
+      <div class="prompt-card-header">
+        <div class="prompt-card-meta">
+          <div class="prompt-tag">Starter Prompt</div>
+          <div class="prompt-name">Choose Your AI Kingdom</div>
+          <div class="prompt-desc">Get a personalized recommendation on which AI tool to commit to</div>
+        </div>
+        <button class="copy-btn" onclick="copyPrompt(this)">Copy</button>
+      </div>
+      <pre class="prompt-text-block">I'm trying to decide which AI tool to commit to for my certification program. Ask me about my work environment, the tools my team uses, and what kind of tasks I want to start with. Then recommend which AI Kingdom is the best fit and explain why.</pre>
+    </div>
+  </div>
+
+
+  <!-- ─── FINAL PROJECT ─── -->
+  <div class="pl-section">
+    <div class="pl-section-label">Final Project — Your AI Learning Plan</div>
+
+    <div class="prompt-card">
+      <div class="prompt-card-header">
+        <div class="prompt-card-meta">
+          <div class="prompt-tag">Step 1</div>
+          <div class="prompt-name">Self-Assessment</div>
+          <div class="prompt-desc">Honest self-assessment of where you are with AI today</div>
+        </div>
+        <button class="copy-btn" onclick="copyPrompt(this)">Copy</button>
+      </div>
+      <pre class="prompt-text-block">I'm a <span class="bracket">[your job title]</span> at a <span class="bracket">[describe your organization]</span>. I want to do an honest self-assessment of my current AI skills and readiness.
+
+Ask me questions one at a time about:
+1. How I currently use AI (if at all)
+2. What my biggest challenges at work are right now
+3. What I wish AI could do for me
+4. What's holding me back from using AI more
+5. What my goals for the next 90 days are
+
+After you've asked all questions, give me a self-assessment summary with a score from 1-10 on AI readiness and an honest assessment of my gaps.</pre>
+    </div>
+
+    <div class="prompt-card">
+      <div class="prompt-card-header">
+        <div class="prompt-card-meta">
+          <div class="prompt-tag">Step 2</div>
+          <div class="prompt-name">Build the Learning Plan</div>
+          <div class="prompt-desc">Turn your self-assessment into a personalized 8-week plan</div>
+        </div>
+        <button class="copy-btn" onclick="copyPrompt(this)">Copy</button>
+      </div>
+      <pre class="prompt-text-block">Here is my AI self-assessment:
+<span class="bracket">[paste your self-assessment summary]</span>
+
+Build me a personalized 8-week AI learning plan based on this. The plan should:
+- Fit within <span class="bracket">[X hours per week]</span> of available time
+- Focus on what matters most for my specific role
+- Include one concrete practice task per week (not just reading)
+- Build toward the goal of: <span class="bracket">[your 90-day goal]</span>
+
+Format it as a week-by-week plan with a clear focus for each week and the one task I should complete.</pre>
+    </div>
+
+    <div class="prompt-card">
+      <div class="prompt-card-header">
+        <div class="prompt-card-meta">
+          <div class="prompt-tag">Step 3</div>
+          <div class="prompt-name">Quality Check Before Submitting</div>
+          <div class="prompt-desc">Run this before submitting your final project</div>
+        </div>
+        <button class="copy-btn" onclick="copyPrompt(this)">Copy</button>
+      </div>
+      <pre class="prompt-text-block">Here is my AI Learning Plan:
+<span class="bracket">[paste your plan]</span>
+
+Review this as a tough but fair coach. Tell me:
+1. Is this specific to my role, or does it sound generic?
+2. Are the weekly tasks actually doable in the time I said, or are they unrealistic?
+3. What is missing that someone at my level should have in their plan?
+4. If Dana Reyes asked to see this plan right now, would I be confident showing it?
+
+Give me specific edits, not general feedback.</pre>
+    </div>
+  </div>
+
+
+  <!-- Bottom nav -->
+  <div class="pl-bottom-nav">
+    <a href="mission-1-textbook.html" class="pl-nav-btn">← Text Book</a>
+    <a href="mission-1-words.html" class="pl-nav-btn primary">Words to Know →</a>
+  </div>
+
+</main>
+
+<script>
+function copyPrompt(btn) {
+  const pre = btn.closest('.prompt-card').querySelector('.prompt-text-block');
+  const text = pre.innerText;
+  navigator.clipboard.writeText(text).then(() => {
+    btn.textContent = '✓ Copied!';
+    btn.classList.add('copied');
+    setTimeout(() => {
+      btn.textContent = 'Copy';
+      btn.classList.remove('copied');
+    }, 2000);
+  });
+}
+</script>
+
+</body>
+</html>

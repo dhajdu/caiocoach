@@ -1,0 +1,530 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Slide Deck — Mission 1: Enter the AI Officer</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../shared/styles.css">
+<style>
+  :root {
+    --royal: #287BE8;
+    --ease: cubic-bezier(0.4, 0, 0.2, 1);
+    --radius: 12px;
+    --shadow-sm: 0 1px 3px rgba(4,16,45,0.07);
+    --shadow-hover: 0 6px 24px rgba(4,16,45,0.10);
+    --text-tertiary: #8b91ac;
+    --border-hover: #b0b6cc;
+  }
+
+  body { background: #0d1117; }
+
+  /* ── Header bar ── */
+  .slides-header {
+    position: fixed; top: 56px; left: 0; right: 0;
+    background: rgba(13,17,23,0.95); border-bottom: 1px solid rgba(255,255,255,0.08);
+    padding: 0 32px; height: 48px; display: flex; align-items: center; z-index: 50;
+    gap: 16px;
+  }
+  .slides-back {
+    display: inline-flex; align-items: center; gap: 6px;
+    font-size: 12px; font-weight: 600; color: rgba(255,255,255,0.5);
+    text-decoration: none; transition: color 0.12s;
+  }
+  .slides-back:hover { color: rgba(255,255,255,0.85); }
+  .slides-title {
+    font-size: 13px; font-weight: 600; color: rgba(255,255,255,0.65);
+    margin-left: 8px;
+  }
+  .slides-counter {
+    font-family: 'JetBrains Mono', monospace; font-size: 11px;
+    color: rgba(255,255,255,0.35); margin-left: auto;
+  }
+
+  /* ── Slide wrapper ── */
+  .slides-wrapper {
+    padding-top: 104px;
+    padding-bottom: 80px;
+    display: flex; flex-direction: column; align-items: center; gap: 0;
+  }
+
+  /* ── Individual slide ── */
+  .slide {
+    width: 100%; max-width: 900px; min-height: 520px;
+    margin: 0 auto 3px;
+    display: flex; flex-direction: column; justify-content: center;
+    padding: 60px 80px;
+    position: relative;
+  }
+
+  /* Slide variants */
+  .slide-title-card {
+    background: var(--navy);
+    min-height: 600px;
+  }
+  .slide-dark { background: #161b22; }
+  .slide-blue { background: rgba(40,123,232,0.12); border: 1px solid rgba(40,123,232,0.2); }
+  .slide-light { background: white; }
+  .slide-navy { background: var(--navy); }
+  .slide-mint { background: rgba(26,158,116,0.1); border: 1px solid rgba(26,158,116,0.2); }
+
+  /* Slide number */
+  .slide-num {
+    position: absolute; top: 28px; right: 32px;
+    font-family: 'JetBrains Mono', monospace; font-size: 11px; font-weight: 700;
+    color: rgba(255,255,255,0.2);
+  }
+  .slide-light .slide-num { color: rgba(4,16,45,0.2); }
+
+  /* Typography in slides */
+  .slide-eyebrow {
+    font-size: 11px; font-weight: 700; letter-spacing: 1.5px;
+    text-transform: uppercase; margin-bottom: 16px;
+    color: rgba(111,242,193,0.8);
+  }
+  .slide-eyebrow.blue { color: rgba(40,123,232,0.9); }
+  .slide-eyebrow.muted { color: rgba(255,255,255,0.4); }
+  .slide-eyebrow.dark-muted { color: rgba(4,16,45,0.4); }
+  .slide-eyebrow.mint { color: #1a9e74; }
+
+  .slide-h1 {
+    font-size: 52px; font-weight: 700; letter-spacing: -1.5px;
+    line-height: 1.05; color: white; margin-bottom: 24px;
+  }
+  .slide-h1 .accent { color: #6FF2C1; }
+  .slide-h2 {
+    font-size: 36px; font-weight: 700; letter-spacing: -0.8px;
+    line-height: 1.15; color: white; margin-bottom: 20px;
+  }
+  .slide-h2.dark { color: var(--navy); }
+  .slide-h3 {
+    font-size: 28px; font-weight: 700; letter-spacing: -0.5px;
+    line-height: 1.2; color: white; margin-bottom: 16px;
+  }
+  .slide-h3.dark { color: var(--navy); }
+
+  .slide-body {
+    font-size: 18px; line-height: 1.65;
+    color: rgba(255,255,255,0.75); max-width: 660px;
+  }
+  .slide-body.dark { color: rgba(4,16,45,0.7); }
+  .slide-body strong { color: white; font-weight: 700; }
+  .slide-body.dark strong { color: var(--navy); }
+
+  /* Two-column layout */
+  .slide-cols { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; }
+  .slide-col-label {
+    font-size: 11px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase;
+    margin-bottom: 14px;
+  }
+
+  /* Stat callout */
+  .stat-block {
+    display: flex; flex-direction: column; align-items: flex-start;
+    background: rgba(255,255,255,0.05); border-radius: 16px;
+    padding: 24px 28px; margin: 24px 0;
+  }
+  .stat-num {
+    font-size: 72px; font-weight: 700; letter-spacing: -3px;
+    line-height: 1; color: #6FF2C1; margin-bottom: 8px;
+  }
+  .stat-label { font-size: 16px; color: rgba(255,255,255,0.6); }
+
+  /* List styles */
+  .slide-list {
+    list-style: none; padding: 0; margin: 0;
+    display: flex; flex-direction: column; gap: 14px;
+  }
+  .slide-list li {
+    display: flex; align-items: flex-start; gap: 12px;
+    font-size: 17px; line-height: 1.5;
+  }
+  .slide-list li .bullet {
+    width: 24px; height: 24px; border-radius: 6px; flex-shrink: 0;
+    background: rgba(40,123,232,0.2); color: #287BE8;
+    font-family: 'JetBrains Mono', monospace; font-size: 11px; font-weight: 700;
+    display: flex; align-items: center; justify-content: center; margin-top: 2px;
+  }
+  .slide-list.mint li .bullet { background: rgba(26,158,116,0.2); color: #1a9e74; }
+  .slide-list li .text { color: rgba(255,255,255,0.8); }
+  .slide-list li .text strong { color: white; display: block; margin-bottom: 2px; }
+  .slide-list.dark li .text { color: rgba(4,16,45,0.75); }
+  .slide-list.dark li .text strong { color: var(--navy); }
+  .slide-list.dark li .bullet { background: rgba(40,123,232,0.1); }
+
+  /* RACE boxes */
+  .race-row { display: grid; grid-template-columns: 1fr 1fr 1fr 1fr; gap: 12px; margin-top: 24px; }
+  .race-box {
+    background: rgba(255,255,255,0.06); border-radius: 12px; padding: 20px 16px;
+    text-align: center; border: 1px solid rgba(255,255,255,0.08);
+  }
+  .race-big-letter {
+    font-size: 40px; font-weight: 700; letter-spacing: -1px;
+    color: #287BE8; line-height: 1; margin-bottom: 8px;
+  }
+  .race-box-name { font-size: 13px; font-weight: 700; color: white; margin-bottom: 4px; }
+  .race-box-desc { font-size: 12px; color: rgba(255,255,255,0.5); line-height: 1.4; }
+
+  /* Kingdom cards */
+  .kingdom-row { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 14px; margin-top: 24px; }
+  .kingdom-box {
+    background: rgba(255,255,255,0.06); border-radius: 12px; padding: 20px 18px;
+    border: 1px solid rgba(255,255,255,0.08);
+  }
+  .kingdom-box-name { font-size: 18px; font-weight: 700; color: white; margin-bottom: 4px; }
+  .kingdom-box-tag { font-size: 11px; font-weight: 700; color: #6FF2C1; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 10px; }
+  .kingdom-box-desc { font-size: 13px; color: rgba(255,255,255,0.55); line-height: 1.55; }
+
+  /* Divider line */
+  .slide-divider { height: 1px; background: rgba(255,255,255,0.08); margin: 24px 0; }
+  .slide-divider.dark { background: rgba(4,16,45,0.1); }
+
+  /* Quote */
+  .slide-quote {
+    font-size: 26px; font-weight: 700; letter-spacing: -0.3px;
+    color: white; line-height: 1.35; font-style: italic; margin-bottom: 20px;
+  }
+  .slide-quote-attr { font-size: 14px; color: rgba(255,255,255,0.4); }
+
+  /* Belief row */
+  .belief-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 20px; }
+  .belief-box {
+    background: rgba(255,255,255,0.05); border-radius: 10px; padding: 16px 18px;
+    border: 1px solid rgba(255,255,255,0.07);
+  }
+  .belief-box-num {
+    font-family: 'JetBrains Mono', monospace; font-size: 10px; font-weight: 700;
+    color: #6FF2C1; margin-bottom: 6px;
+  }
+  .belief-box-text { font-size: 14px; font-weight: 600; color: rgba(255,255,255,0.85); line-height: 1.4; }
+  .belief-box-sub { font-size: 12px; color: rgba(255,255,255,0.45); line-height: 1.5; margin-top: 3px; }
+
+  /* Nav arrows */
+  .slide-nav {
+    position: fixed; bottom: 28px; right: 32px;
+    display: flex; gap: 8px; z-index: 60;
+  }
+  .slide-nav-btn {
+    width: 40px; height: 40px; border-radius: 10px;
+    background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.15);
+    color: rgba(255,255,255,0.7); font-size: 16px; cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    transition: all 0.12s;
+  }
+  .slide-nav-btn:hover { background: rgba(255,255,255,0.18); color: white; }
+
+  /* Progress dots */
+  .slide-dots {
+    position: fixed; bottom: 36px; left: 50%; transform: translateX(-50%);
+    display: flex; gap: 6px; z-index: 60;
+  }
+  .slide-dot {
+    width: 6px; height: 6px; border-radius: 3px;
+    background: rgba(255,255,255,0.2); cursor: pointer;
+    transition: all 0.2s;
+  }
+  .slide-dot.active { width: 20px; background: #6FF2C1; }
+
+  @media (max-width: 760px) {
+    .slide { padding: 40px 28px; min-height: auto; }
+    .slide-h1 { font-size: 32px; }
+    .slide-h2 { font-size: 24px; }
+    .race-row { grid-template-columns: 1fr 1fr; }
+    .kingdom-row { grid-template-columns: 1fr; }
+    .slide-cols { grid-template-columns: 1fr; }
+    .belief-row { grid-template-columns: 1fr; }
+    .topbar-nav { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ═══════════════ TOP BAR ═══════════════ -->
+<div class="topbar">
+  <a href="../index.html" class="topbar-brand">AIO <span>Labs</span></a>
+  <nav class="topbar-nav">
+    <a href="../index.html" class="tnav-link"><span class="tnav-dot" style="background:#8b91ac"></span> Home</a>
+    <a href="../certification.html" class="tnav-link active"><span class="tnav-dot" style="background:#287BE8"></span> Certification</a>
+    <a href="#" class="tnav-link"><span class="tnav-dot" style="background:#287BE8"></span> Coaching</a>
+    <a href="../micro-sessions/index.html" class="tnav-link"><span class="tnav-dot" style="background:#1A9E74"></span> Micro-Sessions</a>
+    <a href="../blog/index.html" class="tnav-link"><span class="tnav-dot" style="background:#6FF2C1"></span> Blog</a>
+    <a href="#" class="tnav-link"><span class="tnav-dot" style="background:#8b91ac"></span> My Team</a>
+  </nav>
+  <div class="topbar-right">
+    <a href="https://claude.ai" target="_blank" class="buddy-launch-btn">🤖 AI Buddy</a>
+    <div class="topbar-stat">🔥 7</div>
+    <div class="topbar-stat">⭐ 1,240</div>
+    <div class="topbar-divider"></div>
+    <div class="topbar-avatar">DH</div>
+  </div>
+</div>
+
+<!-- Slide sub-header -->
+<div class="slides-header">
+  <a href="mission-1.html" class="slides-back">← Mission 1</a>
+  <span class="slides-title">Enter the AI Officer — Visual Summary</span>
+  <span class="slides-counter" id="slide-counter">1 / 10</span>
+</div>
+
+<!-- ═══════════════ SLIDES ═══════════════ -->
+<div class="slides-wrapper" id="slides-wrapper">
+
+  <!-- SLIDE 1: Title -->
+  <div class="slide slide-title-card" data-slide="1">
+    <span class="slide-num">01</span>
+    <div class="slide-eyebrow">Generative AI Essentials · Mission 01</div>
+    <h1 class="slide-h1">Enter the<br><span class="accent">AI Officer</span></h1>
+    <p class="slide-body">The foundation for everything that follows. Mindset first. Tools second. This is how the AI Officer thinks.</p>
+  </div>
+
+  <!-- SLIDE 2: The 50/50 Era -->
+  <div class="slide slide-dark" data-slide="2">
+    <span class="slide-num">02</span>
+    <div class="slide-eyebrow">Brief 1</div>
+    <h2 class="slide-h2">Leadership has two halves now.</h2>
+    <div class="slide-cols" style="margin-top: 28px;">
+      <div>
+        <div class="slide-col-label" style="color: rgba(255,255,255,0.4);">The people half</div>
+        <ul class="slide-list">
+          <li><div class="bullet">✓</div><div class="text"><strong>Leading teams</strong>Hiring, coaching, culture, communication</div></li>
+          <li><div class="bullet">✓</div><div class="text"><strong>Strategy &amp; decisions</strong>Vision, priorities, stakeholder alignment</div></li>
+          <li><div class="bullet">✓</div><div class="text"><strong>Trained since day one</strong>MBA programs, coaches, leadership books</div></li>
+        </ul>
+      </div>
+      <div>
+        <div class="slide-col-label" style="color: #6FF2C1;">The AI half (new)</div>
+        <ul class="slide-list mint">
+          <li><div class="bullet">→</div><div class="text"><strong>Designing AI programs</strong>Defining problems, not buying tools</div></li>
+          <li><div class="bullet">→</div><div class="text"><strong>Owning data &amp; workflows</strong>Making AI actually deliver ROI</div></li>
+          <li><div class="bullet">→</div><div class="text"><strong>Almost nobody trained for this</strong>That's the gap. That's the opportunity.</div></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- SLIDE 3: The 95% stat -->
+  <div class="slide slide-navy" data-slide="3">
+    <span class="slide-num">03</span>
+    <div class="slide-eyebrow muted">Why most AI programs fail</div>
+    <div class="stat-block">
+      <div class="stat-num">95%</div>
+      <div class="stat-label">of organizations investing in AI are getting zero measurable return</div>
+    </div>
+    <p class="slide-body">They map AI to tools instead of outcomes. They ask <strong>"how do we use AI?"</strong> when they should ask <strong>"what problem are we solving?"</strong></p>
+    <p class="slide-body" style="margin-top: 16px; font-size: 16px; color: rgba(255,255,255,0.5);">Source: MIT research on enterprise AI investment</p>
+  </div>
+
+  <!-- SLIDE 4: The 6 Beliefs -->
+  <div class="slide slide-dark" data-slide="4">
+    <span class="slide-num">04</span>
+    <div class="slide-eyebrow">Brief 2</div>
+    <h2 class="slide-h2">The 6 Beliefs of an AI Officer</h2>
+    <div class="belief-row">
+      <div class="belief-box">
+        <div class="belief-box-num">BELIEF 1</div>
+        <div class="belief-box-text">Accuracy follows clarity</div>
+        <div class="belief-box-sub">AI performs at the level of your thinking, not its own.</div>
+      </div>
+      <div class="belief-box">
+        <div class="belief-box-num">BELIEF 2</div>
+        <div class="belief-box-text">AI is like a Buddy that learns you</div>
+        <div class="belief-box-sub">Pick one model. Build context. Mastery beats variety.</div>
+      </div>
+      <div class="belief-box">
+        <div class="belief-box-num">BELIEF 3</div>
+        <div class="belief-box-text">Frameworks turn chaos into clarity</div>
+        <div class="belief-box-sub">Don't guess. Design. AI rewards structured thinkers.</div>
+      </div>
+      <div class="belief-box">
+        <div class="belief-box-num">BELIEF 4</div>
+        <div class="belief-box-text">Information is the new creativity</div>
+        <div class="belief-box-sub">AI runs on context, not vibes. Order in, wisdom out.</div>
+      </div>
+      <div class="belief-box">
+        <div class="belief-box-num">BELIEF 5</div>
+        <div class="belief-box-text">Curiosity drives mastery</div>
+        <div class="belief-box-sub">Try things. Break things. Progress favors the curious.</div>
+      </div>
+      <div class="belief-box">
+        <div class="belief-box-num">BELIEF 6</div>
+        <div class="belief-box-text">AI needs a human in the loop</div>
+        <div class="belief-box-sub">AI scales knowledge. You set direction. Be the orchestrator.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SLIDE 5: The Truth About AI -->
+  <div class="slide slide-dark" data-slide="5">
+    <span class="slide-num">05</span>
+    <div class="slide-eyebrow">Brief 3</div>
+    <h2 class="slide-h2">AI doesn't understand you.</h2>
+    <div class="slide-divider"></div>
+    <ul class="slide-list" style="gap: 18px;">
+      <li><div class="bullet">!</div><div class="text"><strong>It predicts, not thinks</strong>AI finds patterns in data and predicts what comes next. That's it. No understanding. No memory. No judgment.</div></li>
+      <li><div class="bullet">!</div><div class="text"><strong>Every session starts from zero</strong>AI has no context unless you bring it. You own the continuity.</div></li>
+      <li><div class="bullet">!</div><div class="text"><strong>It can hallucinate</strong>AI can be confidently, completely wrong. The human stays in the loop to catch it.</div></li>
+    </ul>
+    <div class="slide-divider" style="margin-top: 28px;"></div>
+    <div class="slide-quote" style="font-size: 20px; margin-bottom: 0;">"But with the right context, AI performs like it does understand you. That's your job to provide."</div>
+  </div>
+
+  <!-- SLIDE 6: RACE -->
+  <div class="slide slide-dark" data-slide="6">
+    <span class="slide-num">06</span>
+    <div class="slide-eyebrow">Brief 4</div>
+    <h2 class="slide-h2">You don't write the prompt.<br>You organize what you know.</h2>
+    <div class="race-row">
+      <div class="race-box">
+        <div class="race-big-letter">R</div>
+        <div class="race-box-name">Role</div>
+        <div class="race-box-desc">Who is the AI acting as?</div>
+      </div>
+      <div class="race-box">
+        <div class="race-big-letter">A</div>
+        <div class="race-box-name">Action</div>
+        <div class="race-box-desc">What should it do?</div>
+      </div>
+      <div class="race-box">
+        <div class="race-big-letter">C</div>
+        <div class="race-box-name">Context</div>
+        <div class="race-box-desc">What's the situation?</div>
+      </div>
+      <div class="race-box">
+        <div class="race-big-letter">E</div>
+        <div class="race-box-name">Example</div>
+        <div class="race-box-desc">What does good look like?</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SLIDE 7: The Progression -->
+  <div class="slide slide-navy" data-slide="7">
+    <span class="slide-num">07</span>
+    <div class="slide-eyebrow">Brief 4</div>
+    <h2 class="slide-h2">Three levels. Same model. Different results.</h2>
+    <ul class="slide-list" style="gap: 20px; margin-top: 24px;">
+      <li><div class="bullet" style="background: rgba(255,255,255,0.08); color: rgba(255,255,255,0.5);">1</div><div class="text"><strong>Bare prompt</strong>Generic. Could be about anything. You'd never send it.</div></li>
+      <li><div class="bullet" style="background: rgba(40,123,232,0.2); color: #287BE8;">2</div><div class="text"><strong>RACE framework</strong>Specific. On-brand. You could edit and send it.</div></li>
+      <li><div class="bullet" style="background: rgba(26,158,116,0.2); color: #1a9e74;">3</div><div class="text"><strong>AI Interview</strong>Sounds like it came from inside the company. Because your answers made it yours.</div></li>
+    </ul>
+    <div class="slide-divider"></div>
+    <p class="slide-body" style="font-size: 16px; color: rgba(255,255,255,0.55);">
+      Say: <em>"I need help with [task]. Before you start, ask me 3–4 questions."</em>
+      AI finds gaps you didn't know existed.
+    </p>
+  </div>
+
+  <!-- SLIDE 8: The AI Kingdoms -->
+  <div class="slide slide-dark" data-slide="8">
+    <span class="slide-num">08</span>
+    <div class="slide-eyebrow">Brief 5</div>
+    <h2 class="slide-h2">The AI Kingdoms</h2>
+    <p class="slide-body" style="margin-bottom: 0; font-size: 15px; color: rgba(255,255,255,0.5);">Follow the money behind the data.</p>
+    <div class="kingdom-row">
+      <div class="kingdom-box">
+        <div class="kingdom-box-name">ChatGPT</div>
+        <div class="kingdom-box-tag">The All-Rounder</div>
+        <div class="kingdom-box-desc">Backed by Microsoft. Great for writing, daily tasks, business workflows.</div>
+      </div>
+      <div class="kingdom-box">
+        <div class="kingdom-box-name">Gemini</div>
+        <div class="kingdom-box-tag">The Producer</div>
+        <div class="kingdom-box-desc">Google's visual data advantage. Best for image, video, Google Workspace.</div>
+      </div>
+      <div class="kingdom-box">
+        <div class="kingdom-box-name">Claude</div>
+        <div class="kingdom-box-tag">The Thoughtful Pro</div>
+        <div class="kingdom-box-desc">Best for writing &amp; coding. Data from the world's largest bookstore.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SLIDE 9: Key Takeaways -->
+  <div class="slide slide-dark" data-slide="9">
+    <span class="slide-num">09</span>
+    <div class="slide-eyebrow">Wrap-Up</div>
+    <h2 class="slide-h2">Five things to walk away with.</h2>
+    <ul class="slide-list" style="margin-top: 20px; gap: 16px;">
+      <li><div class="bullet">1</div><div class="text"><strong>The 50/50 Era is real</strong>Half of leadership is now leading AI. Most people haven't started.</div></li>
+      <li><div class="bullet">2</div><div class="text"><strong>Accuracy follows clarity</strong>AI performs at the level of your thinking. Your input drives its output.</div></li>
+      <li><div class="bullet">3</div><div class="text"><strong>You don't write the prompt</strong>You organize what you know. RACE first. AI Interview next.</div></li>
+      <li><div class="bullet">4</div><div class="text"><strong>AI doesn't understand you — but it can perform like it does</strong>The gap is almost always the prompt. It's the data. It's you.</div></li>
+      <li><div class="bullet">5</div><div class="text"><strong>AI Officer is a capability, not a title</strong>Six beliefs. Five moves. The mindset is your foundation for everything that follows.</div></li>
+    </ul>
+  </div>
+
+  <!-- SLIDE 10: Your Next Move -->
+  <div class="slide slide-navy" data-slide="10">
+    <span class="slide-num">10</span>
+    <div class="slide-eyebrow">Your Commitment</div>
+    <h2 class="slide-h2">Before you close out.</h2>
+    <div class="slide-divider"></div>
+    <p class="slide-body" style="font-size: 20px; margin-bottom: 24px;">Name one habit you will <strong>start, stop, or continue</strong> this week.</p>
+    <p class="slide-body">Not a tool. A behavior. Something your manager would notice.</p>
+    <div class="slide-divider"></div>
+    <div style="display: flex; gap: 12px; margin-top: 8px;">
+      <a href="mission-1.html" style="display: inline-flex; align-items: center; gap: 8px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.15); border-radius: 10px; padding: 12px 20px; font-size: 14px; font-weight: 600; color: rgba(255,255,255,0.8); text-decoration: none;">← Back to Mission 1</a>
+      <a href="https://claude.ai" target="_blank" style="display: inline-flex; align-items: center; gap: 8px; background: #287BE8; border: 1px solid #287BE8; border-radius: 10px; padding: 12px 20px; font-size: 14px; font-weight: 600; color: white; text-decoration: none;">🤖 Open AI Buddy →</a>
+    </div>
+  </div>
+
+</div>
+
+<!-- Navigation dots & arrows -->
+<div class="slide-dots" id="slide-dots"></div>
+<div class="slide-nav">
+  <button class="slide-nav-btn" id="prev-btn" onclick="prevSlide()">←</button>
+  <button class="slide-nav-btn" id="next-btn" onclick="nextSlide()">→</button>
+</div>
+
+<script>
+const totalSlides = 10;
+let currentSlide = 1;
+
+// Build dots
+const dotsEl = document.getElementById('slide-dots');
+for (let i = 1; i <= totalSlides; i++) {
+  const dot = document.createElement('div');
+  dot.className = 'slide-dot' + (i === 1 ? ' active' : '');
+  dot.onclick = () => goToSlide(i);
+  dotsEl.appendChild(dot);
+}
+
+function goToSlide(n) {
+  currentSlide = n;
+  updateUI();
+  document.querySelector(`[data-slide="${n}"]`).scrollIntoView({ behavior: 'smooth', block: 'center' });
+}
+
+function nextSlide() { if (currentSlide < totalSlides) goToSlide(currentSlide + 1); }
+function prevSlide() { if (currentSlide > 1) goToSlide(currentSlide - 1); }
+
+function updateUI() {
+  document.getElementById('slide-counter').textContent = `${currentSlide} / ${totalSlides}`;
+  document.querySelectorAll('.slide-dot').forEach((d, i) => {
+    d.classList.toggle('active', i + 1 === currentSlide);
+  });
+}
+
+// Keyboard nav
+document.addEventListener('keydown', e => {
+  if (e.key === 'ArrowRight' || e.key === 'ArrowDown') nextSlide();
+  if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') prevSlide();
+});
+
+// Intersection observer to update current slide
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      const n = parseInt(entry.target.dataset.slide);
+      currentSlide = n;
+      updateUI();
+    }
+  });
+}, { threshold: 0.5 });
+
+document.querySelectorAll('.slide').forEach(s => observer.observe(s));
+</script>
+
+</body>
+</html>

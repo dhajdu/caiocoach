@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Words to Know — Mission 1: Enter the AI Officer</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../shared/styles.css">
+<style>
+  :root {
+    --royal: #287BE8;
+    --ease: cubic-bezier(0.4, 0, 0.2, 1);
+    --radius: 12px;
+    --shadow-sm: 0 1px 3px rgba(4,16,45,0.07);
+    --shadow-hover: 0 6px 24px rgba(4,16,45,0.10);
+    --text-tertiary: #8b91ac;
+    --border-hover: #b0b6cc;
+  }
+  body { background: var(--surface); }
+
+  .page-main { max-width: 760px; margin: 0 auto; padding: 80px 40px 100px; }
+
+  .wtk-back {
+    display: inline-flex; align-items: center; gap: 6px;
+    font-size: 13px; font-weight: 600; color: var(--text-muted);
+    text-decoration: none; margin-bottom: 32px; transition: color 0.12s;
+  }
+  .wtk-back:hover { color: var(--text-primary); }
+
+  .wtk-hero { margin-bottom: 40px; }
+  .wtk-track-pill {
+    display: inline-flex; align-items: center; gap: 7px;
+    font-size: 11px; font-weight: 700; letter-spacing: 0.7px;
+    text-transform: uppercase; padding: 5px 12px; border-radius: 20px;
+    background: rgba(4,16,45,0.06); color: var(--text-secondary);
+    border: 1px solid var(--border); margin-bottom: 14px;
+  }
+  .wtk-title {
+    font-size: 30px; font-weight: 700; color: var(--text-primary);
+    letter-spacing: -0.5px; line-height: 1.15; margin-bottom: 10px;
+  }
+  .wtk-sub { font-size: 15px; color: var(--text-secondary); line-height: 1.6; }
+
+  /* Intro note */
+  .wtk-note {
+    background: white; border: 1px solid var(--border);
+    border-radius: var(--radius); padding: 16px 20px; margin-bottom: 40px;
+    font-size: 14px; color: var(--text-secondary); line-height: 1.6;
+  }
+
+  /* Category label */
+  .wtk-category {
+    font-size: 10px; font-weight: 700; letter-spacing: 1px;
+    text-transform: uppercase; color: var(--text-muted);
+    padding-bottom: 10px; border-bottom: 1px solid var(--border);
+    margin-bottom: 16px; margin-top: 40px;
+  }
+  .wtk-category:first-of-type { margin-top: 0; }
+
+  /* Term cards */
+  .term-card {
+    background: white; border: 1px solid var(--border);
+    border-radius: var(--radius); padding: 20px 22px;
+    margin-bottom: 10px; box-shadow: var(--shadow-sm);
+  }
+  .term-header { display: flex; align-items: flex-start; justify-content: space-between; gap: 16px; margin-bottom: 8px; }
+  .term-name {
+    font-size: 16px; font-weight: 700; color: var(--text-primary); line-height: 1.2;
+  }
+  .term-badge {
+    font-family: 'JetBrains Mono', monospace; font-size: 10px; font-weight: 700;
+    padding: 3px 8px; border-radius: 5px; white-space: nowrap; flex-shrink: 0;
+    background: rgba(40,123,232,0.08); color: #287BE8;
+    border: 1px solid rgba(40,123,232,0.15);
+  }
+  .term-def {
+    font-size: 14px; color: var(--text-secondary); line-height: 1.7;
+  }
+  .term-example {
+    margin-top: 10px; padding-top: 10px; border-top: 1px solid var(--surface);
+    font-size: 13px; color: var(--text-muted); line-height: 1.6;
+    font-style: italic;
+  }
+  .term-example strong { color: var(--text-secondary); font-style: normal; }
+
+  /* Acronym breakdown */
+  .term-acronym {
+    display: grid; grid-template-columns: 24px 1fr; gap: 6px 12px;
+    margin-top: 12px; padding-top: 10px; border-top: 1px solid var(--surface);
+  }
+  .term-acronym-letter {
+    font-family: 'JetBrains Mono', monospace; font-size: 14px; font-weight: 700;
+    color: #287BE8;
+  }
+  .term-acronym-def { font-size: 13.5px; color: var(--text-primary); line-height: 1.5; }
+
+  /* Buddy prompt at bottom */
+  .buddy-note {
+    background: rgba(40,123,232,0.05); border: 1px solid rgba(40,123,232,0.15);
+    border-radius: var(--radius); padding: 20px 22px; margin-top: 48px;
+    text-align: center;
+  }
+  .buddy-note p {
+    font-size: 14px; color: var(--text-secondary); line-height: 1.65; margin-bottom: 12px;
+  }
+  .buddy-note .buddy-prompt-text {
+    font-family: 'JetBrains Mono', monospace; font-size: 13px; color: var(--text-primary);
+    background: white; padding: 12px 16px; border-radius: 8px;
+    border: 1px solid rgba(40,123,232,0.15); line-height: 1.6;
+    font-style: italic; text-align: left;
+  }
+
+  /* Bottom nav */
+  .wtk-bottom-nav {
+    display: flex; align-items: center; justify-content: space-between;
+    border-top: 1px solid var(--border); padding-top: 32px; margin-top: 16px;
+  }
+  .wtk-nav-btn {
+    display: inline-flex; align-items: center; gap: 6px;
+    font-size: 13px; font-weight: 600; color: var(--text-muted);
+    text-decoration: none; padding: 8px 14px; border-radius: 8px;
+    border: 1px solid var(--border); transition: all 0.12s;
+  }
+  .wtk-nav-btn:hover { border-color: var(--border-hover); color: var(--text-primary); }
+  .wtk-nav-btn.primary {
+    background: var(--navy); color: white; border-color: var(--navy);
+  }
+  .wtk-nav-btn.primary:hover { opacity: 0.88; }
+
+  @media (max-width: 760px) {
+    .page-main { padding: 70px 20px 80px; }
+    .topbar-nav { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ═══════════════ TOP BAR ═══════════════ -->
+<div class="topbar">
+  <a href="../index.html" class="topbar-brand">AIO <span>Labs</span></a>
+  <nav class="topbar-nav">
+    <a href="../index.html" class="tnav-link"><span class="tnav-dot" style="background:#8b91ac"></span> Home</a>
+    <a href="../certification.html" class="tnav-link active"><span class="tnav-dot" style="background:#287BE8"></span> Certification</a>
+    <a href="#" class="tnav-link"><span class="tnav-dot" style="background:#287BE8"></span> Coaching</a>
+    <a href="../micro-sessions/index.html" class="tnav-link"><span class="tnav-dot" style="background:#1A9E74"></span> Micro-Sessions</a>
+    <a href="../blog/index.html" class="tnav-link"><span class="tnav-dot" style="background:#6FF2C1"></span> Blog</a>
+    <a href="#" class="tnav-link"><span class="tnav-dot" style="background:#8b91ac"></span> My Team</a>
+  </nav>
+  <div class="topbar-right">
+    <a href="https://claude.ai" target="_blank" class="buddy-launch-btn">🤖 AI Buddy</a>
+    <div class="topbar-stat">🔥 7</div>
+    <div class="topbar-stat">⭐ 1,240</div>
+    <div class="topbar-divider"></div>
+    <div class="topbar-avatar">DH</div>
+  </div>
+</div>
+
+<main class="page-main">
+
+  <a href="mission-1.html" class="wtk-back">← Back to Mission 1</a>
+
+  <div class="wtk-hero">
+    <div class="wtk-track-pill">🔤 Words to Know</div>
+    <h1 class="wtk-title">Mission 1 — Key Terms</h1>
+    <p class="wtk-sub">Plain language. No jargon. No assumptions. Every concept you need to understand Mission 1 — and carry into every mission that follows.</p>
+  </div>
+
+  <div class="wtk-note">
+    <strong>When a term is still unclear:</strong> Ask your AI Buddy — <em>"Explain [term] in plain language with an example from [your role or industry]."</em> That's what it's there for.
+  </div>
+
+
+  <!-- ═══ CATEGORY: The Big Idea ═══ -->
+  <div class="wtk-category">The Big Idea</div>
+
+  <div class="term-card">
+    <div class="term-header">
+      <div class="term-name">The 50/50 Era</div>
+      <span class="term-badge">Core Concept</span>
+    </div>
+    <div class="term-def">The current moment in which half of every professional's work is becoming AI-led. Leadership now requires two skill sets: managing people and managing AI programs. Most leaders have only been trained for one half.</div>
+    <div class="term-example"><strong>In practice:</strong> A marketing manager in the 50/50 era doesn't just manage the team writing content — she also leads the AI program that drafts, tests, and distributes it.</div>
+  </div>
+
+  <div class="term-card">
+    <div class="term-header">
+      <div class="term-name">The AI Officer</div>
+      <span class="term-badge">Core Concept</span>
+    </div>
+    <div class="term-def">A person who can identify where AI should create value in an organization, design AI programs around real business problems, and lead the people and AI working together to deliver results. It is a capability, not a job title — anyone can develop it.</div>
+    <div class="term-example"><strong>In practice:</strong> The AI Officer is not the person who knows the most tools. It's the person who walks into any room, looks at any process, and knows where AI fits and how to deliver ROI from it.</div>
+  </div>
+
+  <div class="term-card">
+    <div class="term-header">
+      <div class="term-name">The Other 50%</div>
+      <span class="term-badge">Core Concept</span>
+    </div>
+    <div class="term-def">The AI half of leadership — designing AI programs, making data decisions, building logic, owning workflows, and measuring ROI. This is the half that most leaders have never been trained to do.</div>
+  </div>
+
+
+  <!-- ═══ CATEGORY: Understanding AI ═══ -->
+  <div class="wtk-category">Understanding AI</div>
+
+  <div class="term-card">
+    <div class="term-header">
+      <div class="term-name">Narrow AI</div>
+      <span class="term-badge">AI Type</span>
+    </div>
+    <div class="term-def">AI that is very good at specific tasks but cannot think broadly. It can read an X-ray, write a report, or win at chess — but only what it was built to do. This is the AI you are working with today (ChatGPT, Claude, Gemini).</div>
+    <div class="term-example"><strong>In practice:</strong> ChatGPT can write a brilliant email but has no idea who you are, what your company does, or what happened in your last meeting — unless you tell it.</div>
+  </div>
+
+  <div class="term-card">
+    <div class="term-header">
+      <div class="term-name">AGI — Artificial General Intelligence</div>
+      <span class="term-badge">AI Type</span>
+    </div>
+    <div class="term-def">AI that can reason like a human across any domain — not just specific tasks. Estimated to arrive sometime between 2030 and 2040. Still hypothetical. We are not there yet.</div>
+  </div>
+
+  <div class="term-card">
+    <div class="term-header">
+      <div class="term-name">LLM — Large Language Model</div>
+      <span class="term-badge">Technical</span>
+    </div>
+    <div class="term-def">A pattern prediction machine trained on a massive amount of text to guess what comes next in a sentence. ChatGPT, Claude, and Gemini are all LLMs. Each LLM can contain multiple models — GPT-4o is a model within ChatGPT, Opus 4.6 is a model within Claude.</div>
+    <div class="term-acronym">
+      <span class="term-acronym-letter">L</span><span class="term-acronym-def"><strong>Large</strong> — trained on enormous amounts of text data</span>
+      <span class="term-acronym-letter">L</span><span class="term-acronym-def"><strong>Language</strong> — works with text, not images or video alone</span>
+      <span class="term-acronym-letter">M</span><span class="term-acronym-def"><strong>Model</strong> — a trained system that makes predictions</span>
+    </div>
+  </div>
+
+  <div class="term-card">
+    <div class="term-header">
+      <div class="term-name">Hallucination</div>
+      <span class="term-badge">Risk</span>
+    </div>
+    <div class="term-def">When AI makes something up and sounds completely confident about it. It is not lying — it is predicting. The pattern it saw in training suggested this answer, even if the answer is wrong. This is why the human stays in the loop.</div>
+    <div class="term-example"><strong>In practice:</strong> Ask AI for a statistic without checking the source. It may give you a number that sounds plausible but is completely fabricated. Always verify facts that matter.</div>
+  </div>
+
+  <div class="term-card">
+    <div class="term-header">
+      <div class="term-name">Context Window</div>
+      <span class="term-badge">Technical</span>
+    </div>
+    <div class="term-def">The amount of text an AI model can "see" at one time — the content of your current conversation plus anything you paste in. Outside the context window, AI has no memory. Every new session starts from zero.</div>
+    <div class="term-example"><strong>In practice:</strong> If you told Claude something important last week in a different chat, it has no idea. You own the continuity — you must bring the context back every time.</div>
+  </div>
+
+  <div class="term-card">
+    <div class="term-header">
+      <div class="term-name">AI Kingdoms</div>
+      <span class="term-badge">Framework</span>
+    </div>
+    <div class="term-def">The three major AI providers, each with a different data advantage. ChatGPT (Microsoft/OpenAI) is the all-rounder. Gemini (Google) is the producer with visual dominance. Claude (Anthropic) is the thoughtful pro, best at writing and coding. To choose the right AI, follow the money behind the data.</div>
+  </div>
+
+
+  <!-- ═══ CATEGORY: Frameworks ═══ -->
+  <div class="wtk-category">Frameworks &amp; Techniques</div>
+
+  <div class="term-card">
+    <div class="term-header">
+      <div class="term-name">RACE</div>
+      <span class="term-badge">Framework</span>
+    </div>
+    <div class="term-def">Your starter framework for any structured AI task. A four-part structure that forces you to organize your thinking before you hand the task to AI.</div>
+    <div class="term-acronym">
+      <span class="term-acronym-letter">R</span><span class="term-acronym-def"><strong>Role</strong> — Who is the AI acting as? Give it an identity.</span>
+      <span class="term-acronym-letter">A</span><span class="term-acronym-def"><strong>Action</strong> — What should it do? Be specific.</span>
+      <span class="term-acronym-letter">C</span><span class="term-acronym-def"><strong>Context</strong> — What's the situation, the data, the constraints?</span>
+      <span class="term-acronym-letter">E</span><span class="term-acronym-def"><strong>Example</strong> — What does good look like? Show it the finish line.</span>
+    </div>
+    <div class="term-example"><strong>The rule:</strong> You don't write the prompt. You organize what you know. RACE is how you organize it.</div>
+  </div>
+
+  <div class="term-card">
+    <div class="term-header">
+      <div class="term-name">The AI Interview</div>
+      <span class="term-badge">Technique</span>
+    </div>
+    <div class="term-def">The master technique for getting professional AI output. Instead of writing the full prompt yourself, you say: "I need help with [task]. Before you start, ask me 3–4 questions." AI finds gaps in your thinking you didn't know were there.</div>
+    <div class="term-example"><strong>The progression:</strong> Bare prompt → RACE framework → AI Interview. Conversation wins every time.</div>
+  </div>
+
+  <div class="term-card">
+    <div class="term-header">
+      <div class="term-name">Prompt</div>
+      <span class="term-badge">Basics</span>
+    </div>
+    <div class="term-def">The instruction you give to an AI tool. A prompt can be one sentence or several paragraphs. The quality of your output is directly tied to the quality of your prompt — which is why the AI Officer focuses on frameworks, not guessing.</div>
+  </div>
+
+  <div class="term-card">
+    <div class="term-header">
+      <div class="term-name">Framework</div>
+      <span class="term-badge">Basics</span>
+    </div>
+    <div class="term-def">A structured way of organizing your thinking before giving it to AI. A framework does the heavy lifting of organizing your context, so AI can do the heavy lifting of generating useful output.</div>
+    <div class="term-example"><strong>In practice:</strong> RACE is your first framework. You'll learn more in Mission 3. The goal is never to memorize the framework — it's to build the habit of organizing before you prompt.</div>
+  </div>
+
+
+  <!-- ═══ CATEGORY: The AI Officer Operating System ═══ -->
+  <div class="wtk-category">The AI Officer Operating System</div>
+
+  <div class="term-card">
+    <div class="term-header">
+      <div class="term-name">The 6 Beliefs</div>
+      <span class="term-badge">Mindset</span>
+    </div>
+    <div class="term-def">The personal operating system of an AI Officer — six beliefs that guide every decision you make about AI.</div>
+    <div class="term-acronym">
+      <span class="term-acronym-letter">1</span><span class="term-acronym-def">Accuracy follows clarity</span>
+      <span class="term-acronym-letter">2</span><span class="term-acronym-def">AI is like a Buddy that learns you</span>
+      <span class="term-acronym-letter">3</span><span class="term-acronym-def">Frameworks turn chaos into clarity</span>
+      <span class="term-acronym-letter">4</span><span class="term-acronym-def">Information is the new creativity</span>
+      <span class="term-acronym-letter">5</span><span class="term-acronym-def">Curiosity drives mastery</span>
+      <span class="term-acronym-letter">6</span><span class="term-acronym-def">AI needs a human in the loop</span>
+    </div>
+  </div>
+
+  <div class="term-card">
+    <div class="term-header">
+      <div class="term-name">The 5 Daily Moves</div>
+      <span class="term-badge">Practice</span>
+    </div>
+    <div class="term-def">The five things an AI Officer does every day to build and run AI programs.</div>
+    <div class="term-acronym">
+      <span class="term-acronym-letter">1</span><span class="term-acronym-def"><strong>Find problems worth solving</strong> — where does AI create real ROI?</span>
+      <span class="term-acronym-letter">2</span><span class="term-acronym-def"><strong>Become a data detective</strong> — find the chaos before AI amplifies it</span>
+      <span class="term-acronym-letter">3</span><span class="term-acronym-def"><strong>Build or buy</strong> — know when to create vs. when to use an existing tool</span>
+      <span class="term-acronym-letter">4</span><span class="term-acronym-def"><strong>Orchestrate AI</strong> — sequence the workflow and connect the parts</span>
+      <span class="term-acronym-letter">5</span><span class="term-acronym-def"><strong>Plan like a pro</strong> — define goals, data, tools, checkpoints, and metrics</span>
+    </div>
+  </div>
+
+  <div class="term-card">
+    <div class="term-header">
+      <div class="term-name">Human in the Loop</div>
+      <span class="term-badge">Governance</span>
+    </div>
+    <div class="term-def">The principle that AI always needs a human to set direction, catch errors, and make judgment calls. AI can scale knowledge and process — it cannot set meaning, define ethics, or replace human judgment. The AI Officer is the human in the loop for AI programs.</div>
+  </div>
+
+  <div class="term-card">
+    <div class="term-header">
+      <div class="term-name">ROI — Return on Investment</div>
+      <span class="term-badge">Business</span>
+    </div>
+    <div class="term-def">In AI programs, ROI typically falls into four types: time saved, cost reduced, quality improved, and speed increased. At least one type should be quantified before any AI program begins — this is what separates an AI Officer from someone just experimenting with tools.</div>
+  </div>
+
+
+  <div class="buddy-note">
+    <p>If any term here is still unclear, open your AI Buddy and ask:</p>
+    <div class="buddy-prompt-text">"Explain [term] in plain language with an example from [your role or industry]."</div>
+  </div>
+
+  <!-- Bottom nav -->
+  <div class="wtk-bottom-nav">
+    <a href="mission-1-prompts.html" class="wtk-nav-btn">← Prompt Library</a>
+    <a href="mission-1-slides.html" class="wtk-nav-btn primary">Slide Deck →</a>
+  </div>
+
+</main>
+
+</body>
+</html>

@@ -125,8 +125,8 @@
     border: 1px solid;
   }
   .track-header.gen  { background: rgba(40,123,232,0.09); border-color: rgba(40,123,232,0.22); }
-  .track-header.age  { background: rgba(26,158,116,0.09); border-color: rgba(26,158,116,0.22); }
-  .track-header.lead { background: rgba(4,16,45,0.07);   border-color: rgba(4,16,45,0.16);    opacity: 0.6; }
+  .track-header.age  { background: #2e3347; border-color: #2e3347; }
+  .track-header.lead { background: #04102D; border-color: #04102D; }
 
   .track-pill {
     display: inline-flex; align-items: center; gap: 6px;
@@ -153,8 +153,26 @@
     font-size: 12px; font-weight: 700;
   }
   .track-header.gen  .track-progress-pct { color: #287BE8; }
-  .track-header.age  .track-progress-pct { color: #1a9e74; }
-  .track-header.lead .track-progress-pct { color: #04102D; }
+  .track-header.age  .track-progress-pct { color: rgba(255,255,255,0.6); }
+  .track-header.lead .track-progress-pct { color: rgba(255,255,255,0.6); }
+
+  /* Agentic track: flip all text to white since bg is dark charcoal */
+  .track-header.age .track-header-title { color: white; }
+  .track-header.age .track-header-sub   { color: rgba(255,255,255,0.5); }
+  .track-header.age .track-progress-label { color: rgba(255,255,255,0.45); }
+  .track-header.age .progress-bar        { background: rgba(255,255,255,0.12); }
+  .track-header.age .progress-fill       { background: rgba(255,255,255,0.25); }
+  .track-header.age .pill-age { background: rgba(255,255,255,0.1); color: rgba(255,255,255,0.7); border-color: rgba(255,255,255,0.18); }
+  .track-header.age .track-cert-badge.locked { background: rgba(255,255,255,0.08); color: rgba(255,255,255,0.5); border-color: rgba(255,255,255,0.15); }
+
+  /* Lead track: flip all text to white since bg is dark navy */
+  .track-header.lead .track-header-title { color: white; }
+  .track-header.lead .track-header-sub   { color: rgba(255,255,255,0.5); }
+  .track-header.lead .track-progress-label { color: rgba(255,255,255,0.45); }
+  .track-header.lead .progress-bar        { background: rgba(255,255,255,0.12); }
+  .track-header.lead .progress-fill       { background: rgba(255,255,255,0.3); }
+  .track-header.lead .pill-lead { background: rgba(255,255,255,0.1); color: rgba(255,255,255,0.7); border-color: rgba(255,255,255,0.18); }
+  .track-header.lead .track-cert-badge.locked { background: rgba(255,255,255,0.08); color: rgba(255,255,255,0.5); border-color: rgba(255,255,255,0.15); }
   .progress-bar {
     height: 5px; border-radius: 3px;
     background: var(--border); overflow: hidden;
@@ -186,6 +204,7 @@
   .mcard.mcard-active        { border-color: rgba(40,123,232,0.35); }
   .mcard.mcard-active:hover  { box-shadow: var(--shadow-hover); transform: translateY(-1px); border-color: rgba(40,123,232,0.55); }
   .mcard.done { background: var(--surface); border-color: var(--border); }
+  a.mcard.done:hover { box-shadow: var(--shadow-hover); transform: translateY(-1px); border-color: var(--border-hover); background: white; }
   .mcard.locked-card { opacity: 0.45; pointer-events: none; }
 
   .mcard-top { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
@@ -298,6 +317,7 @@
     <a href="#" class="tnav-link"><span class="tnav-dot" style="background:#8b91ac"></span> My Team</a>
   </nav>
   <div class="topbar-right">
+    <a href="https://claude.ai" target="_blank" class="buddy-launch-btn">🤖 AI Buddy</a>
     <div class="topbar-stat">🔥 7</div>
     <div class="topbar-stat">⭐ 1,240</div>
     <div class="topbar-divider"></div>
@@ -383,7 +403,7 @@
     <div class="mgrid">
 
       <!-- Mission 1 — Done -->
-      <div class="mcard done">
+      <a href="generative-ai/mission-1.html" class="mcard done">
         <div class="done-check">✓</div>
         <div class="mcard-top">
           <span class="mcard-badge badge-gen">Mission 01</span>
@@ -391,14 +411,12 @@
         </div>
         <div class="mcard-title">Enter the AI Officer</div>
         <div class="mcard-briefs">
-          <div class="mcard-brief done-brief"><span class="mcard-brief-num">B1</span>The Other 50%</div>
-          <div class="mcard-brief done-brief"><span class="mcard-brief-num">B2</span>The AI Officer Mindset</div>
-          <div class="mcard-brief done-brief"><span class="mcard-brief-num">B3</span>What is AI?</div>
-          <div class="mcard-brief done-brief"><span class="mcard-brief-num">B4</span>The Path to 99%</div>
-          <div class="mcard-brief done-brief"><span class="mcard-brief-num">B5</span>The AI Kingdoms</div>
-          <div class="mcard-brief done-brief"><span class="mcard-brief-num">B6</span>The BOLT Challenge</div>
+          <div class="mcard-brief done-brief"><span class="mcard-brief-num">C1</span>See How AI Follows Your Lead</div>
+          <div class="mcard-brief done-brief"><span class="mcard-brief-num">C2</span>From Bare Prompt to AI Interview</div>
+          <div class="mcard-brief done-brief"><span class="mcard-brief-num">C3</span>Prove It</div>
+          <div class="mcard-brief done-brief"><span class="mcard-brief-num">★</span>Your AI Learning Plan</div>
         </div>
-      </div>
+      </a>
 
       <!-- Mission 2 — Done -->
       <div class="mcard done">
@@ -409,11 +427,9 @@
         </div>
         <div class="mcard-title">Clean Data</div>
         <div class="mcard-briefs">
-          <div class="mcard-brief done-brief"><span class="mcard-brief-num">B1</span>The Truth About AI Failure</div>
-          <div class="mcard-brief done-brief"><span class="mcard-brief-num">B2</span>How AI Processes Data</div>
-          <div class="mcard-brief done-brief"><span class="mcard-brief-num">B3</span>Implementation &amp; Safety</div>
-          <div class="mcard-brief done-brief"><span class="mcard-brief-num">B4</span>The Right AI</div>
-          <div class="mcard-brief done-brief"><span class="mcard-brief-num">B5</span>The BOLT Data Challenge</div>
+          <div class="mcard-brief done-brief"><span class="mcard-brief-num">C1</span>Garbage In, Garbage Out</div>
+          <div class="mcard-brief done-brief"><span class="mcard-brief-num">C2</span>Become a Data Detective</div>
+          <div class="mcard-brief done-brief"><span class="mcard-brief-num">★</span>Clean at Scale</div>
         </div>
       </div>
 
@@ -425,11 +441,11 @@
         </div>
         <div class="mcard-title">Advanced Prompt Frameworks</div>
         <div class="mcard-briefs">
-          <div class="mcard-brief done-brief"><span class="mcard-brief-num">B1</span>Stack Your Frameworks</div>
-          <div class="mcard-brief active-brief"><span class="mcard-brief-num">B2</span>The AI Interview ← You are here</div>
-          <div class="mcard-brief"><span class="mcard-brief-num">B3</span>Let AI Teach You</div>
-          <div class="mcard-brief"><span class="mcard-brief-num">B4</span>Check Before You Send</div>
-          <div class="mcard-brief"><span class="mcard-brief-num">B5</span>The BOLT Brief</div>
+          <div class="mcard-brief done-brief"><span class="mcard-brief-num">C1</span>Stack Your Frameworks</div>
+          <div class="mcard-brief active-brief"><span class="mcard-brief-num">C2</span>The AI Interview ← You are here</div>
+          <div class="mcard-brief"><span class="mcard-brief-num">C3</span>Let AI Teach You a Framework</div>
+          <div class="mcard-brief"><span class="mcard-brief-num">C4</span>The Decision Filter: VRC</div>
+          <div class="mcard-brief"><span class="mcard-brief-num">★</span>The Go-To-Market Brief</div>
         </div>
         <div class="mcard-action">Continue Mission →</div>
       </a>
@@ -442,11 +458,11 @@
         </div>
         <div class="mcard-title">Prompting Perfect Visuals</div>
         <div class="mcard-briefs">
-          <div class="mcard-brief"><span class="mcard-brief-num">B1</span>From Ideas to Visuals</div>
-          <div class="mcard-brief"><span class="mcard-brief-num">B2</span>VISION for Video</div>
-          <div class="mcard-brief"><span class="mcard-brief-num">B3</span>Tools of the Trade</div>
-          <div class="mcard-brief"><span class="mcard-brief-num">B4</span>Style DNA</div>
-          <div class="mcard-brief"><span class="mcard-brief-num">B5</span>The BOLT Visual Campaign</div>
+          <div class="mcard-brief"><span class="mcard-brief-num">C1</span>Bare Prompt vs. 5-Element</div>
+          <div class="mcard-brief"><span class="mcard-brief-num">C2</span>Structured Image Build</div>
+          <div class="mcard-brief"><span class="mcard-brief-num">C3</span>VISION Video Build</div>
+          <div class="mcard-brief"><span class="mcard-brief-num">C4</span>Build BOLT's Style DNA</div>
+          <div class="mcard-brief"><span class="mcard-brief-num">★</span>Complete Visual Campaign</div>
         </div>
       </div>
 
@@ -457,7 +473,7 @@
   <!-- TRACK 2: AGENTIC AI                 -->
   <!-- ════════════════════════════════════ -->
   <div class="track-section">
-    <div class="track-header age" style="opacity: 0.55;">
+    <div class="track-header age">
       <span class="track-pill pill-age"><span class="dot"></span> Track 2</span>
       <div class="track-header-info">
         <div class="track-header-title">Agentic AI Essentials</div>
@@ -480,62 +496,66 @@
         <div class="mcard-top"><span class="mcard-badge badge-age">Mission 01</span><span class="mcard-status status-locked">Locked</span></div>
         <div class="mcard-title">AI Program Planning</div>
         <div class="mcard-briefs">
-          <div class="mcard-brief"><span class="mcard-brief-num">B1</span>The Four Offices</div>
-          <div class="mcard-brief"><span class="mcard-brief-num">B2</span>Three Types of AI</div>
-          <div class="mcard-brief"><span class="mcard-brief-num">B3</span>The 5D Framework</div>
-          <div class="mcard-brief"><span class="mcard-brief-num">B4</span>FAST Goals and ROI</div>
-          <div class="mcard-brief"><span class="mcard-brief-num">B5</span>Build Your Roadmap</div>
+          <div class="mcard-brief"><span class="mcard-brief-num">C1</span>Complete Your Roadmap</div>
+          <div class="mcard-brief"><span class="mcard-brief-num">C2</span>Confirm Your Selection</div>
+          <div class="mcard-brief"><span class="mcard-brief-num">C3</span>Pressure-Test Your Problem Statement</div>
+          <div class="mcard-brief"><span class="mcard-brief-num">C4</span>Stress-Test Your FAST Goal</div>
+          <div class="mcard-brief"><span class="mcard-brief-num">★</span>Your AI Roadmap</div>
         </div>
       </div>
       <div class="mcard locked-card">
         <div class="mcard-top"><span class="mcard-badge badge-age">Mission 02</span><span class="mcard-status status-locked">Locked</span></div>
         <div class="mcard-title">From Prompts to Packaged AI</div>
         <div class="mcard-briefs">
-          <div class="mcard-brief"><span class="mcard-brief-num">B1</span>The Setup Time Problem</div>
-          <div class="mcard-brief"><span class="mcard-brief-num">B2</span>Anatomy of Packaged AI</div>
-          <div class="mcard-brief"><span class="mcard-brief-num">B3</span>Platform Options</div>
-          <div class="mcard-brief"><span class="mcard-brief-num">B4</span>Build Your Prototype</div>
-          <div class="mcard-brief"><span class="mcard-brief-num">B5</span>Test and Ship</div>
+          <div class="mcard-brief"><span class="mcard-brief-num">C1</span>Map Your Data Layer</div>
+          <div class="mcard-brief"><span class="mcard-brief-num">C2</span>Write Your RACE System Prompt</div>
+          <div class="mcard-brief"><span class="mcard-brief-num">C3</span>Design Your Interface</div>
+          <div class="mcard-brief"><span class="mcard-brief-num">C4</span>Test Your Build</div>
+          <div class="mcard-brief"><span class="mcard-brief-num">★</span>Your Packaged AI Prototype</div>
         </div>
       </div>
       <div class="mcard locked-card">
         <div class="mcard-top"><span class="mcard-badge badge-age">Mission 03</span><span class="mcard-status status-locked">Locked</span></div>
         <div class="mcard-title">Wire the Workflow</div>
         <div class="mcard-briefs">
-          <div class="mcard-brief"><span class="mcard-brief-num">B1</span>Why You're Still the Bottleneck</div>
-          <div class="mcard-brief"><span class="mcard-brief-num">B2</span>The 5-Part Workflow Blueprint</div>
-          <div class="mcard-brief"><span class="mcard-brief-num">B3</span>Build Your Trigger and Data Layer</div>
-          <div class="mcard-brief"><span class="mcard-brief-num">B4</span>Wire the AI Step and Action</div>
-          <div class="mcard-brief"><span class="mcard-brief-num">B5</span>Log, Test, and Ship</div>
+          <div class="mcard-brief"><span class="mcard-brief-num">C1</span>Map Your Workflow on Paper</div>
+          <div class="mcard-brief"><span class="mcard-brief-num">C2</span>Set Up Your Trigger</div>
+          <div class="mcard-brief"><span class="mcard-brief-num">C3</span>Connect Your AI Step</div>
+          <div class="mcard-brief"><span class="mcard-brief-num">C4</span>Run the Full Test</div>
+          <div class="mcard-brief"><span class="mcard-brief-num">★</span>Deliver Your Final Project</div>
         </div>
       </div>
       <div class="mcard locked-card">
         <div class="mcard-top"><span class="mcard-badge badge-age">Mission 04</span><span class="mcard-status status-locked">Locked</span></div>
         <div class="mcard-title">Teach Your Workflow to Decide</div>
         <div class="mcard-briefs">
-          <div class="mcard-brief"><span class="mcard-brief-num">B1</span>The Linear Workflow Problem</div>
-          <div class="mcard-brief"><span class="mcard-brief-num">B2</span>Classify, Route, Respond</div>
-          <div class="mcard-brief"><span class="mcard-brief-num">B3</span>The Tiny Decision Canvas</div>
-          <div class="mcard-brief"><span class="mcard-brief-num">B4</span>Build the Logic Layer</div>
-          <div class="mcard-brief"><span class="mcard-brief-num">B5</span>Test and Validate</div>
+          <div class="mcard-brief"><span class="mcard-brief-num">C1</span>Complete Your Tiny Decision Canvas</div>
+          <div class="mcard-brief"><span class="mcard-brief-num">C2</span>Build and Test Your Classifier</div>
+          <div class="mcard-brief"><span class="mcard-brief-num">C3</span>Add the Router</div>
+          <div class="mcard-brief"><span class="mcard-brief-num">C4</span>Test All Paths</div>
+          <div class="mcard-brief"><span class="mcard-brief-num">★</span>Your Complete Logic Layer</div>
         </div>
       </div>
       <div class="mcard locked-card">
         <div class="mcard-top"><span class="mcard-badge badge-age">Mission 05</span><span class="mcard-status status-locked">Locked</span></div>
         <div class="mcard-title">Unleash the Agent</div>
         <div class="mcard-briefs">
-          <div class="mcard-brief"><span class="mcard-brief-num">B1</span>The Ceiling of Logic</div>
-          <div class="mcard-brief"><span class="mcard-brief-num">B2</span>The Agent Loop</div>
-          <div class="mcard-brief"><span class="mcard-brief-num">B3</span>Agent Anatomy</div>
-          <div class="mcard-brief"><span class="mcard-brief-num">B4</span>Build Your First Agent</div>
-          <div class="mcard-brief"><span class="mcard-brief-num">B5</span>Guardrails and Human in the Loop</div>
+          <div class="mcard-brief"><span class="mcard-brief-num">C1</span>Define Your Agent Mission</div>
+          <div class="mcard-brief"><span class="mcard-brief-num">C2</span>Write Instructions with Guardrails</div>
+          <div class="mcard-brief"><span class="mcard-brief-num">C3</span>Build and Test Your Agent</div>
+          <div class="mcard-brief"><span class="mcard-brief-num">C4</span>Set Success Metrics</div>
+          <div class="mcard-brief"><span class="mcard-brief-num">★</span>Complete Your Agent</div>
         </div>
       </div>
       <div class="mcard locked-card">
         <div class="mcard-top"><span class="mcard-badge badge-age">Mission 06</span><span class="mcard-status status-coming">Coming Soon</span></div>
         <div class="mcard-title">Deploy at Scale</div>
         <div class="mcard-briefs">
-          <div class="mcard-brief"><span class="mcard-brief-num">—</span>In development</div>
+          <div class="mcard-brief"><span class="mcard-brief-num">C1</span>Write Technical Requirements</div>
+          <div class="mcard-brief"><span class="mcard-brief-num">C2</span>Define Governance Ownership</div>
+          <div class="mcard-brief"><span class="mcard-brief-num">C3</span>Write Your Metrics as a Spec</div>
+          <div class="mcard-brief"><span class="mcard-brief-num">C4</span>Write the Engineer's Handoff Checklist</div>
+          <div class="mcard-brief"><span class="mcard-brief-num">★</span>Your Production Brief</div>
         </div>
       </div>
     </div>

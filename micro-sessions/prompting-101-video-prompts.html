@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Prompt Library: Prompting 101: Video — AI Officer Institute</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../shared/styles.css">
+<style>
+
+  :root {
+    --ease: cubic-bezier(0.4, 0, 0.2, 1);
+    --radius: 12px;
+    --shadow-sm: 0 1px 3px rgba(4,16,45,0.07);
+    --text-primary: #1a1f36;
+    --text-secondary: #4a5068;
+    --text-muted: #6b7194;
+    --border: #d8dce8;
+    --surface: #f4f6fa;
+    --card-bg: #ffffff;
+  }
+
+  body { background: var(--surface); font-family: 'DM Sans', sans-serif; -webkit-font-smoothing: antialiased; color: var(--text-primary); line-height: 1.7; }
+
+  .page-main { max-width: 1060px; margin: 0 auto; padding: 80px 40px 100px; }
+
+  .mission-back {
+    display: inline-flex; align-items: center; gap: 6px;
+    font-size: 13px; font-weight: 600; color: var(--text-muted);
+    text-decoration: none; margin-bottom: 28px; transition: color 0.12s;
+  }
+  .mission-back:hover { color: var(--text-primary); }
+
+  .mission-header { margin-bottom: 32px; }
+  .mission-meta { display: flex; align-items: center; gap: 10px; margin-bottom: 14px; }
+  .mission-track-pill {
+    display: inline-flex; align-items: center; gap: 7px;
+    font-size: 11px; font-weight: 700; letter-spacing: 0.7px; text-transform: uppercase;
+    padding: 5px 12px; border-radius: 20px;
+  }
+  .mission-track-pill .dot { width: 5px; height: 5px; border-radius: 50%; }
+  .mission-title { font-size: 34px; font-weight: 700; color: var(--text-primary); letter-spacing: -0.5px; line-height: 1.15; margin-bottom: 10px; }
+  .mission-sub { font-size: 15px; color: var(--text-secondary); line-height: 1.6; max-width: 620px; }
+
+  .mission-body { display: grid; grid-template-columns: 1fr 300px; gap: 24px; align-items: start; }
+
+  .content-card {
+    background: var(--card-bg); border: 1px solid var(--border);
+    border-radius: var(--radius); padding: 24px 28px;
+    box-shadow: var(--shadow-sm); margin-bottom: 16px;
+  }
+  .card-label { font-size: 10px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: #287BE8; margin-bottom: 14px; }
+  .card-heading { font-size: 16px; font-weight: 700; color: var(--text-primary); margin-bottom: 14px; letter-spacing: -0.2px; }
+  .card-text { font-size: 14px; color: var(--text-secondary); line-height: 1.65; margin-bottom: 12px; }
+  .card-text:last-child { margin-bottom: 0; }
+
+  /* Resource sidebar */
+  .resource-stack-label { font-size: 10px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: var(--text-muted); margin-bottom: 4px; }
+  .resource-stack { display: flex; flex-direction: column; gap: 8px; }
+  .resource-card {
+    background: var(--card-bg); border: 1px solid var(--border);
+    border-radius: var(--radius); padding: 14px 16px;
+    text-decoration: none; color: inherit;
+    display: flex; align-items: center; gap: 12px;
+    box-shadow: var(--shadow-sm); transition: all 0.15s var(--ease);
+  }
+  .resource-card:hover { border-color: rgba(40,123,232,0.35); box-shadow: 0 4px 16px rgba(4,16,45,0.09); transform: translateY(-1px); }
+  .resource-card.active { border-color: rgba(40,123,232,0.4); background: rgba(40,123,232,0.04); }
+  .resource-icon { width: 36px; height: 36px; border-radius: 9px; flex-shrink: 0; display: flex; align-items: center; justify-content: center; font-size: 16px; }
+  .resource-info { flex: 1; min-width: 0; }
+  .resource-tag { font-size: 10px; font-weight: 700; letter-spacing: 0.7px; text-transform: uppercase; color: var(--text-muted); margin-bottom: 1px; }
+  .resource-title { font-size: 13px; font-weight: 700; color: var(--text-primary); }
+  .resource-arrow { font-size: 13px; color: var(--text-muted); flex-shrink: 0; }
+  .resource-card.active .resource-arrow { color: #287BE8; }
+
+  @media (max-width: 900px) {
+    .page-main { padding: 70px 20px 80px; }
+    .mission-body { grid-template-columns: 1fr; }
+  }
+
+
+  .prompt-card { background: var(--card-bg); border: 1px solid var(--border); border-radius: var(--radius); padding: 0; box-shadow: var(--shadow-sm); margin-bottom: 16px; overflow: hidden; }
+  .prompt-header { padding: 20px 24px 16px; }
+  .prompt-num { font-family: 'JetBrains Mono', monospace; font-size: 10px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: #287BE8; background: rgba(40,123,232,0.08); padding: 3px 10px; border-radius: 4px; display: inline-block; margin-bottom: 10px; }
+  .prompt-title { font-size: 16px; font-weight: 700; color: var(--text-primary); margin-bottom: 6px; letter-spacing: -0.2px; }
+  .prompt-desc { font-size: 13px; color: var(--text-secondary); line-height: 1.6; }
+  .prompt-code-wrap { background: #04102D; padding: 0; }
+  .prompt-code-header { display: flex; align-items: center; justify-content: space-between; padding: 10px 20px; border-bottom: 1px solid rgba(255,255,255,0.07); }
+  .prompt-code-label { font-family: 'JetBrains Mono', monospace; font-size: 10px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: rgba(111,242,193,0.7); }
+  .copy-btn { font-family: 'JetBrains Mono', monospace; font-size: 10px; font-weight: 700; color: rgba(255,255,255,0.4); background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.1); padding: 4px 12px; border-radius: 5px; cursor: pointer; transition: all 0.15s; }
+  .copy-btn:hover { color: rgba(255,255,255,0.8); background: rgba(255,255,255,0.1); }
+  .prompt-code { font-family: 'JetBrains Mono', monospace; font-size: 12px; color: rgba(255,255,255,0.8); line-height: 1.7; padding: 18px 20px 20px; margin: 0; white-space: pre-wrap; word-break: break-word; }
+
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <a href="../index.html" class="topbar-brand">AIO <span>Labs</span></a>
+  <nav class="topbar-nav">
+    <a href="../certification.html" class="tnav-link"><span class="tnav-dot" style="background:#287BE8"></span> Certification</a>
+    <a href="../coaching.html" class="tnav-link"><span class="tnav-dot" style="background:#287BE8"></span> Coaching</a>
+    <a href="index.html" class="tnav-link active"><span class="tnav-dot" style="background:#1A9E74"></span> Micro-Sessions</a>
+    <a href="../blog/index.html" class="tnav-link"><span class="tnav-dot" style="background:#6FF2C1"></span> Blog</a>
+    <a href="../my-team.html" class="tnav-link"><span class="tnav-dot" style="background:#8b91ac"></span> My Team</a>
+  </nav>
+  <div class="topbar-right">
+    <a href="https://claude.ai" target="_blank" class="buddy-launch-btn">🤖 AI Buddy</a>
+    <div class="topbar-stat">🔥 7</div>
+    <div class="topbar-stat">⭐ 1,240</div>
+    <div class="topbar-divider"></div>
+    <div class="topbar-avatar">DH</div>
+  </div>
+</div>
+
+<main class="page-main">
+
+  <a href="prompting-101-video.html" class="mission-back">← Prompting 101: Video</a>
+
+  <div class="mission-header">
+    <div class="mission-meta">
+      <span class="mission-track-pill" style="background:rgba(40,123,232,0.1); color:#287BE8; border: 1px solid rgba(40,123,232,0.2);"><span class="dot" style="background:#287BE8;"></span> Gen AI</span>
+    </div>
+    <h1 class="mission-title">Prompt Library</h1>
+    <p class="mission-sub">Copy-ready prompts to help you complete and extend this session's work.</p>
+  </div>
+
+  <div class="mission-body">
+
+    <div>
+      
+      <div class="prompt-card">
+        <div class="prompt-header">
+          <div class="prompt-num">PROMPT 1</div>
+          <div class="prompt-title">Team Announcement Video</div>
+          <div class="prompt-desc">Internal communication - announcing a new initiative, launch, or win to your team</div>
+        </div>
+        <div class="prompt-code-wrap">
+          <div class="prompt-code-header">
+            <span class="prompt-code-label">Prompt</span>
+            <button class="copy-btn" onclick="copyPrompt(this)">Copy</button>
+          </div>
+          <pre class="prompt-code">V - Visual anchor: [Describe your reference image - office setting, character appearance, lighting]. Use the reference image to lock in the character and environment throughout the clip.
+
+I - Intention: Announce [name of initiative or achievement] to [audience - team, department, all staff]. The energy is [confident / celebratory / calm and focused].
+
+S - Sequence:
+1. [Character] stands in [setting], looking directly at camera
+2. They pause, then smile as if just hearing good news
+3. They reach toward [object - laptop, phone, document] with purpose
+4. A subtle shift in the background signals the moment is significant
+5. The character looks back at camera with a closing expression of [confidence / satisfaction / excitement]
+
+I - Immersion: [Time of day] light, [warm/cool/neutral] tones. [Ambient sound description]. [Fast/medium/slow] pace of cuts.
+
+O - Orbit: [Camera movement - e.g., slow dolly-in from wide to medium close-up / static wide shot / gentle pan left to right].
+
+N - Narrative: A professional moves from [starting state] to [ending state] as a single moment of [action] signals that something has changed.</pre>
+        </div>
+      </div>
+      <div class="prompt-card">
+        <div class="prompt-header">
+          <div class="prompt-num">PROMPT 2</div>
+          <div class="prompt-title">Product or Service Demo Clip</div>
+          <div class="prompt-desc">Revenue office - showcasing a product, feature, or service in a short client-facing clip</div>
+        </div>
+        <div class="prompt-code-wrap">
+          <div class="prompt-code-header">
+            <span class="prompt-code-label">Prompt</span>
+            <button class="copy-btn" onclick="copyPrompt(this)">Copy</button>
+          </div>
+          <pre class="prompt-code">V - Visual anchor: [Describe the product or demo setup - screen, device, environment]. Lock in the product&#x27;s visual identity and the presenter&#x27;s appearance using the reference image.
+
+I - Intention: Demonstrate [specific product or feature] to [target audience - prospects, clients, leadership]. The goal is [showing ease of use / building confidence / triggering curiosity].
+
+S - Sequence:
+1. The presenter points to [product/screen/object]
+2. The product or interface comes into focus
+3. A key action is performed: [click, swipe, open, activate]
+4. A visible result appears: [metric, output, reaction, change in screen]
+5. The presenter turns to camera with a look that says: this is the thing
+
+I - Immersion: [Office / lab / event space] setting. [Bright/warm/natural] lighting. Clean background. No distracting elements. Crisp, fast pace - each beat lasts about 1.5 seconds.
+
+O - Orbit: Rack focus from presenter to product and back. Or: tight static close-up on the product, then pull back to reveal the presenter.
+
+N - Narrative: A confident professional demonstrates a capability that makes something complex look simple - and the audience leaves wanting to try it.</pre>
+        </div>
+      </div>
+      <div class="prompt-card">
+        <div class="prompt-header">
+          <div class="prompt-num">PROMPT 3</div>
+          <div class="prompt-title">Training or Learning Moment</div>
+          <div class="prompt-desc">Talent office - creating a short explainer or training micro-clip for a team</div>
+        </div>
+        <div class="prompt-code-wrap">
+          <div class="prompt-code-header">
+            <span class="prompt-code-label">Prompt</span>
+            <button class="copy-btn" onclick="copyPrompt(this)">Copy</button>
+          </div>
+          <pre class="prompt-code">V - Visual anchor: [Describe the instructor or presenter - setting, attire, expression]. Use the reference image to maintain consistent character and environment.
+
+I - Intention: Teach [specific skill or concept] to [new hires / team members / managers]. The tone is [practical and calm / energetic and encouraging].
+
+S - Sequence:
+1. Presenter addresses the camera as if starting a briefing
+2. They gesture toward [object, screen, or whiteboard element]
+3. A key concept appears visually: [diagram, text, animated element]
+4. The presenter reacts to the concept - showing its impact
+5. They close with a direct look at camera that says: your turn
+
+I - Immersion: Bright, even lighting. Clean professional space. Subtle ambient sound. Medium pace - not rushed, not slow.
+
+O - Orbit: Static medium shot for the first beat, then slow push-in to medium close-up for the closing look.
+
+N - Narrative: A teacher simplifies something complex into a single clear moment - and the learner moves from uncertain to ready.</pre>
+        </div>
+      </div>
+      <div class="prompt-card">
+        <div class="prompt-header">
+          <div class="prompt-num">PROMPT 4</div>
+          <div class="prompt-title">Brand or Campaign Visual</div>
+          <div class="prompt-desc">Marketing or communications - creating a short on-brand asset for social, internal comms, or a campaign</div>
+        </div>
+        <div class="prompt-code-wrap">
+          <div class="prompt-code-header">
+            <span class="prompt-code-label">Prompt</span>
+            <button class="copy-btn" onclick="copyPrompt(this)">Copy</button>
+          </div>
+          <pre class="prompt-code">V - Visual anchor: [Describe brand elements - colors, logo placement, character or mascot]. Use the reference image to lock in the brand identity across every frame.
+
+I - Intention: Create a [campaign launch / event promo / brand moment] visual for [platform - LinkedIn, internal Teams, website banner]. The feeling should be [aspirational / bold / warm / urgent].
+
+S - Sequence:
+1. Opening frame: [Brand element or character appears in scene]
+2. Motion: [One thing changes - light shifts, object moves, text appears]
+3. Mid-point: [Scene evolves - new character element, environment change, subtle animation]
+4. Near close: [Key message moment - a visual that represents the brand promise]
+5. Closing frame: [Character or brand mark holds steady - this is the takeaway image]
+
+I - Immersion: [Brand color palette] lighting. [Upbeat / cinematic / lo-fi] ambient feel. [Crisp/soft/dramatic] texture. Pace matches the energy: [fast for urgency / slow for aspiration].
+
+O - Orbit: [Slow zoom-in on the brand element / gentle pan across the scene / static shot with internal motion].
+
+N - Narrative: In [number] seconds, a brand moves from [initial state] to [desired feeling] - and the audience knows exactly what it stands for.</pre>
+        </div>
+      </div>
+      <div class="prompt-card">
+        <div class="prompt-header">
+          <div class="prompt-num">PROMPT 5</div>
+          <div class="prompt-title">Reference Image Generator (Before You Use Flow)</div>
+          <div class="prompt-desc">Creating the reference image you need before uploading to Google Flow</div>
+        </div>
+        <div class="prompt-code-wrap">
+          <div class="prompt-code-header">
+            <span class="prompt-code-label">Prompt</span>
+            <button class="copy-btn" onclick="copyPrompt(this)">Copy</button>
+          </div>
+          <pre class="prompt-code">Create a photorealistic image for use as a video reference frame.
+
+Subject: [Who or what is in the scene - person, character, object, product]
+Style: [Photorealistic / cinematic / editorial / branded illustration]
+Setting: [Where this takes place - office, outdoor space, studio, event, abstract environment]
+Composition: [How the frame is composed - centered portrait / wide establishing shot / over-the-shoulder / close-up detail]
+Details: [Specific visual details that must be consistent - clothing, expression, lighting direction, color palette, time of day, props]
+
+This image will be used as the first frame in a video. Maintain all visual elements that define the character or brand identity. No motion blur. No text overlays. Clean and high-contrast enough to serve as a clear video anchor.</pre>
+        </div>
+      </div>
+    </div>
+
+    <div>
+      
+      <div class="resource-stack-label">Micro-Session Resources</div>
+      <div class="resource-stack">
+        <a href="prompting-101-video-video.html" class="resource-card">
+          <div class="resource-icon" style="background:rgba(40,123,232,0.1);">▶️</div>
+          <div class="resource-info">
+            <div class="resource-tag">01 · Video</div>
+            <div class="resource-title">Session Recording</div>
+          </div>
+          <div class="resource-arrow">→</div>
+        </a>
+        <a href="prompting-101-video-recap.html" class="resource-card">
+          <div class="resource-icon" style="background:rgba(111,242,193,0.15);">📋</div>
+          <div class="resource-info">
+            <div class="resource-tag">02 · Recap</div>
+            <div class="resource-title">Session Recap</div>
+          </div>
+          <div class="resource-arrow">→</div>
+        </a>
+        <a href="prompting-101-video-prompts.html" class="resource-card active">
+          <div class="resource-icon" style="background:rgba(40,123,232,0.08);">💬</div>
+          <div class="resource-info">
+            <div class="resource-tag">03 · Prompts</div>
+            <div class="resource-title">Prompt Library</div>
+          </div>
+          <div class="resource-arrow">→</div>
+        </a>
+        <a href="prompting-101-video-slides.html" class="resource-card">
+          <div class="resource-icon" style="background:rgba(209,69,139,0.1);">🖼️</div>
+          <div class="resource-info">
+            <div class="resource-tag">04 · Slides</div>
+            <div class="resource-title">Session Slides</div>
+          </div>
+          <div class="resource-arrow">→</div>
+        </a>
+        <a href="prompting-101-video-resources.html" class="resource-card">
+          <div class="resource-icon" style="background:rgba(111,242,193,0.1);">📚</div>
+          <div class="resource-info">
+            <div class="resource-tag">05 · Resources</div>
+            <div class="resource-title">Tools &amp; Links</div>
+          </div>
+          <div class="resource-arrow">→</div>
+        </a>
+      </div>
+    </div>
+
+  </div>
+
+</main>
+
+<script>
+function copyPrompt(btn) {
+  const pre = btn.closest('.prompt-code-wrap').querySelector('.prompt-code');
+  navigator.clipboard.writeText(pre.textContent.trim()).then(() => {
+    const orig = btn.textContent;
+    btn.textContent = 'Copied!';
+    btn.style.color = '#6FF2C1';
+    setTimeout(() => { btn.textContent = orig; btn.style.color = ''; }, 1800);
+  });
+}
+</script>
+</body>
+</html>

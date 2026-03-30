@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Session Slides: Cowork + Calendar: Let AI Prep Your Week — AI Officer Institute</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../shared/styles.css">
+<style>
+
+  :root {
+    --ease: cubic-bezier(0.4, 0, 0.2, 1);
+    --radius: 12px;
+    --shadow-sm: 0 1px 3px rgba(4,16,45,0.07);
+    --text-primary: #1a1f36;
+    --text-secondary: #4a5068;
+    --text-muted: #6b7194;
+    --border: #d8dce8;
+    --surface: #f4f6fa;
+    --card-bg: #ffffff;
+  }
+
+  body { background: var(--surface); font-family: 'DM Sans', sans-serif; -webkit-font-smoothing: antialiased; color: var(--text-primary); line-height: 1.7; }
+
+  .page-main { max-width: 1060px; margin: 0 auto; padding: 80px 40px 100px; }
+
+  .mission-back {
+    display: inline-flex; align-items: center; gap: 6px;
+    font-size: 13px; font-weight: 600; color: var(--text-muted);
+    text-decoration: none; margin-bottom: 28px; transition: color 0.12s;
+  }
+  .mission-back:hover { color: var(--text-primary); }
+
+  .mission-header { margin-bottom: 32px; }
+  .mission-meta { display: flex; align-items: center; gap: 10px; margin-bottom: 14px; }
+  .mission-track-pill {
+    display: inline-flex; align-items: center; gap: 7px;
+    font-size: 11px; font-weight: 700; letter-spacing: 0.7px; text-transform: uppercase;
+    padding: 5px 12px; border-radius: 20px;
+  }
+  .mission-track-pill .dot { width: 5px; height: 5px; border-radius: 50%; }
+  .mission-title { font-size: 34px; font-weight: 700; color: var(--text-primary); letter-spacing: -0.5px; line-height: 1.15; margin-bottom: 10px; }
+  .mission-sub { font-size: 15px; color: var(--text-secondary); line-height: 1.6; max-width: 620px; }
+
+  .mission-body { display: grid; grid-template-columns: 1fr 300px; gap: 24px; align-items: start; }
+
+  .content-card {
+    background: var(--card-bg); border: 1px solid var(--border);
+    border-radius: var(--radius); padding: 24px 28px;
+    box-shadow: var(--shadow-sm); margin-bottom: 16px;
+  }
+  .card-label { font-size: 10px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: #287BE8; margin-bottom: 14px; }
+  .card-heading { font-size: 16px; font-weight: 700; color: var(--text-primary); margin-bottom: 14px; letter-spacing: -0.2px; }
+  .card-text { font-size: 14px; color: var(--text-secondary); line-height: 1.65; margin-bottom: 12px; }
+  .card-text:last-child { margin-bottom: 0; }
+
+  /* Resource sidebar */
+  .resource-stack-label { font-size: 10px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: var(--text-muted); margin-bottom: 4px; }
+  .resource-stack { display: flex; flex-direction: column; gap: 8px; }
+  .resource-card {
+    background: var(--card-bg); border: 1px solid var(--border);
+    border-radius: var(--radius); padding: 14px 16px;
+    text-decoration: none; color: inherit;
+    display: flex; align-items: center; gap: 12px;
+    box-shadow: var(--shadow-sm); transition: all 0.15s var(--ease);
+  }
+  .resource-card:hover { border-color: rgba(40,123,232,0.35); box-shadow: 0 4px 16px rgba(4,16,45,0.09); transform: translateY(-1px); }
+  .resource-card.active { border-color: rgba(40,123,232,0.4); background: rgba(40,123,232,0.04); }
+  .resource-icon { width: 36px; height: 36px; border-radius: 9px; flex-shrink: 0; display: flex; align-items: center; justify-content: center; font-size: 16px; }
+  .resource-info { flex: 1; min-width: 0; }
+  .resource-tag { font-size: 10px; font-weight: 700; letter-spacing: 0.7px; text-transform: uppercase; color: var(--text-muted); margin-bottom: 1px; }
+  .resource-title { font-size: 13px; font-weight: 700; color: var(--text-primary); }
+  .resource-arrow { font-size: 13px; color: var(--text-muted); flex-shrink: 0; }
+  .resource-card.active .resource-arrow { color: #287BE8; }
+
+  @media (max-width: 900px) {
+    .page-main { padding: 70px 20px 80px; }
+    .mission-body { grid-template-columns: 1fr; }
+  }
+
+
+  .slide-card { background: var(--card-bg); border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden; box-shadow: var(--shadow-sm); margin-bottom: 16px; }
+  .slide-header { background: #04102D; padding: 14px 20px; display: flex; align-items: center; justify-content: space-between; }
+  .slide-num-badge { font-family: 'JetBrains Mono', monospace; font-size: 10px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: rgba(111,242,193,0.8); background: rgba(111,242,193,0.1); padding: 3px 10px; border-radius: 4px; }
+  .slide-timing { font-family: 'JetBrains Mono', monospace; font-size: 10px; color: rgba(255,255,255,0.35); }
+  .slide-title-bar { background: rgba(255,255,255,0.04); border-bottom: 1px solid rgba(255,255,255,0.07); padding: 12px 20px; }
+  .slide-title { font-size: 15px; font-weight: 700; color: rgba(255,255,255,0.9); letter-spacing: -0.2px; }
+  .slide-body { padding: 18px 20px; }
+  .slide-bullets { display: flex; flex-direction: column; gap: 6px; }
+  .slide-bullet { display: flex; align-items: baseline; gap: 8px; font-size: 13px; color: var(--text-secondary); line-height: 1.55; }
+  .slide-bullet::before { content: '—'; color: #287BE8; font-weight: 700; flex-shrink: 0; }
+  .slide-notes-toggle { display: flex; align-items: center; gap: 7px; font-size: 12px; font-weight: 600; color: var(--text-muted); background: var(--surface); border: none; border-top: 1px solid var(--border); width: 100%; padding: 10px 20px; cursor: pointer; text-align: left; transition: color 0.12s; }
+  .slide-notes-toggle:hover { color: var(--text-primary); }
+  .slide-notes-toggle .toggle-icon { font-size: 10px; transition: transform 0.18s; }
+  .slide-notes-toggle.open .toggle-icon { transform: rotate(90deg); }
+  .slide-notes { display: none; padding: 14px 20px 18px; background: rgba(40,123,232,0.03); border-top: 1px solid rgba(40,123,232,0.1); font-size: 13px; color: var(--text-secondary); line-height: 1.7; }
+  .slide-notes.open { display: block; }
+
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <a href="../index.html" class="topbar-brand">AIO <span>Labs</span></a>
+  <nav class="topbar-nav">
+    <a href="../certification.html" class="tnav-link"><span class="tnav-dot" style="background:#287BE8"></span> Certification</a>
+    <a href="../coaching.html" class="tnav-link"><span class="tnav-dot" style="background:#287BE8"></span> Coaching</a>
+    <a href="index.html" class="tnav-link active"><span class="tnav-dot" style="background:#1A9E74"></span> Micro-Sessions</a>
+    <a href="../blog/index.html" class="tnav-link"><span class="tnav-dot" style="background:#6FF2C1"></span> Blog</a>
+    <a href="../my-team.html" class="tnav-link"><span class="tnav-dot" style="background:#8b91ac"></span> My Team</a>
+  </nav>
+  <div class="topbar-right">
+    <a href="https://claude.ai" target="_blank" class="buddy-launch-btn">🤖 AI Buddy</a>
+    <div class="topbar-stat">🔥 7</div>
+    <div class="topbar-stat">⭐ 1,240</div>
+    <div class="topbar-divider"></div>
+    <div class="topbar-avatar">DH</div>
+  </div>
+</div>
+
+<main class="page-main">
+
+  <a href="cowork-and-calendar.html" class="mission-back">← Cowork + Calendar: Let AI Prep Your Week</a>
+
+  <div class="mission-header">
+    <div class="mission-meta">
+      <span class="mission-track-pill" style="background:rgba(26,158,116,0.1); color:#1A9E74; border: 1px solid rgba(26,158,116,0.2);"><span class="dot" style="background:#1A9E74;"></span> Agentic AI</span>
+    </div>
+    <h1 class="mission-title">Session Slides</h1>
+    <p class="mission-sub">All slides from the session with speaker notes. Expand any slide for the full script.</p>
+  </div>
+
+  <div class="mission-body">
+
+    <div>
+      
+      <div class="slide-card">
+        <div class="slide-header">
+          <span class="slide-num-badge">Slide 1</span>
+          <span class="slide-timing">2 minutes</span>
+        </div>
+        <div class="slide-title-bar">
+          <div class="slide-title">The Time Waste</div>
+        </div>
+        <div class="slide-body">
+          <div class="slide-bullets"><div class="slide-bullet">Agentic AI Essentials | Micro Session</div><div class="slide-bullet">Cowork + Calendar: Let AI Prep Your Week**</div><div class="slide-bullet">Every Monday you spend 30 minutes figuring out what the week looks like. That is 26 hours a year. Let us get them back.</div>
+          </div>
+        </div>
+        
+          <button class="slide-notes-toggle" onclick="toggleNotes(this)">
+            <span class="toggle-icon">▶</span> Speaker Notes
+          </button>
+          <div class="slide-notes">Think about what you do every Monday morning. You open your calendar. You read last week&#x27;s meeting notes. You check your task list. You try to figure out what actually matters this week and what can wait. You do this manually, every single Monday, and it takes forever. The math is brutal: 30 minutes times 52 weeks equals 26 hours per year that you are spending on work that an AI can do perfectly in under a minute. Today we are going to show you how to hand this off to a machine and never do it manually again.</div>
+      </div>
+      <div class="slide-card">
+        <div class="slide-header">
+          <span class="slide-num-badge">Slide 2</span>
+          <span class="slide-timing">3 minutes</span>
+        </div>
+        <div class="slide-title-bar">
+          <div class="slide-title">What a Weekly Briefing Workflow Is</div>
+        </div>
+        <div class="slide-body">
+          <div class="slide-bullets"><div class="slide-bullet">A workflow has three parts:**</div><div class="slide-bullet">INPUT -&gt; PROCESS -&gt; OUTPUT</div><div class="slide-bullet">Inputs: calendar, notes, tasks</div><div class="slide-bullet">Process: AI reads and connects them</div><div class="slide-bullet">Output: one document, every Monday morning</div>
+          </div>
+        </div>
+        
+          <button class="slide-notes-toggle" onclick="toggleNotes(this)">
+            <span class="toggle-icon">▶</span> Speaker Notes
+          </button>
+          <div class="slide-notes">A workflow is not complicated. It is just data flowing through a system and coming out the other side in a new form. For a weekly briefing, your inputs are the things you already have: calendar events, meeting notes from last week, your task list, any project documents that matter right now. The process is what the AI does: it reads all that, understands what matters, and figures out what your week actually looks like. The output is what you get: one clean document that arrived in your inbox while you were sleeping. This is not hypothetical. This is something you can build today.</div>
+      </div>
+      <div class="slide-card">
+        <div class="slide-header">
+          <span class="slide-num-badge">Slide 3</span>
+          <span class="slide-timing">4 minutes</span>
+        </div>
+        <div class="slide-title-bar">
+          <div class="slide-title">What to Include in Your Briefing</div>
+        </div>
+        <div class="slide-body">
+          <div class="slide-bullets"><div class="slide-bullet">Minimum four inputs:**</div><div class="slide-bullet">1. Calendar - all events for the coming week</div><div class="slide-bullet">2. Meeting notes - from last week or this month</div><div class="slide-bullet">3. Open tasks - things you committed to but haven&#x27;t done</div><div class="slide-bullet">4. Priorities - what your manager or team thinks matters this week</div><div class="slide-bullet">Each input tells a different part of the story.</div>
+          </div>
+        </div>
+        
+          <button class="slide-notes-toggle" onclick="toggleNotes(this)">
+            <span class="toggle-icon">▶</span> Speaker Notes
+          </button>
+          <div class="slide-notes">Calendar tells you the structure of your week: when are the big meetings, when do you have focus time. Meeting notes tell you what got decided recently that you might have forgotten about. Open tasks tell you what is at risk of slipping. Priorities tell you what actually matters versus what just feels urgent. When you combine these four inputs, you get a complete picture of what your week looks like. Most people keep these things in different places and never connect them. The workflow connects them automatically.</div>
+      </div>
+      <div class="slide-card">
+        <div class="slide-header">
+          <span class="slide-num-badge">Slide 4</span>
+          <span class="slide-timing">5 minutes</span>
+        </div>
+        <div class="slide-title-bar">
+          <div class="slide-title">Exporting Your Calendar</div>
+        </div>
+        <div class="slide-body">
+          <div class="slide-bullets"><div class="slide-bullet">Your calendar has to be a file Cowork can read.**</div><div class="slide-bullet">Formats that work:</div><div class="slide-bullet">ICS file (from Google Calendar or Outlook)</div><div class="slide-bullet">CSV spreadsheet (clean list of events)</div><div class="slide-bullet">Plain text (date, time, title, attendees)</div><div class="slide-bullet">Steps:</div><div class="slide-bullet">1. Open your calendar app</div><div class="slide-bullet">2. Export this week and next week as a file</div><div class="slide-bullet">3. Save it to a place Cowork can access</div>
+          </div>
+        </div>
+        
+          <button class="slide-notes-toggle" onclick="toggleNotes(this)">
+            <span class="toggle-icon">▶</span> Speaker Notes
+          </button>
+          <div class="slide-notes">Most calendar apps have an export feature. In Google Calendar, you right-click on your calendar name and hit settings, then find the export option. In Outlook, it is similar. For CSV, you might have to format it yourself, but it is just columns: date, time, title, location, attendees. Plain text works too if you just write it out neatly. The key is that Cowork is going to read this file, so it has to be formatted in a way an AI can understand. If your calendar app does not export easily, just copy your week into a text file. Format does not have to be fancy as long as it is consistent.</div>
+      </div>
+      <div class="slide-card">
+        <div class="slide-header">
+          <span class="slide-num-badge">Slide 5</span>
+          <span class="slide-timing">6 minutes</span>
+        </div>
+        <div class="slide-title-bar">
+          <div class="slide-title">Writing the Cowork Instruction</div>
+        </div>
+        <div class="slide-body">
+          <div class="slide-bullets"><div class="slide-bullet">Your instruction has to be specific enough to always produce the same structure.**</div><div class="slide-bullet">Weak instruction:</div><div class="slide-bullet">&quot;Summarize my week.&quot;</div><div class="slide-bullet">Strong instruction:</div><div class="slide-bullet">&quot;Read the attached calendar, meeting notes, and task list. Produce a document with these sections: 1) This Week in Brief (2-3 sentences), 2) Meeting Prep (for each meeting this week, list attendees and context), 3) Open Items at Risk (things I said I would do but haven&#x27;t), 4) Key Priorities (what my manager said matters most). Keep each section short.&quot;</div>
+          </div>
+        </div>
+        
+          <button class="slide-notes-toggle" onclick="toggleNotes(this)">
+            <span class="toggle-icon">▶</span> Speaker Notes
+          </button>
+          <div class="slide-notes">The difference between a weak and strong instruction is specificity. A weak instruction lets the AI decide what format to use. A strong instruction locks down the structure so it is the same every single Monday. When you write your instruction, you have to think about what you actually need to see in your briefing. Do you need a list of who is attending each meeting? Yes, write that. Do you need context for each meeting, like what you are supposed to discuss? Yes, write that. Do you need a summary of your entire week? No, keep it short. The more specific you are about the structure, the less the AI has to guess about, and the more useful the output is.</div>
+      </div>
+      <div class="slide-card">
+        <div class="slide-header">
+          <span class="slide-num-badge">Slide 6</span>
+          <span class="slide-timing">5 minutes</span>
+        </div>
+        <div class="slide-title-bar">
+          <div class="slide-title">Building It in Cowork</div>
+        </div>
+        <div class="slide-body">
+          <div class="slide-bullets"><div class="slide-bullet">In Cowork:**</div><div class="slide-bullet">1. Create a new file or scheduled task</div><div class="slide-bullet">2. Attach or reference your calendar file</div><div class="slide-bullet">3. Attach or reference your meeting notes</div><div class="slide-bullet">4. Paste your instruction</div><div class="slide-bullet">5. Let it run once manually to see what you get</div><div class="slide-bullet">6. Adjust the instruction if needed</div><div class="slide-bullet">7. Schedule it to run every Monday at 7 AM</div>
+          </div>
+        </div>
+        
+          <button class="slide-notes-toggle" onclick="toggleNotes(this)">
+            <span class="toggle-icon">▶</span> Speaker Notes
+          </button>
+          <div class="slide-notes">Cowork is designed for exactly this workflow. You set up your inputs once, write your instruction once, and then it runs automatically. The first time, run it manually and look at the output. Does it match what you wanted? If not, change the instruction. Does it miss something important? Add it. Once you have it dialed in, schedule it to run every Monday morning before you wake up. Then on Monday, you open your inbox and your entire week is already briefed out. No more 30 minutes of research.</div>
+      </div>
+      <div class="slide-card">
+        <div class="slide-header">
+          <span class="slide-num-badge">Slide 7</span>
+          <span class="slide-timing">4 minutes</span>
+        </div>
+        <div class="slide-title-bar">
+          <div class="slide-title">From You to Your Team</div>
+        </div>
+        <div class="slide-body">
+          <div class="slide-bullets"><div class="slide-bullet">Once it works for you, hand it to your team.**</div><div class="slide-bullet">1. Document your workflow (inputs + instruction + output)</div><div class="slide-bullet">2. Share the instruction template</div><div class="slide-bullet">3. Let each person customize the input sources</div><div class="slide-bullet">4. Have them test it</div><div class="slide-bullet">5. Schedule it for everyone</div><div class="slide-bullet">You have just created a team capability that did not exist before.</div>
+          </div>
+        </div>
+        
+          <button class="slide-notes-toggle" onclick="toggleNotes(this)">
+            <span class="toggle-icon">▶</span> Speaker Notes
+          </button>
+          <div class="slide-notes">This is the leadership upgrade that most people never take. You build something that works, you hand it to your team, and suddenly everyone walks into Monday briefed and ready. This is not micro-optimization. This is structural advantage. When your team is already prepared at the start of the week, they work faster, they catch problems earlier, and they spend less time in sync meetings figuring out what is happening. The template is reusable. Other team members can use the exact same instruction with their own calendar and task list.</div>
+      </div>
+      <div class="slide-card">
+        <div class="slide-header">
+          <span class="slide-num-badge">Slide 8</span>
+          <span class="slide-timing">1 minute</span>
+        </div>
+        <div class="slide-title-bar">
+          <div class="slide-title">What This Gets You</div>
+        </div>
+        <div class="slide-body">
+          <div class="slide-bullets"><div class="slide-bullet">What you get back:**</div><div class="slide-bullet">26 hours per year (just for you)</div><div class="slide-bullet">Consistency (same structure every week)</div><div class="slide-bullet">Preparation (you are never caught off guard)</div><div class="slide-bullet">Multiplier (your team can use the same template)</div><div class="slide-bullet">A system is better than a skill.</div>
+          </div>
+        </div>
+        
+          <button class="slide-notes-toggle" onclick="toggleNotes(this)">
+            <span class="toggle-icon">▶</span> Speaker Notes
+          </button>
+          <div class="slide-notes">The insight here is that preparation is not a skill you develop, it is a system you build. An AI Officer who has this workflow has a structural advantage. Everyone else spends their Monday morning figuring out the week. You already know. That is not luck. That is a system working for you while you sleep.</div>
+      </div>
+    </div>
+
+    <div>
+      
+      <div class="resource-stack-label">Micro-Session Resources</div>
+      <div class="resource-stack">
+        <a href="cowork-and-calendar-video.html" class="resource-card">
+          <div class="resource-icon" style="background:rgba(40,123,232,0.1);">▶️</div>
+          <div class="resource-info">
+            <div class="resource-tag">01 · Video</div>
+            <div class="resource-title">Session Recording</div>
+          </div>
+          <div class="resource-arrow">→</div>
+        </a>
+        <a href="cowork-and-calendar-recap.html" class="resource-card">
+          <div class="resource-icon" style="background:rgba(111,242,193,0.15);">📋</div>
+          <div class="resource-info">
+            <div class="resource-tag">02 · Recap</div>
+            <div class="resource-title">Session Recap</div>
+          </div>
+          <div class="resource-arrow">→</div>
+        </a>
+        <a href="cowork-and-calendar-prompts.html" class="resource-card">
+          <div class="resource-icon" style="background:rgba(40,123,232,0.08);">💬</div>
+          <div class="resource-info">
+            <div class="resource-tag">03 · Prompts</div>
+            <div class="resource-title">Prompt Library</div>
+          </div>
+          <div class="resource-arrow">→</div>
+        </a>
+        <a href="cowork-and-calendar-slides.html" class="resource-card active">
+          <div class="resource-icon" style="background:rgba(209,69,139,0.1);">🖼️</div>
+          <div class="resource-info">
+            <div class="resource-tag">04 · Slides</div>
+            <div class="resource-title">Session Slides</div>
+          </div>
+          <div class="resource-arrow">→</div>
+        </a>
+        <a href="cowork-and-calendar-resources.html" class="resource-card">
+          <div class="resource-icon" style="background:rgba(111,242,193,0.1);">📚</div>
+          <div class="resource-info">
+            <div class="resource-tag">05 · Resources</div>
+            <div class="resource-title">Tools &amp; Links</div>
+          </div>
+          <div class="resource-arrow">→</div>
+        </a>
+      </div>
+    </div>
+
+  </div>
+
+</main>
+
+<script>
+function toggleNotes(btn) {
+  btn.classList.toggle('open');
+  btn.nextElementSibling.classList.toggle('open');
+}
+</script>
+</body>
+</html>

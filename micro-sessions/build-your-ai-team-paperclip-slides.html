@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Session Slides: Build Your AI Team with Paperclip — AI Officer Institute</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../shared/styles.css">
+<style>
+
+  :root {
+    --ease: cubic-bezier(0.4, 0, 0.2, 1);
+    --radius: 12px;
+    --shadow-sm: 0 1px 3px rgba(4,16,45,0.07);
+    --text-primary: #1a1f36;
+    --text-secondary: #4a5068;
+    --text-muted: #6b7194;
+    --border: #d8dce8;
+    --surface: #f4f6fa;
+    --card-bg: #ffffff;
+  }
+
+  body { background: var(--surface); font-family: 'DM Sans', sans-serif; -webkit-font-smoothing: antialiased; color: var(--text-primary); line-height: 1.7; }
+
+  .page-main { max-width: 1060px; margin: 0 auto; padding: 80px 40px 100px; }
+
+  .mission-back {
+    display: inline-flex; align-items: center; gap: 6px;
+    font-size: 13px; font-weight: 600; color: var(--text-muted);
+    text-decoration: none; margin-bottom: 28px; transition: color 0.12s;
+  }
+  .mission-back:hover { color: var(--text-primary); }
+
+  .mission-header { margin-bottom: 32px; }
+  .mission-meta { display: flex; align-items: center; gap: 10px; margin-bottom: 14px; }
+  .mission-track-pill {
+    display: inline-flex; align-items: center; gap: 7px;
+    font-size: 11px; font-weight: 700; letter-spacing: 0.7px; text-transform: uppercase;
+    padding: 5px 12px; border-radius: 20px;
+  }
+  .mission-track-pill .dot { width: 5px; height: 5px; border-radius: 50%; }
+  .mission-title { font-size: 34px; font-weight: 700; color: var(--text-primary); letter-spacing: -0.5px; line-height: 1.15; margin-bottom: 10px; }
+  .mission-sub { font-size: 15px; color: var(--text-secondary); line-height: 1.6; max-width: 620px; }
+
+  .mission-body { display: grid; grid-template-columns: 1fr 300px; gap: 24px; align-items: start; }
+
+  .content-card {
+    background: var(--card-bg); border: 1px solid var(--border);
+    border-radius: var(--radius); padding: 24px 28px;
+    box-shadow: var(--shadow-sm); margin-bottom: 16px;
+  }
+  .card-label { font-size: 10px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: #287BE8; margin-bottom: 14px; }
+  .card-heading { font-size: 16px; font-weight: 700; color: var(--text-primary); margin-bottom: 14px; letter-spacing: -0.2px; }
+  .card-text { font-size: 14px; color: var(--text-secondary); line-height: 1.65; margin-bottom: 12px; }
+  .card-text:last-child { margin-bottom: 0; }
+
+  /* Resource sidebar */
+  .resource-stack-label { font-size: 10px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: var(--text-muted); margin-bottom: 4px; }
+  .resource-stack { display: flex; flex-direction: column; gap: 8px; }
+  .resource-card {
+    background: var(--card-bg); border: 1px solid var(--border);
+    border-radius: var(--radius); padding: 14px 16px;
+    text-decoration: none; color: inherit;
+    display: flex; align-items: center; gap: 12px;
+    box-shadow: var(--shadow-sm); transition: all 0.15s var(--ease);
+  }
+  .resource-card:hover { border-color: rgba(40,123,232,0.35); box-shadow: 0 4px 16px rgba(4,16,45,0.09); transform: translateY(-1px); }
+  .resource-card.active { border-color: rgba(40,123,232,0.4); background: rgba(40,123,232,0.04); }
+  .resource-icon { width: 36px; height: 36px; border-radius: 9px; flex-shrink: 0; display: flex; align-items: center; justify-content: center; font-size: 16px; }
+  .resource-info { flex: 1; min-width: 0; }
+  .resource-tag { font-size: 10px; font-weight: 700; letter-spacing: 0.7px; text-transform: uppercase; color: var(--text-muted); margin-bottom: 1px; }
+  .resource-title { font-size: 13px; font-weight: 700; color: var(--text-primary); }
+  .resource-arrow { font-size: 13px; color: var(--text-muted); flex-shrink: 0; }
+  .resource-card.active .resource-arrow { color: #287BE8; }
+
+  @media (max-width: 900px) {
+    .page-main { padding: 70px 20px 80px; }
+    .mission-body { grid-template-columns: 1fr; }
+  }
+
+
+  .slide-card { background: var(--card-bg); border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden; box-shadow: var(--shadow-sm); margin-bottom: 16px; }
+  .slide-header { background: #04102D; padding: 14px 20px; display: flex; align-items: center; justify-content: space-between; }
+  .slide-num-badge { font-family: 'JetBrains Mono', monospace; font-size: 10px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: rgba(111,242,193,0.8); background: rgba(111,242,193,0.1); padding: 3px 10px; border-radius: 4px; }
+  .slide-timing { font-family: 'JetBrains Mono', monospace; font-size: 10px; color: rgba(255,255,255,0.35); }
+  .slide-title-bar { background: rgba(255,255,255,0.04); border-bottom: 1px solid rgba(255,255,255,0.07); padding: 12px 20px; }
+  .slide-title { font-size: 15px; font-weight: 700; color: rgba(255,255,255,0.9); letter-spacing: -0.2px; }
+  .slide-body { padding: 18px 20px; }
+  .slide-bullets { display: flex; flex-direction: column; gap: 6px; }
+  .slide-bullet { display: flex; align-items: baseline; gap: 8px; font-size: 13px; color: var(--text-secondary); line-height: 1.55; }
+  .slide-bullet::before { content: '—'; color: #287BE8; font-weight: 700; flex-shrink: 0; }
+  .slide-notes-toggle { display: flex; align-items: center; gap: 7px; font-size: 12px; font-weight: 600; color: var(--text-muted); background: var(--surface); border: none; border-top: 1px solid var(--border); width: 100%; padding: 10px 20px; cursor: pointer; text-align: left; transition: color 0.12s; }
+  .slide-notes-toggle:hover { color: var(--text-primary); }
+  .slide-notes-toggle .toggle-icon { font-size: 10px; transition: transform 0.18s; }
+  .slide-notes-toggle.open .toggle-icon { transform: rotate(90deg); }
+  .slide-notes { display: none; padding: 14px 20px 18px; background: rgba(40,123,232,0.03); border-top: 1px solid rgba(40,123,232,0.1); font-size: 13px; color: var(--text-secondary); line-height: 1.7; }
+  .slide-notes.open { display: block; }
+
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <a href="../index.html" class="topbar-brand">AIO <span>Labs</span></a>
+  <nav class="topbar-nav">
+    <a href="../certification.html" class="tnav-link"><span class="tnav-dot" style="background:#287BE8"></span> Certification</a>
+    <a href="../coaching.html" class="tnav-link"><span class="tnav-dot" style="background:#287BE8"></span> Coaching</a>
+    <a href="index.html" class="tnav-link active"><span class="tnav-dot" style="background:#1A9E74"></span> Micro-Sessions</a>
+    <a href="../blog/index.html" class="tnav-link"><span class="tnav-dot" style="background:#6FF2C1"></span> Blog</a>
+    <a href="../my-team.html" class="tnav-link"><span class="tnav-dot" style="background:#8b91ac"></span> My Team</a>
+  </nav>
+  <div class="topbar-right">
+    <a href="https://claude.ai" target="_blank" class="buddy-launch-btn">🤖 AI Buddy</a>
+    <div class="topbar-stat">🔥 7</div>
+    <div class="topbar-stat">⭐ 1,240</div>
+    <div class="topbar-divider"></div>
+    <div class="topbar-avatar">DH</div>
+  </div>
+</div>
+
+<main class="page-main">
+
+  <a href="build-your-ai-team-paperclip.html" class="mission-back">← Build Your AI Team with Paperclip</a>
+
+  <div class="mission-header">
+    <div class="mission-meta">
+      <span class="mission-track-pill" style="background:rgba(26,158,116,0.1); color:#1A9E74; border: 1px solid rgba(26,158,116,0.2);"><span class="dot" style="background:#1A9E74;"></span> Agentic AI</span>
+    </div>
+    <h1 class="mission-title">Session Slides</h1>
+    <p class="mission-sub">All slides from the session with speaker notes. Expand any slide for the full script.</p>
+  </div>
+
+  <div class="mission-body">
+
+    <div>
+      
+      <div class="slide-card">
+        <div class="slide-header">
+          <span class="slide-num-badge">Slide 1</span>
+          <span class="slide-timing">2 minutes</span>
+        </div>
+        <div class="slide-title-bar">
+          <div class="slide-title">Build Your AI Team with Paperclip</div>
+        </div>
+        <div class="slide-body">
+          <div class="slide-bullets"><div class="slide-bullet">Agentic AI Essentials</div><div class="slide-bullet">Build Your AI Team with Paperclip</div><div class="slide-bullet">Your agents don&#x27;t need better prompts. They need an org chart.</div>
+          </div>
+        </div>
+        
+          <button class="slide-notes-toggle" onclick="toggleNotes(this)">
+            <span class="toggle-icon">▶</span> Speaker Notes
+          </button>
+          <div class="slide-notes">Welcome. This session is 30 minutes and it is going to move fast - because the tool we are looking at today moves fast. By the end, you will know how to build a coordinated team of AI agents that work toward a single goal while you focus on the work that actually requires you. This is not about making one AI do more. It is about building a team of AIs that divide the work, run in parallel, and report back. That is a different kind of power.</div>
+      </div>
+      <div class="slide-card">
+        <div class="slide-header">
+          <span class="slide-num-badge">Slide 2</span>
+          <span class="slide-timing">2 minutes</span>
+        </div>
+        <div class="slide-title-bar">
+          <div class="slide-title">You Have Been Building AI Skills. Now Build an AI Team.</div>
+        </div>
+        <div class="slide-body">
+          <div class="slide-bullets"><div class="slide-bullet">You learned to work with AI.</div><div class="slide-bullet">Now you learn to manage it.</div>
+          </div>
+        </div>
+        
+          <button class="slide-notes-toggle" onclick="toggleNotes(this)">
+            <span class="toggle-icon">▶</span> Speaker Notes
+          </button>
+          <div class="slide-notes">If you have been working through the Agentic AI Essentials series, you have already learned how agents think, how to structure handoffs, and how to build workflows that run without you hovering over them. This session goes one level higher. Instead of one agent doing one job, you are going to build a team - multiple agents, each with a role, a goal, and a budget, all coordinated from a single dashboard. That is the jump from working with AI to leading it.</div>
+      </div>
+      <div class="slide-card">
+        <div class="slide-header">
+          <span class="slide-num-badge">Slide 3</span>
+          <span class="slide-timing">3 minutes</span>
+        </div>
+        <div class="slide-title-bar">
+          <div class="slide-title">The Bottleneck Is You</div>
+        </div>
+        <div class="slide-body">
+          <div class="slide-bullets"><div class="slide-bullet">You are not slow.</div><div class="slide-bullet">There is just one of you.</div>
+          </div>
+        </div>
+        
+          <button class="slide-notes-toggle" onclick="toggleNotes(this)">
+            <span class="toggle-icon">▶</span> Speaker Notes
+          </button>
+          <div class="slide-notes">Here is the real constraint in most teams. It is not capability. It is capacity. One person can only do one thing at a time. Dana Reyes at Buddy Bevs is launching BOLT nationally. She has a research task, a copy task, a competitor analysis, and a social media brief - all due this week. She has three people. She needs ten. And she cannot hire fast enough. That is the situation most of you are in. The question is not &quot;how do I work harder?&quot; The question is &quot;how do I build a team that works while I do the part only I can do?&quot;</div>
+      </div>
+      <div class="slide-card">
+        <div class="slide-header">
+          <span class="slide-num-badge">Slide 4</span>
+          <span class="slide-timing">4 minutes</span>
+        </div>
+        <div class="slide-title-bar">
+          <div class="slide-title">What Paperclip Actually Does</div>
+        </div>
+        <div class="slide-body">
+          <div class="slide-bullets"><div class="slide-bullet">You give each agent a role.</div><div class="slide-bullet">You set a goal. You set a budget.</div><div class="slide-bullet">Paperclip runs the team.</div>
+          </div>
+        </div>
+        
+          <button class="slide-notes-toggle" onclick="toggleNotes(this)">
+            <span class="toggle-icon">▶</span> Speaker Notes
+          </button>
+          <div class="slide-notes">Paperclip is an open-source orchestration tool - think of it as the operating system for your AI team. You open the dashboard, you create a company, you hire agents. Each agent gets a role - research, copywriting, data analysis, whatever the job requires. You set a goal at the top: &quot;Launch BOLT in three new markets by end of month.&quot; Paperclip breaks that down, assigns tasks to the right agents, tracks progress, and makes sure no agent runs over budget. One dashboard. Multiple agents. All moving toward the same goal. And it is already at 31,000 GitHub stars because it works.</div>
+      </div>
+      <div class="slide-card">
+        <div class="slide-header">
+          <span class="slide-num-badge">Slide 5</span>
+          <span class="slide-timing">4 minutes</span>
+        </div>
+        <div class="slide-title-bar">
+          <div class="slide-title">Meet Dana&#x27;s BOLT Team</div>
+        </div>
+        <div class="slide-body">
+          <div class="slide-bullets"><div class="slide-bullet">Research Agent - competitor pricing in three new markets</div><div class="slide-bullet">Copy Agent - launch emails, retail partner decks, social posts</div><div class="slide-bullet">Analytics Agent - repurchase data, segment performance, weekly summary</div>
+          </div>
+        </div>
+        
+          <button class="slide-notes-toggle" onclick="toggleNotes(this)">
+            <span class="toggle-icon">▶</span> Speaker Notes
+          </button>
+          <div class="slide-notes">This is what Dana&#x27;s Paperclip team looks like right now. She has three agents running in parallel. The research agent is scanning competitor pricing and market entry data in the three cities she is targeting. The copy agent is producing the launch materials she needs - emails to retail partners, a short deck, social posts for the first week. The analytics agent is pulling her existing data and surfacing the numbers she needs to make the case internally. All three are running at the same time. Dana is doing one thing: reviewing the outputs and making decisions. That is what 8x looks like. Not working faster. Working at scale.</div>
+      </div>
+      <div class="slide-card">
+        <div class="slide-header">
+          <span class="slide-num-badge">Slide 6</span>
+          <span class="slide-timing">7 minutes</span>
+        </div>
+        <div class="slide-title-bar">
+          <div class="slide-title">Everyone Does This Now</div>
+        </div>
+        <div class="slide-body">
+          <div class="slide-bullets"><div class="slide-bullet">Exercise: Map Your BOLT Team</div><div class="slide-bullet">Three agents. Three roles. One goal.</div><div class="slide-bullet">Write them in the chat.</div>
+          </div>
+        </div>
+        
+          <button class="slide-notes-toggle" onclick="toggleNotes(this)">
+            <span class="toggle-icon">▶</span> Speaker Notes
+          </button>
+          <div class="slide-notes">Everyone does this right now. You have two minutes. I want you to think about Dana&#x27;s situation - she needs to launch BOLT fast with a small team - and map out three agents you would hire for her in Paperclip. Give each one a role and one sentence on what their job is. Then swap it: what would your own team look like? What three jobs are eating your team&#x27;s time right now that three parallel agents could run? Write both in the chat. We will look at a few together. There is no wrong answer here - this is the planning work that happens before you open Paperclip. The map comes first. The build comes second.</div>
+      </div>
+      <div class="slide-card">
+        <div class="slide-header">
+          <span class="slide-num-badge">Slide 7</span>
+          <span class="slide-timing">4 minutes</span>
+        </div>
+        <div class="slide-title-bar">
+          <div class="slide-title">The Manager&#x27;s Mindset</div>
+        </div>
+        <div class="slide-body">
+          <div class="slide-bullets"><div class="slide-bullet">You are not the one doing the work.</div><div class="slide-bullet">You are the one making sure the work gets done right.</div>
+          </div>
+        </div>
+        
+          <button class="slide-notes-toggle" onclick="toggleNotes(this)">
+            <span class="toggle-icon">▶</span> Speaker Notes
+          </button>
+          <div class="slide-notes">Here is the shift I want you to make before you close your laptop today. When you build a Paperclip team, your job changes. You are not the researcher, the writer, or the analyst anymore. You are the manager. You set the goal. You define what good looks like. You review the output and decide what ships. That is a leadership role - and it is the role an AI Officer is supposed to play. The agents do the execution. You do the judgment. That is not laziness. That is leverage. And it is exactly what organizations will be looking for as AI becomes half of every workflow.</div>
+      </div>
+      <div class="slide-card">
+        <div class="slide-header">
+          <span class="slide-num-badge">Slide 8</span>
+          <span class="slide-timing">2 minutes</span>
+        </div>
+        <div class="slide-title-bar">
+          <div class="slide-title">Your Challenge This Week</div>
+        </div>
+        <div class="slide-body">
+          <div class="slide-bullets"><div class="slide-bullet">Build a three-agent Paperclip team for a real goal you have right now.</div><div class="slide-bullet">Submit: your team map, your goal, and one output from a running agent.</div>
+          </div>
+        </div>
+        
+          <button class="slide-notes-toggle" onclick="toggleNotes(this)">
+            <span class="toggle-icon">▶</span> Speaker Notes
+          </button>
+          <div class="slide-notes">Your challenge is to take what you mapped in this session and build it. Set up Paperclip, create your first company, hire three agents, and give them a real goal - something from your actual work, not a test. Then submit three things to your AI Buddy: your team map showing each agent&#x27;s role, the goal you set, and a screenshot or copy of one output from a running agent. That last part is the proof. Not &quot;I set it up&quot; - &quot;here is what it produced.&quot; Your AI Buddy will grade you on whether your team is built for a real outcome, not just a neat org chart.</div>
+      </div>
+      <div class="slide-card">
+        <div class="slide-header">
+          <span class="slide-num-badge">Slide 9</span>
+          <span class="slide-timing">2 minutes</span>
+        </div>
+        <div class="slide-title-bar">
+          <div class="slide-title">What Will You Do Differently?</div>
+        </div>
+        <div class="slide-body">
+          <div class="slide-bullets"><div class="slide-bullet">Start, stop, or continue - pick one.</div>
+          </div>
+        </div>
+        
+          <button class="slide-notes-toggle" onclick="toggleNotes(this)">
+            <span class="toggle-icon">▶</span> Speaker Notes
+          </button>
+          <div class="slide-notes">Before we close. Look at the work you do this week. Is there something you are going to stop doing yourself and hand to a Paperclip agent instead? Is there a recurring team task that three parallel agents could run faster than three parallel people? Or is there something from this session - the org chart thinking, the goal-first approach, the budget discipline - that you want to keep going with? Pick one thing. Write it down. That is the commitment.</div>
+      </div>
+      <div class="slide-card">
+        <div class="slide-header">
+          <span class="slide-num-badge">Slide 10</span>
+          <span class="slide-timing">1 minute</span>
+        </div>
+        <div class="slide-title-bar">
+          <div class="slide-title">Thank You</div>
+        </div>
+        <div class="slide-body">
+          <div class="slide-bullets"><div class="slide-bullet">#AIOfficerCertification</div><div class="slide-bullet">[QR code placeholder - session feedback]</div><div class="slide-bullet">Dave Hajdu | dave@ai-officer.com</div>
+          </div>
+        </div>
+        
+          <button class="slide-notes-toggle" onclick="toggleNotes(this)">
+            <span class="toggle-icon">▶</span> Speaker Notes
+          </button>
+          <div class="slide-notes">Thank you. The challenge is live - your AI Buddy is ready for your submission. If you run into anything setting up Paperclip, bring it to Thursday&#x27;s CAIO session. That is what it is there for. See you in the next session.</div>
+      </div>
+    </div>
+
+    <div>
+      
+      <div class="resource-stack-label">Micro-Session Resources</div>
+      <div class="resource-stack">
+        <a href="build-your-ai-team-paperclip-video.html" class="resource-card">
+          <div class="resource-icon" style="background:rgba(40,123,232,0.1);">▶️</div>
+          <div class="resource-info">
+            <div class="resource-tag">01 · Video</div>
+            <div class="resource-title">Session Recording</div>
+          </div>
+          <div class="resource-arrow">→</div>
+        </a>
+        <a href="build-your-ai-team-paperclip-recap.html" class="resource-card">
+          <div class="resource-icon" style="background:rgba(111,242,193,0.15);">📋</div>
+          <div class="resource-info">
+            <div class="resource-tag">02 · Recap</div>
+            <div class="resource-title">Session Recap</div>
+          </div>
+          <div class="resource-arrow">→</div>
+        </a>
+        <a href="build-your-ai-team-paperclip-prompts.html" class="resource-card">
+          <div class="resource-icon" style="background:rgba(40,123,232,0.08);">💬</div>
+          <div class="resource-info">
+            <div class="resource-tag">03 · Prompts</div>
+            <div class="resource-title">Prompt Library</div>
+          </div>
+          <div class="resource-arrow">→</div>
+        </a>
+        <a href="build-your-ai-team-paperclip-slides.html" class="resource-card active">
+          <div class="resource-icon" style="background:rgba(209,69,139,0.1);">🖼️</div>
+          <div class="resource-info">
+            <div class="resource-tag">04 · Slides</div>
+            <div class="resource-title">Session Slides</div>
+          </div>
+          <div class="resource-arrow">→</div>
+        </a>
+        <a href="build-your-ai-team-paperclip-resources.html" class="resource-card">
+          <div class="resource-icon" style="background:rgba(111,242,193,0.1);">📚</div>
+          <div class="resource-info">
+            <div class="resource-tag">05 · Resources</div>
+            <div class="resource-title">Tools &amp; Links</div>
+          </div>
+          <div class="resource-arrow">→</div>
+        </a>
+      </div>
+    </div>
+
+  </div>
+
+</main>
+
+<script>
+function toggleNotes(btn) {
+  btn.classList.toggle('open');
+  btn.nextElementSibling.classList.toggle('open');
+}
+</script>
+</body>
+</html>

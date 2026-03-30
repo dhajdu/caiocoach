@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Session Slides: Your First Cowork Workflow — AI Officer Institute</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../shared/styles.css">
+<style>
+
+  :root {
+    --ease: cubic-bezier(0.4, 0, 0.2, 1);
+    --radius: 12px;
+    --shadow-sm: 0 1px 3px rgba(4,16,45,0.07);
+    --text-primary: #1a1f36;
+    --text-secondary: #4a5068;
+    --text-muted: #6b7194;
+    --border: #d8dce8;
+    --surface: #f4f6fa;
+    --card-bg: #ffffff;
+  }
+
+  body { background: var(--surface); font-family: 'DM Sans', sans-serif; -webkit-font-smoothing: antialiased; color: var(--text-primary); line-height: 1.7; }
+
+  .page-main { max-width: 1060px; margin: 0 auto; padding: 80px 40px 100px; }
+
+  .mission-back {
+    display: inline-flex; align-items: center; gap: 6px;
+    font-size: 13px; font-weight: 600; color: var(--text-muted);
+    text-decoration: none; margin-bottom: 28px; transition: color 0.12s;
+  }
+  .mission-back:hover { color: var(--text-primary); }
+
+  .mission-header { margin-bottom: 32px; }
+  .mission-meta { display: flex; align-items: center; gap: 10px; margin-bottom: 14px; }
+  .mission-track-pill {
+    display: inline-flex; align-items: center; gap: 7px;
+    font-size: 11px; font-weight: 700; letter-spacing: 0.7px; text-transform: uppercase;
+    padding: 5px 12px; border-radius: 20px;
+  }
+  .mission-track-pill .dot { width: 5px; height: 5px; border-radius: 50%; }
+  .mission-title { font-size: 34px; font-weight: 700; color: var(--text-primary); letter-spacing: -0.5px; line-height: 1.15; margin-bottom: 10px; }
+  .mission-sub { font-size: 15px; color: var(--text-secondary); line-height: 1.6; max-width: 620px; }
+
+  .mission-body { display: grid; grid-template-columns: 1fr 300px; gap: 24px; align-items: start; }
+
+  .content-card {
+    background: var(--card-bg); border: 1px solid var(--border);
+    border-radius: var(--radius); padding: 24px 28px;
+    box-shadow: var(--shadow-sm); margin-bottom: 16px;
+  }
+  .card-label { font-size: 10px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: #287BE8; margin-bottom: 14px; }
+  .card-heading { font-size: 16px; font-weight: 700; color: var(--text-primary); margin-bottom: 14px; letter-spacing: -0.2px; }
+  .card-text { font-size: 14px; color: var(--text-secondary); line-height: 1.65; margin-bottom: 12px; }
+  .card-text:last-child { margin-bottom: 0; }
+
+  /* Resource sidebar */
+  .resource-stack-label { font-size: 10px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: var(--text-muted); margin-bottom: 4px; }
+  .resource-stack { display: flex; flex-direction: column; gap: 8px; }
+  .resource-card {
+    background: var(--card-bg); border: 1px solid var(--border);
+    border-radius: var(--radius); padding: 14px 16px;
+    text-decoration: none; color: inherit;
+    display: flex; align-items: center; gap: 12px;
+    box-shadow: var(--shadow-sm); transition: all 0.15s var(--ease);
+  }
+  .resource-card:hover { border-color: rgba(40,123,232,0.35); box-shadow: 0 4px 16px rgba(4,16,45,0.09); transform: translateY(-1px); }
+  .resource-card.active { border-color: rgba(40,123,232,0.4); background: rgba(40,123,232,0.04); }
+  .resource-icon { width: 36px; height: 36px; border-radius: 9px; flex-shrink: 0; display: flex; align-items: center; justify-content: center; font-size: 16px; }
+  .resource-info { flex: 1; min-width: 0; }
+  .resource-tag { font-size: 10px; font-weight: 700; letter-spacing: 0.7px; text-transform: uppercase; color: var(--text-muted); margin-bottom: 1px; }
+  .resource-title { font-size: 13px; font-weight: 700; color: var(--text-primary); }
+  .resource-arrow { font-size: 13px; color: var(--text-muted); flex-shrink: 0; }
+  .resource-card.active .resource-arrow { color: #287BE8; }
+
+  @media (max-width: 900px) {
+    .page-main { padding: 70px 20px 80px; }
+    .mission-body { grid-template-columns: 1fr; }
+  }
+
+
+  .slide-card { background: var(--card-bg); border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden; box-shadow: var(--shadow-sm); margin-bottom: 16px; }
+  .slide-header { background: #04102D; padding: 14px 20px; display: flex; align-items: center; justify-content: space-between; }
+  .slide-num-badge { font-family: 'JetBrains Mono', monospace; font-size: 10px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: rgba(111,242,193,0.8); background: rgba(111,242,193,0.1); padding: 3px 10px; border-radius: 4px; }
+  .slide-timing { font-family: 'JetBrains Mono', monospace; font-size: 10px; color: rgba(255,255,255,0.35); }
+  .slide-title-bar { background: rgba(255,255,255,0.04); border-bottom: 1px solid rgba(255,255,255,0.07); padding: 12px 20px; }
+  .slide-title { font-size: 15px; font-weight: 700; color: rgba(255,255,255,0.9); letter-spacing: -0.2px; }
+  .slide-body { padding: 18px 20px; }
+  .slide-bullets { display: flex; flex-direction: column; gap: 6px; }
+  .slide-bullet { display: flex; align-items: baseline; gap: 8px; font-size: 13px; color: var(--text-secondary); line-height: 1.55; }
+  .slide-bullet::before { content: '—'; color: #287BE8; font-weight: 700; flex-shrink: 0; }
+  .slide-notes-toggle { display: flex; align-items: center; gap: 7px; font-size: 12px; font-weight: 600; color: var(--text-muted); background: var(--surface); border: none; border-top: 1px solid var(--border); width: 100%; padding: 10px 20px; cursor: pointer; text-align: left; transition: color 0.12s; }
+  .slide-notes-toggle:hover { color: var(--text-primary); }
+  .slide-notes-toggle .toggle-icon { font-size: 10px; transition: transform 0.18s; }
+  .slide-notes-toggle.open .toggle-icon { transform: rotate(90deg); }
+  .slide-notes { display: none; padding: 14px 20px 18px; background: rgba(40,123,232,0.03); border-top: 1px solid rgba(40,123,232,0.1); font-size: 13px; color: var(--text-secondary); line-height: 1.7; }
+  .slide-notes.open { display: block; }
+
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <a href="../index.html" class="topbar-brand">AIO <span>Labs</span></a>
+  <nav class="topbar-nav">
+    <a href="../certification.html" class="tnav-link"><span class="tnav-dot" style="background:#287BE8"></span> Certification</a>
+    <a href="../coaching.html" class="tnav-link"><span class="tnav-dot" style="background:#287BE8"></span> Coaching</a>
+    <a href="index.html" class="tnav-link active"><span class="tnav-dot" style="background:#1A9E74"></span> Micro-Sessions</a>
+    <a href="../blog/index.html" class="tnav-link"><span class="tnav-dot" style="background:#6FF2C1"></span> Blog</a>
+    <a href="../my-team.html" class="tnav-link"><span class="tnav-dot" style="background:#8b91ac"></span> My Team</a>
+  </nav>
+  <div class="topbar-right">
+    <a href="https://claude.ai" target="_blank" class="buddy-launch-btn">🤖 AI Buddy</a>
+    <div class="topbar-stat">🔥 7</div>
+    <div class="topbar-stat">⭐ 1,240</div>
+    <div class="topbar-divider"></div>
+    <div class="topbar-avatar">DH</div>
+  </div>
+</div>
+
+<main class="page-main">
+
+  <a href="claude-cowork-first-workflow.html" class="mission-back">← Your First Cowork Workflow</a>
+
+  <div class="mission-header">
+    <div class="mission-meta">
+      <span class="mission-track-pill" style="background:rgba(26,158,116,0.1); color:#1A9E74; border: 1px solid rgba(26,158,116,0.2);"><span class="dot" style="background:#1A9E74;"></span> Agentic AI</span>
+    </div>
+    <h1 class="mission-title">Session Slides</h1>
+    <p class="mission-sub">All slides from the session with speaker notes. Expand any slide for the full script.</p>
+  </div>
+
+  <div class="mission-body">
+
+    <div>
+      
+      <div class="slide-card">
+        <div class="slide-header">
+          <span class="slide-num-badge">Slide 1</span>
+          <span class="slide-timing">—</span>
+        </div>
+        <div class="slide-title-bar">
+          <div class="slide-title">Your First Cowork Workflow</div>
+        </div>
+        <div class="slide-body">
+          <div class="slide-bullets"><div class="slide-bullet">Agentic AI Essentials</div><div class="slide-bullet">Your First Cowork Workflow</div><div class="slide-bullet">Problem first. AI second. ROI always.</div>
+          </div>
+        </div>
+        
+          <button class="slide-notes-toggle" onclick="toggleNotes(this)">
+            <span class="toggle-icon">▶</span> Speaker Notes
+          </button>
+          <div class="slide-notes">Welcome. In the next 30 minutes you are going to build a real AI program. Not a practice prompt. Not a demo you watch and forget. A working system that runs on your actual files, in your actual job. But before we get into how to build it - let me show you what one looks like when it is finished.</div>
+      </div>
+      <div class="slide-card">
+        <div class="slide-header">
+          <span class="slide-num-badge">Slide 2</span>
+          <span class="slide-timing">—</span>
+        </div>
+        <div class="slide-title-bar">
+          <div class="slide-title">The Tool Was Not the Problem. But This Tool Is Really Good.</div>
+        </div>
+        <div class="slide-body">
+          <div class="slide-bullets"><div class="slide-bullet">95% of companies get no ROI from AI.</div><div class="slide-bullet">Not because the technology doesn&#x27;t work.</div><div class="slide-bullet">Because they skipped the process and grabbed the tool.</div><div class="slide-bullet">Today you get both.</div>
+          </div>
+        </div>
+        
+          <button class="slide-notes-toggle" onclick="toggleNotes(this)">
+            <span class="toggle-icon">▶</span> Speaker Notes
+          </button>
+          <div class="slide-notes">MIT Sloan studied companies and their AI investments. 95 percent reported no measurable return. Not low return. No return. The pattern is always the same - someone sees a new tool, gets excited, skips straight to using it, and wonders why nothing changes. The tool was never the problem. The process was. But here is the honest truth about where we are right now: the tools have gotten genuinely extraordinary. Claude Cowork sits on your desktop, reads your files, follows your instructions, and builds things with you in real time. It is not a chatbot. It is a system builder. You just have to give it the right foundation.</div>
+      </div>
+      <div class="slide-card">
+        <div class="slide-header">
+          <span class="slide-num-badge">Slide 3</span>
+          <span class="slide-timing">—</span>
+        </div>
+        <div class="slide-title-bar">
+          <div class="slide-title">Let Me Show You What I Actually Built</div>
+        </div>
+        <div class="slide-body">
+          <div class="slide-bullets"><div class="slide-bullet">An email arrives. It has a blog idea inside.</div><div class="slide-bullet">I pick the idea. I answer two questions.</div><div class="slide-bullet">The post is written, formatted, and ready to publish.</div><div class="slide-bullet">I did not write a single word.</div>
+          </div>
+        </div>
+        
+          <button class="slide-notes-toggle" onclick="toggleNotes(this)">
+            <span class="toggle-icon">▶</span> Speaker Notes
+          </button>
+          <div class="slide-notes">This is my blog-to-production workflow. Every few days, Cowork sends me an email with a content idea - generated from my notes, my recent conversations, things happening in the industry. I open the email, I pick the idea I want, I go back into the chat, I answer two questions about angle and audience, and it runs. By the time I close my laptop the post is finished. This is not hypothetical. This is running right now on my actual work. I built it in Cowork using five steps. Those five steps are what you are doing today.</div>
+      </div>
+      <div class="slide-card">
+        <div class="slide-header">
+          <span class="slide-num-badge">Slide 4</span>
+          <span class="slide-timing">—</span>
+        </div>
+        <div class="slide-title-bar">
+          <div class="slide-title">A Quick Tour of Cowork</div>
+        </div>
+        <div class="slide-body">
+          <div class="slide-bullets"><div class="slide-bullet">Task - where you work with Claude on your files</div><div class="slide-bullet">Scheduled - workflows that run automatically</div><div class="slide-bullet">Ideas - content and prompts Claude surfaces for you</div><div class="slide-bullet">Customize - your project instructions and folder settings</div>
+          </div>
+        </div>
+        
+          <button class="slide-notes-toggle" onclick="toggleNotes(this)">
+            <span class="toggle-icon">▶</span> Speaker Notes
+          </button>
+          <div class="slide-notes">Before we build, let me show you what you are working with. When you open Cowork you will see four areas. Task is where you have a live conversation with Claude - you give it a message, it reads your folder, it does the work. Scheduled is where you set workflows to run on a timer - daily, weekly, whenever you need. Ideas is where Claude proactively surfaces suggestions based on your files and instructions. And Customize is where you set the project instructions - the permanent operating procedure for that folder. That last one is the most important part of what we are building today. Everything else is the interface. The project instructions are the system.</div>
+      </div>
+      <div class="slide-card">
+        <div class="slide-header">
+          <span class="slide-num-badge">Slide 5</span>
+          <span class="slide-timing">—</span>
+        </div>
+        <div class="slide-title-bar">
+          <div class="slide-title">Define - Use Claude to Design the Workflow</div>
+        </div>
+        <div class="slide-body">
+          <div class="slide-bullets"><div class="slide-bullet">Do not start with the tool.</div><div class="slide-bullet">Start with Claude.</div><div class="slide-bullet">Ask it to map and visualize your workflow first.</div>
+          </div>
+        </div>
+        
+          <button class="slide-notes-toggle" onclick="toggleNotes(this)">
+            <span class="toggle-icon">▶</span> Speaker Notes
+          </button>
+          <div class="slide-notes">Here is how the Define phase actually works in practice. You open Claude and you describe the task you want to automate. Not to a tool. Not to a form. To Claude, in plain language. Tell it what you do, when you do it, what goes in, what comes out. Then ask it to map the workflow visually - a diagram, a step-by-step flow, a trigger-to-output picture. Claude will ask you clarifying questions. It will surface steps you forgot to mention. It will show you where AI fits and where it does not. You will understand your own workflow better after ten minutes with Claude than after an hour staring at a blank page. Do that first. Always.</div>
+      </div>
+      <div class="slide-card">
+        <div class="slide-header">
+          <span class="slide-num-badge">Slide 6</span>
+          <span class="slide-timing">—</span>
+        </div>
+        <div class="slide-title-bar">
+          <div class="slide-title">Discover - Connect the Folder and Ask Claude What It Needs</div>
+        </div>
+        <div class="slide-body">
+          <div class="slide-bullets"><div class="slide-bullet">Open Cowork. Select your folder.</div><div class="slide-bullet">Then ask Claude: what does this workflow need to run?</div><div class="slide-bullet">Let it tell you how to organize what you have.</div>
+          </div>
+        </div>
+        
+          <button class="slide-notes-toggle" onclick="toggleNotes(this)">
+            <span class="toggle-icon">▶</span> Speaker Notes
+          </button>
+          <div class="slide-notes">Now you connect your data. Open Cowork and click Select Folder - point it at wherever the files for this task actually live. Then do not assume Claude can work with what is there. Ask it directly: &quot;Look at this folder. What information do you need to run this workflow? What is missing? How should this be organized?&quot; Claude will tell you. It might say the file names are inconsistent. It might say it needs a reference document you have not created yet. It might say the folder is perfectly set up. Either way, you are not guessing. You are doing a real data discovery - which is the step that 95 percent of organizations skip entirely.</div>
+      </div>
+      <div class="slide-card">
+        <div class="slide-header">
+          <span class="slide-num-badge">Slide 7</span>
+          <span class="slide-timing">—</span>
+        </div>
+        <div class="slide-title-bar">
+          <div class="slide-title">Design - Ask Claude to Write the Instructions</div>
+        </div>
+        <div class="slide-body">
+          <div class="slide-bullets"><div class="slide-bullet">You do not write the workflow instructions.</div><div class="slide-bullet">Claude does.</div><div class="slide-bullet">Tell it what you want. Ask it to implement it.</div>
+          </div>
+        </div>
+        
+          <button class="slide-notes-toggle" onclick="toggleNotes(this)">
+            <span class="toggle-icon">▶</span> Speaker Notes
+          </button>
+          <div class="slide-notes">This is the part that surprises people. You do not sit down and write a long prompt or a set of rules. You tell Claude what you want the workflow to do - using the map you built in the Define phase - and you ask it to write the project instructions for you. Say something like: &quot;Based on the workflow we mapped, write the project instructions for Cowork so it can run this every time.&quot; Claude will write a clear, structured instruction set, paste it into the Project Instructions field, and explain what it does. You review it. You adjust anything that does not feel right. Then it is done. The AI built its own operating procedure. That is the point.</div>
+      </div>
+      <div class="slide-card">
+        <div class="slide-header">
+          <span class="slide-num-badge">Slide 8</span>
+          <span class="slide-timing">—</span>
+        </div>
+        <div class="slide-title-bar">
+          <div class="slide-title">Determine - What Does Success Actually Cost?</div>
+        </div>
+        <div class="slide-body">
+          <div class="slide-bullets"><div class="slide-bullet">Does it work is not the question.</div><div class="slide-bullet">What is it worth is the question.</div><div class="slide-bullet">Set your ROI metric before you run it.</div>
+          </div>
+        </div>
+        
+          <button class="slide-notes-toggle" onclick="toggleNotes(this)">
+            <span class="toggle-icon">▶</span> Speaker Notes
+          </button>
+          <div class="slide-notes">Before you run the workflow for the first time, you need a number. Not a feeling. A number. How long does this task take you today? How many times per week? What is your time worth per hour? Multiply it out. That is your baseline. Now run the workflow. Measure the time it just took. The difference is your ROI - and you should be able to state it in one sentence. &quot;This workflow saves me four hours a week, which is worth about 10,000 dollars a year at my billing rate.&quot; That sentence is what you bring to your manager. That sentence is what turns a personal tool into an organizational program. Determine is not just debugging. It is building your business case.</div>
+      </div>
+      <div class="slide-card">
+        <div class="slide-header">
+          <span class="slide-num-badge">Slide 9</span>
+          <span class="slide-timing">—</span>
+        </div>
+        <div class="slide-title-bar">
+          <div class="slide-title">Deploy - Your System Is Running</div>
+        </div>
+        <div class="slide-body">
+          <div class="slide-bullets"><div class="slide-bullet">The instruction is saved.</div><div class="slide-bullet">The folder is connected.</div><div class="slide-bullet">The next session: how to push this further with GitHub.</div>
+          </div>
+        </div>
+        
+          <button class="slide-notes-toggle" onclick="toggleNotes(this)">
+            <span class="toggle-icon">▶</span> Speaker Notes
+          </button>
+          <div class="slide-notes">Your workflow is deployed. The project instructions live in the folder. Anyone with Cowork can open this folder and run the workflow without a briefing, without context, without you. That is a system. That is what separates an AI Officer from someone who is just good at prompting. Now - in a couple of days we have a follow-up session on how to take what you just built and push it into GitHub so it becomes something your whole team can version, share, and improve. You do not need to know how to code. We are going to make GitHub something normal people can actually use.</div>
+      </div>
+      <div class="slide-card">
+        <div class="slide-header">
+          <span class="slide-num-badge">Slide 10</span>
+          <span class="slide-timing">—</span>
+        </div>
+        <div class="slide-title-bar">
+          <div class="slide-title">Your Challenge</div>
+        </div>
+        <div class="slide-body">
+          <div class="slide-bullets"><div class="slide-bullet">Build your workflow this week.</div><div class="slide-bullet">Run it at least once.</div><div class="slide-bullet">Join us Thursday at 11:30am if you need help.</div><div class="slide-bullet">CAIO Coaching Hours - bring your questions live.</div>
+          </div>
+        </div>
+        
+          <button class="slide-notes-toggle" onclick="toggleNotes(this)">
+            <span class="toggle-icon">▶</span> Speaker Notes
+          </button>
+          <div class="slide-notes">Your challenge is simple: do the thing. Pick your recurring task. Use Claude to map it. Connect your folder. Ask Claude to write the instructions. Run it. Measure the time. That is it. There is no AI Buddy grading this one - we are still building that out. This is just you, doing real work, building something real. If you get stuck, do not wait until next session. Join us Thursday at 11:30am for CAIO Coaching Hours. Bring your workflow, bring your questions, bring your screen. We will work through it together live.</div>
+      </div>
+      <div class="slide-card">
+        <div class="slide-header">
+          <span class="slide-num-badge">Slide 11</span>
+          <span class="slide-timing">—</span>
+        </div>
+        <div class="slide-title-bar">
+          <div class="slide-title">Thank You</div>
+        </div>
+        <div class="slide-body">
+          <div class="slide-bullets"><div class="slide-bullet">#AIOfficerCertification</div><div class="slide-bullet">Problem first. AI second. ROI always.</div><div class="slide-bullet">Dave Hajdu | dave@ai-officer.com</div>
+          </div>
+        </div>
+        
+          <button class="slide-notes-toggle" onclick="toggleNotes(this)">
+            <span class="toggle-icon">▶</span> Speaker Notes
+          </button>
+          <div class="slide-notes">That is the session. Go build something. Thursday at 11:30 we are here if you need us. The GitHub session drops in a couple of days - watch for it. See you there.</div>
+      </div>
+    </div>
+
+    <div>
+      
+      <div class="resource-stack-label">Micro-Session Resources</div>
+      <div class="resource-stack">
+        <a href="claude-cowork-first-workflow-video.html" class="resource-card">
+          <div class="resource-icon" style="background:rgba(40,123,232,0.1);">▶️</div>
+          <div class="resource-info">
+            <div class="resource-tag">01 · Video</div>
+            <div class="resource-title">Session Recording</div>
+          </div>
+          <div class="resource-arrow">→</div>
+        </a>
+        <a href="claude-cowork-first-workflow-recap.html" class="resource-card">
+          <div class="resource-icon" style="background:rgba(111,242,193,0.15);">📋</div>
+          <div class="resource-info">
+            <div class="resource-tag">02 · Recap</div>
+            <div class="resource-title">Session Recap</div>
+          </div>
+          <div class="resource-arrow">→</div>
+        </a>
+        <a href="claude-cowork-first-workflow-prompts.html" class="resource-card">
+          <div class="resource-icon" style="background:rgba(40,123,232,0.08);">💬</div>
+          <div class="resource-info">
+            <div class="resource-tag">03 · Prompts</div>
+            <div class="resource-title">Prompt Library</div>
+          </div>
+          <div class="resource-arrow">→</div>
+        </a>
+        <a href="claude-cowork-first-workflow-slides.html" class="resource-card active">
+          <div class="resource-icon" style="background:rgba(209,69,139,0.1);">🖼️</div>
+          <div class="resource-info">
+            <div class="resource-tag">04 · Slides</div>
+            <div class="resource-title">Session Slides</div>
+          </div>
+          <div class="resource-arrow">→</div>
+        </a>
+        <a href="claude-cowork-first-workflow-resources.html" class="resource-card">
+          <div class="resource-icon" style="background:rgba(111,242,193,0.1);">📚</div>
+          <div class="resource-info">
+            <div class="resource-tag">05 · Resources</div>
+            <div class="resource-title">Tools &amp; Links</div>
+          </div>
+          <div class="resource-arrow">→</div>
+        </a>
+      </div>
+    </div>
+
+  </div>
+
+</main>
+
+<script>
+function toggleNotes(btn) {
+  btn.classList.toggle('open');
+  btn.nextElementSibling.classList.toggle('open');
+}
+</script>
+</body>
+</html>

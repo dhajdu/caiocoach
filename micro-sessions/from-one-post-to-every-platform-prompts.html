@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Prompt Library: From One Post To Every Platform — AI Officer Institute</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../shared/styles.css">
+<style>
+
+  :root {
+    --ease: cubic-bezier(0.4, 0, 0.2, 1);
+    --radius: 12px;
+    --shadow-sm: 0 1px 3px rgba(4,16,45,0.07);
+    --text-primary: #1a1f36;
+    --text-secondary: #4a5068;
+    --text-muted: #6b7194;
+    --border: #d8dce8;
+    --surface: #f4f6fa;
+    --card-bg: #ffffff;
+  }
+
+  body { background: var(--surface); font-family: 'DM Sans', sans-serif; -webkit-font-smoothing: antialiased; color: var(--text-primary); line-height: 1.7; }
+
+  .page-main { max-width: 1060px; margin: 0 auto; padding: 80px 40px 100px; }
+
+  .mission-back {
+    display: inline-flex; align-items: center; gap: 6px;
+    font-size: 13px; font-weight: 600; color: var(--text-muted);
+    text-decoration: none; margin-bottom: 28px; transition: color 0.12s;
+  }
+  .mission-back:hover { color: var(--text-primary); }
+
+  .mission-header { margin-bottom: 32px; }
+  .mission-meta { display: flex; align-items: center; gap: 10px; margin-bottom: 14px; }
+  .mission-track-pill {
+    display: inline-flex; align-items: center; gap: 7px;
+    font-size: 11px; font-weight: 700; letter-spacing: 0.7px; text-transform: uppercase;
+    padding: 5px 12px; border-radius: 20px;
+  }
+  .mission-track-pill .dot { width: 5px; height: 5px; border-radius: 50%; }
+  .mission-title { font-size: 34px; font-weight: 700; color: var(--text-primary); letter-spacing: -0.5px; line-height: 1.15; margin-bottom: 10px; }
+  .mission-sub { font-size: 15px; color: var(--text-secondary); line-height: 1.6; max-width: 620px; }
+
+  .mission-body { display: grid; grid-template-columns: 1fr 300px; gap: 24px; align-items: start; }
+
+  .content-card {
+    background: var(--card-bg); border: 1px solid var(--border);
+    border-radius: var(--radius); padding: 24px 28px;
+    box-shadow: var(--shadow-sm); margin-bottom: 16px;
+  }
+  .card-label { font-size: 10px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: #287BE8; margin-bottom: 14px; }
+  .card-heading { font-size: 16px; font-weight: 700; color: var(--text-primary); margin-bottom: 14px; letter-spacing: -0.2px; }
+  .card-text { font-size: 14px; color: var(--text-secondary); line-height: 1.65; margin-bottom: 12px; }
+  .card-text:last-child { margin-bottom: 0; }
+
+  /* Resource sidebar */
+  .resource-stack-label { font-size: 10px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: var(--text-muted); margin-bottom: 4px; }
+  .resource-stack { display: flex; flex-direction: column; gap: 8px; }
+  .resource-card {
+    background: var(--card-bg); border: 1px solid var(--border);
+    border-radius: var(--radius); padding: 14px 16px;
+    text-decoration: none; color: inherit;
+    display: flex; align-items: center; gap: 12px;
+    box-shadow: var(--shadow-sm); transition: all 0.15s var(--ease);
+  }
+  .resource-card:hover { border-color: rgba(40,123,232,0.35); box-shadow: 0 4px 16px rgba(4,16,45,0.09); transform: translateY(-1px); }
+  .resource-card.active { border-color: rgba(40,123,232,0.4); background: rgba(40,123,232,0.04); }
+  .resource-icon { width: 36px; height: 36px; border-radius: 9px; flex-shrink: 0; display: flex; align-items: center; justify-content: center; font-size: 16px; }
+  .resource-info { flex: 1; min-width: 0; }
+  .resource-tag { font-size: 10px; font-weight: 700; letter-spacing: 0.7px; text-transform: uppercase; color: var(--text-muted); margin-bottom: 1px; }
+  .resource-title { font-size: 13px; font-weight: 700; color: var(--text-primary); }
+  .resource-arrow { font-size: 13px; color: var(--text-muted); flex-shrink: 0; }
+  .resource-card.active .resource-arrow { color: #287BE8; }
+
+  @media (max-width: 900px) {
+    .page-main { padding: 70px 20px 80px; }
+    .mission-body { grid-template-columns: 1fr; }
+  }
+
+
+  .prompt-card { background: var(--card-bg); border: 1px solid var(--border); border-radius: var(--radius); padding: 0; box-shadow: var(--shadow-sm); margin-bottom: 16px; overflow: hidden; }
+  .prompt-header { padding: 20px 24px 16px; }
+  .prompt-num { font-family: 'JetBrains Mono', monospace; font-size: 10px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: #287BE8; background: rgba(40,123,232,0.08); padding: 3px 10px; border-radius: 4px; display: inline-block; margin-bottom: 10px; }
+  .prompt-title { font-size: 16px; font-weight: 700; color: var(--text-primary); margin-bottom: 6px; letter-spacing: -0.2px; }
+  .prompt-desc { font-size: 13px; color: var(--text-secondary); line-height: 1.6; }
+  .prompt-code-wrap { background: #04102D; padding: 0; }
+  .prompt-code-header { display: flex; align-items: center; justify-content: space-between; padding: 10px 20px; border-bottom: 1px solid rgba(255,255,255,0.07); }
+  .prompt-code-label { font-family: 'JetBrains Mono', monospace; font-size: 10px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: rgba(111,242,193,0.7); }
+  .copy-btn { font-family: 'JetBrains Mono', monospace; font-size: 10px; font-weight: 700; color: rgba(255,255,255,0.4); background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.1); padding: 4px 12px; border-radius: 5px; cursor: pointer; transition: all 0.15s; }
+  .copy-btn:hover { color: rgba(255,255,255,0.8); background: rgba(255,255,255,0.1); }
+  .prompt-code { font-family: 'JetBrains Mono', monospace; font-size: 12px; color: rgba(255,255,255,0.8); line-height: 1.7; padding: 18px 20px 20px; margin: 0; white-space: pre-wrap; word-break: break-word; }
+
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <a href="../index.html" class="topbar-brand">AIO <span>Labs</span></a>
+  <nav class="topbar-nav">
+    <a href="../certification.html" class="tnav-link"><span class="tnav-dot" style="background:#287BE8"></span> Certification</a>
+    <a href="../coaching.html" class="tnav-link"><span class="tnav-dot" style="background:#287BE8"></span> Coaching</a>
+    <a href="index.html" class="tnav-link active"><span class="tnav-dot" style="background:#1A9E74"></span> Micro-Sessions</a>
+    <a href="../blog/index.html" class="tnav-link"><span class="tnav-dot" style="background:#6FF2C1"></span> Blog</a>
+    <a href="../my-team.html" class="tnav-link"><span class="tnav-dot" style="background:#8b91ac"></span> My Team</a>
+  </nav>
+  <div class="topbar-right">
+    <a href="https://claude.ai" target="_blank" class="buddy-launch-btn">🤖 AI Buddy</a>
+    <div class="topbar-stat">🔥 7</div>
+    <div class="topbar-stat">⭐ 1,240</div>
+    <div class="topbar-divider"></div>
+    <div class="topbar-avatar">DH</div>
+  </div>
+</div>
+
+<main class="page-main">
+
+  <a href="from-one-post-to-every-platform.html" class="mission-back">← From One Post To Every Platform</a>
+
+  <div class="mission-header">
+    <div class="mission-meta">
+      <span class="mission-track-pill" style="background:rgba(40,123,232,0.1); color:#287BE8; border: 1px solid rgba(40,123,232,0.2);"><span class="dot" style="background:#287BE8;"></span> Gen AI</span>
+    </div>
+    <h1 class="mission-title">Prompt Library</h1>
+    <p class="mission-sub">Copy-ready prompts to help you complete and extend this session's work.</p>
+  </div>
+
+  <div class="mission-body">
+
+    <div>
+      
+      <div class="prompt-card">
+        <div class="prompt-header">
+          <div class="prompt-num">PROMPT 1</div>
+          <div class="prompt-title">Build your Idea Project instructions</div>
+          <div class="prompt-desc">You are my thought leadership development assistant. Your job is to help me turn rough ideas into sharp, specific angles I can publish.</div>
+        </div>
+        <div class="prompt-code-wrap">
+          <div class="prompt-code-header">
+            <span class="prompt-code-label">Prompt</span>
+            <button class="copy-btn" onclick="copyPrompt(this)">Copy</button>
+          </div>
+          <pre class="prompt-code">You are my thought leadership development assistant. Your job is to help me turn rough ideas into sharp, specific angles I can publish.
+
+About me: [your name, your role, your industry]
+My audience: [who you want to reach - be specific about their role, ambition, or problem]
+Topics I want to be known for: [2-3 topics or beliefs]
+My voice: [plain and direct / warm and practical / blunt and honest - describe how you actually talk]
+Trusted data sources: [names of reports, researchers, or real client results you can quote]
+
+When I bring you an idea, ask me clarifying questions before writing anything. Push me to be more specific. Find the tension or the insight that makes the idea worth sharing. Only suggest angles after I have given you enough to work with.</pre>
+        </div>
+      </div>
+      <div class="prompt-card">
+        <div class="prompt-header">
+          <div class="prompt-num">PROMPT 2</div>
+          <div class="prompt-title">Develop a rough idea into a strong angle</div>
+          <div class="prompt-desc">I have a rough idea I want to develop. Do not write any content yet.</div>
+        </div>
+        <div class="prompt-code-wrap">
+          <div class="prompt-code-header">
+            <span class="prompt-code-label">Prompt</span>
+            <button class="copy-btn" onclick="copyPrompt(this)">Copy</button>
+          </div>
+          <pre class="prompt-code">I have a rough idea I want to develop. Do not write any content yet.
+
+My idea: [describe it in 1-3 sentences, as rough as it is]
+
+Ask me questions to sharpen it. I want to end up with: one clear argument, one specific audience, one tension or insight that most people in [your industry] are missing, and at least one real data point or example.
+
+Keep asking until we have all four.</pre>
+        </div>
+      </div>
+      <div class="prompt-card">
+        <div class="prompt-header">
+          <div class="prompt-num">PROMPT 3</div>
+          <div class="prompt-title">Generate a multi-platform content pack</div>
+          <div class="prompt-desc">I have a developed idea I want to turn into content for multiple platforms.</div>
+        </div>
+        <div class="prompt-code-wrap">
+          <div class="prompt-code-header">
+            <span class="prompt-code-label">Prompt</span>
+            <button class="copy-btn" onclick="copyPrompt(this)">Copy</button>
+          </div>
+          <pre class="prompt-code">I have a developed idea I want to turn into content for multiple platforms.
+
+My idea brief: [paste your developed idea - the argument, the audience, the angle, any data points]
+
+Please generate the following, each optimized for its platform:
+
+1. LinkedIn post (300-500 words, conversational, first person, ends with a question or observation)
+2. Instagram caption (punchy opener, short paragraphs, 3-5 hashtags at the end)
+3. TikTok or short video script (hook in first 3 seconds, 60-90 seconds total, spoken word style)
+4. Blog post introduction (2-3 paragraphs, builds the problem before introducing the insight)
+5. One FAQ snippet (question format + 2-3 sentence answer, optimized for AI search)
+
+Keep my voice consistent across all five. Do not add generic calls to action.</pre>
+        </div>
+      </div>
+      <div class="prompt-card">
+        <div class="prompt-header">
+          <div class="prompt-num">PROMPT 4</div>
+          <div class="prompt-title">Choose your AI model intentionally</div>
+          <div class="prompt-desc">I am about to work on [describe the content task].</div>
+        </div>
+        <div class="prompt-code-wrap">
+          <div class="prompt-code-header">
+            <span class="prompt-code-label">Prompt</span>
+            <button class="copy-btn" onclick="copyPrompt(this)">Copy</button>
+          </div>
+          <pre class="prompt-code">I am about to work on [describe the content task].
+
+Tell me: which AI model or setting is best suited for this task and why? Consider speed, depth of reasoning, and quality of output. I want to choose intentionally rather than run on auto.
+
+Options I have access to: [list the tools and plans you use - e.g., ChatGPT o1, ChatGPT 4o, Claude Sonnet, Perplexity, Gemini Advanced]</pre>
+        </div>
+      </div>
+      <div class="prompt-card">
+        <div class="prompt-header">
+          <div class="prompt-num">PROMPT 5</div>
+          <div class="prompt-title">Turn client results into content ideas</div>
+          <div class="prompt-desc">I want to find content ideas from a real client result or project.</div>
+        </div>
+        <div class="prompt-code-wrap">
+          <div class="prompt-code-header">
+            <span class="prompt-code-label">Prompt</span>
+            <button class="copy-btn" onclick="copyPrompt(this)">Copy</button>
+          </div>
+          <pre class="prompt-code">I want to find content ideas from a real client result or project.
+
+Here is what happened: [describe the client situation, what problem they had, what you did, and what the result was - be specific with numbers if you have them]
+
+Help me find 3-5 angles I could turn into content. For each angle, tell me: the main point, who it is most useful for, and which platform it would work best on.
+
+Do not write the content yet. Just the angles.</pre>
+        </div>
+      </div>
+    </div>
+
+    <div>
+      
+      <div class="resource-stack-label">Micro-Session Resources</div>
+      <div class="resource-stack">
+        <a href="from-one-post-to-every-platform-video.html" class="resource-card">
+          <div class="resource-icon" style="background:rgba(40,123,232,0.1);">▶️</div>
+          <div class="resource-info">
+            <div class="resource-tag">01 · Video</div>
+            <div class="resource-title">Session Recording</div>
+          </div>
+          <div class="resource-arrow">→</div>
+        </a>
+        <a href="from-one-post-to-every-platform-recap.html" class="resource-card">
+          <div class="resource-icon" style="background:rgba(111,242,193,0.15);">📋</div>
+          <div class="resource-info">
+            <div class="resource-tag">02 · Recap</div>
+            <div class="resource-title">Session Recap</div>
+          </div>
+          <div class="resource-arrow">→</div>
+        </a>
+        <a href="from-one-post-to-every-platform-prompts.html" class="resource-card active">
+          <div class="resource-icon" style="background:rgba(40,123,232,0.08);">💬</div>
+          <div class="resource-info">
+            <div class="resource-tag">03 · Prompts</div>
+            <div class="resource-title">Prompt Library</div>
+          </div>
+          <div class="resource-arrow">→</div>
+        </a>
+        <a href="from-one-post-to-every-platform-slides.html" class="resource-card">
+          <div class="resource-icon" style="background:rgba(209,69,139,0.1);">🖼️</div>
+          <div class="resource-info">
+            <div class="resource-tag">04 · Slides</div>
+            <div class="resource-title">Session Slides</div>
+          </div>
+          <div class="resource-arrow">→</div>
+        </a>
+        <a href="from-one-post-to-every-platform-resources.html" class="resource-card">
+          <div class="resource-icon" style="background:rgba(111,242,193,0.1);">📚</div>
+          <div class="resource-info">
+            <div class="resource-tag">05 · Resources</div>
+            <div class="resource-title">Tools &amp; Links</div>
+          </div>
+          <div class="resource-arrow">→</div>
+        </a>
+      </div>
+    </div>
+
+  </div>
+
+</main>
+
+<script>
+function copyPrompt(btn) {
+  const pre = btn.closest('.prompt-code-wrap').querySelector('.prompt-code');
+  navigator.clipboard.writeText(pre.textContent.trim()).then(() => {
+    const orig = btn.textContent;
+    btn.textContent = 'Copied!';
+    btn.style.color = '#6FF2C1';
+    setTimeout(() => { btn.textContent = orig; btn.style.color = ''; }, 1800);
+  });
+}
+</script>
+</body>
+</html>

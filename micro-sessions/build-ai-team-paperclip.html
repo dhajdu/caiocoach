@@ -4,16 +4,123 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Build Your AI Team with Paperclip — AI Officer Institute</title>
-<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="../shared/styles.css">
+<style>
+  :root {
+    --ease: cubic-bezier(0.4, 0, 0.2, 1);
+    --radius: 12px;
+    --shadow-sm: 0 1px 3px rgba(4,16,45,0.07);
+    --shadow-hover: 0 6px 24px rgba(4,16,45,0.10);
+    --text-primary: #1a1f36;
+    --text-secondary: #4a5068;
+    --text-muted: #6b7194;
+    --border: #d8dce8;
+    --surface: #f4f6fa;
+    --card-bg: #ffffff;
+  }
+
+  body { background: var(--surface); font-family: 'DM Sans', sans-serif; -webkit-font-smoothing: antialiased; color: var(--text-primary); line-height: 1.7; }
+
+  /* ── Topbar stat/avatar (used in topbar-right) ── */
+  .topbar-stat {
+    display: flex; align-items: center; gap: 5px;
+    font-family: 'JetBrains Mono', monospace; font-size: 13px; font-weight: 600;
+    color: rgba(255,255,255,0.7); background: rgba(255,255,255,0.07);
+    padding: 5px 12px; border-radius: 6px;
+  }
+  .topbar-avatar {
+    width: 32px; height: 32px; border-radius: 50%; background: var(--blue);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 12px; font-weight: 700; color: white;
+  }
+
+  /* ── Page container ── */
+  .page-main { max-width: 1060px; margin: 0 auto; padding: 80px 40px 100px; }
+
+  /* ── Back nav ── */
+  .mission-back {
+    display: inline-flex; align-items: center; gap: 6px;
+    font-size: 13px; font-weight: 600; color: var(--text-muted);
+    text-decoration: none; margin-bottom: 28px;
+    transition: color 0.12s;
+  }
+  .mission-back:hover { color: var(--text-primary); }
+
+  /* ── Session header ── */
+  .mission-header { margin-bottom: 32px; }
+  .mission-meta {
+    display: flex; align-items: center; gap: 10px; flex-wrap: wrap;
+    margin-bottom: 14px;
+  }
+  .mission-track-pill {
+    display: inline-flex; align-items: center; gap: 7px;
+    font-size: 11px; font-weight: 700; letter-spacing: 0.7px;
+    text-transform: uppercase; padding: 5px 12px; border-radius: 20px;
+  }
+  .mission-track-pill .dot { width: 5px; height: 5px; border-radius: 50%; }
+  .mission-title {
+    font-size: 34px; font-weight: 700; color: var(--text-primary);
+    letter-spacing: -0.5px; line-height: 1.15; margin-bottom: 10px;
+  }
+  .mission-sub {
+    font-size: 15px; color: var(--text-secondary); line-height: 1.6;
+    max-width: 640px;
+  }
+
+  /* ── Two-column body grid ── */
+  .mission-body {
+    display: grid; grid-template-columns: 1fr 300px;
+    gap: 24px; align-items: start;
+  }
+
+  /* ── Resource sidebar ── */
+  .resource-stack-label {
+    font-size: 10px; font-weight: 700; letter-spacing: 1px;
+    text-transform: uppercase; color: var(--text-muted);
+    margin-bottom: 4px;
+  }
+  .resource-stack { display: flex; flex-direction: column; gap: 10px; }
+  .resource-card {
+    background: white; border: 1px solid var(--border);
+    border-radius: var(--radius); padding: 16px 18px;
+    text-decoration: none; color: inherit;
+    display: flex; align-items: center; gap: 14px;
+    box-shadow: var(--shadow-sm);
+    transition: all 0.15s var(--ease);
+  }
+  .resource-card:hover {
+    border-color: rgba(40,123,232,0.35);
+    box-shadow: 0 4px 16px rgba(4,16,45,0.09);
+    transform: translateY(-1px);
+  }
+  .resource-icon {
+    width: 38px; height: 38px; border-radius: 10px; flex-shrink: 0;
+    display: flex; align-items: center; justify-content: center; font-size: 17px;
+  }
+  .resource-info { flex: 1; min-width: 0; }
+  .resource-tag {
+    font-size: 10px; font-weight: 700; letter-spacing: 0.7px;
+    text-transform: uppercase; color: var(--text-muted); margin-bottom: 2px;
+  }
+  .resource-title { font-size: 14px; font-weight: 700; color: var(--text-primary); }
+  .resource-desc { font-size: 11.5px; color: var(--text-secondary); margin-top: 1px; }
+  .resource-arrow { font-size: 14px; color: var(--text-muted); flex-shrink: 0; }
+
+  @media (max-width: 900px) {
+    .page-main { padding: 70px 20px 80px; }
+    .mission-body { grid-template-columns: 1fr; }
+  }
+
+  /* ── Content styles (preserved from original) ── */
+  
+</style>
 </head>
 <body>
 
 <div class="topbar">
   <a href="../index.html" class="topbar-brand">AIO <span>Labs</span></a>
-  <nav class="topbar-nav">
-    <a href="../index.html" class="tnav-link"><span class="tnav-dot" style="background:#8b91ac"></span> Home</a>
-    <a href="../certification.html" class="tnav-link"><span class="tnav-dot" style="background:#287BE8"></span> Certification</a>
+  <nav class="topbar-nav">    <a href="../certification.html" class="tnav-link"><span class="tnav-dot" style="background:#287BE8"></span> Certification</a>
     <a href="../coaching.html" class="tnav-link"><span class="tnav-dot" style="background:#287BE8"></span> Coaching</a>
     <a href="index.html" class="tnav-link active"><span class="tnav-dot" style="background:#1A9E74"></span> Micro-Sessions</a>
     <a href="../blog/index.html" class="tnav-link"><span class="tnav-dot" style="background:#6FF2C1"></span> Blog</a>
@@ -27,53 +134,29 @@
     <div class="topbar-avatar">DH</div>
   </div>
 </div>
-<section class="hero">
-  <div class="hero-content">
-    <p class="hero-eyebrow">Micro-Session &middot; Agentic AI</p>
-    <h1>Build Your AI Team <span class="accent">with Paperclip</span></h1>
-    <p class="hero-subtitle">Design a multi-agent system that handles research, writing, and analysis — without writing a line of code.</p>
-    <div class="hero-pills">
-    <span class="pill pill-blue">Multi-Agent</span>
-    <span class="pill pill-mint">Paperclip</span>
-    <span class="pill pill-mag">No-Code</span>
+
+<!-- ═══════════════════ PAGE ═══════ -->
+<main class="page-main">
+
+  <a href="index.html" class="mission-back">← Micro-Sessions</a>
+
+  <!-- ── Session header ── -->
+  <div class="mission-header">
+    <div class="mission-meta">
+      <span class="mission-track-pill" style="background:rgba(40,123,232,0.1); color:#287BE8; border:1px solid rgba(40,123,232,0.2);">
+        <span class="dot" style="background:#287BE8;"></span> Agentic AI
+      </span>
     </div>
+    <h1 class="mission-title">Build Your AI Team <span class="accent">with Paperclip</span></h1>
+    <p class="mission-sub">Design a multi-agent system that handles research, writing, and analysis — without writing a line of code.</p>
   </div>
-</section>
-<div class="layout">
-  <nav class="sidebar">
 
-    <a href="../index.html" class="sidebar-hub">&larr; Back to Hub
-    </a>
-    <div class="sidebar-mission-title">
-      <div class="smt-track" style="color: #1a9e74">
-        <span class="smt-dot" style="background: #1a9e74"></span>
-        Micro-Sessions
-      </div>
-      <div class="smt-name">Build Your AI Team with Paperclip</div>
-    </div>
-    <div class="sidebar-section">
-      <div class="sidebar-label">INTRODUCTION</div>
-      <a href="#welcome" class="sidebar-item"><span class="sidebar-num">01</span>Welcome</a>
-      <a href="#session-guide" class="sidebar-item"><span class="sidebar-num">02</span>Session Guide</a>
-    </div>
-    <div class="sidebar-section">
-      <div class="sidebar-label">SESSION</div>
-      <a href="#the-bottleneck" class="sidebar-item"><span class="sidebar-num">03</span>The Bottleneck</a>
-      <a href="#what-paperclip-does" class="sidebar-item"><span class="sidebar-num">04</span>What Paperclip Does</a>
-      <a href="#danas-team" class="sidebar-item"><span class="sidebar-num">05</span>Dana's BOLT Team</a>
-      <a href="#exercise" class="sidebar-item"><span class="sidebar-num">06</span>Exercise</a>
-      <a href="#managers-mindset" class="sidebar-item"><span class="sidebar-num">07</span>The Manager's Mindset</a>
-    </div>
-    <div class="sidebar-section">
-      <div class="sidebar-label">WRAP-UP</div>
-      <a href="#challenge" class="sidebar-item"><span class="sidebar-num">08</span>Your Challenge</a>
-      <a href="#takeaways" class="sidebar-item"><span class="sidebar-num">09</span>Key Takeaways</a>
-      <a href="#try-this-week" class="sidebar-item"><span class="sidebar-num">10</span>Try This Week</a>
-      <a href="#certificate" class="sidebar-item"><span class="sidebar-num">11</span>Credit Earned</a>
-    </div>
+  <!-- ── Body ── -->
+  <div class="mission-body">
 
-  </nav>
-  <main class="main">
+    <!-- Main content column -->
+    <div>
+
 
     <!-- SECTION 1: INTRODUCTION -->
     <section id="welcome">
@@ -82,7 +165,7 @@
         <span class="lesson-tag-num">Micro Session</span>
         <span class="lesson-tag-type">Agentic AI Essentials</span>
       </div>
-      <h1>Build Your AI Team with Paperclip</h1>
+      <h2>Build Your AI Team with Paperclip</h2>
       <p>Your agents don't need better prompts. They need an org chart.</p>
 
       <div class="video-card">
@@ -435,9 +518,50 @@
       </div>
     </section>
 
-  </main>
-</div>
+  
+    </div>
 
-<script src="../shared/nav.js"></script>
+      <!-- ── Micro-Session Resources sidebar ── -->
+      <div>
+        <div class="resource-stack-label">Micro-Session Resources</div>
+        <div class="resource-stack">
+
+          <a href="#" class="resource-card">
+            <div class="resource-icon" style="background:rgba(40,123,232,0.1);">▶️</div>
+            <div class="resource-info">
+              <div class="resource-tag">Video</div>
+              <div class="resource-title">Watch Recording</div>
+              <div class="resource-desc">Full session replay with timestamps</div>
+            </div>
+            <div class="resource-arrow">→</div>
+          </a>
+
+          <a href="https://claude.ai" target="_blank" class="resource-card">
+            <div class="resource-icon" style="background:rgba(111,242,193,0.15);">🤖</div>
+            <div class="resource-info">
+              <div class="resource-tag">Practice</div>
+              <div class="resource-title">AI Buddy</div>
+              <div class="resource-desc">Work through the challenge with AI support</div>
+            </div>
+            <div class="resource-arrow">→</div>
+          </a>
+
+          <a href="index.html" class="resource-card">
+            <div class="resource-icon" style="background:rgba(209,69,139,0.1);">📚</div>
+            <div class="resource-info">
+              <div class="resource-tag">Library</div>
+              <div class="resource-title">Session Library</div>
+              <div class="resource-desc">Browse all micro-sessions by track</div>
+            </div>
+            <div class="resource-arrow">→</div>
+          </a>
+
+        </div>
+      </div>
+
+  </div>
+
+</main>
+
 </body>
 </html>

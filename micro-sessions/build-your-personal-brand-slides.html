@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Session Slides: Build Your Personal Brand Doc — AI Officer Institute</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../shared/styles.css">
+<style>
+
+  :root {
+    --ease: cubic-bezier(0.4, 0, 0.2, 1);
+    --radius: 12px;
+    --shadow-sm: 0 1px 3px rgba(4,16,45,0.07);
+    --text-primary: #1a1f36;
+    --text-secondary: #4a5068;
+    --text-muted: #6b7194;
+    --border: #d8dce8;
+    --surface: #f4f6fa;
+    --card-bg: #ffffff;
+  }
+
+  body { background: var(--surface); font-family: 'DM Sans', sans-serif; -webkit-font-smoothing: antialiased; color: var(--text-primary); line-height: 1.7; }
+
+  .page-main { max-width: 1060px; margin: 0 auto; padding: 80px 40px 100px; }
+
+  .mission-back {
+    display: inline-flex; align-items: center; gap: 6px;
+    font-size: 13px; font-weight: 600; color: var(--text-muted);
+    text-decoration: none; margin-bottom: 28px; transition: color 0.12s;
+  }
+  .mission-back:hover { color: var(--text-primary); }
+
+  .mission-header { margin-bottom: 32px; }
+  .mission-meta { display: flex; align-items: center; gap: 10px; margin-bottom: 14px; }
+  .mission-track-pill {
+    display: inline-flex; align-items: center; gap: 7px;
+    font-size: 11px; font-weight: 700; letter-spacing: 0.7px; text-transform: uppercase;
+    padding: 5px 12px; border-radius: 20px;
+  }
+  .mission-track-pill .dot { width: 5px; height: 5px; border-radius: 50%; }
+  .mission-title { font-size: 34px; font-weight: 700; color: var(--text-primary); letter-spacing: -0.5px; line-height: 1.15; margin-bottom: 10px; }
+  .mission-sub { font-size: 15px; color: var(--text-secondary); line-height: 1.6; max-width: 620px; }
+
+  .mission-body { display: grid; grid-template-columns: 1fr 300px; gap: 24px; align-items: start; }
+
+  .content-card {
+    background: var(--card-bg); border: 1px solid var(--border);
+    border-radius: var(--radius); padding: 24px 28px;
+    box-shadow: var(--shadow-sm); margin-bottom: 16px;
+  }
+  .card-label { font-size: 10px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: #287BE8; margin-bottom: 14px; }
+  .card-heading { font-size: 16px; font-weight: 700; color: var(--text-primary); margin-bottom: 14px; letter-spacing: -0.2px; }
+  .card-text { font-size: 14px; color: var(--text-secondary); line-height: 1.65; margin-bottom: 12px; }
+  .card-text:last-child { margin-bottom: 0; }
+
+  /* Resource sidebar */
+  .resource-stack-label { font-size: 10px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: var(--text-muted); margin-bottom: 4px; }
+  .resource-stack { display: flex; flex-direction: column; gap: 8px; }
+  .resource-card {
+    background: var(--card-bg); border: 1px solid var(--border);
+    border-radius: var(--radius); padding: 14px 16px;
+    text-decoration: none; color: inherit;
+    display: flex; align-items: center; gap: 12px;
+    box-shadow: var(--shadow-sm); transition: all 0.15s var(--ease);
+  }
+  .resource-card:hover { border-color: rgba(40,123,232,0.35); box-shadow: 0 4px 16px rgba(4,16,45,0.09); transform: translateY(-1px); }
+  .resource-card.active { border-color: rgba(40,123,232,0.4); background: rgba(40,123,232,0.04); }
+  .resource-icon { width: 36px; height: 36px; border-radius: 9px; flex-shrink: 0; display: flex; align-items: center; justify-content: center; font-size: 16px; }
+  .resource-info { flex: 1; min-width: 0; }
+  .resource-tag { font-size: 10px; font-weight: 700; letter-spacing: 0.7px; text-transform: uppercase; color: var(--text-muted); margin-bottom: 1px; }
+  .resource-title { font-size: 13px; font-weight: 700; color: var(--text-primary); }
+  .resource-arrow { font-size: 13px; color: var(--text-muted); flex-shrink: 0; }
+  .resource-card.active .resource-arrow { color: #287BE8; }
+
+  @media (max-width: 900px) {
+    .page-main { padding: 70px 20px 80px; }
+    .mission-body { grid-template-columns: 1fr; }
+  }
+
+
+  .slide-card { background: var(--card-bg); border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden; box-shadow: var(--shadow-sm); margin-bottom: 16px; }
+  .slide-header { background: #04102D; padding: 14px 20px; display: flex; align-items: center; justify-content: space-between; }
+  .slide-num-badge { font-family: 'JetBrains Mono', monospace; font-size: 10px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: rgba(111,242,193,0.8); background: rgba(111,242,193,0.1); padding: 3px 10px; border-radius: 4px; }
+  .slide-timing { font-family: 'JetBrains Mono', monospace; font-size: 10px; color: rgba(255,255,255,0.35); }
+  .slide-title-bar { background: rgba(255,255,255,0.04); border-bottom: 1px solid rgba(255,255,255,0.07); padding: 12px 20px; }
+  .slide-title { font-size: 15px; font-weight: 700; color: rgba(255,255,255,0.9); letter-spacing: -0.2px; }
+  .slide-body { padding: 18px 20px; }
+  .slide-bullets { display: flex; flex-direction: column; gap: 6px; }
+  .slide-bullet { display: flex; align-items: baseline; gap: 8px; font-size: 13px; color: var(--text-secondary); line-height: 1.55; }
+  .slide-bullet::before { content: '—'; color: #287BE8; font-weight: 700; flex-shrink: 0; }
+  .slide-notes-toggle { display: flex; align-items: center; gap: 7px; font-size: 12px; font-weight: 600; color: var(--text-muted); background: var(--surface); border: none; border-top: 1px solid var(--border); width: 100%; padding: 10px 20px; cursor: pointer; text-align: left; transition: color 0.12s; }
+  .slide-notes-toggle:hover { color: var(--text-primary); }
+  .slide-notes-toggle .toggle-icon { font-size: 10px; transition: transform 0.18s; }
+  .slide-notes-toggle.open .toggle-icon { transform: rotate(90deg); }
+  .slide-notes { display: none; padding: 14px 20px 18px; background: rgba(40,123,232,0.03); border-top: 1px solid rgba(40,123,232,0.1); font-size: 13px; color: var(--text-secondary); line-height: 1.7; }
+  .slide-notes.open { display: block; }
+
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <a href="../index.html" class="topbar-brand">AIO <span>Labs</span></a>
+  <nav class="topbar-nav">
+    <a href="../certification.html" class="tnav-link"><span class="tnav-dot" style="background:#287BE8"></span> Certification</a>
+    <a href="../coaching.html" class="tnav-link"><span class="tnav-dot" style="background:#287BE8"></span> Coaching</a>
+    <a href="index.html" class="tnav-link active"><span class="tnav-dot" style="background:#1A9E74"></span> Micro-Sessions</a>
+    <a href="../blog/index.html" class="tnav-link"><span class="tnav-dot" style="background:#6FF2C1"></span> Blog</a>
+    <a href="../my-team.html" class="tnav-link"><span class="tnav-dot" style="background:#8b91ac"></span> My Team</a>
+  </nav>
+  <div class="topbar-right">
+    <a href="https://claude.ai" target="_blank" class="buddy-launch-btn">🤖 AI Buddy</a>
+    <div class="topbar-stat">🔥 7</div>
+    <div class="topbar-stat">⭐ 1,240</div>
+    <div class="topbar-divider"></div>
+    <div class="topbar-avatar">DH</div>
+  </div>
+</div>
+
+<main class="page-main">
+
+  <a href="build-your-personal-brand.html" class="mission-back">← Build Your Personal Brand Doc</a>
+
+  <div class="mission-header">
+    <div class="mission-meta">
+      <span class="mission-track-pill" style="background:rgba(40,123,232,0.1); color:#287BE8; border: 1px solid rgba(40,123,232,0.2);"><span class="dot" style="background:#287BE8;"></span> Gen AI</span>
+    </div>
+    <h1 class="mission-title">Session Slides</h1>
+    <p class="mission-sub">All slides from the session with speaker notes. Expand any slide for the full script.</p>
+  </div>
+
+  <div class="mission-body">
+
+    <div>
+      
+      <div class="slide-card">
+        <div class="slide-header">
+          <span class="slide-num-badge">Slide 1</span>
+          <span class="slide-timing">0:00 - Opening</span>
+        </div>
+        <div class="slide-title-bar">
+          <div class="slide-title">Build Your Personal Brand Doc</div>
+        </div>
+        <div class="slide-body">
+          <div class="slide-bullets"><div class="slide-bullet">&gt; Answer real questions. Run one prompt. Own your brand.</div><div class="slide-bullet">&gt;</div><div class="slide-bullet">&gt; Generative AI Essentials | Micro Session</div>
+          </div>
+        </div>
+        
+          <button class="slide-notes-toggle" onclick="toggleNotes(this)">
+            <span class="toggle-icon">▶</span> Speaker Notes
+          </button>
+          <div class="slide-notes">Welcome in. This is a 30-minute session and we&#x27;re going to move fast. By the end of this, you will have a brand exploration document - your purpose, your values, your tone, your differentiators - all generated from your own words. Not a template. Not a guessed version of you. Yours. The process has three steps and we&#x27;re going to run all three together. Let&#x27;s go.</div>
+      </div>
+      <div class="slide-card">
+        <div class="slide-header">
+          <span class="slide-num-badge">Slide 2</span>
+          <span class="slide-timing">2 minutes</span>
+        </div>
+        <div class="slide-title-bar">
+          <div class="slide-title">Your Brand Already Exists</div>
+        </div>
+        <div class="slide-body">
+          <div class="slide-bullets"><div class="slide-bullet">The question is not whether you have a brand.</div><div class="slide-bullet">The question is whether you control it.</div>
+          </div>
+        </div>
+        
+          <button class="slide-notes-toggle" onclick="toggleNotes(this)">
+            <span class="toggle-icon">▶</span> Speaker Notes
+          </button>
+          <div class="slide-notes">Here&#x27;s the thing about personal brand. Whether you&#x27;ve defined it or not, people already have an impression of you. How you communicate in meetings. How you show up on LinkedIn. What you&#x27;re known for on your team. That impression exists whether you shaped it or not. Most people leave this entirely to chance. An AI Officer doesn&#x27;t leave their influence to chance. And the good news is that with AI, you can now get clarity on your brand in about 20 minutes. My friend David paid a branding agency $20,000 for this exact output. You&#x27;re doing it today for free.</div>
+      </div>
+      <div class="slide-card">
+        <div class="slide-header">
+          <span class="slide-num-badge">Slide 3</span>
+          <span class="slide-timing">3 minutes</span>
+        </div>
+        <div class="slide-title-bar">
+          <div class="slide-title">Brand = Data + Prompt</div>
+        </div>
+        <div class="slide-body">
+          <div class="slide-bullets"><div class="slide-bullet">AI is 99% accurate if you give it the right data.</div><div class="slide-bullet">Most people skip the data step.</div>
+          </div>
+        </div>
+        
+          <button class="slide-notes-toggle" onclick="toggleNotes(this)">
+            <span class="toggle-icon">▶</span> Speaker Notes
+          </button>
+          <div class="slide-notes">Here&#x27;s why most personal brand exercises fail. People ask AI to write their bio and it sounds like everyone else&#x27;s bio. Generic. Flat. That&#x27;s not an AI problem - that&#x27;s a data problem. The AI had nothing real to work with. What makes this process different is that you collect the right data first. You answer a specific set of questions - honest, specific answers - and that becomes the dataset. Then the prompt has something real to synthesize. The output sounds like you because it actually came from you.</div>
+      </div>
+      <div class="slide-card">
+        <div class="slide-header">
+          <span class="slide-num-badge">Slide 4</span>
+          <span class="slide-timing">5 minutes</span>
+        </div>
+        <div class="slide-title-bar">
+          <div class="slide-title">Step 1 - Customize Your Interview Questions</div>
+        </div>
+        <div class="slide-body">
+          <div class="slide-bullets"><div class="slide-bullet">Start with questions designed for you.</div><div class="slide-bullet">Not generic. Not borrowed. Yours.</div><div class="slide-bullet">Prompt to try right now:**</div><div class="slide-bullet">```</div><div class="slide-bullet">Here is my LinkedIn profile: [paste your profile text].</div><div class="slide-bullet">Based on my background, customize these 5 brand interview questions to make them specific to my work and experience:</div><div class="slide-bullet">1. What are you most passionate about in your field?</div><div class="slide-bullet">2. What do your best clients or colleagues rely on you for?</div><div class="slide-bullet">3. What problem do you solve that others don&#x27;t?</div><div class="slide-bullet">4. What values guide how you work?</div><div class="slide-bullet">5. What do you want to be known for in 5 years?</div><div class="slide-bullet">```</div>
+          </div>
+        </div>
+        
+          <button class="slide-notes-toggle" onclick="toggleNotes(this)">
+            <span class="toggle-icon">▶</span> Speaker Notes
+          </button>
+          <div class="slide-notes">Open ChatGPT, Claude, or Gemini right now. Paste your LinkedIn profile or a quick summary of your background. Run this prompt. It will customize those five questions to your actual experience. This matters because a generic question like &quot;what are you passionate about&quot; is hard to answer well. A question like &quot;what do your clients in the legal space rely on you for that they can&#x27;t get from other consultants&quot; - that&#x27;s easy to answer. You know the answer immediately. So take two minutes now. Get your customized questions. Then we&#x27;ll answer them.</div>
+      </div>
+      <div class="slide-card">
+        <div class="slide-header">
+          <span class="slide-num-badge">Slide 5</span>
+          <span class="slide-timing">8 minutes</span>
+        </div>
+        <div class="slide-title-bar">
+          <div class="slide-title">Step 2 - Answer the Questions</div>
+        </div>
+        <div class="slide-body">
+          <div class="slide-bullets"><div class="slide-bullet">Everyone does this now. Two minutes. Write fast. Don&#x27;t edit.</div>
+          </div>
+        </div>
+        
+          <button class="slide-notes-toggle" onclick="toggleNotes(this)">
+            <span class="toggle-icon">▶</span> Speaker Notes
+          </button>
+          <div class="slide-notes">This is the live part of the session. Take your customized questions and answer them right here, right now, in a document or directly in the chat window. Don&#x27;t overthink it. Don&#x27;t polish. Just write the first true thing that comes to mind for each question. The answers don&#x27;t need to be beautiful. They need to be honest. Here&#x27;s the thing that surprises most people when they do this - the AI is only as real as your answers. If you write vague answers, you get a vague brand. If you write something real, the output will be something you actually want to share. Give it two minutes. Pair up if you&#x27;re in the room and read your answers to each other - that helps you hear what&#x27;s actually good.</div>
+      </div>
+      <div class="slide-card">
+        <div class="slide-header">
+          <span class="slide-num-badge">Slide 6</span>
+          <span class="slide-timing">12 minutes</span>
+        </div>
+        <div class="slide-title-bar">
+          <div class="slide-title">Step 3 - Run the Brand Exploration Prompt</div>
+        </div>
+        <div class="slide-body">
+          <div class="slide-bullets"><div class="slide-bullet">Input: your questions and answers.</div><div class="slide-bullet">Output: your brand exploration document.</div><div class="slide-bullet">What comes out:**</div><div class="slide-bullet">Your purpose</div><div class="slide-bullet">Your mission</div><div class="slide-bullet">Core values</div><div class="slide-bullet">Tone of voice</div><div class="slide-bullet">Unique differentiators</div><div class="slide-bullet">Brand voice guidelines</div>
+          </div>
+        </div>
+        
+          <button class="slide-notes-toggle" onclick="toggleNotes(this)">
+            <span class="toggle-icon">▶</span> Speaker Notes
+          </button>
+          <div class="slide-notes">Now take your questions and answers and paste them into the brand exploration prompt from the prompt library. The prompt will organize your answers, identify patterns, and generate each element of your brand. Purpose - the reason you do what you do. Mission - what you&#x27;re building or working toward. Values - the principles that guide how you work. Tone - how you naturally communicate. Differentiators - what makes you specifically different. And finally, brand voice guidelines - a short guide you can store in your AI tool so future outputs sound more like you. The whole thing takes about 30 seconds to generate. Then you edit it. We find people spend about 2 to 3 hours editing before they&#x27;re happy to share it with anyone - but where it used to take weeks, now it takes a weekend.</div>
+      </div>
+      <div class="slide-card">
+        <div class="slide-header">
+          <span class="slide-num-badge">Slide 7</span>
+          <span class="slide-timing">16 minutes</span>
+        </div>
+        <div class="slide-title-bar">
+          <div class="slide-title">What a Finished Brand Doc Looks Like</div>
+        </div>
+        <div class="slide-body">
+          <div class="slide-bullets"><div class="slide-bullet">Before: scattered impressions.</div><div class="slide-bullet">After: a clear, consistent story.</div>
+          </div>
+        </div>
+        
+          <button class="slide-notes-toggle" onclick="toggleNotes(this)">
+            <span class="toggle-icon">▶</span> Speaker Notes
+          </button>
+          <div class="slide-notes">Let me show you what the output looks like when this process works. The brand exploration document has a section for each element. It&#x27;s not a word cloud or a mood board. It&#x27;s a working document - clear language that describes who you are and how to talk about it. From this document, you can write your LinkedIn summary, your bio for a conference, your introduction for a speaking engagement, the homepage of your website. Everything comes from the same source of truth. And if you want to build a full brand book with visual elements, this document is the input. You hand it to a designer or you use it to brief an image generation tool like Flow. But that&#x27;s the next step. Today you&#x27;re getting the words right.</div>
+      </div>
+      <div class="slide-card">
+        <div class="slide-header">
+          <span class="slide-num-badge">Slide 8</span>
+          <span class="slide-timing">20 minutes</span>
+        </div>
+        <div class="slide-title-bar">
+          <div class="slide-title">Your Challenge</div>
+        </div>
+        <div class="slide-body">
+          <div class="slide-bullets"><div class="slide-bullet">Complete your brand exploration doc.</div><div class="slide-bullet">Submit it to your AI Buddy.</div><div class="slide-bullet">Steps:**</div><div class="slide-bullet">1. Customize the 5 questions</div><div class="slide-bullet">2. Answer them honestly</div><div class="slide-bullet">3. Run the brand exploration prompt</div><div class="slide-bullet">4. Review and lightly edit</div><div class="slide-bullet">5. Submit</div><div class="slide-bullet">Timer: 10 minutes**</div>
+          </div>
+        </div>
+        
+          <button class="slide-notes-toggle" onclick="toggleNotes(this)">
+            <span class="toggle-icon">▶</span> Speaker Notes
+          </button>
+          <div class="slide-notes">Here is your challenge. If you&#x27;re still in the session, start now. If you&#x27;re watching the recording, do this before the end of the week. Run the full three-step process: customize the questions, answer them, run the brand exploration prompt. You&#x27;ll get a full draft of your brand document. Lightly edit it - don&#x27;t rewrite it, just refine what&#x27;s already there. Then submit it to your AI Buddy in AIO Labs. Your AI Buddy will grade it against a clear rubric: does it have all six elements, is it specific to you, does it sound like a real person instead of a template. This counts toward your Generative AI Essentials certification.</div>
+      </div>
+      <div class="slide-card">
+        <div class="slide-header">
+          <span class="slide-num-badge">Slide 9</span>
+          <span class="slide-timing">27 minutes</span>
+        </div>
+        <div class="slide-title-bar">
+          <div class="slide-title">Key Takeaway + Try This Week</div>
+        </div>
+        <div class="slide-body">
+          <div class="slide-bullets"><div class="slide-bullet">The data you collect about yourself</div><div class="slide-bullet">is the most valuable input you own.</div><div class="slide-bullet">Try this week:**</div><div class="slide-bullet">Use your brand voice guidelines as a custom instruction in ChatGPT or Claude. Every output starts sounding more like you.</div>
+          </div>
+        </div>
+        
+          <button class="slide-notes-toggle" onclick="toggleNotes(this)">
+            <span class="toggle-icon">▶</span> Speaker Notes
+          </button>
+          <div class="slide-notes">Here&#x27;s the thing that makes this session different from a typical branding exercise. The document you just created is not just for your LinkedIn. It&#x27;s a dataset. You can store the brand voice guidelines section in your AI tool as a custom instruction - and now every time you write with AI, the output sounds more like you instead of like everyone else. That is how you start to build an AI that represents you well. That is what it looks like to lead your own narrative in the 50/50 era. Thanks for being here. Complete the challenge and I&#x27;ll see you in the next one.</div>
+      </div>
+    </div>
+
+    <div>
+      
+      <div class="resource-stack-label">Micro-Session Resources</div>
+      <div class="resource-stack">
+        <a href="build-your-personal-brand-video.html" class="resource-card">
+          <div class="resource-icon" style="background:rgba(40,123,232,0.1);">▶️</div>
+          <div class="resource-info">
+            <div class="resource-tag">01 · Video</div>
+            <div class="resource-title">Session Recording</div>
+          </div>
+          <div class="resource-arrow">→</div>
+        </a>
+        <a href="build-your-personal-brand-recap.html" class="resource-card">
+          <div class="resource-icon" style="background:rgba(111,242,193,0.15);">📋</div>
+          <div class="resource-info">
+            <div class="resource-tag">02 · Recap</div>
+            <div class="resource-title">Session Recap</div>
+          </div>
+          <div class="resource-arrow">→</div>
+        </a>
+        <a href="build-your-personal-brand-prompts.html" class="resource-card">
+          <div class="resource-icon" style="background:rgba(40,123,232,0.08);">💬</div>
+          <div class="resource-info">
+            <div class="resource-tag">03 · Prompts</div>
+            <div class="resource-title">Prompt Library</div>
+          </div>
+          <div class="resource-arrow">→</div>
+        </a>
+        <a href="build-your-personal-brand-slides.html" class="resource-card active">
+          <div class="resource-icon" style="background:rgba(209,69,139,0.1);">🖼️</div>
+          <div class="resource-info">
+            <div class="resource-tag">04 · Slides</div>
+            <div class="resource-title">Session Slides</div>
+          </div>
+          <div class="resource-arrow">→</div>
+        </a>
+        <a href="build-your-personal-brand-resources.html" class="resource-card">
+          <div class="resource-icon" style="background:rgba(111,242,193,0.1);">📚</div>
+          <div class="resource-info">
+            <div class="resource-tag">05 · Resources</div>
+            <div class="resource-title">Tools &amp; Links</div>
+          </div>
+          <div class="resource-arrow">→</div>
+        </a>
+      </div>
+    </div>
+
+  </div>
+
+</main>
+
+<script>
+function toggleNotes(btn) {
+  btn.classList.toggle('open');
+  btn.nextElementSibling.classList.toggle('open');
+}
+</script>
+</body>
+</html>

@@ -7,51 +7,149 @@
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="../shared/styles.css">
 <style>
+  :root { --ease: cubic-bezier(0.4, 0, 0.2, 1); --shadow-sm: 0 1px 3px rgba(4,16,45,0.07); --shadow-hover: 0 6px 24px rgba(4,16,45,0.10); --border-hover: #b0b6cc; }
   body { background: var(--surface); }
-  .hub-main { margin-left: 0; max-width: 1100px; margin: 0 auto; padding: 40px 56px 100px; }
+  .hub-main { max-width: 1060px; margin: 0 auto; padding: 48px 40px 100px; }
 
-  .hero { background: var(--navy); border-radius: 14px; padding: 48px 52px; margin-bottom: 56px; }
-  .hero-label { font-size: 11px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: var(--mint); margin-bottom: 12px; }
-  .hero h1 { font-size: 36px; font-weight: 700; color: var(--white); line-height: 1.2; letter-spacing: -0.5px; margin-bottom: 14px; }
-  .hero h1 span { color: var(--mint); }
-  .hero p { font-size: 15px; color: rgba(255,255,255,0.55); max-width: 580px; line-height: 1.7; margin-bottom: 32px; }
-  .hero-stats { display: flex; gap: 36px; }
-  .hero-stat-num { font-size: 28px; font-weight: 700; color: var(--white); font-family: 'JetBrains Mono', monospace; margin-bottom: 2px; }
-  .hero-stat-num b { color: var(--mint); }
-  .hero-stat-label { font-size: 11px; color: rgba(255,255,255,0.35); text-transform: uppercase; letter-spacing: 0.8px; }
+  /* ── Section heads ── */
+  .section-head { display: flex; align-items: center; justify-content: space-between; margin-bottom: 16px; }
+  .section-head-title { font-size: 18px; font-weight: 700; color: var(--text-primary); letter-spacing: -0.2px; }
+  .section-head-meta { font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--text-muted); }
 
-  .track-header { display: flex; align-items: center; gap: 14px; margin: 56px 0 24px; }
-  .track-header:first-of-type { margin-top: 0; }
-  .track-pill { display: inline-flex; align-items: center; gap: 8px; font-size: 11px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; padding: 5px 14px; border-radius: 20px; }
-  .track-pill .dot { width: 6px; height: 6px; border-radius: 50%; background: currentColor; }
-  .track-pill.gen { background: rgba(209,69,139,0.1); color: #D1458B; border: 1px solid rgba(209,69,139,0.25); }
-  .track-pill.age { background: rgba(40,123,232,0.1); color: #287BE8; border: 1px solid rgba(40,123,232,0.25); }
-  .track-pill.lead { background: rgba(111,242,193,0.1); color: #1a9e74; border: 1px solid rgba(111,242,193,0.4); }
-  .track-title { font-size: 22px; font-weight: 700; letter-spacing: -0.3px; }
-  .track-count { font-size: 13px; color: var(--text-muted); margin-left: auto; font-family: 'JetBrains Mono', monospace; }
+  /* ── Up Next banner ── */
+  .upcoming-banner {
+    background: white; border: 2px solid rgba(40,123,232,0.25);
+    border-radius: 12px; padding: 24px 26px; margin-bottom: 8px;
+    text-decoration: none; color: inherit; display: block;
+    transition: box-shadow 0.15s, border-color 0.15s;
+  }
+  .upcoming-banner:hover { box-shadow: var(--shadow-hover); border-color: rgba(40,123,232,0.45); }
+  .upcoming-tag {
+    display: inline-flex; align-items: center; gap: 6px;
+    font-size: 10px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase;
+    color: #287BE8; background: rgba(40,123,232,0.08);
+    border: 1px solid rgba(40,123,232,0.2); border-radius: 5px;
+    padding: 3px 10px; margin-bottom: 14px;
+  }
+  .upcoming-tag-dot { width: 5px; height: 5px; border-radius: 50%; background: #287BE8; animation: pulse 2s infinite; }
+  @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.4; } }
+  .upcoming-track-pill {
+    font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px;
+    padding: 3px 9px; border-radius: 5px; margin-left: 8px;
+  }
+  .upcoming-track-pill.gen { background: rgba(209,69,139,0.1); color: #D1458B; }
+  .upcoming-track-pill.age { background: rgba(40,123,232,0.1); color: #287BE8; }
+  .upcoming-track-pill.lead { background: rgba(26,158,116,0.1); color: #1a9e74; }
+  .upcoming-date {
+    font-size: 12px; font-weight: 700; color: var(--text-muted);
+    font-family: 'JetBrains Mono', monospace; margin-bottom: 8px;
+    text-transform: uppercase; letter-spacing: 0.5px;
+  }
+  .upcoming-title {
+    font-size: 20px; font-weight: 700; color: var(--text-primary);
+    letter-spacing: -0.3px; line-height: 1.25; margin-bottom: 10px;
+  }
+  .upcoming-desc { font-size: 14px; color: var(--text-secondary); line-height: 1.65; margin-bottom: 18px; }
+  .upcoming-meta {
+    display: flex; align-items: center; gap: 14px;
+    padding-top: 14px; border-top: 1px solid var(--surface);
+    font-size: 12px; color: var(--text-muted);
+    font-family: 'JetBrains Mono', monospace;
+  }
+  .upcoming-meta strong { color: var(--text-secondary); }
 
-  .mgrid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 16px; }
-  .mcard { background: var(--card-bg); border: 1px solid var(--border); border-radius: 12px; padding: 24px; text-decoration: none; color: inherit; display: flex; flex-direction: column; gap: 10px; transition: box-shadow 0.15s, border-color 0.15s; }
-  .mcard:hover { box-shadow: 0 4px 20px rgba(4,16,45,0.08); border-color: rgba(40,123,232,0.3); }
-  .mcard-top { display: flex; align-items: center; justify-content: space-between; }
-  .mcard-badge { font-family: 'JetBrains Mono', monospace; font-size: 11px; font-weight: 500; padding: 3px 9px; border-radius: 5px; }
-  .mcard-badge.gen { background: rgba(209,69,139,0.1); color: #D1458B; }
-  .mcard-badge.age { background: rgba(40,123,232,0.1); color: #287BE8; }
-  .mcard-badge.lead { background: rgba(26,158,116,0.1); color: #1a9e74; }
-  .mcard-arrow { font-size: 14px; color: var(--text-muted); transition: color 0.15s; }
-  .mcard:hover .mcard-arrow { color: var(--blue); }
-  .mcard-title { font-size: 16px; font-weight: 600; line-height: 1.3; letter-spacing: -0.2px; }
-  .mcard-desc { font-size: 13px; color: var(--text-muted); line-height: 1.55; flex: 1; }
+  /* ── Session cards grid ── */
+  .sessions-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  .session-card {
+    background: white; border: 1px solid var(--border);
+    border-radius: 12px; padding: 20px 22px;
+    display: flex; flex-direction: column; gap: 10px;
+    box-shadow: var(--shadow-sm);
+    text-decoration: none; color: inherit;
+    transition: all 0.15s var(--ease);
+  }
+  .session-card:hover { border-color: rgba(40,123,232,0.3); box-shadow: var(--shadow-hover); transform: translateY(-1px); }
+  .session-card.hidden { display: none; }
+  .session-card-top { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
+  .session-track-pill {
+    font-size: 10px; font-weight: 700; letter-spacing: 0.5px;
+    text-transform: uppercase; padding: 3px 8px; border-radius: 5px;
+  }
+  .session-track-pill.gen { background: rgba(209,69,139,0.1); color: #D1458B; }
+  .session-track-pill.age { background: rgba(40,123,232,0.1); color: #287BE8; }
+  .session-track-pill.lead { background: rgba(26,158,116,0.1); color: #1a9e74; }
+  .session-title { font-size: 15px; font-weight: 700; color: var(--text-primary); letter-spacing: -0.2px; line-height: 1.3; }
+  .session-desc { font-size: 13px; color: var(--text-secondary); line-height: 1.6; flex: 1; }
+  .session-footer {
+    display: flex; align-items: center; justify-content: space-between;
+    padding-top: 10px; border-top: 1px solid var(--surface);
+  }
+  .session-time { font-size: 11px; color: var(--text-muted); font-family: 'JetBrains Mono', monospace; }
+  .session-arrow { font-size: 13px; color: var(--text-muted); transition: color 0.12s; }
+  .session-card:hover .session-arrow { color: #287BE8; }
 
+  /* Empty state */
+  .no-sessions { display: none; padding: 48px; text-align: center; color: var(--text-muted); font-size: 14px; }
+  .no-sessions.visible { display: block; }
+
+  /* Footer */
   .hub-footer { margin-top: 64px; padding-top: 24px; border-top: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; color: var(--text-muted); font-size: 13px; }
   .hub-footer-brand { font-weight: 600; color: var(--text-secondary); }
   .hub-footer-brand span { color: var(--blue); }
 
+  /* ── Two-column body ── */
+  .hub-body { display: grid; grid-template-columns: 1fr 320px; gap: 28px; align-items: start; }
+
+  /* ── Sidebar ── */
+  .sidebar-panel {
+    background: white; border: 1px solid var(--border);
+    border-radius: 12px; overflow: hidden;
+    box-shadow: var(--shadow-sm); position: sticky; top: 76px;
+  }
+  .submit-panel-header {
+    padding: 20px 24px 0; border-bottom: 1px solid var(--border); padding-bottom: 18px;
+  }
+  .submit-panel-title { font-size: 15px; font-weight: 700; color: var(--text-primary); margin-bottom: 4px; }
+  .submit-panel-sub { font-size: 12px; color: var(--text-muted); line-height: 1.5; }
+  .submit-panel-body { padding: 20px 24px; }
+  .submit-deadline {
+    display: flex; align-items: flex-start; gap: 10px;
+    background: var(--surface); border-radius: 8px; padding: 10px 14px;
+    margin-bottom: 18px;
+  }
+  .submit-deadline-icon { font-size: 16px; flex-shrink: 0; }
+  .submit-deadline-text { font-size: 12px; font-weight: 600; color: var(--text-secondary); }
+  .submit-deadline-sub { font-size: 11px; color: var(--text-muted); margin-top: 2px; }
+  .form-label { display: block; font-size: 11px; font-weight: 700; letter-spacing: 0.5px; text-transform: uppercase; color: var(--text-muted); margin-bottom: 6px; margin-top: 14px; }
+  .form-input {
+    width: 100%; padding: 9px 12px; border: 1px solid var(--border);
+    border-radius: 7px; font-size: 13px; font-family: 'DM Sans', sans-serif;
+    color: var(--text-primary); background: white; outline: none;
+    transition: border-color 0.15s;
+  }
+  .form-input:focus { border-color: var(--blue); }
+  .form-textarea { height: 88px; resize: vertical; }
+  .form-input-row { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+  .submit-btn {
+    width: 100%; margin-top: 16px; padding: 11px;
+    background: var(--blue); color: white; border: none; border-radius: 8px;
+    font-size: 13px; font-weight: 700; cursor: pointer; font-family: 'DM Sans', sans-serif;
+    transition: background 0.15s;
+  }
+  .submit-btn:hover { background: #1a6dd0; }
+  .submit-note { font-size: 11px; color: var(--text-muted); line-height: 1.5; margin-top: 12px; }
+  .schedule-info { padding: 20px 24px; border-top: 1px solid var(--border); }
+  .schedule-info-title { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.8px; color: var(--text-muted); margin-bottom: 14px; }
+  .schedule-row { display: flex; align-items: flex-start; gap: 10px; margin-bottom: 12px; }
+  .schedule-row-icon { font-size: 14px; flex-shrink: 0; margin-top: 1px; }
+  .schedule-row-text { font-size: 13px; color: var(--text-secondary); line-height: 1.5; }
+  .schedule-row-text strong { color: var(--text-primary); }
+
   @media (max-width: 900px) {
-    .hub-main { padding: 70px 20px 80px; }
-    .hero { padding: 32px 24px; }
-    .hero h1 { font-size: 26px; }
-    .mgrid { grid-template-columns: 1fr; }
+    .hub-main { padding: 32px 20px 80px; }
+    .sessions-grid { grid-template-columns: 1fr; }
+    .hub-body { grid-template-columns: 1fr; }
+    .sidebar-panel { position: static; }
   }
 </style>
 </head>
@@ -59,9 +157,7 @@
 
 <div class="topbar">
   <a href="../index.html" class="topbar-brand">AIO <span>Labs</span></a>
-  <nav class="topbar-nav">
-    <a href="../index.html" class="tnav-link"><span class="tnav-dot" style="background:#8b91ac"></span> Home</a>
-    <a href="../certification.html" class="tnav-link"><span class="tnav-dot" style="background:#287BE8"></span> Certification</a>
+  <nav class="topbar-nav">    <a href="../certification.html" class="tnav-link"><span class="tnav-dot" style="background:#287BE8"></span> Certification</a>
     <a href="../coaching.html" class="tnav-link"><span class="tnav-dot" style="background:#287BE8"></span> Coaching</a>
     <a href="index.html" class="tnav-link active"><span class="tnav-dot" style="background:#1A9E74"></span> Micro-Sessions</a>
     <a href="../blog/index.html" class="tnav-link"><span class="tnav-dot" style="background:#6FF2C1"></span> Blog</a>
@@ -82,125 +178,288 @@
     <h1>Focused Skills, <span class="accent">Real-World Results</span></h1>
     <p class="hero-subtitle">25-minute sessions on the AI tools and strategies leaders are using right now. No theory. Just practice.</p>
     <div class="hero-pills">
-    <span class="pill pill-blue">Agentic AI</span>
-    <span class="pill pill-mint">Gen AI</span>
-    <span class="pill pill-mag">Tools & Strategy</span>
+      <span class="pill pill-mint">Timely Topics</span>
+      <span class="pill pill-navy">Every Tuesday</span>
+      <span class="pill pill-navy">4:00 – 5:00 PM GMT+7</span>
     </div>
   </div>
 </section>
+
 <div class="layout">
   <main class="hub-main">
-    <div class="mgrid">
-      <a href="ai-browsers.html" class="mcard">
-        <div class="mcard-top"><span class="mcard-badge gen">Generative AI</span><span class="mcard-arrow">→</span></div>
-        <div class="mcard-title">AI Browsers: Working Smarter</div>
-        <div class="mcard-desc">How AI-native browsers change the way you research, summarize, and act on information — and what that means for your team.</div>
-      </a>
-      <a href="ai-shopping.html" class="mcard">
-        <div class="mcard-top"><span class="mcard-badge gen">Generative AI</span><span class="mcard-arrow">→</span></div>
-        <div class="mcard-title">AI Shopping: The End of Browse and Click</div>
-        <div class="mcard-desc">AI is replacing the search bar in commerce. Learn what this shift means for revenue strategy and how AI Officers should respond.</div>
-      </a>
-      <a href="build-your-digital-twin.html" class="mcard">
-        <div class="mcard-top"><span class="mcard-badge gen">Generative AI</span><span class="mcard-arrow">→</span></div>
-        <div class="mcard-title">Build Your Digital Twin</div>
-        <div class="mcard-desc">Create an AI version of yourself that can answer questions, draft in your voice, and represent your thinking — without you in the room.</div>
-      </a>
-      <a href="build-your-personal-brand.html" class="mcard">
-        <div class="mcard-top"><span class="mcard-badge gen">Generative AI</span><span class="mcard-arrow">→</span></div>
-        <div class="mcard-title">Build Your Personal Brand Doc</div>
-        <div class="mcard-desc">Use AI to define and document your professional identity so every piece of content sounds like you — consistently.</div>
-      </a>
-      <a href="deep-research.html" class="mcard">
-        <div class="mcard-top"><span class="mcard-badge gen">Generative AI</span><span class="mcard-arrow">→</span></div>
-        <div class="mcard-title">Deep Research</div>
-        <div class="mcard-desc">Go beyond basic search. Use AI to conduct structured research, synthesize sources, and produce briefings your team can act on.</div>
-      </a>
-      <a href="from-one-post-to-every-platform.html" class="mcard">
-        <div class="mcard-top"><span class="mcard-badge gen">Generative AI</span><span class="mcard-arrow">→</span></div>
-        <div class="mcard-title">From One Post To Every Platform</div>
-        <div class="mcard-desc">Write once, distribute everywhere. Build an AI workflow that adapts a single piece of content for LinkedIn, X, email, and more.</div>
-      </a>
-      <a href="prompting-101-video.html" class="mcard">
-        <div class="mcard-top"><span class="mcard-badge gen">Generative AI</span><span class="mcard-arrow">→</span></div>
-        <div class="mcard-title">Prompting 101: Video</div>
-        <div class="mcard-desc">Apply prompting frameworks to video scripts and briefs. Get consistent, on-brand video output from AI tools.</div>
-      </a>
-      <a href="seo-or-geo.html" class="mcard">
-        <div class="mcard-top"><span class="mcard-badge gen">Generative AI</span><span class="mcard-arrow">→</span></div>
-        <div class="mcard-title">SEO or GEO: Write Content AI Will Cite</div>
-        <div class="mcard-desc">Search is changing. Learn how to write content that ranks in both traditional search and AI-generated answers.</div>
-      </a>
+  <div class="hub-body">
+
+    <!-- ═══ Main column ═══ -->
+    <div>
+
+    <!-- ── Up Next ── -->
+    <div class="section-head">
+      <span class="section-head-title">Up Next</span>
+      <span class="section-head-meta">Tue, 31 Mar &middot; 4:00 PM GMT+7</span>
     </div>
 
-    <div class="track-header">
-      <span class="track-pill age"><span class="dot"></span>Agentic AI</span>
-      <span class="track-title">Agentic AI Essentials</span>
-      <span class="track-count">8 sessions</span>
-    </div>
-    <div class="mgrid">
-      <a href="claude-cowork-first-workflow.html" class="mcard">
-        <div class="mcard-top"><span class="mcard-badge age">Agentic AI</span><span class="mcard-arrow">→</span></div>
-        <div class="mcard-title">Your First Cowork Workflow</div>
-        <div class="mcard-desc">Build your first AI-assisted workflow using Claude Cowork — from problem framing to shipping a working automation.</div>
-      </a>
-      <a href="build-your-ai-team-paperclip.html" class="mcard">
-        <div class="mcard-top"><span class="mcard-badge age">Agentic AI</span><span class="mcard-arrow">→</span></div>
-        <div class="mcard-title">Build Your AI Team with Paperclip</div>
-        <div class="mcard-desc">Orchestrate multiple AI agents working in parallel toward a single goal using Paperclip — the open-source tool for building AI teams.</div>
-      </a>
-      <a href="claude-code-for-non-coders.html" class="mcard">
-        <div class="mcard-top"><span class="mcard-badge age">Agentic AI</span><span class="mcard-arrow">→</span></div>
-        <div class="mcard-title">Claude Code for Non-Coders</div>
-        <div class="mcard-desc">You don't need to write code to use Claude Code. Learn how to direct it, review its work, and ship real outputs as a non-technical leader.</div>
-      </a>
-      <a href="claude-dispatch.html" class="mcard">
-        <div class="mcard-top"><span class="mcard-badge age">Agentic AI</span><span class="mcard-arrow">→</span></div>
-        <div class="mcard-title">Claude Dispatch: Build Your Decision Architecture</div>
-        <div class="mcard-desc">Design a system where AI handles routing, triage, and first response — so your team only sees what needs a human decision.</div>
-      </a>
-      <a href="cowork-and-calendar.html" class="mcard">
-        <div class="mcard-top"><span class="mcard-badge age">Agentic AI</span><span class="mcard-arrow">→</span></div>
-        <div class="mcard-title">Cowork + Calendar: Let AI Prep Your Week</div>
-        <div class="mcard-desc">Connect Claude Cowork to your calendar and let it do the prep work — briefings, agendas, and follow-ups — before you even open a meeting.</div>
-      </a>
-      <a href="how-to-brief-an-ai-agent.html" class="mcard">
-        <div class="mcard-top"><span class="mcard-badge age">Agentic AI</span><span class="mcard-arrow">→</span></div>
-        <div class="mcard-title">How to Brief an AI Agent</div>
-        <div class="mcard-desc">Most agent failures start with a bad brief. Learn the structure that gets consistent results from any AI agent you deploy.</div>
-      </a>
-      <a href="paperclip-pipelines.html" class="mcard">
-        <div class="mcard-top"><span class="mcard-badge age">Agentic AI</span><span class="mcard-arrow">→</span></div>
-        <div class="mcard-title">Paperclip Pipelines</div>
-        <div class="mcard-desc">Build a multi-step AI workflow that runs without you — using Paperclip to chain agents, triggers, and outputs into a repeatable pipeline.</div>
-      </a>
-      <a href="the-command-line.html" class="mcard">
-        <div class="mcard-top"><span class="mcard-badge age">Agentic AI</span><span class="mcard-arrow">→</span></div>
-        <div class="mcard-title">The Command Line: The Door to Every Powerful AI Tool</div>
-        <div class="mcard-desc">Understand what the command line is, why it matters for AI Officers, and how to use it to unlock tools your browser can't reach.</div>
-      </a>
+    <a href="#" class="upcoming-banner" data-track="lead">
+      <div class="upcoming-tag">
+        <span class="upcoming-tag-dot"></span> Next Session
+        <span class="upcoming-track-pill lead">Leadership</span>
+      </div>
+      <div class="upcoming-date">Tuesday, 31 Mar 2026 &middot; 4:00 PM GMT+7</div>
+      <h2 class="upcoming-title">The AI Officer Handbook: Governance, Risk &amp; Policy</h2>
+      <p class="upcoming-desc">Build the internal frameworks that let your team use AI confidently — covering usage policies, risk classification, model governance, and how to review AI decisions before they ship.</p>
+      <div class="upcoming-meta">
+        <span>⏱ 25 min</span>
+        <span>·</span>
+        <span><strong>Leadership</strong> track</span>
+        <span>·</span>
+        <span>Earns certification credit</span>
+      </div>
+    </a>
+
+    <!-- ── Session Library ── -->
+    <div class="section-head" style="margin-top: 48px;">
+      <span class="section-head-title">Session Library</span>
+      <div class="filter-tabs">
+        <button class="filter-tab all active" onclick="filterSessions('all')">All</button>
+        <button class="filter-tab gen" onclick="filterSessions('gen')"><span class="dot" style="background:#D1458B"></span> Generative AI</button>
+        <button class="filter-tab age" onclick="filterSessions('age')"><span class="dot" style="background:#287BE8"></span> Agentic AI</button>
+        <button class="filter-tab lead" onclick="filterSessions('lead')"><span class="dot" style="background:#1a9e74"></span> Leadership</button>
+      </div>
     </div>
 
-    <div class="track-header">
-      <span class="track-pill lead"><span class="dot"></span>Leadership</span>
-      <span class="track-title">Leadership in the AI Era</span>
-      <span class="track-count">1 session</span>
-    </div>
-    <div class="mgrid">
-      <a href="agents-compared.html" class="mcard">
-        <div class="mcard-top"><span class="mcard-badge lead">Leadership</span><span class="mcard-arrow">→</span></div>
-        <div class="mcard-title">Agents Compared: Which Platform Is Right for Your Team?</div>
-        <div class="mcard-desc">A decision framework for evaluating AI agent platforms — so you can make the right call for your organization's maturity, budget, and goals.</div>
+    <div class="sessions-grid" id="sessionsGrid">
+
+      <!-- Generative AI -->
+      <a href="ai-browsers.html" class="session-card" data-track="gen">
+        <div class="session-card-top"><span class="session-track-pill gen">Generative AI</span><span class="session-arrow">→</span></div>
+        <div class="session-title">AI Browsers: Working Smarter</div>
+        <div class="session-desc">How AI-native browsers change the way you research, summarize, and act on information — and what that means for your team.</div>
+        <div class="session-footer"><span class="session-time">⏱ 25 min</span></div>
       </a>
+
+      <a href="ai-shopping.html" class="session-card" data-track="gen">
+        <div class="session-card-top"><span class="session-track-pill gen">Generative AI</span><span class="session-arrow">→</span></div>
+        <div class="session-title">AI Shopping: The End of Browse and Click</div>
+        <div class="session-desc">AI is replacing the search bar in commerce. Learn what this shift means for revenue strategy and how AI Officers should respond.</div>
+        <div class="session-footer"><span class="session-time">⏱ 25 min</span></div>
+      </a>
+
+      <a href="build-your-digital-twin.html" class="session-card" data-track="gen">
+        <div class="session-card-top"><span class="session-track-pill gen">Generative AI</span><span class="session-arrow">→</span></div>
+        <div class="session-title">Build Your Digital Twin</div>
+        <div class="session-desc">Create an AI version of yourself that can answer questions, draft in your voice, and represent your thinking — without you in the room.</div>
+        <div class="session-footer"><span class="session-time">⏱ 25 min</span></div>
+      </a>
+
+      <a href="build-your-personal-brand.html" class="session-card" data-track="gen">
+        <div class="session-card-top"><span class="session-track-pill gen">Generative AI</span><span class="session-arrow">→</span></div>
+        <div class="session-title">Build Your Personal Brand Doc</div>
+        <div class="session-desc">Use AI to define and document your professional identity so every piece of content sounds like you — consistently.</div>
+        <div class="session-footer"><span class="session-time">⏱ 25 min</span></div>
+      </a>
+
+      <a href="deep-research.html" class="session-card" data-track="gen">
+        <div class="session-card-top"><span class="session-track-pill gen">Generative AI</span><span class="session-arrow">→</span></div>
+        <div class="session-title">Deep Research</div>
+        <div class="session-desc">Go beyond basic search. Use AI to conduct structured research, synthesize sources, and produce briefings your team can act on.</div>
+        <div class="session-footer"><span class="session-time">⏱ 25 min</span></div>
+      </a>
+
+      <a href="from-one-post-to-every-platform.html" class="session-card" data-track="gen">
+        <div class="session-card-top"><span class="session-track-pill gen">Generative AI</span><span class="session-arrow">→</span></div>
+        <div class="session-title">From One Post To Every Platform</div>
+        <div class="session-desc">Write once, distribute everywhere. Build an AI workflow that adapts a single piece of content for LinkedIn, X, email, and more.</div>
+        <div class="session-footer"><span class="session-time">⏱ 25 min</span></div>
+      </a>
+
+      <a href="prompting-101-video.html" class="session-card" data-track="gen">
+        <div class="session-card-top"><span class="session-track-pill gen">Generative AI</span><span class="session-arrow">→</span></div>
+        <div class="session-title">Prompting 101: Video</div>
+        <div class="session-desc">Apply prompting frameworks to video scripts and briefs. Get consistent, on-brand video output from AI tools.</div>
+        <div class="session-footer"><span class="session-time">⏱ 25 min</span></div>
+      </a>
+
+      <a href="seo-or-geo.html" class="session-card" data-track="gen">
+        <div class="session-card-top"><span class="session-track-pill gen">Generative AI</span><span class="session-arrow">→</span></div>
+        <div class="session-title">SEO or GEO: Write Content AI Will Cite</div>
+        <div class="session-desc">Search is changing. Learn how to write content that ranks in both traditional search and AI-generated answers.</div>
+        <div class="session-footer"><span class="session-time">⏱ 25 min</span></div>
+      </a>
+
+      <!-- Agentic AI -->
+      <a href="claude-cowork-first-workflow.html" class="session-card" data-track="age">
+        <div class="session-card-top"><span class="session-track-pill age">Agentic AI</span><span class="session-arrow">→</span></div>
+        <div class="session-title">Your First Cowork Workflow</div>
+        <div class="session-desc">Build your first AI-assisted workflow using Claude Cowork — from problem framing to shipping a working automation.</div>
+        <div class="session-footer"><span class="session-time">⏱ 25 min</span></div>
+      </a>
+
+      <a href="build-your-ai-team-paperclip.html" class="session-card" data-track="age">
+        <div class="session-card-top"><span class="session-track-pill age">Agentic AI</span><span class="session-arrow">→</span></div>
+        <div class="session-title">Build Your AI Team with Paperclip</div>
+        <div class="session-desc">Orchestrate multiple AI agents working in parallel toward a single goal using Paperclip — the open-source tool for building AI teams.</div>
+        <div class="session-footer"><span class="session-time">⏱ 25 min</span></div>
+      </a>
+
+      <a href="claude-code-for-non-coders.html" class="session-card" data-track="age">
+        <div class="session-card-top"><span class="session-track-pill age">Agentic AI</span><span class="session-arrow">→</span></div>
+        <div class="session-title">Claude Code for Non-Coders</div>
+        <div class="session-desc">You don't need to write code to use Claude Code. Learn how to direct it, review its work, and ship real outputs as a non-technical leader.</div>
+        <div class="session-footer"><span class="session-time">⏱ 25 min</span></div>
+      </a>
+
+      <a href="claude-dispatch.html" class="session-card" data-track="age">
+        <div class="session-card-top"><span class="session-track-pill age">Agentic AI</span><span class="session-arrow">→</span></div>
+        <div class="session-title">Claude Dispatch: Build Your Decision Architecture</div>
+        <div class="session-desc">Design a system where AI handles routing, triage, and first response — so your team only sees what needs a human decision.</div>
+        <div class="session-footer"><span class="session-time">⏱ 25 min</span></div>
+      </a>
+
+      <a href="cowork-and-calendar.html" class="session-card" data-track="age">
+        <div class="session-card-top"><span class="session-track-pill age">Agentic AI</span><span class="session-arrow">→</span></div>
+        <div class="session-title">Cowork + Calendar: Let AI Prep Your Week</div>
+        <div class="session-desc">Connect Claude Cowork to your calendar and let it do the prep work — briefings, agendas, and follow-ups — before you even open a meeting.</div>
+        <div class="session-footer"><span class="session-time">⏱ 25 min</span></div>
+      </a>
+
+      <a href="how-to-brief-an-ai-agent.html" class="session-card" data-track="age">
+        <div class="session-card-top"><span class="session-track-pill age">Agentic AI</span><span class="session-arrow">→</span></div>
+        <div class="session-title">How to Brief an AI Agent</div>
+        <div class="session-desc">Most agent failures start with a bad brief. Learn the structure that gets consistent results from any AI agent you deploy.</div>
+        <div class="session-footer"><span class="session-time">⏱ 25 min</span></div>
+      </a>
+
+      <a href="paperclip-pipelines.html" class="session-card" data-track="age">
+        <div class="session-card-top"><span class="session-track-pill age">Agentic AI</span><span class="session-arrow">→</span></div>
+        <div class="session-title">Paperclip Pipelines</div>
+        <div class="session-desc">Build a multi-step AI workflow that runs without you — using Paperclip to chain agents, triggers, and outputs into a repeatable pipeline.</div>
+        <div class="session-footer"><span class="session-time">⏱ 25 min</span></div>
+      </a>
+
+      <a href="the-command-line.html" class="session-card" data-track="age">
+        <div class="session-card-top"><span class="session-track-pill age">Agentic AI</span><span class="session-arrow">→</span></div>
+        <div class="session-title">The Command Line: The Door to Every Powerful AI Tool</div>
+        <div class="session-desc">Understand what the command line is, why it matters for AI Officers, and how to use it to unlock tools your browser can't reach.</div>
+        <div class="session-footer"><span class="session-time">⏱ 25 min</span></div>
+      </a>
+
+      <!-- Leadership -->
+      <a href="agents-compared.html" class="session-card" data-track="lead">
+        <div class="session-card-top"><span class="session-track-pill lead">Leadership</span><span class="session-arrow">→</span></div>
+        <div class="session-title">Agents Compared: Which Platform Is Right for Your Team?</div>
+        <div class="session-desc">A decision framework for evaluating AI agent platforms — so you can make the right call for your organization's maturity, budget, and goals.</div>
+        <div class="session-footer"><span class="session-time">⏱ 25 min</span></div>
+      </a>
+
     </div>
+    <div class="no-sessions" id="noSessions">No sessions in this track yet.</div>
+
+    </div><!-- /.main column -->
+
+    <!-- ═══ Sidebar ═══ -->
+    <div>
+      <div class="sidebar-panel">
+
+        <div class="submit-panel-header">
+          <div class="submit-panel-title">Submit a Topic for Consideration</div>
+          <div class="submit-panel-sub">Got something you want covered? Every submission gets reviewed — the most-requested topics become sessions.</div>
+        </div>
+
+        <div class="submit-panel-body">
+          <div class="submit-deadline">
+            <div class="submit-deadline-icon">⏰</div>
+            <div>
+              <div class="submit-deadline-text">Submit by Monday midnight</div>
+              <div class="submit-deadline-sub">GMT+7 · Topics reviewed Tuesday AM</div>
+            </div>
+          </div>
+
+          <form onsubmit="handleSubmit(event)">
+            <label class="form-label">Your name</label>
+            <div class="form-input-row">
+              <input type="text" class="form-input" placeholder="First name" required>
+              <input type="text" class="form-input" placeholder="Last name">
+            </div>
+
+            <label class="form-label">Your role</label>
+            <input type="text" class="form-input" placeholder="e.g. Marketing Manager, Bangkok" required>
+
+            <label class="form-label">Topic suggestion</label>
+            <textarea class="form-input form-textarea" placeholder="What do you want a session on? Be as specific as you can — the tool, the use case, the challenge." required></textarea>
+
+            <label class="form-label">Why does this matter for AI leaders?</label>
+            <textarea class="form-input" style="height:72px;" placeholder="Who else on your team would benefit, and why now?"></textarea>
+
+            <button type="submit" class="submit-btn">Submit for Tuesday →</button>
+          </form>
+
+          <div class="submit-note" id="submit-confirm" style="display:none; color:#1a9e74; font-weight:600;">
+            ✓ Submitted! We'll review it before Tuesday's session.
+          </div>
+          <div class="submit-note">
+            Topics are reviewed by Dave personally. High-demand submissions get their own dedicated session.
+          </div>
+        </div>
+
+        <div class="schedule-info">
+          <div class="schedule-info-title">Session Details</div>
+          <div class="schedule-row">
+            <span class="schedule-row-icon">📅</span>
+            <div class="schedule-row-text"><strong>Every Tuesday</strong><br>Weekly, timely topics</div>
+          </div>
+          <div class="schedule-row">
+            <span class="schedule-row-icon">🕐</span>
+            <div class="schedule-row-text"><strong>4:00 – 5:00 PM</strong><br>GMT+7 (Bangkok / Hanoi / Jakarta)</div>
+          </div>
+          <div class="schedule-row">
+            <span class="schedule-row-icon">⏱</span>
+            <div class="schedule-row-text"><strong>25 minutes</strong><br>Focused, no-fluff format</div>
+          </div>
+          <div class="schedule-row">
+            <span class="schedule-row-icon">📬</span>
+            <div class="schedule-row-text"><strong>Submit by Mon midnight</strong><br>GMT+7 to be considered</div>
+          </div>
+        </div>
+
+      </div>
+    </div><!-- /.sidebar -->
+
+  </div><!-- /.hub-body -->
 
     <footer class="hub-footer">
       <div><span class="hub-footer-brand">AIO <span>Labs</span></span></div>
-      <div>Micro-Sessions &mdash; 30 min each &mdash; earn certification credits</div>
+      <div>17 sessions · 25 min each · earn certification credits</div>
     </footer>
 
   </main>
 </div>
+
+<script>
+function handleSubmit(e) {
+  e.preventDefault();
+  e.target.style.display = 'none';
+  document.getElementById('submit-confirm').style.display = 'block';
+}
+function filterSessions(track) {
+  // Update active button
+  document.querySelectorAll('.filter-tab').forEach(btn => btn.classList.remove('active'));
+  document.querySelector(`.filter-tab.${track}`).classList.add('active');
+
+  // Show/hide cards
+  const cards = document.querySelectorAll('.session-card');
+  let visible = 0;
+  cards.forEach(card => {
+    const show = track === 'all' || card.dataset.track === track;
+    card.classList.toggle('hidden', !show);
+    if (show) visible++;
+  });
+
+  // Update count in section head meta
+  const meta = document.querySelector('.section-head:last-of-type .section-head-meta');
+  // Empty state
+  const empty = document.getElementById('noSessions');
+  empty.classList.toggle('visible', visible === 0);
+}
+</script>
 
 </body>
 </html>

@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Session Slides: Claude Dispatch: Build Your Decision Architecture — AI Officer Institute</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../shared/styles.css">
+<style>
+
+  :root {
+    --ease: cubic-bezier(0.4, 0, 0.2, 1);
+    --radius: 12px;
+    --shadow-sm: 0 1px 3px rgba(4,16,45,0.07);
+    --text-primary: #1a1f36;
+    --text-secondary: #4a5068;
+    --text-muted: #6b7194;
+    --border: #d8dce8;
+    --surface: #f4f6fa;
+    --card-bg: #ffffff;
+  }
+
+  body { background: var(--surface); font-family: 'DM Sans', sans-serif; -webkit-font-smoothing: antialiased; color: var(--text-primary); line-height: 1.7; }
+
+  .page-main { max-width: 1060px; margin: 0 auto; padding: 80px 40px 100px; }
+
+  .mission-back {
+    display: inline-flex; align-items: center; gap: 6px;
+    font-size: 13px; font-weight: 600; color: var(--text-muted);
+    text-decoration: none; margin-bottom: 28px; transition: color 0.12s;
+  }
+  .mission-back:hover { color: var(--text-primary); }
+
+  .mission-header { margin-bottom: 32px; }
+  .mission-meta { display: flex; align-items: center; gap: 10px; margin-bottom: 14px; }
+  .mission-track-pill {
+    display: inline-flex; align-items: center; gap: 7px;
+    font-size: 11px; font-weight: 700; letter-spacing: 0.7px; text-transform: uppercase;
+    padding: 5px 12px; border-radius: 20px;
+  }
+  .mission-track-pill .dot { width: 5px; height: 5px; border-radius: 50%; }
+  .mission-title { font-size: 34px; font-weight: 700; color: var(--text-primary); letter-spacing: -0.5px; line-height: 1.15; margin-bottom: 10px; }
+  .mission-sub { font-size: 15px; color: var(--text-secondary); line-height: 1.6; max-width: 620px; }
+
+  .mission-body { display: grid; grid-template-columns: 1fr 300px; gap: 24px; align-items: start; }
+
+  .content-card {
+    background: var(--card-bg); border: 1px solid var(--border);
+    border-radius: var(--radius); padding: 24px 28px;
+    box-shadow: var(--shadow-sm); margin-bottom: 16px;
+  }
+  .card-label { font-size: 10px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: #287BE8; margin-bottom: 14px; }
+  .card-heading { font-size: 16px; font-weight: 700; color: var(--text-primary); margin-bottom: 14px; letter-spacing: -0.2px; }
+  .card-text { font-size: 14px; color: var(--text-secondary); line-height: 1.65; margin-bottom: 12px; }
+  .card-text:last-child { margin-bottom: 0; }
+
+  /* Resource sidebar */
+  .resource-stack-label { font-size: 10px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: var(--text-muted); margin-bottom: 4px; }
+  .resource-stack { display: flex; flex-direction: column; gap: 8px; }
+  .resource-card {
+    background: var(--card-bg); border: 1px solid var(--border);
+    border-radius: var(--radius); padding: 14px 16px;
+    text-decoration: none; color: inherit;
+    display: flex; align-items: center; gap: 12px;
+    box-shadow: var(--shadow-sm); transition: all 0.15s var(--ease);
+  }
+  .resource-card:hover { border-color: rgba(40,123,232,0.35); box-shadow: 0 4px 16px rgba(4,16,45,0.09); transform: translateY(-1px); }
+  .resource-card.active { border-color: rgba(40,123,232,0.4); background: rgba(40,123,232,0.04); }
+  .resource-icon { width: 36px; height: 36px; border-radius: 9px; flex-shrink: 0; display: flex; align-items: center; justify-content: center; font-size: 16px; }
+  .resource-info { flex: 1; min-width: 0; }
+  .resource-tag { font-size: 10px; font-weight: 700; letter-spacing: 0.7px; text-transform: uppercase; color: var(--text-muted); margin-bottom: 1px; }
+  .resource-title { font-size: 13px; font-weight: 700; color: var(--text-primary); }
+  .resource-arrow { font-size: 13px; color: var(--text-muted); flex-shrink: 0; }
+  .resource-card.active .resource-arrow { color: #287BE8; }
+
+  @media (max-width: 900px) {
+    .page-main { padding: 70px 20px 80px; }
+    .mission-body { grid-template-columns: 1fr; }
+  }
+
+
+  .slide-card { background: var(--card-bg); border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden; box-shadow: var(--shadow-sm); margin-bottom: 16px; }
+  .slide-header { background: #04102D; padding: 14px 20px; display: flex; align-items: center; justify-content: space-between; }
+  .slide-num-badge { font-family: 'JetBrains Mono', monospace; font-size: 10px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: rgba(111,242,193,0.8); background: rgba(111,242,193,0.1); padding: 3px 10px; border-radius: 4px; }
+  .slide-timing { font-family: 'JetBrains Mono', monospace; font-size: 10px; color: rgba(255,255,255,0.35); }
+  .slide-title-bar { background: rgba(255,255,255,0.04); border-bottom: 1px solid rgba(255,255,255,0.07); padding: 12px 20px; }
+  .slide-title { font-size: 15px; font-weight: 700; color: rgba(255,255,255,0.9); letter-spacing: -0.2px; }
+  .slide-body { padding: 18px 20px; }
+  .slide-bullets { display: flex; flex-direction: column; gap: 6px; }
+  .slide-bullet { display: flex; align-items: baseline; gap: 8px; font-size: 13px; color: var(--text-secondary); line-height: 1.55; }
+  .slide-bullet::before { content: '—'; color: #287BE8; font-weight: 700; flex-shrink: 0; }
+  .slide-notes-toggle { display: flex; align-items: center; gap: 7px; font-size: 12px; font-weight: 600; color: var(--text-muted); background: var(--surface); border: none; border-top: 1px solid var(--border); width: 100%; padding: 10px 20px; cursor: pointer; text-align: left; transition: color 0.12s; }
+  .slide-notes-toggle:hover { color: var(--text-primary); }
+  .slide-notes-toggle .toggle-icon { font-size: 10px; transition: transform 0.18s; }
+  .slide-notes-toggle.open .toggle-icon { transform: rotate(90deg); }
+  .slide-notes { display: none; padding: 14px 20px 18px; background: rgba(40,123,232,0.03); border-top: 1px solid rgba(40,123,232,0.1); font-size: 13px; color: var(--text-secondary); line-height: 1.7; }
+  .slide-notes.open { display: block; }
+
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <a href="../index.html" class="topbar-brand">AIO <span>Labs</span></a>
+  <nav class="topbar-nav">
+    <a href="../certification.html" class="tnav-link"><span class="tnav-dot" style="background:#287BE8"></span> Certification</a>
+    <a href="../coaching.html" class="tnav-link"><span class="tnav-dot" style="background:#287BE8"></span> Coaching</a>
+    <a href="index.html" class="tnav-link active"><span class="tnav-dot" style="background:#1A9E74"></span> Micro-Sessions</a>
+    <a href="../blog/index.html" class="tnav-link"><span class="tnav-dot" style="background:#6FF2C1"></span> Blog</a>
+    <a href="../my-team.html" class="tnav-link"><span class="tnav-dot" style="background:#8b91ac"></span> My Team</a>
+  </nav>
+  <div class="topbar-right">
+    <a href="https://claude.ai" target="_blank" class="buddy-launch-btn">🤖 AI Buddy</a>
+    <div class="topbar-stat">🔥 7</div>
+    <div class="topbar-stat">⭐ 1,240</div>
+    <div class="topbar-divider"></div>
+    <div class="topbar-avatar">DH</div>
+  </div>
+</div>
+
+<main class="page-main">
+
+  <a href="claude-dispatch.html" class="mission-back">← Claude Dispatch: Build Your Decision Architecture</a>
+
+  <div class="mission-header">
+    <div class="mission-meta">
+      <span class="mission-track-pill" style="background:rgba(26,158,116,0.1); color:#1A9E74; border: 1px solid rgba(26,158,116,0.2);"><span class="dot" style="background:#1A9E74;"></span> Agentic AI</span>
+    </div>
+    <h1 class="mission-title">Session Slides</h1>
+    <p class="mission-sub">All slides from the session with speaker notes. Expand any slide for the full script.</p>
+  </div>
+
+  <div class="mission-body">
+
+    <div>
+      
+      <div class="slide-card">
+        <div class="slide-header">
+          <span class="slide-num-badge">Slide 1</span>
+          <span class="slide-timing">2 minutes</span>
+        </div>
+        <div class="slide-title-bar">
+          <div class="slide-title">Claude Dispatch: Build Your Decision Architecture</div>
+        </div>
+        <div class="slide-body">
+          <div class="slide-bullets"><div class="slide-bullet">Agentic AI Essentials | Micro Session</div><div class="slide-bullet">Claude Dispatch: Build Your Decision Architecture**</div><div class="slide-bullet">The next step after building agents is knowing which agent handles what. That&#x27;s not a tool - that&#x27;s a decision architecture.</div>
+          </div>
+        </div>
+        
+          <button class="slide-notes-toggle" onclick="toggleNotes(this)">
+            <span class="toggle-icon">▶</span> Speaker Notes
+          </button>
+          <div class="slide-notes">Welcome to Claude Dispatch. You have built agents. Maybe several of them. Now you&#x27;re facing a new problem: requests come in from all directions, and you don&#x27;t have a human in the middle anymore routing them. That&#x27;s where dispatch comes in. A dispatcher doesn&#x27;t build things. It reads what&#x27;s coming in, figures out what type of work it is, and sends it to the right specialist. Today we&#x27;re learning how to build that system so your agents can coordinate without you managing everything.</div>
+      </div>
+      <div class="slide-card">
+        <div class="slide-header">
+          <span class="slide-num-badge">Slide 2</span>
+          <span class="slide-timing">4 minutes</span>
+        </div>
+        <div class="slide-title-bar">
+          <div class="slide-title">Why Generalists Underperform</div>
+        </div>
+        <div class="slide-body">
+          <div class="slide-bullets"><div class="slide-bullet">The Generalist Problem</div><div class="slide-bullet">One agent tries to do everything</div><div class="slide-bullet">Jack of all trades, master of none</div><div class="slide-bullet">Slower responses, lower quality</div><div class="slide-bullet">No specialization means no expertise</div><div class="slide-bullet">Specialist Outperforms Every Time</div><div class="slide-bullet">Does one thing extremely well</div><div class="slide-bullet">Knows its constraints</div><div class="slide-bullet">Produces better output</div><div class="slide-bullet">Fails faster on out-of-scope work</div>
+          </div>
+        </div>
+        
+          <button class="slide-notes-toggle" onclick="toggleNotes(this)">
+            <span class="toggle-icon">▶</span> Speaker Notes
+          </button>
+          <div class="slide-notes">Here&#x27;s the pattern. Most people build one big agent and ask it to handle sales questions, support tickets, compliance reviews, and marketing copy. That agent is slow. It hedges. It second-guesses itself because it doesn&#x27;t have deep context for any single domain. Compare that to a specialist agent that only handles sales questions. That agent knows the product inside and out. It knows what questions lead to closes. It&#x27;s faster and better. The reason is simple: specialization is more powerful than generalization. A dispatcher lets you build that specialized team without managing the handoffs yourself.</div>
+      </div>
+      <div class="slide-card">
+        <div class="slide-header">
+          <span class="slide-num-badge">Slide 3</span>
+          <span class="slide-timing">5 minutes</span>
+        </div>
+        <div class="slide-title-bar">
+          <div class="slide-title">What a Dispatcher Does</div>
+        </div>
+        <div class="slide-body">
+          <div class="slide-bullets"><div class="slide-bullet">The Dispatcher&#x27;s Job</div><div class="slide-bullet">1. Reads the incoming request</div><div class="slide-bullet">2. Identifies what type of work it is</div><div class="slide-bullet">3. Finds the right specialist agent</div><div class="slide-bullet">4. Routes the request downstream</div><div class="slide-bullet">5. Returns the specialist&#x27;s response</div><div class="slide-bullet">The Dispatcher is Not a Bottleneck</div><div class="slide-bullet">It makes one decision per request</div><div class="slide-bullet">It doesn&#x27;t do the work itself</div><div class="slide-bullet">It doesn&#x27;t slow things down</div><div class="slide-bullet">It speeds up by specializing</div>
+          </div>
+        </div>
+        
+          <button class="slide-notes-toggle" onclick="toggleNotes(this)">
+            <span class="toggle-icon">▶</span> Speaker Notes
+          </button>
+          <div class="slide-notes">A dispatcher is simple. A request comes in. The dispatcher reads it - that takes seconds - and asks one question: what type of work is this? Then it knows which specialized agent to send it to. The dispatcher is not doing the work. It&#x27;s just directing traffic. And because it&#x27;s directing traffic to specialists instead of spreading the work across one general agent, everything gets better. Speed goes up. Quality goes up. The only thing the dispatcher needs to know is how to categorize the request and which agent handles which category.</div>
+      </div>
+      <div class="slide-card">
+        <div class="slide-header">
+          <span class="slide-num-badge">Slide 4</span>
+          <span class="slide-timing">6 minutes</span>
+        </div>
+        <div class="slide-title-bar">
+          <div class="slide-title">How to Categorize Your Own Work</div>
+        </div>
+        <div class="slide-body">
+          <div class="slide-bullets"><div class="slide-bullet">Find Your 4-6 Categories</div><div class="slide-bullet">Question 1: What types of requests do I get most often?</div><div class="slide-bullet">Question 2: Do they require different skills?</div><div class="slide-bullet">Question 3: Can I train a specialist agent for each?</div><div class="slide-bullet">Example Categories</div><div class="slide-bullet">1. Sales questions - needs product knowledge and closing skills</div><div class="slide-bullet">2. Support tickets - needs troubleshooting and patience</div><div class="slide-bullet">3. Content creation - needs writing style and brand voice</div><div class="slide-bullet">4. Data analysis - needs SQL and statistical thinking</div><div class="slide-bullet">5. Compliance review - needs legal knowledge</div>
+          </div>
+        </div>
+        
+          <button class="slide-notes-toggle" onclick="toggleNotes(this)">
+            <span class="toggle-icon">▶</span> Speaker Notes
+          </button>
+          <div class="slide-notes">Start here. Don&#x27;t overthink it. Look at the last month of requests you handled. What patterns do you see? Most organizations have 4 to 6 distinct types of work. A sales team might have: lead qualification, objection handling, proposal generation, and deal structure. A support org might have: technical troubleshooting, billing questions, feature requests, and complaints. Write them down. For each one, ask yourself: would I train someone differently to handle this category versus that one? If the answer is yes, you&#x27;ve found a category. Your dispatcher needs to recognize these patterns. Your specialist agents need to own them.</div>
+      </div>
+      <div class="slide-card">
+        <div class="slide-header">
+          <span class="slide-num-badge">Slide 5</span>
+          <span class="slide-timing">7 minutes</span>
+        </div>
+        <div class="slide-title-bar">
+          <div class="slide-title">Building the Dispatch Map</div>
+        </div>
+        <div class="slide-body">
+          <div class="slide-bullets"><div class="slide-bullet">The Dispatch Map Structure</div><div class="slide-bullet">For Each Category:</div><div class="slide-bullet">Trigger: What signals this type of request?</div><div class="slide-bullet">Specialist Agent: Who handles it?</div><div class="slide-bullet">Success Criteria: What does good look like?</div><div class="slide-bullet">Example: Sales Dispatch</div><div class="slide-bullet">Trigger: &quot;Does this have a pricing or buying question?&quot;</div><div class="slide-bullet">Specialist: Sales Agent trained on products and pricing</div><div class="slide-bullet">Success: Customer gets a clear answer within 2 minutes</div><div class="slide-bullet">Example: Support Dispatch</div><div class="slide-bullet">Trigger: &quot;Is this a technical problem?&quot;</div><div class="slide-bullet">Specialist: Support Agent with troubleshooting training</div><div class="slide-bullet">Success: Ticket resolved or escalated with clear next steps</div>
+          </div>
+        </div>
+        
+          <button class="slide-notes-toggle" onclick="toggleNotes(this)">
+            <span class="toggle-icon">▶</span> Speaker Notes
+          </button>
+          <div class="slide-notes">Your dispatch map is a decision tree that an agent can follow. For each category of work, you write down three things. First: the trigger. This is what signals that a request belongs in this category. It might be a keyword. It might be a question pattern. Second: which specialist agent handles it. That specialist has been trained or configured to do exactly this work and nothing else. Third: what success looks like. You are defining the output quality that the specialist should aim for. The dispatcher uses this map every time a request comes in. Read the request. Find the trigger that matches. Route to the specialist. Done.</div>
+      </div>
+      <div class="slide-card">
+        <div class="slide-header">
+          <span class="slide-num-badge">Slide 6</span>
+          <span class="slide-timing">4 minutes</span>
+        </div>
+        <div class="slide-title-bar">
+          <div class="slide-title">Claude Dispatch vs Manual Routing</div>
+        </div>
+        <div class="slide-body">
+          <div class="slide-bullets"><div class="slide-bullet">When Manual Routing Made Sense</div><div class="slide-bullet">You had a human filtering requests</div><div class="slide-bullet">That human understood the business</div><div class="slide-bullet">Quality was high but cost was high</div><div class="slide-bullet">Why Automation Makes Sense Now</div><div class="slide-bullet">Volumes are growing</div><div class="slide-bullet">Humans are tired</div><div class="slide-bullet">AI can learn your routing rules</div><div class="slide-bullet">Cost per route drops to near zero</div><div class="slide-bullet">The Trade-off</div><div class="slide-bullet">Manual: high quality, high cost, limited scale</div><div class="slide-bullet">Automated: high quality at scale, low cost, frees your team</div>
+          </div>
+        </div>
+        
+          <button class="slide-notes-toggle" onclick="toggleNotes(this)">
+            <span class="toggle-icon">▶</span> Speaker Notes
+          </button>
+          <div class="slide-notes">Five years ago, you had a person reading every request and routing it to the right team. That worked. Quality was high because humans understand nuance. Cost was also high. Now your volume has tripled. That human is drowning. And here&#x27;s the thing: that human was following rules, even if they didn&#x27;t write them down. An AI dispatcher can learn those rules and apply them consistently at any scale. You don&#x27;t lose quality. You gain speed and free up the human to do something more valuable than routing requests.</div>
+      </div>
+      <div class="slide-card">
+        <div class="slide-header">
+          <span class="slide-num-badge">Slide 7</span>
+          <span class="slide-timing">2 minutes</span>
+        </div>
+        <div class="slide-title-bar">
+          <div class="slide-title">Building Your First Dispatch System</div>
+        </div>
+        <div class="slide-body">
+          <div class="slide-bullets"><div class="slide-bullet">Start Small</div><div class="slide-bullet">1. Pick one category of work</div><div class="slide-bullet">2. Write the trigger clearly</div><div class="slide-bullet">3. Build or configure a specialist agent</div><div class="slide-bullet">4. Test the routing 10 times</div><div class="slide-bullet">5. Add more categories as it works</div><div class="slide-bullet">Common Mistakes</div><div class="slide-bullet">Making categories too broad</div><div class="slide-bullet">Writing triggers that are too vague</div><div class="slide-bullet">Expecting 100% accuracy on day one</div><div class="slide-bullet">Not updating as business changes</div>
+          </div>
+        </div>
+        
+          <button class="slide-notes-toggle" onclick="toggleNotes(this)">
+            <span class="toggle-icon">▶</span> Speaker Notes
+          </button>
+          <div class="slide-notes">Don&#x27;t try to build the perfect dispatch system on day one. Start with one category of work that you handle regularly and that would benefit from specialist expertise. Write down the trigger as clearly as you can. Maybe it&#x27;s keywords. Maybe it&#x27;s a pattern in how the request is written. Build a specialist agent that handles that work. Test it 10 times. Then add another category. Each time you add a category, you&#x27;re making your system smarter and faster. And here&#x27;s the key: your dispatch map is not set in stone. As your business changes, your categories change too. Update them. Keep the map alive.</div>
+      </div>
+      <div class="slide-card">
+        <div class="slide-header">
+          <span class="slide-num-badge">Slide 8</span>
+          <span class="slide-timing">2 minutes</span>
+        </div>
+        <div class="slide-title-bar">
+          <div class="slide-title">Why This Matters</div>
+        </div>
+        <div class="slide-body">
+          <div class="slide-bullets"><div class="slide-bullet">Specialization is Power</div><div class="slide-bullet">Specialist agents outperform generalists</div><div class="slide-bullet">Dispatcher routes without slowing down</div><div class="slide-bullet">Team scales without growing headcount</div><div class="slide-bullet">Quality improves as agents specialize</div><div class="slide-bullet">You Now Have a Decision Architecture</div><div class="slide-bullet">Requests route automatically</div><div class="slide-bullet">Each agent knows its domain</div><div class="slide-bullet">Humans focus on strategy and exceptions</div><div class="slide-bullet">The system gets better every week</div>
+          </div>
+        </div>
+        
+          <button class="slide-notes-toggle" onclick="toggleNotes(this)">
+            <span class="toggle-icon">▶</span> Speaker Notes
+          </button>
+          <div class="slide-notes">This is where your AI program stops being a tool and starts being a system. You&#x27;ve moved from &quot;I have an agent that helps me&quot; to &quot;I have a team of specialist agents that coordinate automatically.&quot; That&#x27;s a fundamentally different level of capability. One agent answering questions is nice. A team of specialists routing work to each other and producing expert-level output at scale - that&#x27;s when you start seeing real business impact. Your dispatch architecture makes that possible.</div>
+      </div>
+    </div>
+
+    <div>
+      
+      <div class="resource-stack-label">Micro-Session Resources</div>
+      <div class="resource-stack">
+        <a href="claude-dispatch-video.html" class="resource-card">
+          <div class="resource-icon" style="background:rgba(40,123,232,0.1);">▶️</div>
+          <div class="resource-info">
+            <div class="resource-tag">01 · Video</div>
+            <div class="resource-title">Session Recording</div>
+          </div>
+          <div class="resource-arrow">→</div>
+        </a>
+        <a href="claude-dispatch-recap.html" class="resource-card">
+          <div class="resource-icon" style="background:rgba(111,242,193,0.15);">📋</div>
+          <div class="resource-info">
+            <div class="resource-tag">02 · Recap</div>
+            <div class="resource-title">Session Recap</div>
+          </div>
+          <div class="resource-arrow">→</div>
+        </a>
+        <a href="claude-dispatch-prompts.html" class="resource-card">
+          <div class="resource-icon" style="background:rgba(40,123,232,0.08);">💬</div>
+          <div class="resource-info">
+            <div class="resource-tag">03 · Prompts</div>
+            <div class="resource-title">Prompt Library</div>
+          </div>
+          <div class="resource-arrow">→</div>
+        </a>
+        <a href="claude-dispatch-slides.html" class="resource-card active">
+          <div class="resource-icon" style="background:rgba(209,69,139,0.1);">🖼️</div>
+          <div class="resource-info">
+            <div class="resource-tag">04 · Slides</div>
+            <div class="resource-title">Session Slides</div>
+          </div>
+          <div class="resource-arrow">→</div>
+        </a>
+        <a href="claude-dispatch-resources.html" class="resource-card">
+          <div class="resource-icon" style="background:rgba(111,242,193,0.1);">📚</div>
+          <div class="resource-info">
+            <div class="resource-tag">05 · Resources</div>
+            <div class="resource-title">Tools &amp; Links</div>
+          </div>
+          <div class="resource-arrow">→</div>
+        </a>
+      </div>
+    </div>
+
+  </div>
+
+</main>
+
+<script>
+function toggleNotes(btn) {
+  btn.classList.toggle('open');
+  btn.nextElementSibling.classList.toggle('open');
+}
+</script>
+</body>
+</html>

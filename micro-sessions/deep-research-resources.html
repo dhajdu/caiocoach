@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Resources: Deep Research — AI Officer Institute</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../shared/styles.css">
+<style>
+  :root {
+    --ease: cubic-bezier(0.4, 0, 0.2, 1);
+    --radius: 12px;
+    --shadow-sm: 0 1px 3px rgba(4,16,45,0.07);
+    --shadow-hover: 0 6px 24px rgba(4,16,45,0.10);
+    --text-primary: #1a1f36;
+    --text-secondary: #4a5068;
+    --text-muted: #6b7194;
+    --border: #d8dce8;
+    --surface: #f4f6fa;
+    --card-bg: #ffffff;
+  }
+
+  body { background: var(--surface); font-family: 'DM Sans', sans-serif; -webkit-font-smoothing: antialiased; color: var(--text-primary); line-height: 1.7; }
+
+  .topbar-stat { display: flex; align-items: center; gap: 5px; font-family: 'JetBrains Mono', monospace; font-size: 13px; font-weight: 600; color: rgba(255,255,255,0.7); background: rgba(255,255,255,0.07); padding: 5px 12px; border-radius: 6px; }
+  .topbar-avatar { width: 32px; height: 32px; border-radius: 50%; background: var(--blue); display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 700; color: white; }
+
+  .page-main { max-width: 1060px; margin: 0 auto; padding: 80px 40px 100px; }
+  .mission-back { display: inline-flex; align-items: center; gap: 6px; font-size: 13px; font-weight: 600; color: var(--text-muted); text-decoration: none; margin-bottom: 28px; transition: color 0.12s; }
+  .mission-back:hover { color: var(--text-primary); }
+  .mission-header { margin-bottom: 32px; }
+  .mission-meta { display: flex; align-items: center; gap: 10px; margin-bottom: 14px; }
+  .mission-track-pill { display: inline-flex; align-items: center; gap: 7px; font-size: 11px; font-weight: 700; letter-spacing: 0.7px; text-transform: uppercase; padding: 5px 12px; border-radius: 20px; background: rgba(40,123,232,0.1); color: #287BE8; border: 1px solid rgba(40,123,232,0.2); }
+  .mission-track-pill .dot { width: 5px; height: 5px; border-radius: 50%; background: #287BE8; }
+  .mission-title { font-size: 34px; font-weight: 700; color: var(--text-primary); letter-spacing: -0.5px; line-height: 1.15; margin-bottom: 10px; }
+  .mission-sub { font-size: 15px; color: var(--text-secondary); line-height: 1.6; max-width: 620px; }
+
+  .mission-body { display: grid; grid-template-columns: 1fr 300px; gap: 24px; align-items: start; }
+
+  /* ── Tool cards ── */
+  .tool-card {
+    background: var(--card-bg); border: 1px solid var(--border);
+    border-radius: var(--radius); padding: 24px 28px; margin-bottom: 14px;
+    box-shadow: var(--shadow-sm); display: flex; flex-direction: column; gap: 8px;
+    text-decoration: none; color: inherit;
+    transition: all 0.15s var(--ease);
+  }
+  .tool-card:hover { border-color: rgba(40,123,232,0.35); box-shadow: var(--shadow-hover); transform: translateY(-1px); }
+  .tool-card-top { display: flex; align-items: center; justify-content: space-between; }
+  .tool-num {
+    font-family: 'JetBrains Mono', monospace; font-size: 10px; font-weight: 700;
+    letter-spacing: 1px; color: var(--text-muted);
+  }
+  .tool-ext-icon { font-size: 13px; color: var(--text-muted); }
+  .tool-name { font-size: 17px; font-weight: 700; color: var(--text-primary); letter-spacing: -0.2px; }
+  .tool-url {
+    font-family: 'JetBrains Mono', monospace; font-size: 11px; font-weight: 500;
+    color: #287BE8; text-decoration: none;
+  }
+  .tool-desc { font-size: 13.5px; color: var(--text-secondary); line-height: 1.65; margin-top: 4px; }
+
+  /* ── Resource sidebar ── */
+  .resource-stack-label { font-size: 10px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: var(--text-muted); margin-bottom: 4px; }
+  .resource-stack { display: flex; flex-direction: column; gap: 8px; }
+  .resource-card { background: var(--card-bg); border: 1px solid var(--border); border-radius: var(--radius); padding: 14px 16px; text-decoration: none; color: inherit; display: flex; align-items: center; gap: 12px; box-shadow: var(--shadow-sm); transition: all 0.15s var(--ease); }
+  .resource-card:hover { border-color: rgba(40,123,232,0.35); box-shadow: 0 4px 16px rgba(4,16,45,0.09); transform: translateY(-1px); }
+  .resource-card.active { border-color: rgba(40,123,232,0.4); background: rgba(40,123,232,0.04); }
+  .resource-icon { width: 36px; height: 36px; border-radius: 9px; flex-shrink: 0; display: flex; align-items: center; justify-content: center; font-size: 16px; }
+  .resource-info { flex: 1; min-width: 0; }
+  .resource-tag { font-size: 10px; font-weight: 700; letter-spacing: 0.7px; text-transform: uppercase; color: var(--text-muted); margin-bottom: 1px; }
+  .resource-title { font-size: 13px; font-weight: 700; color: var(--text-primary); }
+  .resource-arrow { font-size: 13px; color: var(--text-muted); flex-shrink: 0; }
+  .resource-card.active .resource-arrow { color: #287BE8; }
+
+  @media (max-width: 900px) {
+    .page-main { padding: 70px 20px 80px; }
+    .mission-body { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <a href="../index.html" class="topbar-brand">AIO <span>Labs</span></a>
+  <nav class="topbar-nav">
+    <a href="../certification.html" class="tnav-link"><span class="tnav-dot" style="background:#287BE8"></span> Certification</a>
+    <a href="../coaching.html" class="tnav-link"><span class="tnav-dot" style="background:#287BE8"></span> Coaching</a>
+    <a href="index.html" class="tnav-link active"><span class="tnav-dot" style="background:#1A9E74"></span> Micro-Sessions</a>
+    <a href="../blog/index.html" class="tnav-link"><span class="tnav-dot" style="background:#6FF2C1"></span> Blog</a>
+    <a href="../my-team.html" class="tnav-link"><span class="tnav-dot" style="background:#8b91ac"></span> My Team</a>
+  </nav>
+  <div class="topbar-right">
+    <a href="https://claude.ai" target="_blank" class="buddy-launch-btn">🤖 AI Buddy</a>
+    <div class="topbar-stat">🔥 7</div>
+    <div class="topbar-stat">⭐ 1,240</div>
+    <div class="topbar-divider"></div>
+    <div class="topbar-avatar">DH</div>
+  </div>
+</div>
+
+<main class="page-main">
+
+  <a href="deep-research.html" class="mission-back">← Deep Research</a>
+
+  <div class="mission-header">
+    <div class="mission-meta">
+      <span class="mission-track-pill"><span class="dot"></span> Gen AI</span>
+    </div>
+    <h1 class="mission-title">Tools &amp; Links</h1>
+    <p class="mission-sub">The tools used in this session and the best sources for deep research on AI topics.</p>
+  </div>
+
+  <div class="mission-body">
+
+    <div>
+
+      <a href="https://notebooklm.google.com" target="_blank" class="tool-card">
+        <div class="tool-card-top">
+          <span class="tool-num">Tool 01</span>
+          <span class="tool-ext-icon">↗</span>
+        </div>
+        <div class="tool-name">NotebookLM</div>
+        <div class="tool-url">notebooklm.google.com</div>
+        <p class="tool-desc">The primary tool from this session. Free to use with a Google account. Upload academic papers, reports, or documents and use NotebookLM to generate summaries, mind maps, audio overviews, and cited insights. Start here.</p>
+      </a>
+
+      <a href="https://mitsloan.mit.edu/ideas-made-to-matter/artificial-intelligence" target="_blank" class="tool-card">
+        <div class="tool-card-top">
+          <span class="tool-num">Source 01</span>
+          <span class="tool-ext-icon">↗</span>
+        </div>
+        <div class="tool-name">MIT Sloan Management Review — AI Research</div>
+        <div class="tool-url">mitsloan.mit.edu/ideas-made-to-matter/artificial-intelligence</div>
+        <p class="tool-desc">One of the most credible sources of applied AI research for business leaders. Articles are based on original research and written for practitioners, not just academics. Use this as a source collection for your NotebookLM notebooks.</p>
+      </a>
+
+      <a href="https://hai.stanford.edu/research" target="_blank" class="tool-card">
+        <div class="tool-card-top">
+          <span class="tool-num">Source 02</span>
+          <span class="tool-ext-icon">↗</span>
+        </div>
+        <div class="tool-name">Stanford HAI — Human-Centered AI</div>
+        <div class="tool-url">hai.stanford.edu/research</div>
+        <p class="tool-desc">Stanford's AI research hub, including the annual AI Index Report — one of the most comprehensive datasets on AI progress, adoption, and impact. Free to download. Excellent source material for deep research on AI trends and workforce impacts.</p>
+      </a>
+
+      <a href="https://scholar.google.com" target="_blank" class="tool-card">
+        <div class="tool-card-top">
+          <span class="tool-num">Source 03</span>
+          <span class="tool-ext-icon">↗</span>
+        </div>
+        <div class="tool-name">Google Scholar</div>
+        <div class="tool-url">scholar.google.com</div>
+        <p class="tool-desc">The fastest way to find peer-reviewed academic papers on any topic. Search for your research question, filter by date, and look for papers with high citation counts — those are the sources others have found credible enough to build on. Download PDFs and upload directly to NotebookLM.</p>
+      </a>
+
+      <a href="https://www.mckinsey.com/mgi/our-research/artificial-intelligence" target="_blank" class="tool-card">
+        <div class="tool-card-top">
+          <span class="tool-num">Source 04</span>
+          <span class="tool-ext-icon">↗</span>
+        </div>
+        <div class="tool-name">McKinsey Global Institute — AI Reports</div>
+        <div class="tool-url">mckinsey.com/mgi/our-research/artificial-intelligence</div>
+        <p class="tool-desc">McKinsey's research arm publishes free reports on AI's economic impact, workforce transformation, and adoption patterns across industries. Well-cited, business-oriented, and updated regularly. Particularly useful for AI Officers making the business case for AI investment.</p>
+      </a>
+
+    </div>
+
+    <!-- Resource sidebar -->
+    <div>
+      <div class="resource-stack-label">Micro-Session Resources</div>
+      <div class="resource-stack">
+
+        <a href="deep-research-video.html" class="resource-card">
+          <div class="resource-icon" style="background:rgba(40,123,232,0.1);">▶️</div>
+          <div class="resource-info">
+            <div class="resource-tag">01 · Video</div>
+            <div class="resource-title">Session Recording</div>
+          </div>
+          <div class="resource-arrow">→</div>
+        </a>
+
+        <a href="deep-research-recap.html" class="resource-card">
+          <div class="resource-icon" style="background:rgba(111,242,193,0.15);">📋</div>
+          <div class="resource-info">
+            <div class="resource-tag">02 · Recap</div>
+            <div class="resource-title">Session Recap</div>
+          </div>
+          <div class="resource-arrow">→</div>
+        </a>
+
+        <a href="deep-research-prompts.html" class="resource-card">
+          <div class="resource-icon" style="background:rgba(40,123,232,0.08);">💬</div>
+          <div class="resource-info">
+            <div class="resource-tag">03 · Prompts</div>
+            <div class="resource-title">Prompt Library</div>
+          </div>
+          <div class="resource-arrow">→</div>
+        </a>
+
+        <a href="deep-research-slides.html" class="resource-card">
+          <div class="resource-icon" style="background:rgba(209,69,139,0.1);">🖼️</div>
+          <div class="resource-info">
+            <div class="resource-tag">04 · Slides</div>
+            <div class="resource-title">Session Slides</div>
+          </div>
+          <div class="resource-arrow">→</div>
+        </a>
+
+        <a href="deep-research-resources.html" class="resource-card active">
+          <div class="resource-icon" style="background:rgba(111,242,193,0.1);">📚</div>
+          <div class="resource-info">
+            <div class="resource-tag">05 · Resources</div>
+            <div class="resource-title">Tools &amp; Links</div>
+          </div>
+          <div class="resource-arrow">→</div>
+        </a>
+
+      </div>
+    </div>
+
+  </div>
+
+</main>
+
+</body>
+</html>

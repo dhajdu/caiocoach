@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Prompt Library: Agents Compared: Which Platform Is Right for Your Team? — AI Officer Institute</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../shared/styles.css">
+<style>
+
+  :root {
+    --ease: cubic-bezier(0.4, 0, 0.2, 1);
+    --radius: 12px;
+    --shadow-sm: 0 1px 3px rgba(4,16,45,0.07);
+    --text-primary: #1a1f36;
+    --text-secondary: #4a5068;
+    --text-muted: #6b7194;
+    --border: #d8dce8;
+    --surface: #f4f6fa;
+    --card-bg: #ffffff;
+  }
+
+  body { background: var(--surface); font-family: 'DM Sans', sans-serif; -webkit-font-smoothing: antialiased; color: var(--text-primary); line-height: 1.7; }
+
+  .page-main { max-width: 1060px; margin: 0 auto; padding: 80px 40px 100px; }
+
+  .mission-back {
+    display: inline-flex; align-items: center; gap: 6px;
+    font-size: 13px; font-weight: 600; color: var(--text-muted);
+    text-decoration: none; margin-bottom: 28px; transition: color 0.12s;
+  }
+  .mission-back:hover { color: var(--text-primary); }
+
+  .mission-header { margin-bottom: 32px; }
+  .mission-meta { display: flex; align-items: center; gap: 10px; margin-bottom: 14px; }
+  .mission-track-pill {
+    display: inline-flex; align-items: center; gap: 7px;
+    font-size: 11px; font-weight: 700; letter-spacing: 0.7px; text-transform: uppercase;
+    padding: 5px 12px; border-radius: 20px;
+  }
+  .mission-track-pill .dot { width: 5px; height: 5px; border-radius: 50%; }
+  .mission-title { font-size: 34px; font-weight: 700; color: var(--text-primary); letter-spacing: -0.5px; line-height: 1.15; margin-bottom: 10px; }
+  .mission-sub { font-size: 15px; color: var(--text-secondary); line-height: 1.6; max-width: 620px; }
+
+  .mission-body { display: grid; grid-template-columns: 1fr 300px; gap: 24px; align-items: start; }
+
+  .content-card {
+    background: var(--card-bg); border: 1px solid var(--border);
+    border-radius: var(--radius); padding: 24px 28px;
+    box-shadow: var(--shadow-sm); margin-bottom: 16px;
+  }
+  .card-label { font-size: 10px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: #287BE8; margin-bottom: 14px; }
+  .card-heading { font-size: 16px; font-weight: 700; color: var(--text-primary); margin-bottom: 14px; letter-spacing: -0.2px; }
+  .card-text { font-size: 14px; color: var(--text-secondary); line-height: 1.65; margin-bottom: 12px; }
+  .card-text:last-child { margin-bottom: 0; }
+
+  /* Resource sidebar */
+  .resource-stack-label { font-size: 10px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: var(--text-muted); margin-bottom: 4px; }
+  .resource-stack { display: flex; flex-direction: column; gap: 8px; }
+  .resource-card {
+    background: var(--card-bg); border: 1px solid var(--border);
+    border-radius: var(--radius); padding: 14px 16px;
+    text-decoration: none; color: inherit;
+    display: flex; align-items: center; gap: 12px;
+    box-shadow: var(--shadow-sm); transition: all 0.15s var(--ease);
+  }
+  .resource-card:hover { border-color: rgba(40,123,232,0.35); box-shadow: 0 4px 16px rgba(4,16,45,0.09); transform: translateY(-1px); }
+  .resource-card.active { border-color: rgba(40,123,232,0.4); background: rgba(40,123,232,0.04); }
+  .resource-icon { width: 36px; height: 36px; border-radius: 9px; flex-shrink: 0; display: flex; align-items: center; justify-content: center; font-size: 16px; }
+  .resource-info { flex: 1; min-width: 0; }
+  .resource-tag { font-size: 10px; font-weight: 700; letter-spacing: 0.7px; text-transform: uppercase; color: var(--text-muted); margin-bottom: 1px; }
+  .resource-title { font-size: 13px; font-weight: 700; color: var(--text-primary); }
+  .resource-arrow { font-size: 13px; color: var(--text-muted); flex-shrink: 0; }
+  .resource-card.active .resource-arrow { color: #287BE8; }
+
+  @media (max-width: 900px) {
+    .page-main { padding: 70px 20px 80px; }
+    .mission-body { grid-template-columns: 1fr; }
+  }
+
+
+  .prompt-card { background: var(--card-bg); border: 1px solid var(--border); border-radius: var(--radius); padding: 0; box-shadow: var(--shadow-sm); margin-bottom: 16px; overflow: hidden; }
+  .prompt-header { padding: 20px 24px 16px; }
+  .prompt-num { font-family: 'JetBrains Mono', monospace; font-size: 10px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: #287BE8; background: rgba(40,123,232,0.08); padding: 3px 10px; border-radius: 4px; display: inline-block; margin-bottom: 10px; }
+  .prompt-title { font-size: 16px; font-weight: 700; color: var(--text-primary); margin-bottom: 6px; letter-spacing: -0.2px; }
+  .prompt-desc { font-size: 13px; color: var(--text-secondary); line-height: 1.6; }
+  .prompt-code-wrap { background: #04102D; padding: 0; }
+  .prompt-code-header { display: flex; align-items: center; justify-content: space-between; padding: 10px 20px; border-bottom: 1px solid rgba(255,255,255,0.07); }
+  .prompt-code-label { font-family: 'JetBrains Mono', monospace; font-size: 10px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: rgba(111,242,193,0.7); }
+  .copy-btn { font-family: 'JetBrains Mono', monospace; font-size: 10px; font-weight: 700; color: rgba(255,255,255,0.4); background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.1); padding: 4px 12px; border-radius: 5px; cursor: pointer; transition: all 0.15s; }
+  .copy-btn:hover { color: rgba(255,255,255,0.8); background: rgba(255,255,255,0.1); }
+  .prompt-code { font-family: 'JetBrains Mono', monospace; font-size: 12px; color: rgba(255,255,255,0.8); line-height: 1.7; padding: 18px 20px 20px; margin: 0; white-space: pre-wrap; word-break: break-word; }
+
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <a href="../index.html" class="topbar-brand">AIO <span>Labs</span></a>
+  <nav class="topbar-nav">
+    <a href="../certification.html" class="tnav-link"><span class="tnav-dot" style="background:#287BE8"></span> Certification</a>
+    <a href="../coaching.html" class="tnav-link"><span class="tnav-dot" style="background:#287BE8"></span> Coaching</a>
+    <a href="index.html" class="tnav-link active"><span class="tnav-dot" style="background:#1A9E74"></span> Micro-Sessions</a>
+    <a href="../blog/index.html" class="tnav-link"><span class="tnav-dot" style="background:#6FF2C1"></span> Blog</a>
+    <a href="../my-team.html" class="tnav-link"><span class="tnav-dot" style="background:#8b91ac"></span> My Team</a>
+  </nav>
+  <div class="topbar-right">
+    <a href="https://claude.ai" target="_blank" class="buddy-launch-btn">🤖 AI Buddy</a>
+    <div class="topbar-stat">🔥 7</div>
+    <div class="topbar-stat">⭐ 1,240</div>
+    <div class="topbar-divider"></div>
+    <div class="topbar-avatar">DH</div>
+  </div>
+</div>
+
+<main class="page-main">
+
+  <a href="agents-compared.html" class="mission-back">← Agents Compared: Which Platform Is Right for Your Team?</a>
+
+  <div class="mission-header">
+    <div class="mission-meta">
+      <span class="mission-track-pill" style="background:rgba(139,92,246,0.1); color:#8B5CF6; border: 1px solid rgba(139,92,246,0.2);"><span class="dot" style="background:#8B5CF6;"></span> Leadership</span>
+    </div>
+    <h1 class="mission-title">Prompt Library</h1>
+    <p class="mission-sub">Copy-ready prompts to help you complete and extend this session's work.</p>
+  </div>
+
+  <div class="mission-body">
+
+    <div>
+      
+      <div class="prompt-card">
+        <div class="prompt-header">
+          <div class="prompt-num">PROMPT 1</div>
+          <div class="prompt-title">Define your use cases before choosing a platform</div>
+          <div class="prompt-desc">I need to select an AI platform for my organization and I want to start by defining our requirements clearly before comparing options.</div>
+        </div>
+        <div class="prompt-code-wrap">
+          <div class="prompt-code-header">
+            <span class="prompt-code-label">Prompt</span>
+            <button class="copy-btn" onclick="copyPrompt(this)">Copy</button>
+          </div>
+          <pre class="prompt-code">I need to select an AI platform for my organization and I want to start by defining our requirements clearly before comparing options.
+
+Organization context: [describe your team - size, industry, technical capability, primary tools used]
+
+Help me articulate our top three AI use cases by asking me questions. For each use case, I want to end up with: a specific description of the task, the input the AI would receive, the output the AI would produce, how often this task happens, and what level of autonomy we need (does a human need to review every output, or can the AI act independently?).
+
+Ask me about one use case at a time.</pre>
+        </div>
+      </div>
+      <div class="prompt-card">
+        <div class="prompt-header">
+          <div class="prompt-num">PROMPT 2</div>
+          <div class="prompt-title">Score a platform against your use cases</div>
+          <div class="prompt-desc">I want to evaluate [ChatGPT / Claude / Gemini] for my organization&#x27;s AI program.</div>
+        </div>
+        <div class="prompt-code-wrap">
+          <div class="prompt-code-header">
+            <span class="prompt-code-label">Prompt</span>
+            <button class="copy-btn" onclick="copyPrompt(this)">Copy</button>
+          </div>
+          <pre class="prompt-code">I want to evaluate [ChatGPT / Claude / Gemini] for my organization&#x27;s AI program.
+
+My organization: [brief description]
+My top three use cases:
+1. [use case 1]
+2. [use case 2]
+3. [use case 3]
+
+Please score this platform on five dimensions for each use case, using a 1-3 scale (1 = poor fit, 2 = acceptable, 3 = strong fit):
+- Depth of autonomous action
+- Integration ecosystem fit
+- Team and admin control features
+- Geographic availability
+- Price per outcome at our expected volume
+
+For each score, give a one-sentence explanation. Then give an overall recommendation on whether this platform is a strong, acceptable, or poor fit for our needs.</pre>
+        </div>
+      </div>
+      <div class="prompt-card">
+        <div class="prompt-header">
+          <div class="prompt-num">PROMPT 3</div>
+          <div class="prompt-title">Build the comparison table</div>
+          <div class="prompt-desc">I have scored three AI platforms on five dimensions for each of my three use cases. Help me build a comparison summary and recommendation.</div>
+        </div>
+        <div class="prompt-code-wrap">
+          <div class="prompt-code-header">
+            <span class="prompt-code-label">Prompt</span>
+            <button class="copy-btn" onclick="copyPrompt(this)">Copy</button>
+          </div>
+          <pre class="prompt-code">I have scored three AI platforms on five dimensions for each of my three use cases. Help me build a comparison summary and recommendation.
+
+My scores:
+ChatGPT: [paste your scores]
+Claude: [paste your scores]
+Gemini: [paste your scores]
+
+My use cases:
+1. [use case 1]
+2. [use case 2]
+3. [use case 3]
+
+Please:
+1. Summarize the key differences between the platforms based on my scores
+2. Identify which platform wins on which dimensions
+3. Draft a one-paragraph recommendation that names the best fit for my context, acknowledges the main trade-off, and notes any use case where a different platform might be better</pre>
+        </div>
+      </div>
+      <div class="prompt-card">
+        <div class="prompt-header">
+          <div class="prompt-num">PROMPT 4</div>
+          <div class="prompt-title">Write the stakeholder recommendation</div>
+          <div class="prompt-desc">I have completed a platform evaluation and I need to write a recommendation for [my manager / the leadership team / a client]. The audience has limited technical knowledge but will</div>
+        </div>
+        <div class="prompt-code-wrap">
+          <div class="prompt-code-header">
+            <span class="prompt-code-label">Prompt</span>
+            <button class="copy-btn" onclick="copyPrompt(this)">Copy</button>
+          </div>
+          <pre class="prompt-code">I have completed a platform evaluation and I need to write a recommendation for [my manager / the leadership team / a client]. The audience has limited technical knowledge but will be making the final decision.
+
+My recommendation: [state your recommended platform or combination]
+My key reasons: [2-3 bullet points from your analysis]
+The main trade-off: [what you are giving up by not choosing an alternative]
+
+Please write a one-page recommendation memo in plain language. It should cover: the business context, the evaluation approach, the recommendation, the rationale, the trade-off, and the suggested next step. Keep it under 400 words. No technical jargon.</pre>
+        </div>
+      </div>
+      <div class="prompt-card">
+        <div class="prompt-header">
+          <div class="prompt-num">PROMPT 5</div>
+          <div class="prompt-title">Build a platform migration checklist</div>
+          <div class="prompt-desc">My organization is moving from [current platform] to [new platform] for [specific use case].</div>
+        </div>
+        <div class="prompt-code-wrap">
+          <div class="prompt-code-header">
+            <span class="prompt-code-label">Prompt</span>
+            <button class="copy-btn" onclick="copyPrompt(this)">Copy</button>
+          </div>
+          <pre class="prompt-code">My organization is moving from [current platform] to [new platform] for [specific use case].
+
+Help me build a migration checklist that covers:
+1. Data and content to export from the current platform
+2. Integrations to rebuild or reconfigure
+3. Team training needs
+4. A timeline for the transition in three phases: preparation, migration, and stabilization
+5. Risk areas where things are most likely to break
+
+Organization size: [number of people affected]
+Technical resources available: [describe your engineering or IT capacity]
+Timeline constraint: [how long you have to complete the migration]</pre>
+        </div>
+      </div>
+    </div>
+
+    <div>
+      
+      <div class="resource-stack-label">Micro-Session Resources</div>
+      <div class="resource-stack">
+        <a href="agents-compared-video.html" class="resource-card">
+          <div class="resource-icon" style="background:rgba(40,123,232,0.1);">▶️</div>
+          <div class="resource-info">
+            <div class="resource-tag">01 · Video</div>
+            <div class="resource-title">Session Recording</div>
+          </div>
+          <div class="resource-arrow">→</div>
+        </a>
+        <a href="agents-compared-recap.html" class="resource-card">
+          <div class="resource-icon" style="background:rgba(111,242,193,0.15);">📋</div>
+          <div class="resource-info">
+            <div class="resource-tag">02 · Recap</div>
+            <div class="resource-title">Session Recap</div>
+          </div>
+          <div class="resource-arrow">→</div>
+        </a>
+        <a href="agents-compared-prompts.html" class="resource-card active">
+          <div class="resource-icon" style="background:rgba(40,123,232,0.08);">💬</div>
+          <div class="resource-info">
+            <div class="resource-tag">03 · Prompts</div>
+            <div class="resource-title">Prompt Library</div>
+          </div>
+          <div class="resource-arrow">→</div>
+        </a>
+        <a href="agents-compared-slides.html" class="resource-card">
+          <div class="resource-icon" style="background:rgba(209,69,139,0.1);">🖼️</div>
+          <div class="resource-info">
+            <div class="resource-tag">04 · Slides</div>
+            <div class="resource-title">Session Slides</div>
+          </div>
+          <div class="resource-arrow">→</div>
+        </a>
+        <a href="agents-compared-resources.html" class="resource-card">
+          <div class="resource-icon" style="background:rgba(111,242,193,0.1);">📚</div>
+          <div class="resource-info">
+            <div class="resource-tag">05 · Resources</div>
+            <div class="resource-title">Tools &amp; Links</div>
+          </div>
+          <div class="resource-arrow">→</div>
+        </a>
+      </div>
+    </div>
+
+  </div>
+
+</main>
+
+<script>
+function copyPrompt(btn) {
+  const pre = btn.closest('.prompt-code-wrap').querySelector('.prompt-code');
+  navigator.clipboard.writeText(pre.textContent.trim()).then(() => {
+    const orig = btn.textContent;
+    btn.textContent = 'Copied!';
+    btn.style.color = '#6FF2C1';
+    setTimeout(() => { btn.textContent = orig; btn.style.color = ''; }, 1800);
+  });
+}
+</script>
+</body>
+</html>

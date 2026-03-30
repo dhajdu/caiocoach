@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Session Slides: How to Brief an AI Agent — AI Officer Institute</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../shared/styles.css">
+<style>
+
+  :root {
+    --ease: cubic-bezier(0.4, 0, 0.2, 1);
+    --radius: 12px;
+    --shadow-sm: 0 1px 3px rgba(4,16,45,0.07);
+    --text-primary: #1a1f36;
+    --text-secondary: #4a5068;
+    --text-muted: #6b7194;
+    --border: #d8dce8;
+    --surface: #f4f6fa;
+    --card-bg: #ffffff;
+  }
+
+  body { background: var(--surface); font-family: 'DM Sans', sans-serif; -webkit-font-smoothing: antialiased; color: var(--text-primary); line-height: 1.7; }
+
+  .page-main { max-width: 1060px; margin: 0 auto; padding: 80px 40px 100px; }
+
+  .mission-back {
+    display: inline-flex; align-items: center; gap: 6px;
+    font-size: 13px; font-weight: 600; color: var(--text-muted);
+    text-decoration: none; margin-bottom: 28px; transition: color 0.12s;
+  }
+  .mission-back:hover { color: var(--text-primary); }
+
+  .mission-header { margin-bottom: 32px; }
+  .mission-meta { display: flex; align-items: center; gap: 10px; margin-bottom: 14px; }
+  .mission-track-pill {
+    display: inline-flex; align-items: center; gap: 7px;
+    font-size: 11px; font-weight: 700; letter-spacing: 0.7px; text-transform: uppercase;
+    padding: 5px 12px; border-radius: 20px;
+  }
+  .mission-track-pill .dot { width: 5px; height: 5px; border-radius: 50%; }
+  .mission-title { font-size: 34px; font-weight: 700; color: var(--text-primary); letter-spacing: -0.5px; line-height: 1.15; margin-bottom: 10px; }
+  .mission-sub { font-size: 15px; color: var(--text-secondary); line-height: 1.6; max-width: 620px; }
+
+  .mission-body { display: grid; grid-template-columns: 1fr 300px; gap: 24px; align-items: start; }
+
+  .content-card {
+    background: var(--card-bg); border: 1px solid var(--border);
+    border-radius: var(--radius); padding: 24px 28px;
+    box-shadow: var(--shadow-sm); margin-bottom: 16px;
+  }
+  .card-label { font-size: 10px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: #287BE8; margin-bottom: 14px; }
+  .card-heading { font-size: 16px; font-weight: 700; color: var(--text-primary); margin-bottom: 14px; letter-spacing: -0.2px; }
+  .card-text { font-size: 14px; color: var(--text-secondary); line-height: 1.65; margin-bottom: 12px; }
+  .card-text:last-child { margin-bottom: 0; }
+
+  /* Resource sidebar */
+  .resource-stack-label { font-size: 10px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: var(--text-muted); margin-bottom: 4px; }
+  .resource-stack { display: flex; flex-direction: column; gap: 8px; }
+  .resource-card {
+    background: var(--card-bg); border: 1px solid var(--border);
+    border-radius: var(--radius); padding: 14px 16px;
+    text-decoration: none; color: inherit;
+    display: flex; align-items: center; gap: 12px;
+    box-shadow: var(--shadow-sm); transition: all 0.15s var(--ease);
+  }
+  .resource-card:hover { border-color: rgba(40,123,232,0.35); box-shadow: 0 4px 16px rgba(4,16,45,0.09); transform: translateY(-1px); }
+  .resource-card.active { border-color: rgba(40,123,232,0.4); background: rgba(40,123,232,0.04); }
+  .resource-icon { width: 36px; height: 36px; border-radius: 9px; flex-shrink: 0; display: flex; align-items: center; justify-content: center; font-size: 16px; }
+  .resource-info { flex: 1; min-width: 0; }
+  .resource-tag { font-size: 10px; font-weight: 700; letter-spacing: 0.7px; text-transform: uppercase; color: var(--text-muted); margin-bottom: 1px; }
+  .resource-title { font-size: 13px; font-weight: 700; color: var(--text-primary); }
+  .resource-arrow { font-size: 13px; color: var(--text-muted); flex-shrink: 0; }
+  .resource-card.active .resource-arrow { color: #287BE8; }
+
+  @media (max-width: 900px) {
+    .page-main { padding: 70px 20px 80px; }
+    .mission-body { grid-template-columns: 1fr; }
+  }
+
+
+  .slide-card { background: var(--card-bg); border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden; box-shadow: var(--shadow-sm); margin-bottom: 16px; }
+  .slide-header { background: #04102D; padding: 14px 20px; display: flex; align-items: center; justify-content: space-between; }
+  .slide-num-badge { font-family: 'JetBrains Mono', monospace; font-size: 10px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: rgba(111,242,193,0.8); background: rgba(111,242,193,0.1); padding: 3px 10px; border-radius: 4px; }
+  .slide-timing { font-family: 'JetBrains Mono', monospace; font-size: 10px; color: rgba(255,255,255,0.35); }
+  .slide-title-bar { background: rgba(255,255,255,0.04); border-bottom: 1px solid rgba(255,255,255,0.07); padding: 12px 20px; }
+  .slide-title { font-size: 15px; font-weight: 700; color: rgba(255,255,255,0.9); letter-spacing: -0.2px; }
+  .slide-body { padding: 18px 20px; }
+  .slide-bullets { display: flex; flex-direction: column; gap: 6px; }
+  .slide-bullet { display: flex; align-items: baseline; gap: 8px; font-size: 13px; color: var(--text-secondary); line-height: 1.55; }
+  .slide-bullet::before { content: '—'; color: #287BE8; font-weight: 700; flex-shrink: 0; }
+  .slide-notes-toggle { display: flex; align-items: center; gap: 7px; font-size: 12px; font-weight: 600; color: var(--text-muted); background: var(--surface); border: none; border-top: 1px solid var(--border); width: 100%; padding: 10px 20px; cursor: pointer; text-align: left; transition: color 0.12s; }
+  .slide-notes-toggle:hover { color: var(--text-primary); }
+  .slide-notes-toggle .toggle-icon { font-size: 10px; transition: transform 0.18s; }
+  .slide-notes-toggle.open .toggle-icon { transform: rotate(90deg); }
+  .slide-notes { display: none; padding: 14px 20px 18px; background: rgba(40,123,232,0.03); border-top: 1px solid rgba(40,123,232,0.1); font-size: 13px; color: var(--text-secondary); line-height: 1.7; }
+  .slide-notes.open { display: block; }
+
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <a href="../index.html" class="topbar-brand">AIO <span>Labs</span></a>
+  <nav class="topbar-nav">
+    <a href="../certification.html" class="tnav-link"><span class="tnav-dot" style="background:#287BE8"></span> Certification</a>
+    <a href="../coaching.html" class="tnav-link"><span class="tnav-dot" style="background:#287BE8"></span> Coaching</a>
+    <a href="index.html" class="tnav-link active"><span class="tnav-dot" style="background:#1A9E74"></span> Micro-Sessions</a>
+    <a href="../blog/index.html" class="tnav-link"><span class="tnav-dot" style="background:#6FF2C1"></span> Blog</a>
+    <a href="../my-team.html" class="tnav-link"><span class="tnav-dot" style="background:#8b91ac"></span> My Team</a>
+  </nav>
+  <div class="topbar-right">
+    <a href="https://claude.ai" target="_blank" class="buddy-launch-btn">🤖 AI Buddy</a>
+    <div class="topbar-stat">🔥 7</div>
+    <div class="topbar-stat">⭐ 1,240</div>
+    <div class="topbar-divider"></div>
+    <div class="topbar-avatar">DH</div>
+  </div>
+</div>
+
+<main class="page-main">
+
+  <a href="how-to-brief-an-ai-agent.html" class="mission-back">← How to Brief an AI Agent</a>
+
+  <div class="mission-header">
+    <div class="mission-meta">
+      <span class="mission-track-pill" style="background:rgba(26,158,116,0.1); color:#1A9E74; border: 1px solid rgba(26,158,116,0.2);"><span class="dot" style="background:#1A9E74;"></span> Agentic AI</span>
+    </div>
+    <h1 class="mission-title">Session Slides</h1>
+    <p class="mission-sub">All slides from the session with speaker notes. Expand any slide for the full script.</p>
+  </div>
+
+  <div class="mission-body">
+
+    <div>
+      
+      <div class="slide-card">
+        <div class="slide-header">
+          <span class="slide-num-badge">Slide 1</span>
+          <span class="slide-timing">2 minutes</span>
+        </div>
+        <div class="slide-title-bar">
+          <div class="slide-title">The Problem</div>
+        </div>
+        <div class="slide-body">
+          <div class="slide-bullets"><div class="slide-bullet">Agentic AI Essentials | Micro Session</div><div class="slide-bullet">The Problem**</div><div class="slide-bullet">Your agent keeps getting it wrong. The problem is not the AI. The problem is you never told it what right looks like.</div>
+          </div>
+        </div>
+        
+          <button class="slide-notes-toggle" onclick="toggleNotes(this)">
+            <span class="toggle-icon">▶</span> Speaker Notes
+          </button>
+          <div class="slide-notes">We build agents with the best intentions, but they disappoint us. We assume they understand context they don&#x27;t have, or we give them instructions so vague they could mean anything. The good news is that agent performance is not a mystery. It&#x27;s entirely predictable. If you want your agent to do something consistently, you have to write instructions the way you would write them for a new hire who can never ask you a follow-up question. That sounds harder than it is. Today we&#x27;re going to show you exactly how.</div>
+      </div>
+      <div class="slide-card">
+        <div class="slide-header">
+          <span class="slide-num-badge">Slide 2</span>
+          <span class="slide-timing">3 minutes</span>
+        </div>
+        <div class="slide-title-bar">
+          <div class="slide-title">Prompt vs Brief</div>
+        </div>
+        <div class="slide-body">
+          <div class="slide-bullets"><div class="slide-bullet">A prompt is temporary.**</div><div class="slide-bullet">You write it, use it once, throw it away.</div><div class="slide-bullet">A brief is permanent.**</div><div class="slide-bullet">Your agent lives inside it. Every decision your agent makes comes from this brief.</div>
+          </div>
+        </div>
+        
+          <button class="slide-notes-toggle" onclick="toggleNotes(this)">
+            <span class="toggle-icon">▶</span> Speaker Notes
+          </button>
+          <div class="slide-notes">This distinction matters more than anything else you&#x27;ll learn today. A prompt is a one-time instruction. You ask ChatGPT something, get an answer, move on. A brief is different. A brief is the permanent operating manual for an agent that will run dozens or hundreds of times. If you write a prompt when you should be writing a brief, your agent will either fail silently or do something nobody wants. We&#x27;re going to teach you how to write a brief, not a prompt.</div>
+      </div>
+      <div class="slide-card">
+        <div class="slide-header">
+          <span class="slide-num-badge">Slide 3</span>
+          <span class="slide-timing">5 minutes</span>
+        </div>
+        <div class="slide-title-bar">
+          <div class="slide-title">The Four Components</div>
+        </div>
+        <div class="slide-body">
+          <div class="slide-bullets"><div class="slide-bullet">Every strong brief has four parts:**</div><div class="slide-bullet">1. Context - Who is this agent? What does it know?</div><div class="slide-bullet">2. Task - What input does it get? What should it do with it?</div><div class="slide-bullet">3. Constraints - What should it never do?</div><div class="slide-bullet">4. Output Format - What does a perfect result look like?</div>
+          </div>
+        </div>
+        
+          <button class="slide-notes-toggle" onclick="toggleNotes(this)">
+            <span class="toggle-icon">▶</span> Speaker Notes
+          </button>
+          <div class="slide-notes">Think of these four components as the skeleton of every agent brief that actually works. Context is about giving your agent the background it needs to make good decisions. It&#x27;s not just the task, it&#x27;s the why. Task is the action itself. Get this wrong and everything fails. Constraints are the guardrails. If you don&#x27;t tell your agent what to never do, it will try everything. Output format is where most briefs fail completely. Engineers and managers skip this part because it feels tedious. But if you don&#x27;t show your agent exactly what success looks like, it will guess. And it will guess wrong.</div>
+      </div>
+      <div class="slide-card">
+        <div class="slide-header">
+          <span class="slide-num-badge">Slide 4</span>
+          <span class="slide-timing">4 minutes</span>
+        </div>
+        <div class="slide-title-bar">
+          <div class="slide-title">Component Deep Dive: Context</div>
+        </div>
+        <div class="slide-body">
+          <div class="slide-bullets"><div class="slide-bullet">Context tells the agent who it is.**</div><div class="slide-bullet">What role does it play? (analyst, writer, reviewer, researcher)</div><div class="slide-bullet">What does it already know? (domain, standards, past decisions)</div><div class="slide-bullet">Who will use this? (internal team, external clients, C-suite)</div><div class="slide-bullet">What standard are you holding it to? (company style, industry practice, legal requirement)</div>
+          </div>
+        </div>
+        
+          <button class="slide-notes-toggle" onclick="toggleNotes(this)">
+            <span class="toggle-icon">▶</span> Speaker Notes
+          </button>
+          <div class="slide-notes">Context is not filler. Context is the difference between an agent that makes one mistake and an agent that makes the same mistake every time. If you tell your agent it is a financial analyst, it behaves differently than if you tell it it&#x27;s a writer. If you tell it the audience is a regulatory body, it behaves differently than if the audience is a startup board. The more specific your context, the fewer bad assumptions your agent will make. Don&#x27;t be vague about who your agent is or who it&#x27;s talking to.</div>
+      </div>
+      <div class="slide-card">
+        <div class="slide-header">
+          <span class="slide-num-badge">Slide 5</span>
+          <span class="slide-timing">5 minutes</span>
+        </div>
+        <div class="slide-title-bar">
+          <div class="slide-title">Component Deep Dive: Task and Constraints</div>
+        </div>
+        <div class="slide-body">
+          <div class="slide-bullets"><div class="slide-bullet">Task:** What input does it get? What output do you want from it?</div><div class="slide-bullet">Constraints:** What should it absolutely never do?</div><div class="slide-bullet">Examples:</div><div class="slide-bullet">Do not make up data</div><div class="slide-bullet">Do not provide legal advice</div><div class="slide-bullet">Do not engage with [specific topic]</div><div class="slide-bullet">Do not exceed [length/format limit]</div>
+          </div>
+        </div>
+        
+          <button class="slide-notes-toggle" onclick="toggleNotes(this)">
+            <span class="toggle-icon">▶</span> Speaker Notes
+          </button>
+          <div class="slide-notes">Task is simple on paper but hard in practice. You have to be specific about what the input looks like and what you want back. If your input is a document, is it always a PDF? Is it always English? Does it have a maximum length? On the output side, if you ask for analysis, do you want bullet points or paragraphs? Do you want sources cited? These details matter. On constraints, most teams either skip this section or write vague things like don&#x27;t be biased. Instead, identify the specific things your agent could do wrong, and forbid them by name. If your agent processes financial documents, explicitly tell it not to make up numbers. If it talks to customers, explicitly tell it not to promise things the company doesn&#x27;t offer.</div>
+      </div>
+      <div class="slide-card">
+        <div class="slide-header">
+          <span class="slide-num-badge">Slide 6</span>
+          <span class="slide-timing">5 minutes</span>
+        </div>
+        <div class="slide-title-bar">
+          <div class="slide-title">Component Deep Dive: Output Format</div>
+        </div>
+        <div class="slide-body">
+          <div class="slide-bullets"><div class="slide-bullet">This is where most briefs fail.**</div><div class="slide-bullet">A weak brief says: &quot;Write an analysis.&quot;</div><div class="slide-bullet">A strong brief shows a template:</div><div class="slide-bullet"># [Document Title]</div><div class="slide-bullet">## Summary</div><div class="slide-bullet">[2-3 sentences]</div><div class="slide-bullet">## Key Findings</div><div class="slide-bullet">[Finding 1]</div><div class="slide-bullet">[Finding 2]</div><div class="slide-bullet">[etc]</div>
+          </div>
+        </div>
+        
+          <button class="slide-notes-toggle" onclick="toggleNotes(this)">
+            <span class="toggle-icon">▶</span> Speaker Notes
+          </button>
+          <div class="slide-notes">Output format is not optional. It is not a suggestion. It is the only way your agent can know if it has done the job right. If you tell your agent to analyze something but don&#x27;t show it what the analysis should look like, it will invent a format every single time. You&#x27;ll get inconsistency, wasted cycles, and agents that look broken when they are actually just confused. The strongest briefs include an example of a real output that came from the agent itself. Show your agent what good looks like.</div>
+      </div>
+      <div class="slide-card">
+        <div class="slide-header">
+          <span class="slide-num-badge">Slide 7</span>
+          <span class="slide-timing">4 minutes</span>
+        </div>
+        <div class="slide-title-bar">
+          <div class="slide-title">The Edge Case Problem</div>
+        </div>
+        <div class="slide-body">
+          <div class="slide-bullets"><div class="slide-bullet">Agents follow instructions literally.**</div><div class="slide-bullet">If you do not anticipate what could go wrong, your agent will find it.</div><div class="slide-bullet">Examples:</div><div class="slide-bullet">&quot;Summarize this&quot; - What if the document is 500 pages?</div><div class="slide-bullet">&quot;Find the budget&quot; - What if there are 10 budget documents?</div><div class="slide-bullet">&quot;Write an email&quot; - What if the recipient doesn&#x27;t exist?</div>
+          </div>
+        </div>
+        
+          <button class="slide-notes-toggle" onclick="toggleNotes(this)">
+            <span class="toggle-icon">▶</span> Speaker Notes
+          </button>
+          <div class="slide-notes">This is the hardest part of writing a good brief, and it&#x27;s where experience matters. You have to imagine all the weird inputs, edge cases, and corner scenarios your agent might encounter. Then you have to write instructions for each one. If you do not tell your agent what to do when something is ambiguous, it will guess. And when an agent guesses, it often picks the wrong option. The best way to identify edge cases is to run your agent on real data and see where it fails. Then write instructions for those failures.</div>
+      </div>
+      <div class="slide-card">
+        <div class="slide-header">
+          <span class="slide-num-badge">Slide 8</span>
+          <span class="slide-timing">2 minutes</span>
+        </div>
+        <div class="slide-title-bar">
+          <div class="slide-title">Testing Your Brief</div>
+        </div>
+        <div class="slide-body">
+          <div class="slide-bullets"><div class="slide-bullet">Before you hand it to your team:**</div><div class="slide-bullet">1. Run it on at least 5 real inputs</div><div class="slide-bullet">2. Check: Does it always produce the same structure?</div><div class="slide-bullet">3. Check: Can someone unfamiliar with this brief understand the output?</div><div class="slide-bullet">4. Check: Does it handle at least one edge case correctly?</div><div class="slide-bullet">If the answer to all four is yes, it is ready.</div>
+          </div>
+        </div>
+        
+          <button class="slide-notes-toggle" onclick="toggleNotes(this)">
+            <span class="toggle-icon">▶</span> Speaker Notes
+          </button>
+          <div class="slide-notes">Testing your brief is not optional. You have to run it before it goes live. Give your agent the inputs it will actually see, not just the easy ones. If it fails on any input, rewrite the brief and test again. The brief is not done until your agent can handle the real world, not just the ideal case. Once it passes all four tests, you are ready to hand it to your team with confidence.</div>
+      </div>
+    </div>
+
+    <div>
+      
+      <div class="resource-stack-label">Micro-Session Resources</div>
+      <div class="resource-stack">
+        <a href="how-to-brief-an-ai-agent-video.html" class="resource-card">
+          <div class="resource-icon" style="background:rgba(40,123,232,0.1);">▶️</div>
+          <div class="resource-info">
+            <div class="resource-tag">01 · Video</div>
+            <div class="resource-title">Session Recording</div>
+          </div>
+          <div class="resource-arrow">→</div>
+        </a>
+        <a href="how-to-brief-an-ai-agent-recap.html" class="resource-card">
+          <div class="resource-icon" style="background:rgba(111,242,193,0.15);">📋</div>
+          <div class="resource-info">
+            <div class="resource-tag">02 · Recap</div>
+            <div class="resource-title">Session Recap</div>
+          </div>
+          <div class="resource-arrow">→</div>
+        </a>
+        <a href="how-to-brief-an-ai-agent-prompts.html" class="resource-card">
+          <div class="resource-icon" style="background:rgba(40,123,232,0.08);">💬</div>
+          <div class="resource-info">
+            <div class="resource-tag">03 · Prompts</div>
+            <div class="resource-title">Prompt Library</div>
+          </div>
+          <div class="resource-arrow">→</div>
+        </a>
+        <a href="how-to-brief-an-ai-agent-slides.html" class="resource-card active">
+          <div class="resource-icon" style="background:rgba(209,69,139,0.1);">🖼️</div>
+          <div class="resource-info">
+            <div class="resource-tag">04 · Slides</div>
+            <div class="resource-title">Session Slides</div>
+          </div>
+          <div class="resource-arrow">→</div>
+        </a>
+        <a href="how-to-brief-an-ai-agent-resources.html" class="resource-card">
+          <div class="resource-icon" style="background:rgba(111,242,193,0.1);">📚</div>
+          <div class="resource-info">
+            <div class="resource-tag">05 · Resources</div>
+            <div class="resource-title">Tools &amp; Links</div>
+          </div>
+          <div class="resource-arrow">→</div>
+        </a>
+      </div>
+    </div>
+
+  </div>
+
+</main>
+
+<script>
+function toggleNotes(btn) {
+  btn.classList.toggle('open');
+  btn.nextElementSibling.classList.toggle('open');
+}
+</script>
+</body>
+</html>

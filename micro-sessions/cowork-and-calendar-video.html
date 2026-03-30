@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Session Recording: Cowork + Calendar: Let AI Prep Your Week — AI Officer Institute</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../shared/styles.css">
+<style>
+
+  :root {
+    --ease: cubic-bezier(0.4, 0, 0.2, 1);
+    --radius: 12px;
+    --shadow-sm: 0 1px 3px rgba(4,16,45,0.07);
+    --text-primary: #1a1f36;
+    --text-secondary: #4a5068;
+    --text-muted: #6b7194;
+    --border: #d8dce8;
+    --surface: #f4f6fa;
+    --card-bg: #ffffff;
+  }
+
+  body { background: var(--surface); font-family: 'DM Sans', sans-serif; -webkit-font-smoothing: antialiased; color: var(--text-primary); line-height: 1.7; }
+
+  .page-main { max-width: 1060px; margin: 0 auto; padding: 80px 40px 100px; }
+
+  .mission-back {
+    display: inline-flex; align-items: center; gap: 6px;
+    font-size: 13px; font-weight: 600; color: var(--text-muted);
+    text-decoration: none; margin-bottom: 28px; transition: color 0.12s;
+  }
+  .mission-back:hover { color: var(--text-primary); }
+
+  .mission-header { margin-bottom: 32px; }
+  .mission-meta { display: flex; align-items: center; gap: 10px; margin-bottom: 14px; }
+  .mission-track-pill {
+    display: inline-flex; align-items: center; gap: 7px;
+    font-size: 11px; font-weight: 700; letter-spacing: 0.7px; text-transform: uppercase;
+    padding: 5px 12px; border-radius: 20px;
+  }
+  .mission-track-pill .dot { width: 5px; height: 5px; border-radius: 50%; }
+  .mission-title { font-size: 34px; font-weight: 700; color: var(--text-primary); letter-spacing: -0.5px; line-height: 1.15; margin-bottom: 10px; }
+  .mission-sub { font-size: 15px; color: var(--text-secondary); line-height: 1.6; max-width: 620px; }
+
+  .mission-body { display: grid; grid-template-columns: 1fr 300px; gap: 24px; align-items: start; }
+
+  .content-card {
+    background: var(--card-bg); border: 1px solid var(--border);
+    border-radius: var(--radius); padding: 24px 28px;
+    box-shadow: var(--shadow-sm); margin-bottom: 16px;
+  }
+  .card-label { font-size: 10px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: #287BE8; margin-bottom: 14px; }
+  .card-heading { font-size: 16px; font-weight: 700; color: var(--text-primary); margin-bottom: 14px; letter-spacing: -0.2px; }
+  .card-text { font-size: 14px; color: var(--text-secondary); line-height: 1.65; margin-bottom: 12px; }
+  .card-text:last-child { margin-bottom: 0; }
+
+  /* Resource sidebar */
+  .resource-stack-label { font-size: 10px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: var(--text-muted); margin-bottom: 4px; }
+  .resource-stack { display: flex; flex-direction: column; gap: 8px; }
+  .resource-card {
+    background: var(--card-bg); border: 1px solid var(--border);
+    border-radius: var(--radius); padding: 14px 16px;
+    text-decoration: none; color: inherit;
+    display: flex; align-items: center; gap: 12px;
+    box-shadow: var(--shadow-sm); transition: all 0.15s var(--ease);
+  }
+  .resource-card:hover { border-color: rgba(40,123,232,0.35); box-shadow: 0 4px 16px rgba(4,16,45,0.09); transform: translateY(-1px); }
+  .resource-card.active { border-color: rgba(40,123,232,0.4); background: rgba(40,123,232,0.04); }
+  .resource-icon { width: 36px; height: 36px; border-radius: 9px; flex-shrink: 0; display: flex; align-items: center; justify-content: center; font-size: 16px; }
+  .resource-info { flex: 1; min-width: 0; }
+  .resource-tag { font-size: 10px; font-weight: 700; letter-spacing: 0.7px; text-transform: uppercase; color: var(--text-muted); margin-bottom: 1px; }
+  .resource-title { font-size: 13px; font-weight: 700; color: var(--text-primary); }
+  .resource-arrow { font-size: 13px; color: var(--text-muted); flex-shrink: 0; }
+  .resource-card.active .resource-arrow { color: #287BE8; }
+
+  @media (max-width: 900px) {
+    .page-main { padding: 70px 20px 80px; }
+    .mission-body { grid-template-columns: 1fr; }
+  }
+
+
+  .video-player-wrap { background: var(--card-bg); border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden; box-shadow: var(--shadow-sm); margin-bottom: 16px; }
+  .video-stage { position: relative; width: 100%; aspect-ratio: 16 / 9; background: linear-gradient(145deg, #04102D 0%, #0a1f4d 50%, #0d2660 100%); display: flex; flex-direction: column; align-items: center; justify-content: center; overflow: hidden; }
+  .video-stage::before { content: ''; position: absolute; inset: 0; background-image: linear-gradient(rgba(40,123,232,0.07) 1px, transparent 1px), linear-gradient(90deg, rgba(40,123,232,0.07) 1px, transparent 1px); background-size: 48px 48px; pointer-events: none; }
+  .video-stage::after { content: ''; position: absolute; width: 420px; height: 420px; border-radius: 50%; background: radial-gradient(circle, rgba(40,123,232,0.18) 0%, transparent 70%); top: 50%; left: 50%; transform: translate(-50%, -50%); pointer-events: none; }
+  .video-play-btn { position: relative; z-index: 2; width: 72px; height: 72px; border-radius: 50%; background: rgba(255,255,255,0.1); border: 2px solid rgba(255,255,255,0.2); display: flex; align-items: center; justify-content: center; margin-bottom: 24px; backdrop-filter: blur(8px); }
+  .video-play-btn svg { width: 28px; height: 28px; fill: rgba(255,255,255,0.6); margin-left: 4px; }
+  .video-coming-soon { position: relative; z-index: 2; text-align: center; }
+  .video-coming-soon-label { font-family: 'JetBrains Mono', monospace; font-size: 10px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: rgba(111,242,193,0.8); margin-bottom: 8px; }
+  .video-coming-soon-title { font-size: 18px; font-weight: 700; color: rgba(255,255,255,0.9); letter-spacing: -0.3px; margin-bottom: 6px; }
+  .video-coming-soon-sub { font-size: 13px; color: rgba(255,255,255,0.45); }
+  .video-scrubber { position: absolute; bottom: 0; left: 0; right: 0; padding: 0 20px 16px; z-index: 2; }
+  .video-scrubber-bar { height: 3px; background: rgba(255,255,255,0.12); border-radius: 2px; margin-bottom: 10px; }
+  .video-controls-row { display: flex; align-items: center; justify-content: space-between; }
+  .video-ctrl-left { display: flex; align-items: center; gap: 14px; }
+  .video-ctrl-icon { width: 28px; height: 28px; border-radius: 6px; background: rgba(255,255,255,0.07); display: flex; align-items: center; justify-content: center; }
+  .video-ctrl-icon svg { width: 13px; height: 13px; fill: rgba(255,255,255,0.45); }
+  .video-time { font-family: 'JetBrains Mono', monospace; font-size: 11px; color: rgba(255,255,255,0.35); }
+  .video-info { padding: 18px 24px 20px; border-top: 1px solid var(--border); display: flex; align-items: flex-start; justify-content: space-between; gap: 20px; }
+  .video-info-session { font-size: 11px; font-weight: 700; letter-spacing: 0.7px; text-transform: uppercase; color: var(--text-muted); margin-bottom: 4px; }
+  .video-info-title { font-size: 16px; font-weight: 700; color: var(--text-primary); letter-spacing: -0.2px; margin-bottom: 6px; }
+  .video-info-meta { display: flex; align-items: center; gap: 10px; }
+  .video-info-pill { font-size: 11px; font-weight: 600; color: var(--text-muted); background: var(--surface); border: 1px solid var(--border); padding: 3px 10px; border-radius: 20px; }
+  .video-notify-btn { display: inline-flex; align-items: center; gap: 7px; font-size: 13px; font-weight: 600; color: #287BE8; background: rgba(40,123,232,0.08); border: 1px solid rgba(40,123,232,0.2); padding: 8px 16px; border-radius: 8px; text-decoration: none; cursor: pointer; white-space: nowrap; flex-shrink: 0; align-self: center; }
+  .agenda-list { display: flex; flex-direction: column; gap: 10px; list-style: none; margin: 0; padding: 0; }
+  .agenda-item { display: flex; align-items: baseline; gap: 12px; }
+  .agenda-num { font-family: 'JetBrains Mono', monospace; font-size: 10px; font-weight: 700; color: #287BE8; background: rgba(40,123,232,0.08); padding: 3px 8px; border-radius: 4px; flex-shrink: 0; letter-spacing: 0.5px; }
+  .agenda-text { font-size: 14px; color: var(--text-secondary); line-height: 1.55; }
+  .agenda-text strong { color: var(--text-primary); font-weight: 600; }
+
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <a href="../index.html" class="topbar-brand">AIO <span>Labs</span></a>
+  <nav class="topbar-nav">
+    <a href="../certification.html" class="tnav-link"><span class="tnav-dot" style="background:#287BE8"></span> Certification</a>
+    <a href="../coaching.html" class="tnav-link"><span class="tnav-dot" style="background:#287BE8"></span> Coaching</a>
+    <a href="index.html" class="tnav-link active"><span class="tnav-dot" style="background:#1A9E74"></span> Micro-Sessions</a>
+    <a href="../blog/index.html" class="tnav-link"><span class="tnav-dot" style="background:#6FF2C1"></span> Blog</a>
+    <a href="../my-team.html" class="tnav-link"><span class="tnav-dot" style="background:#8b91ac"></span> My Team</a>
+  </nav>
+  <div class="topbar-right">
+    <a href="https://claude.ai" target="_blank" class="buddy-launch-btn">🤖 AI Buddy</a>
+    <div class="topbar-stat">🔥 7</div>
+    <div class="topbar-stat">⭐ 1,240</div>
+    <div class="topbar-divider"></div>
+    <div class="topbar-avatar">DH</div>
+  </div>
+</div>
+
+<main class="page-main">
+
+  <a href="cowork-and-calendar.html" class="mission-back">← Cowork + Calendar: Let AI Prep Your Week</a>
+
+  <div class="mission-header">
+    <div class="mission-meta">
+      <span class="mission-track-pill" style="background:rgba(26,158,116,0.1); color:#1A9E74; border: 1px solid rgba(26,158,116,0.2);"><span class="dot" style="background:#1A9E74;"></span> Agentic AI</span>
+    </div>
+    <h1 class="mission-title">Session Recording</h1>
+    <p class="mission-sub">The full session walkthrough — watch at your own pace and revisit any time.</p>
+  </div>
+
+  <div class="mission-body">
+
+    <div>
+
+      <div class="video-player-wrap">
+        <div class="video-stage">
+          <div class="video-play-btn">
+            <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+          </div>
+          <div class="video-coming-soon">
+            <div class="video-coming-soon-label">Recording</div>
+            <div class="video-coming-soon-title">Cowork + Calendar: Let AI Prep Your Week</div>
+            <div class="video-coming-soon-sub">Video will appear here once the session is published.</div>
+          </div>
+          <div class="video-scrubber">
+            <div class="video-scrubber-bar"></div>
+            <div class="video-controls-row">
+              <div class="video-ctrl-left">
+                <div class="video-ctrl-icon"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
+                <div class="video-ctrl-icon"><svg viewBox="0 0 24 24"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02z"/></svg></div>
+                <span class="video-time">0:00 / —:——</span>
+              </div>
+              <div style="display:flex;align-items:center;gap:10px;">
+                <div class="video-ctrl-icon"><svg viewBox="0 0 24 24"><path d="M7 14H5v5h5v-2H7v-3zm-2-4h2V7h3V5H5v5zm12 7h-3v2h5v-5h-2v3zM14 5v2h3v3h2V5h-5z"/></svg></div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="video-info">
+          <div>
+            <div class="video-info-session">Micro-Session · Agentic AI Essentials</div>
+            <div class="video-info-title">Cowork + Calendar: Let AI Prep Your Week</div>
+            <div class="video-info-meta">
+              <span class="video-info-pill">⏱ ~45 min</span>
+              <span class="video-info-pill">Coming Soon</span>
+            </div>
+          </div>
+          <button class="video-notify-btn" onclick="this.textContent='✓ You\'re on the list'; this.style.color='#1A9E74'; this.style.background='rgba(26,158,116,0.08)'; this.style.borderColor='rgba(26,158,116,0.25)';">🔔 Notify me</button>
+        </div>
+      </div>
+
+      <div class="content-card">
+        <div class="card-label">What You'll Watch</div>
+        <ul class="agenda-list">
+          <li class="agenda-item">
+            <span class="agenda-num">01</span>
+            <span class="agenda-text"><strong>The Time Waste</strong></span>
+          </li>
+          <li class="agenda-item">
+            <span class="agenda-num">02</span>
+            <span class="agenda-text"><strong>What a Weekly Briefing Workflow Is</strong></span>
+          </li>
+          <li class="agenda-item">
+            <span class="agenda-num">03</span>
+            <span class="agenda-text"><strong>What to Include in Your Briefing</strong></span>
+          </li>
+          <li class="agenda-item">
+            <span class="agenda-num">04</span>
+            <span class="agenda-text"><strong>Exporting Your Calendar</strong></span>
+          </li>
+          <li class="agenda-item">
+            <span class="agenda-num">05</span>
+            <span class="agenda-text"><strong>Writing the Cowork Instruction</strong></span>
+          </li>
+        </ul>
+      </div>
+
+    </div>
+
+    <div>
+      
+      <div class="resource-stack-label">Micro-Session Resources</div>
+      <div class="resource-stack">
+        <a href="cowork-and-calendar-video.html" class="resource-card active">
+          <div class="resource-icon" style="background:rgba(40,123,232,0.1);">▶️</div>
+          <div class="resource-info">
+            <div class="resource-tag">01 · Video</div>
+            <div class="resource-title">Session Recording</div>
+          </div>
+          <div class="resource-arrow">→</div>
+        </a>
+        <a href="cowork-and-calendar-recap.html" class="resource-card">
+          <div class="resource-icon" style="background:rgba(111,242,193,0.15);">📋</div>
+          <div class="resource-info">
+            <div class="resource-tag">02 · Recap</div>
+            <div class="resource-title">Session Recap</div>
+          </div>
+          <div class="resource-arrow">→</div>
+        </a>
+        <a href="cowork-and-calendar-prompts.html" class="resource-card">
+          <div class="resource-icon" style="background:rgba(40,123,232,0.08);">💬</div>
+          <div class="resource-info">
+            <div class="resource-tag">03 · Prompts</div>
+            <div class="resource-title">Prompt Library</div>
+          </div>
+          <div class="resource-arrow">→</div>
+        </a>
+        <a href="cowork-and-calendar-slides.html" class="resource-card">
+          <div class="resource-icon" style="background:rgba(209,69,139,0.1);">🖼️</div>
+          <div class="resource-info">
+            <div class="resource-tag">04 · Slides</div>
+            <div class="resource-title">Session Slides</div>
+          </div>
+          <div class="resource-arrow">→</div>
+        </a>
+        <a href="cowork-and-calendar-resources.html" class="resource-card">
+          <div class="resource-icon" style="background:rgba(111,242,193,0.1);">📚</div>
+          <div class="resource-info">
+            <div class="resource-tag">05 · Resources</div>
+            <div class="resource-title">Tools &amp; Links</div>
+          </div>
+          <div class="resource-arrow">→</div>
+        </a>
+      </div>
+    </div>
+
+  </div>
+
+</main>
+</body>
+</html>

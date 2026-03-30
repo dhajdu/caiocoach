@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Session Slides: Deep Research — AI Officer Institute</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../shared/styles.css">
+<style>
+  :root {
+    --ease: cubic-bezier(0.4, 0, 0.2, 1);
+    --radius: 12px;
+    --shadow-sm: 0 1px 3px rgba(4,16,45,0.07);
+    --text-primary: #1a1f36;
+    --text-secondary: #4a5068;
+    --text-muted: #6b7194;
+    --border: #d8dce8;
+    --surface: #f4f6fa;
+    --card-bg: #ffffff;
+  }
+
+  body { background: var(--surface); font-family: 'DM Sans', sans-serif; -webkit-font-smoothing: antialiased; color: var(--text-primary); line-height: 1.7; }
+
+  .topbar-stat { display: flex; align-items: center; gap: 5px; font-family: 'JetBrains Mono', monospace; font-size: 13px; font-weight: 600; color: rgba(255,255,255,0.7); background: rgba(255,255,255,0.07); padding: 5px 12px; border-radius: 6px; }
+  .topbar-avatar { width: 32px; height: 32px; border-radius: 50%; background: var(--blue); display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 700; color: white; }
+
+  .page-main { max-width: 1060px; margin: 0 auto; padding: 80px 40px 100px; }
+  .mission-back { display: inline-flex; align-items: center; gap: 6px; font-size: 13px; font-weight: 600; color: var(--text-muted); text-decoration: none; margin-bottom: 28px; transition: color 0.12s; }
+  .mission-back:hover { color: var(--text-primary); }
+  .mission-header { margin-bottom: 32px; }
+  .mission-meta { display: flex; align-items: center; gap: 10px; margin-bottom: 14px; }
+  .mission-track-pill { display: inline-flex; align-items: center; gap: 7px; font-size: 11px; font-weight: 700; letter-spacing: 0.7px; text-transform: uppercase; padding: 5px 12px; border-radius: 20px; background: rgba(40,123,232,0.1); color: #287BE8; border: 1px solid rgba(40,123,232,0.2); }
+  .mission-track-pill .dot { width: 5px; height: 5px; border-radius: 50%; background: #287BE8; }
+  .mission-title { font-size: 34px; font-weight: 700; color: var(--text-primary); letter-spacing: -0.5px; line-height: 1.15; margin-bottom: 10px; }
+  .mission-sub { font-size: 15px; color: var(--text-secondary); line-height: 1.6; max-width: 620px; }
+
+  .mission-body { display: grid; grid-template-columns: 1fr 300px; gap: 24px; align-items: start; }
+
+  /* ── Slide cards ── */
+  .slide-card {
+    background: var(--card-bg); border: 1px solid var(--border);
+    border-radius: var(--radius); overflow: hidden; margin-bottom: 16px;
+    box-shadow: var(--shadow-sm);
+  }
+  .slide-header {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 16px 24px; border-bottom: 1px solid var(--border);
+  }
+  .slide-num {
+    font-family: 'JetBrains Mono', monospace; font-size: 11px; font-weight: 700;
+    color: #287BE8; background: rgba(40,123,232,0.08); padding: 3px 10px; border-radius: 5px;
+  }
+  .slide-timing {
+    font-family: 'JetBrains Mono', monospace; font-size: 11px; font-weight: 600;
+    color: var(--text-muted);
+  }
+  .slide-title-bar {
+    background: var(--navy); padding: 20px 24px;
+  }
+  .slide-title-bar h3 { font-size: 18px; font-weight: 700; color: #fff; margin: 0; letter-spacing: -0.2px; }
+  .slide-content { padding: 20px 24px 0; }
+  .slide-bullets { list-style: none; padding: 0; margin: 0 0 20px; display: flex; flex-direction: column; gap: 8px; }
+  .slide-bullets li { font-size: 14px; color: var(--text-primary); padding-left: 18px; position: relative; line-height: 1.5; }
+  .slide-bullets li::before { content: '—'; position: absolute; left: 0; color: #287BE8; font-weight: 700; }
+
+  .notes-toggle {
+    display: flex; align-items: center; gap: 8px; padding: 12px 24px;
+    border-top: 1px solid var(--border); cursor: pointer;
+    font-size: 11px; font-weight: 700; letter-spacing: 0.5px; text-transform: uppercase;
+    color: var(--text-muted); user-select: none; transition: color 0.12s;
+    background: none; border-left: none; border-right: none; border-bottom: none; width: 100%; text-align: left;
+  }
+  .notes-toggle:hover { color: var(--text-primary); }
+  .notes-toggle .arrow { transition: transform 0.2s; display: inline-block; }
+  .notes-toggle.open .arrow { transform: rotate(90deg); }
+
+  .notes-body {
+    display: none; padding: 0 24px 20px;
+    font-size: 13.5px; color: var(--text-muted); line-height: 1.7;
+    border-top: 1px solid var(--surface);
+  }
+  .notes-body.open { display: block; }
+
+  /* ── Resource sidebar ── */
+  .resource-stack-label { font-size: 10px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: var(--text-muted); margin-bottom: 4px; }
+  .resource-stack { display: flex; flex-direction: column; gap: 8px; }
+  .resource-card { background: var(--card-bg); border: 1px solid var(--border); border-radius: var(--radius); padding: 14px 16px; text-decoration: none; color: inherit; display: flex; align-items: center; gap: 12px; box-shadow: var(--shadow-sm); transition: all 0.15s var(--ease); }
+  .resource-card:hover { border-color: rgba(40,123,232,0.35); box-shadow: 0 4px 16px rgba(4,16,45,0.09); transform: translateY(-1px); }
+  .resource-card.active { border-color: rgba(40,123,232,0.4); background: rgba(40,123,232,0.04); }
+  .resource-icon { width: 36px; height: 36px; border-radius: 9px; flex-shrink: 0; display: flex; align-items: center; justify-content: center; font-size: 16px; }
+  .resource-info { flex: 1; min-width: 0; }
+  .resource-tag { font-size: 10px; font-weight: 700; letter-spacing: 0.7px; text-transform: uppercase; color: var(--text-muted); margin-bottom: 1px; }
+  .resource-title { font-size: 13px; font-weight: 700; color: var(--text-primary); }
+  .resource-arrow { font-size: 13px; color: var(--text-muted); flex-shrink: 0; }
+  .resource-card.active .resource-arrow { color: #287BE8; }
+
+  @media (max-width: 900px) {
+    .page-main { padding: 70px 20px 80px; }
+    .mission-body { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <a href="../index.html" class="topbar-brand">AIO <span>Labs</span></a>
+  <nav class="topbar-nav">
+    <a href="../certification.html" class="tnav-link"><span class="tnav-dot" style="background:#287BE8"></span> Certification</a>
+    <a href="../coaching.html" class="tnav-link"><span class="tnav-dot" style="background:#287BE8"></span> Coaching</a>
+    <a href="index.html" class="tnav-link active"><span class="tnav-dot" style="background:#1A9E74"></span> Micro-Sessions</a>
+    <a href="../blog/index.html" class="tnav-link"><span class="tnav-dot" style="background:#6FF2C1"></span> Blog</a>
+    <a href="../my-team.html" class="tnav-link"><span class="tnav-dot" style="background:#8b91ac"></span> My Team</a>
+  </nav>
+  <div class="topbar-right">
+    <a href="https://claude.ai" target="_blank" class="buddy-launch-btn">🤖 AI Buddy</a>
+    <div class="topbar-stat">🔥 7</div>
+    <div class="topbar-stat">⭐ 1,240</div>
+    <div class="topbar-divider"></div>
+    <div class="topbar-avatar">DH</div>
+  </div>
+</div>
+
+<main class="page-main">
+
+  <a href="deep-research.html" class="mission-back">← Deep Research</a>
+
+  <div class="mission-header">
+    <div class="mission-meta">
+      <span class="mission-track-pill"><span class="dot"></span> Gen AI</span>
+    </div>
+    <h1 class="mission-title">Session Slides</h1>
+    <p class="mission-sub">Generative AI Essentials · Deep Research · 30 minutes. Expand any slide to read the speaker notes.</p>
+  </div>
+
+  <div class="mission-body">
+
+    <div>
+
+      <!-- Slide 1 -->
+      <div class="slide-card">
+        <div class="slide-header">
+          <span class="slide-num">Slide 01</span>
+          <span class="slide-timing">2 min</span>
+        </div>
+        <div class="slide-title-bar"><h3>Deep Research</h3></div>
+        <div class="slide-content">
+          <ul class="slide-bullets">
+            <li>Generative AI Essentials</li>
+            <li>Stop asking AI for answers. Start giving it sources.</li>
+          </ul>
+        </div>
+        <button class="notes-toggle" onclick="toggleNotes(this)"><span class="arrow">▶</span> Speaker Notes</button>
+        <div class="notes-body">Alright. How's everybody doing? Today we are talking about research. And I know what you're thinking — research, really? But stay with me. Think about how hard research was in school. Then the internet made it easier. Then Google made it even easier. But you still had to find the sources, read them, decide what was credible. Now? The whole workflow just changed again. And the people who understand this new workflow are going to produce dramatically better work than the people who are still just asking AI for a quick answer.</div>
+      </div>
+
+      <!-- Slide 2 -->
+      <div class="slide-card">
+        <div class="slide-header">
+          <span class="slide-num">Slide 02</span>
+          <span class="slide-timing">2 min</span>
+        </div>
+        <div class="slide-title-bar"><h3>Prompts Are Sparks. Research Is Firewood.</h3></div>
+        <div class="slide-content">
+          <ul class="slide-bullets">
+            <li>A quick prompt gets you a fast answer.</li>
+            <li>Research gets you something you can stake your name on.</li>
+          </ul>
+        </div>
+        <button class="notes-toggle" onclick="toggleNotes(this)"><span class="arrow">▶</span> Speaker Notes</button>
+        <div class="notes-body">Here is the mental model I want you to hold onto. Prompts are sparks — they ignite something. But they burn out fast. Research is firewood — it sustains. When you point AI at credible sources and structured questions, you are not just getting faster answers. You are building knowledge you can actually trust, cite, and act on. That is a completely different output. And right now, most people are still at the spark stage.</div>
+      </div>
+
+      <!-- Slide 3 -->
+      <div class="slide-card">
+        <div class="slide-header">
+          <span class="slide-num">Slide 03</span>
+          <span class="slide-timing">5 min</span>
+        </div>
+        <div class="slide-title-bar"><h3>Before and After — Try It Right Now</h3></div>
+        <div class="slide-content">
+          <ul class="slide-bullets">
+            <li>Exercise: Ask for 5 AI trends. No sources, no deep research. Just ask.</li>
+            <li>Post your answers in the chat.</li>
+            <li>Then we will talk about what you got.</li>
+          </ul>
+        </div>
+        <button class="notes-toggle" onclick="toggleNotes(this)"><span class="arrow">▶</span> Speaker Notes</button>
+        <div class="notes-body">Everyone does this now. Open whatever AI tool you have in front of you. Type: "What are 5 AI trends I should be watching?" Just that. No source instructions, no deep research mode. Give it 60 seconds, then paste your top 5 in the chat. Go. We are going to look at what comes back together and talk about whether you would stake your professional reputation on any of it.</div>
+      </div>
+
+      <!-- Slide 4 -->
+      <div class="slide-card">
+        <div class="slide-header">
+          <span class="slide-num">Slide 04</span>
+          <span class="slide-timing">3 min</span>
+        </div>
+        <div class="slide-title-bar"><h3>The Problem With That</h3></div>
+        <div class="slide-content">
+          <ul class="slide-bullets">
+            <li>The trends were probably fine.</li>
+            <li>But could you cite any of them?</li>
+          </ul>
+        </div>
+        <button class="notes-toggle" onclick="toggleNotes(this)"><span class="arrow">▶</span> Speaker Notes</button>
+        <div class="notes-body">What you just got is likely accurate in a general sense. AI is pretty good at surface-level trends. But here is the problem: if you used those in a presentation, a report, or a strategy document, could you point to where they came from? Could you defend them if someone pushed back? Probably not. And that is the gap deep research fills. Not speed — credibility. The difference between content that sounds right and content that is right.</div>
+      </div>
+
+      <!-- Slide 5 -->
+      <div class="slide-card">
+        <div class="slide-header">
+          <span class="slide-num">Slide 05</span>
+          <span class="slide-timing">4 min</span>
+        </div>
+        <div class="slide-title-bar"><h3>The Anatomy of Deep Research</h3></div>
+        <div class="slide-content">
+          <ul class="slide-bullets">
+            <li>Ask a tight question</li>
+            <li>Gather sources you trust</li>
+            <li>Read and reflect — find the gaps</li>
+            <li>Pull a thread — go deeper</li>
+            <li>Turn it into clarity you can share</li>
+          </ul>
+        </div>
+        <button class="notes-toggle" onclick="toggleNotes(this)"><span class="arrow">▶</span> Speaker Notes</button>
+        <div class="notes-body">This is the five-step pattern. Step one: ask a tight question. Small enough to be clear, big enough to matter. Not "what is happening in AI" — "what are the three biggest barriers to AI adoption in mid-sized companies in Southeast Asia?" Step two: gather sources. Academic journals, industry reports, validated datasets — not random websites. Step three: read and reflect. Look for contradictions and gaps. Step four: pull a thread. When something surprises you, go deeper instead of moving on. Step five: turn it into clarity. Insights you could stake your name on. That is the full loop.</div>
+      </div>
+
+      <!-- Slide 6 -->
+      <div class="slide-card">
+        <div class="slide-header">
+          <span class="slide-num">Slide 06</span>
+          <span class="slide-timing">5 min</span>
+        </div>
+        <div class="slide-title-bar"><h3>The Tool That Changes the Game — NotebookLM</h3></div>
+        <div class="slide-content">
+          <ul class="slide-bullets">
+            <li>You bring the sources.</li>
+            <li>NotebookLM does the analysis.</li>
+            <li>You keep the citations.</li>
+          </ul>
+        </div>
+        <button class="notes-toggle" onclick="toggleNotes(this)"><span class="arrow">▶</span> Speaker Notes</button>
+        <div class="notes-body">I want to show you something. When I first used NotebookLM about a year ago, I thought it was terrible. And here is why — it does not let you just search the web and trust whatever comes back. It forces you to bring your own sources. At the time I thought that was a limitation. Now I think it is the entire point. It forces best practice. You find your sources from credible places — MIT, Stanford, industry reports — you upload them, and NotebookLM works only from what you give it. Then it does things with that material that would take you hours by hand: summaries, mind maps, audio overviews, even explainer videos. All with proper citations, because the source is sitting right there.</div>
+      </div>
+
+      <!-- Slide 7 -->
+      <div class="slide-card">
+        <div class="slide-header">
+          <span class="slide-num">Slide 07</span>
+          <span class="slide-timing">3 min</span>
+        </div>
+        <div class="slide-title-bar"><h3>What You Can Build With It</h3></div>
+        <div class="slide-content">
+          <ul class="slide-bullets">
+            <li>Mind maps from academic papers</li>
+            <li>Audio overviews you can listen to on the way to work</li>
+            <li>Cited content ready to drop into a report or a blog</li>
+          </ul>
+        </div>
+        <button class="notes-toggle" onclick="toggleNotes(this)"><span class="arrow">▶</span> Speaker Notes</button>
+        <div class="notes-body">Let me walk you through what this looks like in practice. You upload a source — say the MIT State of AI report. NotebookLM immediately generates a summary. Then you can ask it to make a mind map, and it builds a visual breakdown of the entire paper's structure and key findings. You can generate an audio overview and it creates a podcast-style conversation explaining the material. And everything it produces is tied to the source you gave it. No hallucinations from the web. Just your document, analysed and presented in different formats.</div>
+      </div>
+
+      <!-- Slide 8 -->
+      <div class="slide-card">
+        <div class="slide-header">
+          <span class="slide-num">Slide 08</span>
+          <span class="slide-timing">3 min</span>
+        </div>
+        <div class="slide-title-bar"><h3>The BOLT Connection — Dana's Research Workflow</h3></div>
+        <div class="slide-content">
+          <ul class="slide-bullets">
+            <li>Dana needs to pitch BOLT to three new markets.</li>
+            <li>Her credibility depends on real data.</li>
+            <li>Her speed depends on a research workflow.</li>
+          </ul>
+        </div>
+        <button class="notes-toggle" onclick="toggleNotes(this)"><span class="arrow">▶</span> Speaker Notes</button>
+        <div class="notes-body">Let me bring this into the BOLT context. Dana is making the case to leadership that BOLT should expand into Jakarta, Lagos, and Bogota. She cannot show up with "here are five trends I asked AI about." She needs market data, cited consumption trends, competitor positioning reports. With a deep research workflow, Dana finds three credible industry sources, drops them into NotebookLM, generates a cited summary, and builds her market entry brief in an afternoon. Without it, that is two weeks of manual research work. That is the difference between having the conversation and winning it.</div>
+      </div>
+
+      <!-- Slide 9 -->
+      <div class="slide-card">
+        <div class="slide-header">
+          <span class="slide-num">Slide 09</span>
+          <span class="slide-timing">3 min</span>
+        </div>
+        <div class="slide-title-bar"><h3>Your Challenge This Week</h3></div>
+        <div class="slide-content">
+          <ul class="slide-bullets">
+            <li>Find one credible source on a topic that matters to your work.</li>
+            <li>Put it into NotebookLM.</li>
+            <li>Create a mind map or audio overview.</li>
+            <li>Submit: the source, the insight, and one thing it changed in how you think.</li>
+          </ul>
+        </div>
+        <button class="notes-toggle" onclick="toggleNotes(this)"><span class="arrow">▶</span> Speaker Notes</button>
+        <div class="notes-body">Your challenge is simple but not easy. Find one real academic or industry report on something relevant to your job. Not a blog post. Not a news article. A real source — a journal paper, a McKinsey report, a government dataset, something you could cite in a professional context. Put it into NotebookLM. Generate a mind map or an audio overview. Then submit three things to your AI Buddy: the source you used, the single most important insight you pulled from it, and one sentence on how that insight changes something about how you think about your work.</div>
+      </div>
+
+      <!-- Slide 10 -->
+      <div class="slide-card">
+        <div class="slide-header">
+          <span class="slide-num">Slide 10</span>
+          <span class="slide-timing">1 min</span>
+        </div>
+        <div class="slide-title-bar"><h3>Thank You</h3></div>
+        <div class="slide-content">
+          <ul class="slide-bullets">
+            <li>#AIOfficerCertification</li>
+            <li>Dave Hajdu · dave@ai-officer.com</li>
+          </ul>
+        </div>
+        <button class="notes-toggle" onclick="toggleNotes(this)"><span class="arrow">▶</span> Speaker Notes</button>
+        <div class="notes-body">Thank you. AI doesn't make you dumber — it is your best opportunity to get smarter, faster. But only if you feed it the right material. Your challenge is open. If you want to go further, combine NotebookLM with a ChatGPT Project — upload your insights there and use them to write cited content. Bring any questions to Thursday's CAIO session. See you next time.</div>
+      </div>
+
+    </div>
+
+    <!-- Resource sidebar -->
+    <div>
+      <div class="resource-stack-label">Micro-Session Resources</div>
+      <div class="resource-stack">
+
+        <a href="deep-research-video.html" class="resource-card">
+          <div class="resource-icon" style="background:rgba(40,123,232,0.1);">▶️</div>
+          <div class="resource-info">
+            <div class="resource-tag">01 · Video</div>
+            <div class="resource-title">Session Recording</div>
+          </div>
+          <div class="resource-arrow">→</div>
+        </a>
+
+        <a href="deep-research-recap.html" class="resource-card">
+          <div class="resource-icon" style="background:rgba(111,242,193,0.15);">📋</div>
+          <div class="resource-info">
+            <div class="resource-tag">02 · Recap</div>
+            <div class="resource-title">Session Recap</div>
+          </div>
+          <div class="resource-arrow">→</div>
+        </a>
+
+        <a href="deep-research-prompts.html" class="resource-card">
+          <div class="resource-icon" style="background:rgba(40,123,232,0.08);">💬</div>
+          <div class="resource-info">
+            <div class="resource-tag">03 · Prompts</div>
+            <div class="resource-title">Prompt Library</div>
+          </div>
+          <div class="resource-arrow">→</div>
+        </a>
+
+        <a href="deep-research-slides.html" class="resource-card active">
+          <div class="resource-icon" style="background:rgba(209,69,139,0.1);">🖼️</div>
+          <div class="resource-info">
+            <div class="resource-tag">04 · Slides</div>
+            <div class="resource-title">Session Slides</div>
+          </div>
+          <div class="resource-arrow">→</div>
+        </a>
+
+        <a href="deep-research-resources.html" class="resource-card">
+          <div class="resource-icon" style="background:rgba(111,242,193,0.1);">📚</div>
+          <div class="resource-info">
+            <div class="resource-tag">05 · Resources</div>
+            <div class="resource-title">Tools &amp; Links</div>
+          </div>
+          <div class="resource-arrow">→</div>
+        </a>
+
+      </div>
+    </div>
+
+  </div>
+
+</main>
+
+<script>
+function toggleNotes(btn) {
+  btn.classList.toggle('open');
+  const notes = btn.nextElementSibling;
+  notes.classList.toggle('open');
+}
+</script>
+
+</body>
+</html>

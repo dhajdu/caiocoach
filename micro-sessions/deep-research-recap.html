@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Session Recap: Deep Research — AI Officer Institute</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../shared/styles.css">
+<style>
+  :root {
+    --ease: cubic-bezier(0.4, 0, 0.2, 1);
+    --radius: 12px;
+    --shadow-sm: 0 1px 3px rgba(4,16,45,0.07);
+    --shadow-hover: 0 6px 24px rgba(4,16,45,0.10);
+    --text-primary: #1a1f36;
+    --text-secondary: #4a5068;
+    --text-muted: #6b7194;
+    --border: #d8dce8;
+    --surface: #f4f6fa;
+    --card-bg: #ffffff;
+  }
+
+  body { background: var(--surface); font-family: 'DM Sans', sans-serif; -webkit-font-smoothing: antialiased; color: var(--text-primary); line-height: 1.7; }
+
+  .topbar-stat {
+    display: flex; align-items: center; gap: 5px;
+    font-family: 'JetBrains Mono', monospace; font-size: 13px; font-weight: 600;
+    color: rgba(255,255,255,0.7); background: rgba(255,255,255,0.07);
+    padding: 5px 12px; border-radius: 6px;
+  }
+  .topbar-avatar {
+    width: 32px; height: 32px; border-radius: 50%; background: var(--blue);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 12px; font-weight: 700; color: white;
+  }
+
+  .page-main { max-width: 1060px; margin: 0 auto; padding: 80px 40px 100px; }
+
+  .mission-back {
+    display: inline-flex; align-items: center; gap: 6px;
+    font-size: 13px; font-weight: 600; color: var(--text-muted);
+    text-decoration: none; margin-bottom: 28px; transition: color 0.12s;
+  }
+  .mission-back:hover { color: var(--text-primary); }
+
+  .mission-header { margin-bottom: 32px; }
+  .mission-meta { display: flex; align-items: center; gap: 10px; margin-bottom: 14px; }
+  .mission-track-pill {
+    display: inline-flex; align-items: center; gap: 7px;
+    font-size: 11px; font-weight: 700; letter-spacing: 0.7px; text-transform: uppercase;
+    padding: 5px 12px; border-radius: 20px;
+    background: rgba(40,123,232,0.1); color: #287BE8; border: 1px solid rgba(40,123,232,0.2);
+  }
+  .mission-track-pill .dot { width: 5px; height: 5px; border-radius: 50%; background: #287BE8; }
+  .mission-title { font-size: 34px; font-weight: 700; color: var(--text-primary); letter-spacing: -0.5px; line-height: 1.15; margin-bottom: 10px; }
+  .mission-sub { font-size: 15px; color: var(--text-secondary); line-height: 1.6; max-width: 620px; }
+
+  .mission-body { display: grid; grid-template-columns: 1fr 300px; gap: 24px; align-items: start; }
+
+  /* ── Content cards ── */
+  .content-card {
+    background: var(--card-bg); border: 1px solid var(--border);
+    border-radius: var(--radius); padding: 28px; margin-bottom: 20px;
+    box-shadow: var(--shadow-sm);
+  }
+  .card-label { font-size: 10px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: #287BE8; margin-bottom: 16px; }
+  .card-heading { font-size: 18px; font-weight: 700; color: var(--text-primary); margin-bottom: 16px; letter-spacing: -0.2px; }
+  .card-body p { font-size: 15px; color: var(--text-secondary); line-height: 1.75; margin-bottom: 14px; }
+  .card-body p:last-child { margin-bottom: 0; }
+  .card-body p strong { color: var(--text-primary); font-weight: 600; }
+
+  /* ── Action box ── */
+  .action-box { background: var(--navy); border-radius: 10px; padding: 20px 24px; }
+  .action-box-label { font-size: 10px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: var(--mint); margin-bottom: 10px; }
+  .action-box p { font-size: 14px; color: rgba(255,255,255,0.8); margin: 0; line-height: 1.65; }
+
+  /* ── Resource sidebar ── */
+  .resource-stack-label { font-size: 10px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: var(--text-muted); margin-bottom: 4px; }
+  .resource-stack { display: flex; flex-direction: column; gap: 8px; }
+  .resource-card {
+    background: var(--card-bg); border: 1px solid var(--border);
+    border-radius: var(--radius); padding: 14px 16px;
+    text-decoration: none; color: inherit;
+    display: flex; align-items: center; gap: 12px;
+    box-shadow: var(--shadow-sm); transition: all 0.15s var(--ease);
+  }
+  .resource-card:hover { border-color: rgba(40,123,232,0.35); box-shadow: 0 4px 16px rgba(4,16,45,0.09); transform: translateY(-1px); }
+  .resource-card.active { border-color: rgba(40,123,232,0.4); background: rgba(40,123,232,0.04); }
+  .resource-icon { width: 36px; height: 36px; border-radius: 9px; flex-shrink: 0; display: flex; align-items: center; justify-content: center; font-size: 16px; }
+  .resource-info { flex: 1; min-width: 0; }
+  .resource-tag { font-size: 10px; font-weight: 700; letter-spacing: 0.7px; text-transform: uppercase; color: var(--text-muted); margin-bottom: 1px; }
+  .resource-title { font-size: 13px; font-weight: 700; color: var(--text-primary); }
+  .resource-arrow { font-size: 13px; color: var(--text-muted); flex-shrink: 0; }
+  .resource-card.active .resource-arrow { color: #287BE8; }
+
+  @media (max-width: 900px) {
+    .page-main { padding: 70px 20px 80px; }
+    .mission-body { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <a href="../index.html" class="topbar-brand">AIO <span>Labs</span></a>
+  <nav class="topbar-nav">
+    <a href="../certification.html" class="tnav-link"><span class="tnav-dot" style="background:#287BE8"></span> Certification</a>
+    <a href="../coaching.html" class="tnav-link"><span class="tnav-dot" style="background:#287BE8"></span> Coaching</a>
+    <a href="index.html" class="tnav-link active"><span class="tnav-dot" style="background:#1A9E74"></span> Micro-Sessions</a>
+    <a href="../blog/index.html" class="tnav-link"><span class="tnav-dot" style="background:#6FF2C1"></span> Blog</a>
+    <a href="../my-team.html" class="tnav-link"><span class="tnav-dot" style="background:#8b91ac"></span> My Team</a>
+  </nav>
+  <div class="topbar-right">
+    <a href="https://claude.ai" target="_blank" class="buddy-launch-btn">🤖 AI Buddy</a>
+    <div class="topbar-stat">🔥 7</div>
+    <div class="topbar-stat">⭐ 1,240</div>
+    <div class="topbar-divider"></div>
+    <div class="topbar-avatar">DH</div>
+  </div>
+</div>
+
+<main class="page-main">
+
+  <a href="deep-research.html" class="mission-back">← Deep Research</a>
+
+  <div class="mission-header">
+    <div class="mission-meta">
+      <span class="mission-track-pill"><span class="dot"></span> Gen AI</span>
+    </div>
+    <h1 class="mission-title">Session Recap</h1>
+    <p class="mission-sub">What we covered, what to try this week, and your challenge.</p>
+  </div>
+
+  <div class="mission-body">
+
+    <div>
+
+      <div class="content-card">
+        <div class="card-label">What We Covered</div>
+        <div class="card-body">
+          <p>Think about the last time you used AI to answer a question. You got a fast answer. But could you cite it? Could you stake your professional reputation on it? Probably not — and that is the gap this session addresses.</p>
+          <p>Deep research is not about asking better questions. It is about pointing AI at better data. When you feed AI credible sources — academic papers, industry reports, validated datasets — and give it a structured question, you get something completely different from a quick prompt: cited insights you can actually use.</p>
+          <p>We walked through the five-step research pattern: ask a tight question, gather sources you trust, read and reflect for contradictions and gaps, pull a thread when something surprises you, and turn the work into clarity you can share. That loop is the difference between content that sounds right and content that <em>is</em> right.</p>
+          <p>We looked at NotebookLM as the tool that makes this practical. It forces you into best practice — you cannot just search the web and trust whatever comes back. You bring your own sources, and it analyses only what you give it. No hallucinations. Just your document, broken down into summaries, mind maps, audio overviews, and cited outputs you can drop directly into reports or strategy documents.</p>
+          <p>The leadership point: the people who learn to automate this workflow — find sources, analyse them, produce cited content — will produce dramatically higher-quality work than the people still relying on surface-level AI answers. That is a real competitive edge.</p>
+        </div>
+      </div>
+
+      <div class="content-card">
+        <div class="card-label">Try This Week</div>
+        <div class="card-body">
+          <p>Pick one topic you keep getting asked about at work. Find one real source on it — a journal paper, an industry report, something with a named author or institution. Put it into NotebookLM and generate a mind map.</p>
+          <p>Then do something with it. Write a short summary. Bring a cited insight to your next team meeting. Draft one paragraph for a report you are working on. The goal is not to do research for its own sake. The goal is to produce something with it.</p>
+          <p>If you want to go further: upload two or three sources on the same topic and ask NotebookLM to find the contradictions between them. That is where the real insights live.</p>
+        </div>
+      </div>
+
+      <div class="action-box">
+        <div class="action-box-label">Your Challenge</div>
+        <p>Find one credible source on a topic relevant to your work. Upload it to NotebookLM. Generate a mind map or audio overview. Submit your source, your key insight, and one sentence on what it changes about how you think — to your AI Buddy in AIO Labs.</p>
+      </div>
+
+    </div>
+
+    <!-- Resource sidebar -->
+    <div>
+      <div class="resource-stack-label">Micro-Session Resources</div>
+      <div class="resource-stack">
+
+        <a href="deep-research-video.html" class="resource-card">
+          <div class="resource-icon" style="background:rgba(40,123,232,0.1);">▶️</div>
+          <div class="resource-info">
+            <div class="resource-tag">01 · Video</div>
+            <div class="resource-title">Session Recording</div>
+          </div>
+          <div class="resource-arrow">→</div>
+        </a>
+
+        <a href="deep-research-recap.html" class="resource-card active">
+          <div class="resource-icon" style="background:rgba(111,242,193,0.15);">📋</div>
+          <div class="resource-info">
+            <div class="resource-tag">02 · Recap</div>
+            <div class="resource-title">Session Recap</div>
+          </div>
+          <div class="resource-arrow">→</div>
+        </a>
+
+        <a href="deep-research-prompts.html" class="resource-card">
+          <div class="resource-icon" style="background:rgba(40,123,232,0.08);">💬</div>
+          <div class="resource-info">
+            <div class="resource-tag">03 · Prompts</div>
+            <div class="resource-title">Prompt Library</div>
+          </div>
+          <div class="resource-arrow">→</div>
+        </a>
+
+        <a href="deep-research-slides.html" class="resource-card">
+          <div class="resource-icon" style="background:rgba(209,69,139,0.1);">🖼️</div>
+          <div class="resource-info">
+            <div class="resource-tag">04 · Slides</div>
+            <div class="resource-title">Session Slides</div>
+          </div>
+          <div class="resource-arrow">→</div>
+        </a>
+
+        <a href="deep-research-resources.html" class="resource-card">
+          <div class="resource-icon" style="background:rgba(111,242,193,0.1);">📚</div>
+          <div class="resource-info">
+            <div class="resource-tag">05 · Resources</div>
+            <div class="resource-title">Tools &amp; Links</div>
+          </div>
+          <div class="resource-arrow">→</div>
+        </a>
+
+      </div>
+    </div>
+
+  </div>
+
+</main>
+
+</body>
+</html>

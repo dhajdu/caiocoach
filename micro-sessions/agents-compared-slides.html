@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Session Slides: Agents Compared: Which Platform Is Right for Your Team? — AI Officer Institute</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../shared/styles.css">
+<style>
+
+  :root {
+    --ease: cubic-bezier(0.4, 0, 0.2, 1);
+    --radius: 12px;
+    --shadow-sm: 0 1px 3px rgba(4,16,45,0.07);
+    --text-primary: #1a1f36;
+    --text-secondary: #4a5068;
+    --text-muted: #6b7194;
+    --border: #d8dce8;
+    --surface: #f4f6fa;
+    --card-bg: #ffffff;
+  }
+
+  body { background: var(--surface); font-family: 'DM Sans', sans-serif; -webkit-font-smoothing: antialiased; color: var(--text-primary); line-height: 1.7; }
+
+  .page-main { max-width: 1060px; margin: 0 auto; padding: 80px 40px 100px; }
+
+  .mission-back {
+    display: inline-flex; align-items: center; gap: 6px;
+    font-size: 13px; font-weight: 600; color: var(--text-muted);
+    text-decoration: none; margin-bottom: 28px; transition: color 0.12s;
+  }
+  .mission-back:hover { color: var(--text-primary); }
+
+  .mission-header { margin-bottom: 32px; }
+  .mission-meta { display: flex; align-items: center; gap: 10px; margin-bottom: 14px; }
+  .mission-track-pill {
+    display: inline-flex; align-items: center; gap: 7px;
+    font-size: 11px; font-weight: 700; letter-spacing: 0.7px; text-transform: uppercase;
+    padding: 5px 12px; border-radius: 20px;
+  }
+  .mission-track-pill .dot { width: 5px; height: 5px; border-radius: 50%; }
+  .mission-title { font-size: 34px; font-weight: 700; color: var(--text-primary); letter-spacing: -0.5px; line-height: 1.15; margin-bottom: 10px; }
+  .mission-sub { font-size: 15px; color: var(--text-secondary); line-height: 1.6; max-width: 620px; }
+
+  .mission-body { display: grid; grid-template-columns: 1fr 300px; gap: 24px; align-items: start; }
+
+  .content-card {
+    background: var(--card-bg); border: 1px solid var(--border);
+    border-radius: var(--radius); padding: 24px 28px;
+    box-shadow: var(--shadow-sm); margin-bottom: 16px;
+  }
+  .card-label { font-size: 10px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: #287BE8; margin-bottom: 14px; }
+  .card-heading { font-size: 16px; font-weight: 700; color: var(--text-primary); margin-bottom: 14px; letter-spacing: -0.2px; }
+  .card-text { font-size: 14px; color: var(--text-secondary); line-height: 1.65; margin-bottom: 12px; }
+  .card-text:last-child { margin-bottom: 0; }
+
+  /* Resource sidebar */
+  .resource-stack-label { font-size: 10px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: var(--text-muted); margin-bottom: 4px; }
+  .resource-stack { display: flex; flex-direction: column; gap: 8px; }
+  .resource-card {
+    background: var(--card-bg); border: 1px solid var(--border);
+    border-radius: var(--radius); padding: 14px 16px;
+    text-decoration: none; color: inherit;
+    display: flex; align-items: center; gap: 12px;
+    box-shadow: var(--shadow-sm); transition: all 0.15s var(--ease);
+  }
+  .resource-card:hover { border-color: rgba(40,123,232,0.35); box-shadow: 0 4px 16px rgba(4,16,45,0.09); transform: translateY(-1px); }
+  .resource-card.active { border-color: rgba(40,123,232,0.4); background: rgba(40,123,232,0.04); }
+  .resource-icon { width: 36px; height: 36px; border-radius: 9px; flex-shrink: 0; display: flex; align-items: center; justify-content: center; font-size: 16px; }
+  .resource-info { flex: 1; min-width: 0; }
+  .resource-tag { font-size: 10px; font-weight: 700; letter-spacing: 0.7px; text-transform: uppercase; color: var(--text-muted); margin-bottom: 1px; }
+  .resource-title { font-size: 13px; font-weight: 700; color: var(--text-primary); }
+  .resource-arrow { font-size: 13px; color: var(--text-muted); flex-shrink: 0; }
+  .resource-card.active .resource-arrow { color: #287BE8; }
+
+  @media (max-width: 900px) {
+    .page-main { padding: 70px 20px 80px; }
+    .mission-body { grid-template-columns: 1fr; }
+  }
+
+
+  .slide-card { background: var(--card-bg); border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden; box-shadow: var(--shadow-sm); margin-bottom: 16px; }
+  .slide-header { background: #04102D; padding: 14px 20px; display: flex; align-items: center; justify-content: space-between; }
+  .slide-num-badge { font-family: 'JetBrains Mono', monospace; font-size: 10px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: rgba(111,242,193,0.8); background: rgba(111,242,193,0.1); padding: 3px 10px; border-radius: 4px; }
+  .slide-timing { font-family: 'JetBrains Mono', monospace; font-size: 10px; color: rgba(255,255,255,0.35); }
+  .slide-title-bar { background: rgba(255,255,255,0.04); border-bottom: 1px solid rgba(255,255,255,0.07); padding: 12px 20px; }
+  .slide-title { font-size: 15px; font-weight: 700; color: rgba(255,255,255,0.9); letter-spacing: -0.2px; }
+  .slide-body { padding: 18px 20px; }
+  .slide-bullets { display: flex; flex-direction: column; gap: 6px; }
+  .slide-bullet { display: flex; align-items: baseline; gap: 8px; font-size: 13px; color: var(--text-secondary); line-height: 1.55; }
+  .slide-bullet::before { content: '—'; color: #287BE8; font-weight: 700; flex-shrink: 0; }
+  .slide-notes-toggle { display: flex; align-items: center; gap: 7px; font-size: 12px; font-weight: 600; color: var(--text-muted); background: var(--surface); border: none; border-top: 1px solid var(--border); width: 100%; padding: 10px 20px; cursor: pointer; text-align: left; transition: color 0.12s; }
+  .slide-notes-toggle:hover { color: var(--text-primary); }
+  .slide-notes-toggle .toggle-icon { font-size: 10px; transition: transform 0.18s; }
+  .slide-notes-toggle.open .toggle-icon { transform: rotate(90deg); }
+  .slide-notes { display: none; padding: 14px 20px 18px; background: rgba(40,123,232,0.03); border-top: 1px solid rgba(40,123,232,0.1); font-size: 13px; color: var(--text-secondary); line-height: 1.7; }
+  .slide-notes.open { display: block; }
+
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <a href="../index.html" class="topbar-brand">AIO <span>Labs</span></a>
+  <nav class="topbar-nav">
+    <a href="../certification.html" class="tnav-link"><span class="tnav-dot" style="background:#287BE8"></span> Certification</a>
+    <a href="../coaching.html" class="tnav-link"><span class="tnav-dot" style="background:#287BE8"></span> Coaching</a>
+    <a href="index.html" class="tnav-link active"><span class="tnav-dot" style="background:#1A9E74"></span> Micro-Sessions</a>
+    <a href="../blog/index.html" class="tnav-link"><span class="tnav-dot" style="background:#6FF2C1"></span> Blog</a>
+    <a href="../my-team.html" class="tnav-link"><span class="tnav-dot" style="background:#8b91ac"></span> My Team</a>
+  </nav>
+  <div class="topbar-right">
+    <a href="https://claude.ai" target="_blank" class="buddy-launch-btn">🤖 AI Buddy</a>
+    <div class="topbar-stat">🔥 7</div>
+    <div class="topbar-stat">⭐ 1,240</div>
+    <div class="topbar-divider"></div>
+    <div class="topbar-avatar">DH</div>
+  </div>
+</div>
+
+<main class="page-main">
+
+  <a href="agents-compared.html" class="mission-back">← Agents Compared: Which Platform Is Right for Your Team?</a>
+
+  <div class="mission-header">
+    <div class="mission-meta">
+      <span class="mission-track-pill" style="background:rgba(139,92,246,0.1); color:#8B5CF6; border: 1px solid rgba(139,92,246,0.2);"><span class="dot" style="background:#8B5CF6;"></span> Leadership</span>
+    </div>
+    <h1 class="mission-title">Session Slides</h1>
+    <p class="mission-sub">All slides from the session with speaker notes. Expand any slide for the full script.</p>
+  </div>
+
+  <div class="mission-body">
+
+    <div>
+      
+      <div class="slide-card">
+        <div class="slide-header">
+          <span class="slide-num-badge">Slide 1</span>
+          <span class="slide-timing">2 minutes</span>
+        </div>
+        <div class="slide-title-bar">
+          <div class="slide-title">Agents Compared: Which Platform Is Right for Your Team?</div>
+        </div>
+        <div class="slide-body">
+          <div class="slide-bullets"><div class="slide-bullet">Leadership in the AI Era | Micro Session</div><div class="slide-bullet">Agents Compared: Which Platform Is Right for Your Team?**</div><div class="slide-bullet">Three platforms. All claim to be agentic. Only one of them is right for your team - and the answer depends on a question most people never ask.</div>
+          </div>
+        </div>
+        
+          <button class="slide-notes-toggle" onclick="toggleNotes(this)">
+            <span class="toggle-icon">▶</span> Speaker Notes
+          </button>
+          <div class="slide-notes">We&#x27;re going to compare three platforms: ChatGPT, Claude, and Gemini. Not in a way that declares a winner. In a way that helps you pick the right one for your organization. Because here&#x27;s what I&#x27;ve learned: the team that makes this decision wrong spends two years migrating off the wrong platform. The team that makes it right compounds advantages every week. The difference comes down to asking one question first.</div>
+      </div>
+      <div class="slide-card">
+        <div class="slide-header">
+          <span class="slide-num-badge">Slide 2</span>
+          <span class="slide-timing">4 minutes</span>
+        </div>
+        <div class="slide-title-bar">
+          <div class="slide-title">The Question Most People Never Ask</div>
+        </div>
+        <div class="slide-body">
+          <div class="slide-bullets"><div class="slide-bullet">Wrong Question</div><div class="slide-bullet">&quot;Which AI is smartest?&quot;</div><div class="slide-bullet">&quot;Which AI has the best marketing?&quot;</div><div class="slide-bullet">&quot;Which AI does my competitor use?&quot;</div><div class="slide-bullet">Right Question</div><div class="slide-bullet">&quot;What do we need agents to actually DO, and in what context?&quot;</div><div class="slide-bullet">Context Matters More Than Intelligence</div><div class="slide-bullet">Document analysis vs real-time customer service</div><div class="slide-bullet">Autonomous workflow vs assisted decision-making</div><div class="slide-bullet">Google Workspace teams vs Slack teams</div><div class="slide-bullet">Startup scale vs enterprise scale</div>
+          </div>
+        </div>
+        
+          <button class="slide-notes-toggle" onclick="toggleNotes(this)">
+            <span class="toggle-icon">▶</span> Speaker Notes
+          </button>
+          <div class="slide-notes">Most organizations ask the wrong question. They ask which AI is smartest or which one their competitor uses. That doesn&#x27;t matter. What matters is what you actually need to do. If you need agents that write blog posts, you have different needs than if you need agents that route support tickets in real time. If you need to analyze hundreds of documents a day, that&#x27;s different from needing quick copywriting. The smartest AI in the world doesn&#x27;t help if it&#x27;s not designed for your use case. So start there. What do you need agents to actually do? What context do they need? And what does success look like?</div>
+      </div>
+      <div class="slide-card">
+        <div class="slide-header">
+          <span class="slide-num-badge">Slide 3</span>
+          <span class="slide-timing">5 minutes</span>
+        </div>
+        <div class="slide-title-bar">
+          <div class="slide-title">ChatGPT: The Broadest Ecosystem</div>
+        </div>
+        <div class="slide-body">
+          <div class="slide-bullets"><div class="slide-bullet">ChatGPT&#x27;s Strengths</div><div class="slide-bullet">Largest user base and broadest ecosystem</div><div class="slide-bullet">Custom GPTs allow non-technical teams to build</div><div class="slide-bullet">Hundreds of pre-built integrations</div><div class="slide-bullet">Best for commerce and consumer applications</div><div class="slide-bullet">Strongest in marketing and content workflows</div><div class="slide-bullet">ChatGPT&#x27;s Constraints</div><div class="slide-bullet">Less transparent about how agents route decisions</div><div class="slide-bullet">Lower depth of customization for enterprise</div><div class="slide-bullet">Best for horizontal tools, not vertical specialization</div><div class="slide-bullet">Price scaling less favorable at very high volume</div><div class="slide-bullet">Best For</div><div class="slide-bullet">Marketing teams, commerce, rapid custom tools, non-technical users</div>
+          </div>
+        </div>
+        
+          <button class="slide-notes-toggle" onclick="toggleNotes(this)">
+            <span class="toggle-icon">▶</span> Speaker Notes
+          </button>
+          <div class="slide-notes">ChatGPT is the platform with the biggest footprint. Millions of people use it. Custom GPTs let non-technical people build agents without writing code. The ecosystem is enormous. There are hundreds of integrations already built. If you need your marketing team to build agents fast and you want the broadest integration ecosystem, ChatGPT is often the right choice. But ChatGPT is optimized for breadth, not depth. It&#x27;s great at &quot;I need a tool for this&quot; but less great at &quot;I need a deep integration into my business processes.&quot; It&#x27;s commerce-friendly. It&#x27;s consumer-friendly. If your team lives in e-commerce or marketing, it&#x27;s worth serious consideration.</div>
+      </div>
+      <div class="slide-card">
+        <div class="slide-header">
+          <span class="slide-num-badge">Slide 4</span>
+          <span class="slide-timing">6 minutes</span>
+        </div>
+        <div class="slide-title-bar">
+          <div class="slide-title">Claude: Deepest Developer Tools</div>
+        </div>
+        <div class="slide-body">
+          <div class="slide-bullets"><div class="slide-bullet">Claude&#x27;s Strengths</div><div class="slide-bullet">Model Context Protocol (MCP) for extensibility</div><div class="slide-bullet">Claude Code for autonomous coding tasks</div><div class="slide-bullet">Deep file and document processing</div><div class="slide-bullet">Cowork for multi-agent coordination</div><div class="slide-bullet">Best for document-heavy workflows</div><div class="slide-bullet">Highest degree of customization</div><div class="slide-bullet">Claude&#x27;s Constraints</div><div class="slide-bullet">Requires more technical setup</div><div class="slide-bullet">Smaller pre-built integration ecosystem</div><div class="slide-bullet">Best for organizations with engineering resources</div><div class="slide-bullet">Not optimized for consumer commerce</div><div class="slide-bullet">Best For</div><div class="slide-bullet">Document analysis, technical workflows, engineering teams, complex custom agents, organizations that need to build custom integrations</div>
+          </div>
+        </div>
+        
+          <button class="slide-notes-toggle" onclick="toggleNotes(this)">
+            <span class="toggle-icon">▶</span> Speaker Notes
+          </button>
+          <div class="slide-notes">Claude is the platform for teams with engineering resources who need to build something deeply customized. The Model Context Protocol is a standard for connecting agents to data sources and tools. Claude Code lets agents write and run code autonomously. Cowork means your agents can coordinate with each other. If you need to analyze a thousand documents, Claude is built for that. If you need agents that can read your codebase and suggest changes, Claude is built for that too. But it requires more setup. Your team needs to be comfortable with protocols, APIs, and configuration. If you have strong engineering resources and you need agents deeply integrated into your specific business, Claude is worth the investment.</div>
+      </div>
+      <div class="slide-card">
+        <div class="slide-header">
+          <span class="slide-num-badge">Slide 5</span>
+          <span class="slide-timing">5 minutes</span>
+        </div>
+        <div class="slide-title-bar">
+          <div class="slide-title">Gemini: Deep Google Integration</div>
+        </div>
+        <div class="slide-body">
+          <div class="slide-bullets"><div class="slide-bullet">Gemini&#x27;s Strengths</div><div class="slide-bullet">Deep integration with Google Workspace</div><div class="slide-bullet">Jules coding agent is exceptionally strong</div><div class="slide-bullet">Best Google Search grounding for current information</div><div class="slide-bullet">Google Workspace automation native</div><div class="slide-bullet">Strong document and Sheets integration</div><div class="slide-bullet">Gemini&#x27;s Constraints</div><div class="slide-bullet">Most powerful for Google Workspace organizations</div><div class="slide-bullet">Less powerful if you are multi-tool</div><div class="slide-bullet">Jules is exceptional but narrow in scope</div><div class="slide-bullet">Less extensible than Claude for custom integrations</div><div class="slide-bullet">Best For</div><div class="slide-bullet">Google Workspace teams, organizations doing heavy Google Sheets analysis, engineering teams (via Jules), companies that want to stay within Google ecosystem</div>
+          </div>
+        </div>
+        
+          <button class="slide-notes-toggle" onclick="toggleNotes(this)">
+            <span class="toggle-icon">▶</span> Speaker Notes
+          </button>
+          <div class="slide-notes">Gemini is the right choice if your organization runs on Google Workspace. It&#x27;s built into Gmail, Docs, Sheets, and Drive. Jules is a coding agent that is genuinely exceptional. If you are a technical team and you need agents that can read your Google environment and take actions within it, Gemini is strong. But Gemini&#x27;s power is mostly within the Google ecosystem. If you use Slack instead of Google Chat, or you use Salesforce instead of Google&#x27;s tools, or you need deep integrations outside of Google, Gemini becomes less valuable. The question is: how much of your work happens in Google tools?</div>
+      </div>
+      <div class="slide-card">
+        <div class="slide-header">
+          <span class="slide-num-badge">Slide 6</span>
+          <span class="slide-timing">4 minutes</span>
+        </div>
+        <div class="slide-title-bar">
+          <div class="slide-title">The Selection Framework</div>
+        </div>
+        <div class="slide-body">
+          <div class="slide-bullets"><div class="slide-bullet">Score Each Platform on Five Dimensions</div><div class="slide-bullet">Dimension 1: Depth of Autonomous Action</div><div class="slide-bullet">ChatGPT: Broad, less autonomous / Claude: Deep, highly autonomous / Gemini: Deep within Google</div><div class="slide-bullet">Dimension 2: Integration Ecosystem</div><div class="slide-bullet">ChatGPT: Broadest / Claude: Custom / Gemini: Google-native</div><div class="slide-bullet">Dimension 3: Team and Admin Controls</div><div class="slide-bullet">ChatGPT: Consumer-friendly / Claude: Enterprise-friendly / Gemini: Google-friendly</div><div class="slide-bullet">Dimension 4: Geographic Availability</div><div class="slide-bullet">ChatGPT: Worldwide / Claude: Worldwide / Gemini: Some regional restrictions</div><div class="slide-bullet">Dimension 5: Price Per Outcome</div><div class="slide-bullet">ChatGPT: Low for volume / Claude: Low per token / Gemini: Low if you stay in Google ecosystem</div>
+          </div>
+        </div>
+        
+          <button class="slide-notes-toggle" onclick="toggleNotes(this)">
+            <span class="toggle-icon">▶</span> Speaker Notes
+          </button>
+          <div class="slide-notes">Here is how to make this decision. Identify your top three use cases. Now score each platform on these five dimensions. How much autonomous action do you need? How important is the integration ecosystem? Do you need enterprise admin controls? Where does your team live geographically? And what matters more: lower price or better fit? Build a simple scoring table. ChatGPT might score highest on breadth. Claude might score highest on depth. Gemini might score highest on Google integration. Your answer is not the platform that wins all five. Your answer is the platform that wins the dimensions that matter most for your three use cases.</div>
+      </div>
+      <div class="slide-card">
+        <div class="slide-header">
+          <span class="slide-num-badge">Slide 7</span>
+          <span class="slide-timing">2 minutes</span>
+        </div>
+        <div class="slide-title-bar">
+          <div class="slide-title">Common Mistakes in Platform Selection</div>
+        </div>
+        <div class="slide-body">
+          <div class="slide-bullets"><div class="slide-bullet">Mistake 1: Picking the &quot;best&quot; platform globally</div><div class="slide-bullet">Reality: Best is relative to your use case.</div><div class="slide-bullet">Mistake 2: Not including your team in the decision</div><div class="slide-bullet">Reality: Your team will spend two years with this decision.</div><div class="slide-bullet">Mistake 3: Assuming you pick only one forever</div><div class="slide-bullet">Reality: You might use multiple platforms for different domains.</div><div class="slide-bullet">Mistake 4: Not factoring in switching cost</div><div class="slide-bullet">Reality: Moving to a new platform takes months.</div>
+          </div>
+        </div>
+        
+          <button class="slide-notes-toggle" onclick="toggleNotes(this)">
+            <span class="toggle-icon">▶</span> Speaker Notes
+          </button>
+          <div class="slide-notes">Don&#x27;t pick the platform that reviewers say is best. Pick the platform that is best for your three use cases. And include your team in the decision. They are the ones who will implement it. They know the constraints. They know what integrations matter. Second, recognize that this doesn&#x27;t have to be a forever decision for everything. You might use Claude for document analysis and ChatGPT for your marketing team. You might use Gemini for your Google Workspace team and Claude for your engineering team. The question is not &quot;which platform should we standardize on?&quot; The question is &quot;what platform is right for this specific domain?&quot;</div>
+      </div>
+      <div class="slide-card">
+        <div class="slide-header">
+          <span class="slide-num-badge">Slide 8</span>
+          <span class="slide-timing">2 minutes</span>
+        </div>
+        <div class="slide-title-bar">
+          <div class="slide-title">Making Your Recommendation</div>
+        </div>
+        <div class="slide-body">
+          <div class="slide-bullets"><div class="slide-bullet">Your Leadership Role</div><div class="slide-bullet">You now have a framework to evaluate platforms.</div><div class="slide-bullet">You can explain why you chose the right one for your context.</div><div class="slide-bullet">You can defend that decision to your stakeholders.</div><div class="slide-bullet">You can update it as your needs change.</div><div class="slide-bullet">This is where technology decisions become strategy.</div><div class="slide-bullet">Not &quot;which AI is smartest?&quot;</div><div class="slide-bullet">But &quot;which architecture lets our team execute best?&quot;</div>
+          </div>
+        </div>
+        
+          <button class="slide-notes-toggle" onclick="toggleNotes(this)">
+            <span class="toggle-icon">▶</span> Speaker Notes
+          </button>
+          <div class="slide-notes">This is your leadership moment. You are not picking the smartest AI. You are picking the architecture that lets your team execute their best work. You can explain why. You can defend it. You can change it when your needs change. That is the difference between a good technology decision and a bad one.</div>
+      </div>
+    </div>
+
+    <div>
+      
+      <div class="resource-stack-label">Micro-Session Resources</div>
+      <div class="resource-stack">
+        <a href="agents-compared-video.html" class="resource-card">
+          <div class="resource-icon" style="background:rgba(40,123,232,0.1);">▶️</div>
+          <div class="resource-info">
+            <div class="resource-tag">01 · Video</div>
+            <div class="resource-title">Session Recording</div>
+          </div>
+          <div class="resource-arrow">→</div>
+        </a>
+        <a href="agents-compared-recap.html" class="resource-card">
+          <div class="resource-icon" style="background:rgba(111,242,193,0.15);">📋</div>
+          <div class="resource-info">
+            <div class="resource-tag">02 · Recap</div>
+            <div class="resource-title">Session Recap</div>
+          </div>
+          <div class="resource-arrow">→</div>
+        </a>
+        <a href="agents-compared-prompts.html" class="resource-card">
+          <div class="resource-icon" style="background:rgba(40,123,232,0.08);">💬</div>
+          <div class="resource-info">
+            <div class="resource-tag">03 · Prompts</div>
+            <div class="resource-title">Prompt Library</div>
+          </div>
+          <div class="resource-arrow">→</div>
+        </a>
+        <a href="agents-compared-slides.html" class="resource-card active">
+          <div class="resource-icon" style="background:rgba(209,69,139,0.1);">🖼️</div>
+          <div class="resource-info">
+            <div class="resource-tag">04 · Slides</div>
+            <div class="resource-title">Session Slides</div>
+          </div>
+          <div class="resource-arrow">→</div>
+        </a>
+        <a href="agents-compared-resources.html" class="resource-card">
+          <div class="resource-icon" style="background:rgba(111,242,193,0.1);">📚</div>
+          <div class="resource-info">
+            <div class="resource-tag">05 · Resources</div>
+            <div class="resource-title">Tools &amp; Links</div>
+          </div>
+          <div class="resource-arrow">→</div>
+        </a>
+      </div>
+    </div>
+
+  </div>
+
+</main>
+
+<script>
+function toggleNotes(btn) {
+  btn.classList.toggle('open');
+  btn.nextElementSibling.classList.toggle('open');
+}
+</script>
+</body>
+</html>

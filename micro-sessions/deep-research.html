@@ -4,158 +4,159 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Deep Research — AI Officer Institute</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="../shared/styles.css">
-<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
   :root {
-    --navy: #04102D;
-    --white: #FFFFFF;
-    --blue: #287BE8;
-    --magenta: #D1458B;
-    --mint: #6FF2C1;
+    --ease: cubic-bezier(0.4, 0, 0.2, 1);
+    --radius: 12px;
+    --shadow-sm: 0 1px 3px rgba(4,16,45,0.07);
+    --shadow-hover: 0 6px 24px rgba(4,16,45,0.10);
     --text-primary: #1a1f36;
     --text-secondary: #4a5068;
     --text-muted: #6b7194;
     --border: #d8dce8;
     --surface: #f4f6fa;
     --card-bg: #ffffff;
-    --sidebar-bg: #f8f9fc;
-    --sidebar-active: #eef1f8;
-    --sidebar-hover: #f0f2f9;
   }
-  * { margin: 0; padding: 0; box-sizing: border-box; }
-  body { font-family: 'DM Sans', sans-serif; background: var(--white); color: var(--text-primary); line-height: 1.7; -webkit-font-smoothing: antialiased; }
 
-  .topbar { position: fixed; top: 0; left: 0; right: 0; height: 56px; background: var(--navy); display: flex; align-items: center; padding: 0 28px; z-index: 100; gap: 16px; }
-  .topbar-brand { font-weight: 700; font-size: 15px; color: var(--white); letter-spacing: -0.2px; }
-  .topbar-brand span { color: var(--blue); }
-  .topbar-divider { width: 1px; height: 20px; background: rgba(255,255,255,0.2); }
-  .topbar-course { font-size: 13px; color: rgba(255,255,255,0.6); font-weight: 400; }
+  body { background: var(--surface); font-family: 'DM Sans', sans-serif; -webkit-font-smoothing: antialiased; color: var(--text-primary); line-height: 1.7; }
 
-  .layout { display: flex; margin-top: 56px; min-height: calc(100vh - 56px); }
+  .topbar-stat {
+    display: flex; align-items: center; gap: 5px;
+    font-family: 'JetBrains Mono', monospace; font-size: 13px; font-weight: 600;
+    color: rgba(255,255,255,0.7); background: rgba(255,255,255,0.07);
+    padding: 5px 12px; border-radius: 6px;
+  }
+  .topbar-avatar {
+    width: 32px; height: 32px; border-radius: 50%; background: var(--blue);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 12px; font-weight: 700; color: white;
+  }
 
-  .sidebar { width: 272px; min-width: 272px; background: var(--sidebar-bg); border-right: 1px solid var(--border); padding: 24px 0; position: fixed; top: 56px; left: 0; bottom: 0; overflow-y: auto; scrollbar-width: thin; }
-  .sidebar-section { padding: 0 20px; margin-bottom: 8px; }
-  .sidebar-label { font-size: 10px; font-weight: 700; letter-spacing: 1.2px; text-transform: uppercase; color: var(--text-muted); padding: 16px 0 8px; }
-  .sidebar-item { display: flex; align-items: flex-start; gap: 12px; padding: 10px 12px; border-radius: 8px; cursor: pointer; transition: background 0.15s; text-decoration: none; color: var(--text-secondary); font-size: 14px; font-weight: 400; line-height: 1.4; }
-  .sidebar-item:hover { background: var(--sidebar-hover); }
-  .sidebar-item.active { background: var(--sidebar-active); color: var(--blue); font-weight: 500; }
-  .sidebar-num { font-family: 'JetBrains Mono', monospace; font-size: 12px; color: var(--text-muted); min-width: 18px; padding-top: 2px; }
-  .sidebar-item.active .sidebar-num { color: var(--blue); }
+  /* ── Page ── */
+  .page-main { max-width: 1060px; margin: 0 auto; padding: 80px 40px 100px; }
 
-  .main { margin-left: 272px; flex: 1; max-width: 800px; padding: 48px 56px 120px; }
+  /* ── Back ── */
+  .mission-back {
+    display: inline-flex; align-items: center; gap: 6px;
+    font-size: 13px; font-weight: 600; color: var(--text-muted);
+    text-decoration: none; margin-bottom: 28px; transition: color 0.12s;
+  }
+  .mission-back:hover { color: var(--text-primary); }
 
-  .section-label { font-size: 11px; font-weight: 700; letter-spacing: 1.2px; text-transform: uppercase; color: var(--text-muted); margin-bottom: 8px; }
-  .lesson-tag { display: inline-flex; align-items: center; gap: 8px; margin-bottom: 12px; }
-  .lesson-tag-num { font-size: 12px; font-weight: 600; color: var(--blue); letter-spacing: 0.5px; text-transform: uppercase; }
-  .lesson-tag-type { font-size: 11px; color: var(--text-muted); background: var(--surface); padding: 2px 10px; border-radius: 4px; font-weight: 500; }
+  /* ── Header ── */
+  .mission-header { margin-bottom: 32px; }
+  .mission-meta { display: flex; align-items: center; gap: 10px; margin-bottom: 14px; }
+  .mission-track-pill {
+    display: inline-flex; align-items: center; gap: 7px;
+    font-size: 11px; font-weight: 700; letter-spacing: 0.7px; text-transform: uppercase;
+    padding: 5px 12px; border-radius: 20px;
+    background: rgba(40,123,232,0.1); color: #287BE8; border: 1px solid rgba(40,123,232,0.2);
+  }
+  .mission-track-pill .dot { width: 5px; height: 5px; border-radius: 50%; background: #287BE8; }
+  .mission-title {
+    font-size: 34px; font-weight: 700; color: var(--text-primary);
+    letter-spacing: -0.5px; line-height: 1.15; margin-bottom: 10px;
+  }
+  .mission-sub { font-size: 15px; color: var(--text-secondary); line-height: 1.6; max-width: 620px; }
 
-  h1 { font-size: 32px; font-weight: 700; line-height: 1.2; color: var(--text-primary); margin-bottom: 24px; letter-spacing: -0.5px; }
-  h2 { font-size: 22px; font-weight: 700; line-height: 1.3; color: var(--text-primary); margin: 48px 0 16px; letter-spacing: -0.3px; }
-  h3 { font-size: 17px; font-weight: 600; color: var(--text-primary); margin: 32px 0 12px; }
-  p { font-size: 15.5px; color: var(--text-secondary); margin-bottom: 16px; }
-  p strong { color: var(--text-primary); font-weight: 600; }
+  /* ── Body grid ── */
+  .mission-body { display: grid; grid-template-columns: 1fr 300px; gap: 24px; align-items: start; }
 
-  .video-card { background: var(--navy); border-radius: 12px; padding: 24px 28px; display: flex; align-items: center; gap: 20px; margin-bottom: 32px; }
-  .video-play { width: 48px; height: 48px; background: var(--blue); border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
-  .video-play svg { margin-left: 3px; }
-  .video-title { font-size: 16px; font-weight: 600; color: var(--white); }
-  .video-sub { font-size: 13px; color: rgba(255,255,255,0.55); margin-top: 4px; }
+  /* ── Cards ── */
+  .content-card {
+    background: var(--card-bg); border: 1px solid var(--border);
+    border-radius: var(--radius); padding: 28px; margin-bottom: 20px;
+    box-shadow: var(--shadow-sm);
+  }
+  .card-label {
+    font-size: 10px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase;
+    color: #287BE8; margin-bottom: 16px;
+  }
 
-  .goal-list { list-style: none; padding: 0; margin: 0 0 24px; }
-  .goal-list li { position: relative; padding: 8px 0 8px 28px; font-size: 15px; color: var(--text-secondary); line-height: 1.6; }
-  .goal-list li::before { content: ''; position: absolute; left: 0; top: 16px; width: 8px; height: 8px; border-radius: 2px; background: var(--blue); opacity: 0.7; }
+  /* ── Objective ── */
+  .objective-list { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 10px; }
+  .objective-list li {
+    display: flex; align-items: baseline; gap: 10px;
+    font-size: 14.5px; color: var(--text-primary); line-height: 1.55;
+  }
+  .objective-list li::before { content: '→'; font-weight: 700; color: #287BE8; flex-shrink: 0; font-size: 12px; }
 
-  .time-grid { display: grid; grid-template-columns: 1fr auto; background: var(--surface); border-radius: 8px; overflow: hidden; margin: 24px 0; }
-  .time-grid-row { display: contents; }
-  .time-grid-row:not(:last-child) .tg-label, .time-grid-row:not(:last-child) .tg-val { border-bottom: 1px solid var(--border); }
-  .tg-label { padding: 12px 20px; font-size: 14px; color: var(--text-secondary); }
-  .tg-val { padding: 12px 20px; font-size: 14px; font-weight: 600; color: var(--text-primary); text-align: right; }
+  /* ── Challenge ── */
+  .challenge-intro { font-size: 14.5px; color: var(--text-secondary); line-height: 1.65; margin-bottom: 24px; }
 
-  .insight { border-left: 3px solid var(--blue); padding: 16px 20px; background: rgba(40,123,232,0.04); border-radius: 0 8px 8px 0; margin: 24px 0; }
-  .insight-label { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.8px; color: var(--blue); margin-bottom: 6px; }
-  .insight p { font-size: 14.5px; color: var(--text-primary); margin: 0; }
+  .step-list { display: flex; flex-direction: column; gap: 0; margin-bottom: 24px; }
+  .step-row { display: flex; gap: 18px; padding: 16px 0; border-bottom: 1px solid var(--border); }
+  .step-row:last-child { border-bottom: none; }
+  .step-num {
+    font-family: 'JetBrains Mono', monospace; font-size: 12px; font-weight: 700;
+    color: #287BE8; background: rgba(40,123,232,0.08);
+    width: 32px; height: 32px; border-radius: 8px;
+    display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 2px;
+  }
+  .step-body h4 { font-size: 14px; font-weight: 700; color: var(--text-primary); margin: 0 0 4px; line-height: 1.3; }
+  .step-body p { font-size: 13px; color: var(--text-muted); margin: 0; line-height: 1.55; }
 
-  .compare-block { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin: 24px 0; }
-  .compare-side { padding: 20px; border-radius: 10px; }
-  .compare-without { background: var(--surface); }
-  .compare-with { background: rgba(40,123,232,0.04); border: 1px solid var(--blue); }
-  .compare-header { font-size: 13px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.8px; margin-bottom: 12px; }
-  .compare-without .compare-header { color: var(--text-muted); }
-  .compare-with .compare-header { color: var(--blue); }
-  .compare-side p { font-size: 14px; color: var(--text-secondary); margin: 0; line-height: 1.6; }
+  /* ── Submit box ── */
+  .submit-box { background: var(--navy); border-radius: 10px; padding: 20px 24px; margin-bottom: 24px; }
+  .submit-box-label { font-size: 10px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: var(--mint); margin-bottom: 12px; }
+  .submit-list { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 6px; }
+  .submit-list li { font-size: 13.5px; color: rgba(255,255,255,0.8); padding-left: 14px; position: relative; line-height: 1.5; }
+  .submit-list li::before { content: '·'; position: absolute; left: 0; color: var(--mint); font-weight: 700; font-size: 16px; line-height: 1.2; }
 
-  .pro-tip { background: var(--navy); border-radius: 10px; padding: 20px 24px; margin: 24px 0; }
-  .pro-tip-label { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.8px; color: var(--mint); margin-bottom: 8px; }
-  .pro-tip p { font-size: 14px; color: rgba(255,255,255,0.8); margin: 0; line-height: 1.6; }
+  /* ── Grading ── */
+  .grading-grid { display: flex; flex-direction: column; gap: 12px; }
+  .grade-item { display: flex; gap: 14px; align-items: flex-start; }
+  .grade-badge {
+    font-family: 'JetBrains Mono', monospace; font-size: 10px; font-weight: 700;
+    padding: 4px 0; border-radius: 5px; flex-shrink: 0; margin-top: 3px;
+    background: rgba(40,123,232,0.08); color: #287BE8;
+    width: 80px; text-align: center;
+  }
+  .grade-text h5 { font-size: 13px; font-weight: 700; color: var(--text-primary); margin: 0 0 2px; }
+  .grade-text p { font-size: 12.5px; color: var(--text-muted); margin: 0; line-height: 1.5; }
 
-  /* RESEARCH STEPS */
-  .research-steps { display: flex; flex-direction: column; gap: 0; margin: 24px 0; }
-  .research-step { display: flex; gap: 20px; padding: 20px 0; border-bottom: 1px solid var(--border); }
-  .research-step:last-child { border-bottom: none; }
-  .step-num { font-family: 'JetBrains Mono', monospace; font-size: 13px; font-weight: 700; color: var(--blue); background: rgba(40,123,232,0.08); width: 36px; height: 36px; border-radius: 8px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 2px; }
-  .step-body h4 { font-size: 15px; font-weight: 600; color: var(--text-primary); margin-bottom: 4px; }
-  .step-body p { font-size: 13.5px; color: var(--text-muted); margin: 0; }
+  /* ── Session nav ── */
+  .session-nav { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 8px; }
+  .session-nav-item {
+    display: flex; flex-direction: column; gap: 4px;
+    background: var(--card-bg); border: 1px solid var(--border);
+    border-radius: var(--radius); padding: 16px 20px; text-decoration: none;
+    transition: all 0.15s var(--ease); box-shadow: var(--shadow-sm);
+  }
+  .session-nav-item:hover { border-color: rgba(40,123,232,0.35); box-shadow: var(--shadow-hover); }
+  .session-nav-item.next { align-items: flex-end; text-align: right; }
+  .nav-dir { font-size: 10px; font-weight: 700; letter-spacing: 0.8px; text-transform: uppercase; color: var(--text-muted); }
+  .nav-title { font-size: 13.5px; font-weight: 700; color: var(--text-primary); line-height: 1.3; }
 
-  /* TOOL CARDS */
-  .tool-cards { display: flex; flex-direction: column; gap: 12px; margin: 24px 0; }
-  .tool-card { display: flex; align-items: flex-start; gap: 16px; padding: 20px; border: 1px solid var(--border); border-radius: 10px; background: var(--card-bg); transition: border-color 0.15s; }
-  .tool-card:hover { border-color: var(--blue); }
-  .tool-badge { font-family: 'JetBrains Mono', monospace; font-size: 11px; font-weight: 700; padding: 4px 10px; border-radius: 6px; flex-shrink: 0; margin-top: 2px; }
-  .tool-badge.best { background: rgba(111,242,193,0.15); color: #0a8a5e; }
-  .tool-badge.good { background: rgba(40,123,232,0.1); color: var(--blue); }
-  .tool-badge.limited { background: var(--surface); color: var(--text-muted); }
-  .tool-card-body h4 { font-size: 15px; font-weight: 600; color: var(--text-primary); margin-bottom: 4px; }
-  .tool-card-body p { font-size: 13.5px; color: var(--text-muted); margin: 0; }
-
-  .checklist { list-style: none; padding: 0; margin: 24px 0; counter-reset: checklist; }
-  .checklist li { display: flex; align-items: flex-start; gap: 14px; padding: 14px 0; border-bottom: 1px solid rgba(0,0,0,0.04); font-size: 14.5px; color: var(--text-secondary); counter-increment: checklist; }
-  .checklist li::before { content: counter(checklist); font-family: 'JetBrains Mono', monospace; font-size: 12px; font-weight: 600; color: var(--white); background: var(--navy); width: 24px; height: 24px; border-radius: 6px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
-
-  .exercise-block { background: linear-gradient(135deg, rgba(209,69,139,0.04), rgba(40,123,232,0.04)); border: 1px solid rgba(209,69,139,0.2); border-radius: 12px; padding: 28px 32px; margin: 32px 0; }
-  .exercise-label { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.8px; color: var(--magenta); margin-bottom: 12px; }
-  .exercise-block h3 { margin: 0 0 12px; }
-  .exercise-block p { font-size: 14.5px; margin-bottom: 8px; }
-  .exercise-block p:last-child { margin-bottom: 0; }
-
-  .challenge-cards { display: flex; flex-direction: column; gap: 10px; margin: 24px 0; }
-  .challenge-card { display: flex; align-items: flex-start; gap: 16px; padding: 16px 20px; border: 1px solid var(--border); border-radius: 10px; background: var(--card-bg); }
-  .challenge-num { font-family: 'JetBrains Mono', monospace; font-size: 13px; font-weight: 600; color: var(--blue); background: rgba(40,123,232,0.08); width: 28px; height: 28px; border-radius: 7px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
-  .challenge-body { flex: 1; }
-  .challenge-body h4 { font-size: 14.5px; font-weight: 600; color: var(--text-primary); margin-bottom: 4px; }
-  .challenge-body p { font-size: 13px; color: var(--text-muted); margin: 0; }
-  .challenge-time { font-family: 'JetBrains Mono', monospace; font-size: 12px; color: var(--text-muted); background: var(--surface); padding: 4px 10px; border-radius: 5px; white-space: nowrap; align-self: center; }
-
-  .cta-block { border: 2px solid var(--blue); border-radius: 12px; padding: 32px; text-align: center; background: linear-gradient(135deg, rgba(40,123,232,0.03), rgba(209,69,139,0.03)); margin: 40px 0; }
-  .cta-block h3 { font-size: 20px; margin: 0 0 8px; }
-  .cta-block p { font-size: 14.5px; color: var(--text-muted); margin: 0 0 20px; }
-  .cta-btn { display: inline-flex; align-items: center; background: var(--blue); color: var(--white); font-size: 15px; font-weight: 600; padding: 14px 32px; border-radius: 8px; text-decoration: none; transition: opacity 0.15s; }
-  .cta-btn:hover { opacity: 0.88; }
-
-  .takeaway-list { list-style: none; padding: 0; margin: 24px 0; }
-  .takeaway-list li { padding: 16px 0; border-bottom: 1px solid rgba(0,0,0,0.05); }
-  .takeaway-list li:last-child { border-bottom: none; }
-  .takeaway-title { font-size: 15px; font-weight: 600; color: var(--text-primary); display: block; margin-bottom: 4px; }
-  .takeaway-desc { font-size: 14px; color: var(--text-muted); }
-
-  .cert-card { background: var(--navy); border-radius: 14px; padding: 40px; text-align: center; margin: 48px 0; }
-  .cert-subtitle { font-size: 13px; color: rgba(255,255,255,0.5); letter-spacing: 0.5px; margin-bottom: 12px; }
-  .cert-card h2 { font-size: 22px; color: var(--white); margin: 0 0 16px; }
-  .cert-card p { font-size: 14.5px; color: rgba(255,255,255,0.7); max-width: 520px; margin: 0 auto 28px; }
-  .cert-progress { display: flex; justify-content: center; gap: 8px; margin-bottom: 24px; }
-  .cert-dot { width: 48px; height: 48px; border-radius: 10px; font-family: 'JetBrains Mono', monospace; font-size: 13px; font-weight: 700; display: flex; align-items: center; justify-content: center; }
-  .cert-dot.done { background: rgba(111,242,193,0.15); color: var(--mint); }
-  .cert-dot.current { background: var(--blue); color: var(--white); }
-  .cert-dot.upcoming { background: rgba(255,255,255,0.08); color: rgba(255,255,255,0.35); }
-  .cert-next { font-size: 14px; font-weight: 600; color: var(--mint); text-decoration: none; }
-  .cert-next:hover { opacity: 0.85; }
-
-  .divider { height: 1px; background: var(--border); margin: 40px 0; }
+  /* ── Resource sidebar ── */
+  .resource-stack-label {
+    font-size: 10px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase;
+    color: var(--text-muted); margin-bottom: 4px;
+  }
+  .resource-stack { display: flex; flex-direction: column; gap: 8px; }
+  .resource-card {
+    background: var(--card-bg); border: 1px solid var(--border);
+    border-radius: var(--radius); padding: 14px 16px;
+    text-decoration: none; color: inherit;
+    display: flex; align-items: center; gap: 12px;
+    box-shadow: var(--shadow-sm); transition: all 0.15s var(--ease);
+  }
+  .resource-card:hover { border-color: rgba(40,123,232,0.35); box-shadow: 0 4px 16px rgba(4,16,45,0.09); transform: translateY(-1px); }
+  .resource-icon {
+    width: 36px; height: 36px; border-radius: 9px; flex-shrink: 0;
+    display: flex; align-items: center; justify-content: center; font-size: 16px;
+  }
+  .resource-info { flex: 1; min-width: 0; }
+  .resource-tag { font-size: 10px; font-weight: 700; letter-spacing: 0.7px; text-transform: uppercase; color: var(--text-muted); margin-bottom: 1px; }
+  .resource-title { font-size: 13px; font-weight: 700; color: var(--text-primary); }
+  .resource-arrow { font-size: 13px; color: var(--text-muted); flex-shrink: 0; }
 
   @media (max-width: 900px) {
-    .sidebar { display: none; }
-    .main { margin-left: 0; padding: 32px 24px 80px; }
-    .compare-block { grid-template-columns: 1fr; }
+    .page-main { padding: 70px 20px 80px; }
+    .mission-body { grid-template-columns: 1fr; }
+    .session-nav { grid-template-columns: 1fr; }
   }
 </style>
 </head>
@@ -164,7 +165,6 @@
 <div class="topbar">
   <a href="../index.html" class="topbar-brand">AIO <span>Labs</span></a>
   <nav class="topbar-nav">
-    <a href="../index.html" class="tnav-link"><span class="tnav-dot" style="background:#8b91ac"></span> Home</a>
     <a href="../certification.html" class="tnav-link"><span class="tnav-dot" style="background:#287BE8"></span> Certification</a>
     <a href="../coaching.html" class="tnav-link"><span class="tnav-dot" style="background:#287BE8"></span> Coaching</a>
     <a href="index.html" class="tnav-link active"><span class="tnav-dot" style="background:#1A9E74"></span> Micro-Sessions</a>
@@ -179,433 +179,194 @@
     <div class="topbar-avatar">DH</div>
   </div>
 </div>
-<section class="hero">
-  <div class="hero-content">
-    <p class="hero-eyebrow">Micro-Session &middot; Gen AI</p>
-    <h1>Deep Research: <span class="accent">AI That Reads So You Don't Have To</span></h1>
-    <p class="hero-subtitle">Use Claude's Deep Research mode to synthesise entire domains in minutes. A new superpower for leaders.</p>
-    <div class="hero-pills">
-    <span class="pill pill-blue">Deep Research</span>
-    <span class="pill pill-mint">Gen AI</span>
-    <span class="pill pill-mag">Strategy</span>
+
+<!-- ═══ PAGE ═══ -->
+<main class="page-main">
+
+  <a href="index.html" class="mission-back">← Micro-Sessions</a>
+
+  <!-- Header -->
+  <div class="mission-header">
+    <div class="mission-meta">
+      <span class="mission-track-pill"><span class="dot"></span> Gen AI</span>
     </div>
+    <h1 class="mission-title">Deep Research</h1>
+    <p class="mission-sub">Stop asking AI for answers. Start giving it sources. Use Claude's Deep Research mode to synthesise entire domains in minutes.</p>
   </div>
-</section>
 
-<div class="layout">
-  <nav class="sidebar">
-    <div class="sidebar-section">
-      <div class="sidebar-label">Introduction</div>
-      <a class="sidebar-item active" href="#welcome"><span class="sidebar-num">01</span>Welcome</a>
-      <a class="sidebar-item" href="#session-guide"><span class="sidebar-num">02</span>Session Guide</a>
+  <!-- Body -->
+  <div class="mission-body">
+
+    <!-- Main column -->
+    <div>
+
+      <!-- Objective -->
+      <div class="content-card">
+        <div class="card-label">Session Objective</div>
+        <ul class="objective-list">
+          <li>See the difference between a quick AI answer and a cited AI insight</li>
+          <li>Learn the five-step anatomy of a deep research workflow</li>
+          <li>Practice uploading sources to NotebookLM and generating outputs</li>
+          <li>Build a habit of citing your AI-generated content at work</li>
+        </ul>
+      </div>
+
+      <!-- Challenge -->
+      <div class="content-card">
+        <div class="card-label">Challenge</div>
+
+        <p class="challenge-intro">Run a real deep research workflow using NotebookLM. By the end, you will have a cited insight from a credible document that you can use in your actual work.</p>
+
+        <div class="step-list">
+          <div class="step-row">
+            <div class="step-num">1</div>
+            <div class="step-body">
+              <h4>Choose a research topic</h4>
+              <p>Pick something directly relevant to your current work — a decision you're making, a trend you need to understand, or a problem you're solving.</p>
+            </div>
+          </div>
+          <div class="step-row">
+            <div class="step-num">2</div>
+            <div class="step-body">
+              <h4>Find one credible source</h4>
+              <p>An academic paper, industry report, or validated dataset. Not a blog post or news article. Try MIT Sloan, Stanford HAI, McKinsey Global Institute, or Google Scholar.</p>
+            </div>
+          </div>
+          <div class="step-row">
+            <div class="step-num">3</div>
+            <div class="step-body">
+              <h4>Upload to NotebookLM</h4>
+              <p>Go to <strong>notebooklm.google.com</strong>, create a notebook, and upload your source as a link, PDF, or Google Drive document.</p>
+            </div>
+          </div>
+          <div class="step-row">
+            <div class="step-num">4</div>
+            <div class="step-body">
+              <h4>Create a mind map or audio overview</h4>
+              <p>Use NotebookLM's built-in tools to understand the material more deeply than reading a summary alone would allow.</p>
+            </div>
+          </div>
+          <div class="step-row">
+            <div class="step-num">5</div>
+            <div class="step-body">
+              <h4>Pull your key insight</h4>
+              <p>Identify the single most important finding relevant to your work. Be specific — not "AI is growing" but a data point that could change a real decision.</p>
+            </div>
+          </div>
+          <div class="step-row">
+            <div class="step-num">6</div>
+            <div class="step-body">
+              <h4>Submit to your AI Buddy</h4>
+              <p>Head to AIO Labs and submit your work for grading and certification credit.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="submit-box">
+          <div class="submit-box-label">Submit to AI Buddy</div>
+          <ul class="submit-list">
+            <li>Your source — title, author or organisation, and a link</li>
+            <li>Your key insight — one specific finding in plain language</li>
+            <li>One sentence — what does this change about how you work?</li>
+          </ul>
+        </div>
+
+        <div class="card-label" style="margin-bottom:12px;">Grading Criteria</div>
+        <div class="grading-grid">
+          <div class="grade-item">
+            <span class="grade-badge">Source</span>
+            <div class="grade-text">
+              <h5>Source Credibility</h5>
+              <p>Named author or institution, directly accessible. Academic or validated industry research — not a blog or AI summary.</p>
+            </div>
+          </div>
+          <div class="grade-item">
+            <span class="grade-badge">Insight</span>
+            <div class="grade-text">
+              <h5>Insight Specificity</h5>
+              <p>A number, comparison, or concrete finding — not a general statement that could have come from anywhere.</p>
+            </div>
+          </div>
+          <div class="grade-item">
+            <span class="grade-badge">Relevance</span>
+            <div class="grade-text">
+              <h5>Relevance to Work</h5>
+              <p>Names a specific decision, behaviour, or challenge the insight affects — not abstract or hypothetical.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Prev / Next navigation -->
+      <div class="session-nav">
+        <a href="build-your-personal-brand.html" class="session-nav-item prev">
+          <span class="nav-dir">← Previous</span>
+          <span class="nav-title">Build Your Personal Brand Doc</span>
+        </a>
+        <a href="from-one-post-to-every-platform.html" class="session-nav-item next">
+          <span class="nav-dir">Next →</span>
+          <span class="nav-title">From One Post To Every Platform</span>
+        </a>
+      </div>
+
+    </div><!-- end main column -->
+
+    <!-- Resource sidebar -->
+    <div>
+      <div class="resource-stack-label">Micro-Session Resources</div>
+      <div class="resource-stack">
+
+        <a href="deep-research-video.html" class="resource-card">
+          <div class="resource-icon" style="background:rgba(40,123,232,0.1);">▶️</div>
+          <div class="resource-info">
+            <div class="resource-tag">01 · Video</div>
+            <div class="resource-title">Session Recording</div>
+          </div>
+          <div class="resource-arrow">→</div>
+        </a>
+
+        <a href="deep-research-recap.html" class="resource-card">
+          <div class="resource-icon" style="background:rgba(111,242,193,0.15);">📋</div>
+          <div class="resource-info">
+            <div class="resource-tag">02 · Recap</div>
+            <div class="resource-title">Session Recap</div>
+          </div>
+          <div class="resource-arrow">→</div>
+        </a>
+
+        <a href="deep-research-prompts.html" class="resource-card">
+          <div class="resource-icon" style="background:rgba(40,123,232,0.08);">💬</div>
+          <div class="resource-info">
+            <div class="resource-tag">03 · Prompts</div>
+            <div class="resource-title">Prompt Library</div>
+          </div>
+          <div class="resource-arrow">→</div>
+        </a>
+
+        <a href="deep-research-slides.html" class="resource-card">
+          <div class="resource-icon" style="background:rgba(209,69,139,0.1);">🖼️</div>
+          <div class="resource-info">
+            <div class="resource-tag">04 · Slides</div>
+            <div class="resource-title">Session Slides</div>
+          </div>
+          <div class="resource-arrow">→</div>
+        </a>
+
+        <a href="deep-research-resources.html" class="resource-card">
+          <div class="resource-icon" style="background:rgba(111,242,193,0.1);">📚</div>
+          <div class="resource-info">
+            <div class="resource-tag">05 · Resources</div>
+            <div class="resource-title">Tools &amp; Links</div>
+          </div>
+          <div class="resource-arrow">→</div>
+        </a>
+
+      </div>
     </div>
-    <div class="sidebar-section">
-      <div class="sidebar-label">Session</div>
-      <a class="sidebar-item" href="#before-after"><span class="sidebar-num">03</span>Before and After</a>
-      <a class="sidebar-item" href="#anatomy"><span class="sidebar-num">04</span>Anatomy of Deep Research</a>
-      <a class="sidebar-item" href="#notebooklm"><span class="sidebar-num">05</span>NotebookLM</a>
-      <a class="sidebar-item" href="#tools"><span class="sidebar-num">06</span>Tools of the Trade</a>
-      <a class="sidebar-item" href="#bolt-connection"><span class="sidebar-num">07</span>The BOLT Connection</a>
-      <a class="sidebar-item" href="#exercise"><span class="sidebar-num">08</span>Exercise</a>
-    </div>
-    <div class="sidebar-section">
-      <div class="sidebar-label">Wrap-Up</div>
-      <a class="sidebar-item" href="#challenge"><span class="sidebar-num">09</span>Your Challenge</a>
-      <a class="sidebar-item" href="#takeaways"><span class="sidebar-num">10</span>Key Takeaways</a>
-      <a class="sidebar-item" href="#try-this-week"><span class="sidebar-num">11</span>Try This Week</a>
-      <a class="sidebar-item" href="#certificate"><span class="sidebar-num">12</span>Credit Earned</a>
-    </div>
-  </nav>
 
-  <main class="main">
+  </div><!-- end mission-body -->
 
-    <section id="welcome">
-      <div class="section-label">Introduction</div>
-      <div class="lesson-tag">
-        <span class="lesson-tag-num">Micro Session</span>
-        <span class="lesson-tag-type">Generative AI Essentials</span>
-      </div>
-      <h1>Deep Research</h1>
-      <p>Stop asking AI for answers. Start giving it sources.</p>
+</main>
 
-      <div class="video-card">
-        <div class="video-play">
-          <svg width="16" height="18" viewBox="0 0 16 18" fill="none"><path d="M1 1L15 9L1 17V1Z" fill="white"/></svg>
-        </div>
-        <div>
-          <div class="video-title">Deep Research</div>
-          <div class="video-sub">30 minutes - Micro Session - Generative AI Essentials</div>
-        </div>
-      </div>
-
-      <h3>What you will do in this session</h3>
-      <ul class="goal-list">
-        <li>See the difference between a quick AI answer and a cited AI insight</li>
-        <li>Learn the five-step anatomy of a deep research workflow</li>
-        <li>Explore NotebookLM as a tool that forces best-practice research</li>
-        <li>Leave with a challenge: find one real source, analyze it, pull one cited insight</li>
-      </ul>
-
-      <div class="time-grid">
-        <div class="time-grid-row"><div class="tg-label">Before and After</div><div class="tg-val">8 min</div></div>
-        <div class="time-grid-row"><div class="tg-label">Anatomy of Deep Research</div><div class="tg-val">6 min</div></div>
-        <div class="time-grid-row"><div class="tg-label">NotebookLM + Tools</div><div class="tg-val">8 min</div></div>
-        <div class="time-grid-row"><div class="tg-label">Exercise + BOLT Connection</div><div class="tg-val">5 min</div></div>
-        <div class="time-grid-row"><div class="tg-label">Challenge + Wrap-Up</div><div class="tg-val">3 min</div></div>
-      </div>
-    </section>
-
-    <div class="divider"></div>
-
-    <section id="session-guide">
-      <div class="lesson-tag">
-        <span class="lesson-tag-num">02</span>
-        <span class="lesson-tag-type">Guide</span>
-      </div>
-      <h2>Session Guide</h2>
-      <p>This is a 30-minute session. The exercise happens live - have an AI tool open in front of you. Here is how to get the most from it.</p>
-      <ul class="checklist">
-        <li>Have an AI tool open - ChatGPT, Claude, or anything you use regularly. You will use it for the live exercise.</li>
-        <li>Think of one topic you keep getting asked about at work. You will use it to find a research source for the challenge.</li>
-        <li>Create a free NotebookLM account at notebooklm.google.com before the challenge. It is free with a Google account.</li>
-        <li>Participate in the exercise. Paste your AI trends in the chat. The point is to see the output before we talk about what it is missing.</li>
-        <li>Complete the challenge with a real source - not a news article, not a blog. An academic paper or industry report you could cite in a professional document.</li>
-      </ul>
-    </section>
-
-    <div class="divider"></div>
-
-    <section id="before-after">
-      <div class="section-label">Session</div>
-      <div class="lesson-tag">
-        <span class="lesson-tag-num">03</span>
-        <span class="lesson-tag-type">Concept</span>
-      </div>
-      <h2>Before and After</h2>
-      <p>Prompts are sparks. Research is firewood. A quick prompt gets you a fast answer. Research gets you something you can stake your name on.</p>
-
-      <div class="compare-block">
-        <div class="compare-side compare-without">
-          <div class="compare-header">Quick prompt</div>
-          <p>"What are 5 AI trends I should be watching?" Fast. Probably accurate in a general sense. But where did it come from? Could you cite it in a presentation? Could you defend it if someone pushed back?</p>
-        </div>
-        <div class="compare-side compare-with">
-          <div class="compare-header">Deep research</div>
-          <p>Same question, but you point AI to the MIT AI Index and the Stanford HAI report. Now the answer has specific data points, publication dates, and named authors. You can stake your name on it.</p>
-        </div>
-      </div>
-
-      <div class="insight">
-        <div class="insight-label">Key Insight</div>
-        <p>AI is 99% accurate when you give it the right data and prompt it the right way. The data is your responsibility. The tool is only as good as the sources you feed it.</p>
-      </div>
-    </section>
-
-    <div class="divider"></div>
-
-    <section id="anatomy">
-      <div class="lesson-tag">
-        <span class="lesson-tag-num">04</span>
-        <span class="lesson-tag-type">Framework</span>
-      </div>
-      <h2>The Anatomy of Deep Research</h2>
-      <p>Five steps. Every credible AI research output follows this pattern.</p>
-
-      <div class="research-steps">
-        <div class="research-step">
-          <div class="step-num">1</div>
-          <div class="step-body">
-            <h4>Ask a tight question</h4>
-            <p>Small enough to be clear, big enough to matter. Not "what is happening in AI" - "what are the three biggest barriers to AI adoption in mid-sized companies in Southeast Asia?"</p>
-          </div>
-        </div>
-        <div class="research-step">
-          <div class="step-num">2</div>
-          <div class="step-body">
-            <h4>Gather multiple sources</h4>
-            <p>Point AI to data you trust: academic studies, industry reports, validated datasets. Not random websites. Not news summaries. Primary sources.</p>
-          </div>
-        </div>
-        <div class="research-step">
-          <div class="step-num">3</div>
-          <div class="step-body">
-            <h4>Read and reflect</h4>
-            <p>Look for contradictions, gaps, and surprises. What do two sources disagree on? What important question is nobody answering? That is where the real insight lives.</p>
-          </div>
-        </div>
-        <div class="research-step">
-          <div class="step-num">4</div>
-          <div class="step-body">
-            <h4>Pull a thread</h4>
-            <p>Follow your curiosity. When something surprises you, go deeper instead of accepting the first answer. The best insights come from the second or third layer.</p>
-          </div>
-        </div>
-        <div class="research-step">
-          <div class="step-num">5</div>
-          <div class="step-body">
-            <h4>Turn it into clarity</h4>
-            <p>Aim for insights you would stake your name on. Specific. Cited. Connected to a real decision someone needs to make.</p>
-          </div>
-        </div>
-      </div>
-
-      <div class="pro-tip">
-        <div class="pro-tip-label">Pro Tip</div>
-        <p>Treat AI as a research assistant, not a decision-maker. You choose the sources. You judge the quality. You make the call. AI handles the reading and synthesis. That division of labor is what makes the output trustworthy.</p>
-      </div>
-    </section>
-
-    <div class="divider"></div>
-
-    <section id="notebooklm">
-      <div class="lesson-tag">
-        <span class="lesson-tag-num">05</span>
-        <span class="lesson-tag-type">Tool</span>
-      </div>
-      <h2>NotebookLM</h2>
-      <p>NotebookLM is a research tool from Google that forces you into best practice. You cannot just search the web and trust whatever comes back. You bring your sources, and it works only from what you give it.</p>
-      <p>That is not a limitation. That is the point.</p>
-
-      <h3>What you can do with your sources</h3>
-      <div class="compare-block">
-        <div class="compare-side compare-without">
-          <div class="compare-header">Upload your source</div>
-          <p>Add a link, upload a PDF, or connect a Google Drive document. NotebookLM immediately generates a summary and lets you ask questions about the content.</p>
-        </div>
-        <div class="compare-side compare-with">
-          <div class="compare-header">Then go further</div>
-          <p>Generate a mind map of the document's structure. Create an audio overview - a podcast-style conversation explaining the material. Build a video explainer. All cited to your source.</p>
-        </div>
-      </div>
-
-      <div class="insight">
-        <div class="insight-label">Key Insight</div>
-        <p>The mind map feature is underrated. Upload a long academic paper, generate the mind map, and you understand the structure and key findings in five minutes instead of two hours.</p>
-      </div>
-
-      <div class="pro-tip">
-        <div class="pro-tip-label">Hybrid Workflow</div>
-        <p>Combine NotebookLM with ChatGPT Projects: upload your key sources into NotebookLM to get summaries and mind maps, then import those insights into a ChatGPT Project to draft blogs, strategy documents, or training decks. Best of both tools.</p>
-      </div>
-    </section>
-
-    <div class="divider"></div>
-
-    <section id="tools">
-      <div class="lesson-tag">
-        <span class="lesson-tag-num">06</span>
-        <span class="lesson-tag-type">Tools</span>
-      </div>
-      <h2>Tools of the Trade</h2>
-
-      <div class="tool-cards">
-        <div class="tool-card">
-          <div class="tool-badge best">Best</div>
-          <div class="tool-card-body">
-            <h4>NotebookLM</h4>
-            <p>Source-driven research. Forces credibility. Mind maps, audio overviews, video explainers. Free tier available. Best tool for deep research workflows right now.</p>
-          </div>
-        </div>
-        <div class="tool-card">
-          <div class="tool-badge good">Good</div>
-          <div class="tool-card-body">
-            <h4>ChatGPT with Deep Research mode</h4>
-            <p>Powerful when pointed at credible sources. Deep Research mode is thorough but slow. Best used when you need synthesis across multiple sources and have time to wait.</p>
-          </div>
-        </div>
-        <div class="tool-card">
-          <div class="tool-badge good">Good</div>
-          <div class="tool-card-body">
-            <h4>ChatGPT Projects</h4>
-            <p>A solid alternative to NotebookLM. Upload your own academic resources directly from the source website. Less polished output features, but same principle: your sources, your control.</p>
-          </div>
-        </div>
-        <div class="tool-card">
-          <div class="tool-badge limited">Limited</div>
-          <div class="tool-card-body">
-            <h4>Copilot</h4>
-            <p>Useful if your documents live in Microsoft 365. Good for research within your organization's files. Not a strong choice for external academic research.</p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <div class="divider"></div>
-
-    <section id="bolt-connection">
-      <div class="lesson-tag">
-        <span class="lesson-tag-num">07</span>
-        <span class="lesson-tag-type">Example</span>
-      </div>
-      <h2>The BOLT Connection</h2>
-      <p>Dana Reyes needs to pitch BOLT's expansion into three new markets at a leadership meeting on Thursday. She cannot show up with "here are five trends I asked AI about."</p>
-
-      <div class="compare-block">
-        <div class="compare-side compare-without">
-          <div class="compare-header">Without deep research</div>
-          <p>Dana asks AI for consumer trends in Jakarta. She gets a general summary. No citations. No data she can defend. Leadership pushes back and she has nothing to stand on.</p>
-        </div>
-        <div class="compare-side compare-with">
-          <div class="compare-header">With deep research</div>
-          <p>Dana finds three credible market reports, uploads them to NotebookLM, generates a cited summary per market. She walks into Thursday with specific data points and named sources. Leadership approves the expansion.</p>
-        </div>
-      </div>
-
-      <div class="insight">
-        <div class="insight-label">Key Insight</div>
-        <p>The difference between being heard and being dismissed in a leadership meeting is often one thing: citations. Deep research is how an AI Officer builds credibility, not just speed.</p>
-      </div>
-    </section>
-
-    <div class="divider"></div>
-
-    <section id="exercise">
-      <div class="lesson-tag">
-        <span class="lesson-tag-num">08</span>
-        <span class="lesson-tag-type">Exercise</span>
-      </div>
-
-      <div class="exercise-block">
-        <div class="exercise-label">Everyone Does This Now</div>
-        <h3>Quick Prompt vs. Deep Research</h3>
-        <p>Open any AI tool right now. Ask: "What are 5 AI trends I should be watching?" No sources, no deep research mode. Just ask.</p>
-        <p>Paste your top 5 in the chat. We will look at them together.</p>
-        <p><strong>Then ask yourself:</strong> could you cite any of these? Could you defend them in a leadership meeting? That gap is what we are closing today.</p>
-      </div>
-    </section>
-
-    <div class="divider"></div>
-
-    <section id="challenge">
-      <div class="section-label">Wrap-Up</div>
-      <div class="lesson-tag">
-        <span class="lesson-tag-num">09</span>
-        <span class="lesson-tag-type">Challenge</span>
-      </div>
-      <h2>Your Challenge</h2>
-      <p>Run a real deep research workflow. Find one credible source, analyze it in NotebookLM, and pull one cited insight. Your AI Buddy will grade you on source quality, insight specificity, and whether the insight connects to your real work.</p>
-
-      <div class="challenge-cards">
-        <div class="challenge-card">
-          <div class="challenge-num">1</div>
-          <div class="challenge-body">
-            <h4>Find one credible source</h4>
-            <p>Academic paper, industry report, or validated dataset. Named author or institution. Directly accessible - not a summary or a blog post about it.</p>
-          </div>
-          <div class="challenge-time">15 min</div>
-        </div>
-        <div class="challenge-card">
-          <div class="challenge-num">2</div>
-          <div class="challenge-body">
-            <h4>Upload to NotebookLM</h4>
-            <p>Create a notebook, add your source, and read the auto-generated summary. Does it match what you expected? Any surprises?</p>
-          </div>
-          <div class="challenge-time">5 min</div>
-        </div>
-        <div class="challenge-card">
-          <div class="challenge-num">3</div>
-          <div class="challenge-body">
-            <h4>Generate a mind map or audio overview</h4>
-            <p>Use NotebookLM's built-in tools to go deeper. What structure does the mind map reveal? What does the audio overview surface that you missed in the summary?</p>
-          </div>
-          <div class="challenge-time">10 min</div>
-        </div>
-        <div class="challenge-card">
-          <div class="challenge-num">4</div>
-          <div class="challenge-body">
-            <h4>Submit to your AI Buddy</h4>
-            <p>Submit your source, your key insight (specific and cited), and one sentence on what it changes about how you think about your work.</p>
-          </div>
-          <div class="challenge-time">5 min</div>
-        </div>
-      </div>
-
-      <div class="cta-block">
-        <h3>Submit Your Challenge</h3>
-        <p>Your AI Buddy is ready. Submit your source, your cited insight, and your one-sentence reflection to earn credit for this session.</p>
-        <a href="https://lab.ai-officer.com" class="cta-btn">Open AIO Labs</a>
-      </div>
-    </section>
-
-    <div class="divider"></div>
-
-    <section id="takeaways">
-      <div class="lesson-tag">
-        <span class="lesson-tag-num">10</span>
-        <span class="lesson-tag-type">Takeaways</span>
-      </div>
-      <h2>Key Takeaways</h2>
-      <ul class="takeaway-list">
-        <li>
-          <span class="takeaway-title">The data is your responsibility</span>
-          <span class="takeaway-desc">AI is only as good as the sources you feed it. Random internet results produce generic outputs. Credible sources produce insights you can defend.</span>
-        </li>
-        <li>
-          <span class="takeaway-title">NotebookLM forces the right workflow</span>
-          <span class="takeaway-desc">It will not let you skip the source step. That constraint is the feature. Everything it produces is tied to what you gave it.</span>
-        </li>
-        <li>
-          <span class="takeaway-title">The mind map is underrated</span>
-          <span class="takeaway-desc">Upload a dense academic paper and generate the mind map. You understand the whole structure in five minutes. That is leverage.</span>
-        </li>
-        <li>
-          <span class="takeaway-title">Automate your research workflow</span>
-          <span class="takeaway-desc">Once you understand the pattern - tight question, credible sources, cited output - you can build an agent that runs it for you on a schedule. That is what turns a skill into a system.</span>
-        </li>
-      </ul>
-    </section>
-
-    <div class="divider"></div>
-
-    <section id="try-this-week">
-      <div class="lesson-tag">
-        <span class="lesson-tag-num">11</span>
-        <span class="lesson-tag-type">Try This Week</span>
-      </div>
-      <h2>Try This Week</h2>
-      <p>Pick one topic you keep getting asked about at work. Find one real source on it - a journal paper, an industry report, something with a named author or institution. Put it into NotebookLM and generate a mind map.</p>
-      <p>Then do something with it. Write a short summary. Bring a cited insight to your next team meeting. Draft one paragraph for a report you are working on. The goal is not research for its own sake - it is research that changes something.</p>
-
-      <div class="pro-tip">
-        <div class="pro-tip-label">Go Further</div>
-        <p>Upload two or three sources on the same topic and ask NotebookLM to find the contradictions between them. Where do credible sources disagree? That is usually the most important question - and the one most people never ask.</p>
-      </div>
-    </section>
-
-    <div class="divider"></div>
-
-    <section id="certificate">
-      <div class="cert-card">
-        <div class="cert-subtitle">GENERATIVE AI ESSENTIALS - MICRO SESSION</div>
-        <h2>Credit Earned</h2>
-        <p>Complete the challenge and submit to your AI Buddy to earn credit toward your Generative AI Essentials certification. You need 4 micro session credits total.</p>
-        <div class="cert-progress">
-          <div class="cert-dot done">MS</div>
-          <div class="cert-dot current">MS</div>
-          <div class="cert-dot upcoming">--</div>
-          <div class="cert-dot upcoming">--</div>
-        </div>
-        <a href="https://lab.ai-officer.com" class="cert-next">Continue in AIO Labs &rarr;</a>
-      </div>
-    </section>
-
-  </main>
-</div>
-
-<script>
-  const sections = document.querySelectorAll('section[id]');
-  const sidebarLinks = document.querySelectorAll('.sidebar-item');
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        sidebarLinks.forEach(link => {
-          link.classList.remove('active');
-          if (link.getAttribute('href') === '#' + entry.target.id) link.classList.add('active');
-        });
-      }
-    });
-  }, { rootMargin: '-20% 0px -70% 0px' });
-  sections.forEach(s => observer.observe(s));
-</script>
 </body>
 </html>

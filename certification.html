@@ -1,0 +1,615 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Certification Journey — AIO Labs</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="shared/styles.css">
+<style>
+
+  :root {
+    --royal: #287BE8;
+    --ease: cubic-bezier(0.4, 0, 0.2, 1);
+    --radius: 12px;
+    --shadow-sm: 0 1px 3px rgba(4,16,45,0.07);
+    --shadow-hover: 0 6px 24px rgba(4,16,45,0.10);
+    --text-tertiary: #8b91ac;
+    --border-hover: #b0b6cc;
+  }
+
+  body { background: var(--surface); }
+
+  /* ── Topbar ── */
+  .topbar { justify-content: space-between; padding: 0 28px; }
+  .topbar-right {
+    display: flex; align-items: center; gap: 10px; margin-left: auto;
+  }
+  .topbar-stat {
+    display: flex; align-items: center; gap: 5px;
+    font-family: 'JetBrains Mono', monospace; font-size: 13px; font-weight: 600;
+    color: rgba(255,255,255,0.7); background: rgba(255,255,255,0.07);
+    padding: 5px 12px; border-radius: 6px;
+  }
+  .topbar-avatar {
+    width: 32px; height: 32px; border-radius: 50%; background: var(--blue);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 12px; font-weight: 700; color: white;
+  }
+
+  /* ── Page ── */
+  .page-main { max-width: 1040px; margin: 0 auto; padding: 80px 40px 100px; }
+
+  /* ── Personal hero ── */
+  .journey-hero {
+    background: var(--navy); border-radius: 16px;
+    padding: 44px 52px; margin-bottom: 40px;
+    display: flex; align-items: center; gap: 48px;
+  }
+  .journey-hero-body { flex: 1; }
+  .journey-hero-label {
+    font-size: 11px; font-weight: 700; letter-spacing: 1.4px;
+    text-transform: uppercase; color: var(--mint); margin-bottom: 10px;
+  }
+  .journey-hero h1 {
+    font-size: 32px; font-weight: 700; color: white;
+    line-height: 1.2; letter-spacing: -0.4px; margin-bottom: 10px;
+  }
+  .journey-hero h1 em { font-style: normal; color: var(--blue); }
+  .journey-hero-sub {
+    font-size: 14px; color: rgba(255,255,255,0.5);
+    line-height: 1.65; margin-bottom: 28px; max-width: 500px;
+  }
+  .journey-cta { display: flex; align-items: center; gap: 12px; }
+  .btn {
+    display: inline-flex; align-items: center; gap: 6px;
+    font-family: 'DM Sans', sans-serif; font-size: 14px; font-weight: 600;
+    padding: 11px 22px; border-radius: 8px;
+    text-decoration: none; border: none; cursor: pointer;
+    transition: all 0.15s var(--ease); white-space: nowrap;
+  }
+  .btn-white { background: white; color: var(--navy); }
+  .btn-white:hover { background: #eef1f8; transform: translateY(-1px); }
+  .btn-ghost { background: transparent; color: rgba(255,255,255,0.65); border: 1px solid rgba(255,255,255,0.18); }
+  .btn-ghost:hover { background: rgba(255,255,255,0.08); color: white; }
+
+  /* ── Pathway summary (right side of hero) ── */
+  .journey-path {
+    display: flex; flex-direction: column; gap: 8px;
+    flex-shrink: 0; min-width: 220px;
+  }
+  .path-step {
+    display: flex; align-items: center; gap: 12px;
+    padding: 12px 16px; border-radius: 10px;
+    border: 1px solid rgba(255,255,255,0.1);
+    background: rgba(255,255,255,0.05);
+  }
+  .path-step.active { background: rgba(40,123,232,0.15); border-color: rgba(40,123,232,0.35); }
+  .path-step.complete { background: rgba(26,158,116,0.12); border-color: rgba(26,158,116,0.3); }
+  .path-step.locked { opacity: 0.45; }
+
+  .path-step-icon {
+    width: 28px; height: 28px; border-radius: 7px; flex-shrink: 0;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 13px;
+  }
+  .path-step.active   .path-step-icon { background: rgba(40,123,232,0.25); }
+  .path-step.complete .path-step-icon { background: rgba(26,158,116,0.2); }
+  .path-step.locked   .path-step-icon { background: rgba(255,255,255,0.08); }
+
+  .path-step-info { flex: 1; min-width: 0; }
+  .path-step-name { font-size: 12px; font-weight: 700; color: white; }
+  .path-step-sub  { font-size: 10px; color: rgba(255,255,255,0.45); margin-top: 1px; }
+
+  .path-step-status {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px; font-weight: 700;
+    padding: 2px 7px; border-radius: 4px;
+  }
+  .path-step.active   .path-step-status { background: rgba(40,123,232,0.3); color: #6BB8FF; }
+  .path-step.complete .path-step-status { background: rgba(26,158,116,0.25); color: #6FF2C1; }
+  .path-step.locked   .path-step-status { background: rgba(255,255,255,0.08); color: rgba(255,255,255,0.3); }
+
+  .path-arrow {
+    text-align: center; font-size: 11px;
+    color: rgba(255,255,255,0.2); margin: -2px 0;
+  }
+
+  /* ── Track section headers ── */
+  .track-section { margin-bottom: 48px; }
+
+  .track-header {
+    display: flex; align-items: center; gap: 14px;
+    padding: 20px 24px; border-radius: 12px;
+    margin-bottom: 16px;
+    border: 1px solid;
+  }
+  .track-header.gen  { background: rgba(40,123,232,0.09); border-color: rgba(40,123,232,0.22); }
+  .track-header.age  { background: rgba(26,158,116,0.09); border-color: rgba(26,158,116,0.22); }
+  .track-header.lead { background: rgba(4,16,45,0.07);   border-color: rgba(4,16,45,0.16);    opacity: 0.6; }
+
+  .track-pill {
+    display: inline-flex; align-items: center; gap: 6px;
+    font-size: 10px; font-weight: 700; letter-spacing: 0.8px;
+    text-transform: uppercase; padding: 4px 11px; border-radius: 20px; flex-shrink: 0;
+  }
+  .track-pill .dot { width: 5px; height: 5px; border-radius: 50%; background: currentColor; }
+  .pill-gen  { background: rgba(40,123,232,0.1);  color: #287BE8; border: 1px solid rgba(40,123,232,0.2); }
+  .pill-age  { background: rgba(26,158,116,0.1);  color: #1a9e74; border: 1px solid rgba(26,158,116,0.2); }
+  .pill-lead { background: rgba(4,16,45,0.07);    color: #04102D; border: 1px solid rgba(4,16,45,0.18); }
+
+  .track-header-info { flex: 1; }
+  .track-header-title { font-size: 17px; font-weight: 700; color: var(--text-primary); letter-spacing: -0.2px; }
+  .track-header-sub   { font-size: 13px; color: var(--text-muted); margin-top: 2px; }
+
+  .track-progress-block { min-width: 160px; }
+  .track-progress-row {
+    display: flex; align-items: center; justify-content: space-between;
+    margin-bottom: 6px;
+  }
+  .track-progress-label { font-size: 11px; color: var(--text-muted); }
+  .track-progress-pct {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px; font-weight: 700;
+  }
+  .track-header.gen  .track-progress-pct { color: #287BE8; }
+  .track-header.age  .track-progress-pct { color: #1a9e74; }
+  .track-header.lead .track-progress-pct { color: #04102D; }
+  .progress-bar {
+    height: 5px; border-radius: 3px;
+    background: var(--border); overflow: hidden;
+  }
+  .progress-fill { height: 100%; border-radius: 3px; transition: width 0.4s var(--ease); }
+  .fill-gen  { background: #287BE8; }
+  .fill-age  { background: #1a9e74; }
+  .fill-lead { background: #04102D; }
+
+  .track-cert-badge {
+    display: inline-flex; align-items: center; gap: 6px;
+    font-size: 11px; font-weight: 700;
+    padding: 5px 12px; border-radius: 6px; flex-shrink: 0;
+  }
+  .track-cert-badge.earned { background: rgba(26,158,116,0.1); color: #1a9e74; border: 1px solid rgba(26,158,116,0.25); }
+  .track-cert-badge.locked { background: var(--surface); color: var(--text-muted); border: 1px solid var(--border); }
+
+  /* ── Mission cards grid ── */
+  .mgrid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 12px; }
+
+  .mcard {
+    background: white; border: 1px solid var(--border);
+    border-radius: var(--radius); padding: 20px;
+    text-decoration: none; color: inherit;
+    display: flex; flex-direction: column; gap: 8px;
+    box-shadow: var(--shadow-sm);
+    transition: all 0.15s var(--ease); position: relative;
+  }
+  .mcard.mcard-active        { border-color: rgba(40,123,232,0.35); }
+  .mcard.mcard-active:hover  { box-shadow: var(--shadow-hover); transform: translateY(-1px); border-color: rgba(40,123,232,0.55); }
+  .mcard.done { background: var(--surface); border-color: var(--border); }
+  .mcard.locked-card { opacity: 0.45; pointer-events: none; }
+
+  .mcard-top { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
+
+  .mcard-badge {
+    font-family: 'JetBrains Mono', monospace; font-size: 10px; font-weight: 600;
+    padding: 3px 8px; border-radius: 5px; flex-shrink: 0;
+  }
+  .badge-gen, .badge-age, .badge-lead { background: var(--surface); color: var(--text-muted); border: 1px solid var(--border); }
+
+  .mcard-status {
+    font-size: 10px; font-weight: 700; letter-spacing: 0.4px;
+    padding: 3px 8px; border-radius: 5px; text-transform: uppercase;
+  }
+  .status-done    { background: rgba(26,158,116,0.1); color: #1a9e74; }
+  .status-active  { background: rgba(40,123,232,0.1); color: #287BE8; }
+  .status-locked  { background: var(--surface); color: var(--text-muted); border: 1px solid var(--border); }
+  .status-coming  { background: rgba(4,16,45,0.05); color: var(--text-muted); }
+
+  .mcard-title { font-size: 15px; font-weight: 600; line-height: 1.3; color: var(--text-primary); }
+  .mcard.done .mcard-title { color: var(--text-muted); }
+
+  .mcard-briefs {
+    display: flex; flex-direction: column; gap: 3px;
+    border-top: 1px solid var(--surface); padding-top: 10px; margin-top: 4px;
+  }
+  .mcard-brief { display: flex; align-items: baseline; gap: 8px; font-size: 12px; color: var(--text-muted); }
+  .mcard-brief-num { font-family: 'JetBrains Mono', monospace; font-size: 10px; color: var(--border); min-width: 14px; flex-shrink: 0; }
+  .mcard-brief.done-brief { color: var(--text-muted); text-decoration: line-through; opacity: 0.5; }
+  .mcard-brief.active-brief { color: var(--text-primary); font-weight: 500; }
+  .mcard-brief.active-brief .mcard-brief-num { color: #287BE8; }
+
+  .mcard-action {
+    margin-top: 4px;
+    display: flex; align-items: center; gap: 8px;
+    font-size: 12px; font-weight: 600; color: #287BE8;
+  }
+
+  /* Done checkmark */
+  .done-check {
+    position: absolute; top: 16px; right: 16px;
+    width: 20px; height: 20px; border-radius: 50%;
+    background: rgba(26,158,116,0.15);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 10px; color: #1a9e74;
+  }
+
+  /* ── Support section ── */
+  .support-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+  .support-card {
+    background: white; border: 1px solid var(--border);
+    border-radius: var(--radius); padding: 26px;
+    display: flex; flex-direction: column; gap: 10px;
+    text-decoration: none; color: inherit;
+    box-shadow: var(--shadow-sm); transition: all 0.2s var(--ease);
+  }
+  .support-card:hover { box-shadow: var(--shadow-hover); transform: translateY(-1px); border-color: var(--border-hover); }
+  .support-icon { font-size: 24px; }
+  .support-tag {
+    font-size: 10px; font-weight: 700; letter-spacing: 0.8px; text-transform: uppercase;
+    padding: 3px 9px; border-radius: 5px; display: inline-flex; width: fit-content;
+  }
+  .tag-micro    { background: rgba(26,158,116,0.1); color: #1a9e74; }
+  .tag-coaching { background: rgba(40,123,232,0.1); color: #287BE8; }
+  .support-title { font-size: 17px; font-weight: 700; color: var(--text-primary); }
+  .support-count {
+    font-family: 'JetBrains Mono', monospace; font-size: 22px; font-weight: 700;
+  }
+  .support-count.micro    { color: #1a9e74; }
+  .support-count.coaching { color: #287BE8; }
+  .support-count span { font-size: 12px; font-weight: 500; color: var(--text-muted); font-family: 'DM Sans', sans-serif; }
+  .support-desc { font-size: 13px; color: var(--text-secondary); line-height: 1.6; }
+  .support-cta { font-size: 13px; font-weight: 600; margin-top: auto; }
+  .support-cta.micro    { color: #1a9e74; }
+  .support-cta.coaching { color: #287BE8; }
+
+  /* ── Section header ── */
+  .section-head { display: flex; align-items: center; gap: 10px; margin: 40px 0 16px; }
+  .section-title { font-size: 18px; font-weight: 700; color: var(--text-primary); letter-spacing: -0.2px; }
+
+  /* ── Page footer ── */
+  .page-footer {
+    margin-top: 64px; padding-top: 24px;
+    border-top: 1px solid var(--border);
+    display: flex; justify-content: space-between;
+    font-size: 13px; color: var(--text-muted);
+  }
+
+  /* ── Responsive ── */
+  @media (max-width: 900px) {
+    .page-main { padding: 70px 20px 80px; }
+    .journey-hero { flex-direction: column; padding: 28px 24px; gap: 24px; }
+    .journey-hero h1 { font-size: 26px; }
+    .mgrid, .support-grid { grid-template-columns: 1fr; }
+    .topbar-nav { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ═══════════════════ TOP BAR ═══ -->
+<div class="topbar">
+  <a href="index.html" class="topbar-brand">AIO <span>Labs</span></a>
+  <nav class="topbar-nav">
+    <a href="index.html" class="tnav-link"><span class="tnav-dot" style="background:#8b91ac"></span> Home</a>
+    <a href="certification.html" class="tnav-link active"><span class="tnav-dot" style="background:#287BE8"></span> Certification</a>
+    <a href="#" class="tnav-link"><span class="tnav-dot" style="background:#287BE8"></span> Coaching</a>
+    <a href="micro-sessions/index.html" class="tnav-link"><span class="tnav-dot" style="background:#1A9E74"></span> Micro-Sessions</a>
+    <a href="blog/index.html" class="tnav-link"><span class="tnav-dot" style="background:#6FF2C1"></span> Blog</a>
+    <a href="#" class="tnav-link"><span class="tnav-dot" style="background:#8b91ac"></span> My Team</a>
+  </nav>
+  <div class="topbar-right">
+    <div class="topbar-stat">🔥 7</div>
+    <div class="topbar-stat">⭐ 1,240</div>
+    <div class="topbar-divider"></div>
+    <div class="topbar-avatar">DH</div>
+  </div>
+</div>
+
+<!-- ═══════════════════ PAGE ═══════ -->
+<main class="page-main">
+
+  <!-- ── HERO: Personal progress ── -->
+  <div class="journey-hero">
+    <div class="journey-hero-body">
+      <div class="journey-hero-label">Certification Journey · Dave Hajdu</div>
+      <h1>You're 36% of the way to<br><em>AI Officer Certified</em></h1>
+      <p class="journey-hero-sub">You're on Mission 3 of Generative AI. Complete it to unlock Mission 4 — then finish Track 1 and move into Agentic AI to earn your full AI Officer certification.</p>
+      <div class="journey-cta">
+        <a href="generative-ai/mission-3.html" class="btn btn-white">Continue Mission 3 →</a>
+        <a href="generative-ai/index.html" class="btn btn-ghost">View Track 1</a>
+      </div>
+    </div>
+    <div class="journey-path">
+      <div class="path-step active">
+        <div class="path-step-icon">📘</div>
+        <div class="path-step-info">
+          <div class="path-step-name">Generative AI</div>
+          <div class="path-step-sub">3 of 4 missions</div>
+        </div>
+        <div class="path-step-status">65%</div>
+      </div>
+      <div class="path-arrow">↓</div>
+      <div class="path-step locked">
+        <div class="path-step-icon">🤖</div>
+        <div class="path-step-info">
+          <div class="path-step-name">Agentic AI</div>
+          <div class="path-step-sub">0 of 6 missions</div>
+        </div>
+        <div class="path-step-status">Locked</div>
+      </div>
+      <div class="path-arrow">↓</div>
+      <div class="path-step locked">
+        <div class="path-step-icon">🏆</div>
+        <div class="path-step-info">
+          <div class="path-step-name">AI Officer Certified</div>
+          <div class="path-step-sub">36% complete</div>
+        </div>
+        <div class="path-step-status">Locked</div>
+      </div>
+      <div class="path-arrow">↓</div>
+      <div class="path-step locked">
+        <div class="path-step-icon">🎓</div>
+        <div class="path-step-info">
+          <div class="path-step-name">Leadership · CAIO</div>
+          <div class="path-step-sub">Unlocks after AI Officer</div>
+        </div>
+        <div class="path-step-status">Locked</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ════════════════════════════════════ -->
+  <!-- TRACK 1: GENERATIVE AI              -->
+  <!-- ════════════════════════════════════ -->
+  <div class="track-section">
+    <div class="track-header gen">
+      <span class="track-pill pill-gen"><span class="dot"></span> Track 1</span>
+      <div class="track-header-info">
+        <div class="track-header-title">Generative AI for Business</div>
+        <div class="track-header-sub">Complete all 4 missions to earn Generative AI Specialist</div>
+      </div>
+      <div class="track-progress-block">
+        <div class="track-progress-row">
+          <span class="track-progress-label">3 of 4 missions</span>
+          <span class="track-progress-pct">65%</span>
+        </div>
+        <div class="progress-bar" style="width: 160px;">
+          <div class="progress-fill fill-gen" style="width: 65%;"></div>
+        </div>
+      </div>
+      <span class="track-cert-badge locked">🔒 Generative AI Specialist</span>
+    </div>
+
+    <div class="mgrid">
+
+      <!-- Mission 1 — Done -->
+      <div class="mcard done">
+        <div class="done-check">✓</div>
+        <div class="mcard-top">
+          <span class="mcard-badge badge-gen">Mission 01</span>
+          <span class="mcard-status status-done">Complete</span>
+        </div>
+        <div class="mcard-title">Enter the AI Officer</div>
+        <div class="mcard-briefs">
+          <div class="mcard-brief done-brief"><span class="mcard-brief-num">B1</span>The Other 50%</div>
+          <div class="mcard-brief done-brief"><span class="mcard-brief-num">B2</span>The AI Officer Mindset</div>
+          <div class="mcard-brief done-brief"><span class="mcard-brief-num">B3</span>What is AI?</div>
+          <div class="mcard-brief done-brief"><span class="mcard-brief-num">B4</span>The Path to 99%</div>
+          <div class="mcard-brief done-brief"><span class="mcard-brief-num">B5</span>The AI Kingdoms</div>
+          <div class="mcard-brief done-brief"><span class="mcard-brief-num">B6</span>The BOLT Challenge</div>
+        </div>
+      </div>
+
+      <!-- Mission 2 — Done -->
+      <div class="mcard done">
+        <div class="done-check">✓</div>
+        <div class="mcard-top">
+          <span class="mcard-badge badge-gen">Mission 02</span>
+          <span class="mcard-status status-done">Complete</span>
+        </div>
+        <div class="mcard-title">Clean Data</div>
+        <div class="mcard-briefs">
+          <div class="mcard-brief done-brief"><span class="mcard-brief-num">B1</span>The Truth About AI Failure</div>
+          <div class="mcard-brief done-brief"><span class="mcard-brief-num">B2</span>How AI Processes Data</div>
+          <div class="mcard-brief done-brief"><span class="mcard-brief-num">B3</span>Implementation &amp; Safety</div>
+          <div class="mcard-brief done-brief"><span class="mcard-brief-num">B4</span>The Right AI</div>
+          <div class="mcard-brief done-brief"><span class="mcard-brief-num">B5</span>The BOLT Data Challenge</div>
+        </div>
+      </div>
+
+      <!-- Mission 3 — Active -->
+      <a href="generative-ai/mission-3.html" class="mcard mcard-active">
+        <div class="mcard-top">
+          <span class="mcard-badge badge-gen">Mission 03</span>
+          <span class="mcard-status status-active">In Progress</span>
+        </div>
+        <div class="mcard-title">Advanced Prompt Frameworks</div>
+        <div class="mcard-briefs">
+          <div class="mcard-brief done-brief"><span class="mcard-brief-num">B1</span>Stack Your Frameworks</div>
+          <div class="mcard-brief active-brief"><span class="mcard-brief-num">B2</span>The AI Interview ← You are here</div>
+          <div class="mcard-brief"><span class="mcard-brief-num">B3</span>Let AI Teach You</div>
+          <div class="mcard-brief"><span class="mcard-brief-num">B4</span>Check Before You Send</div>
+          <div class="mcard-brief"><span class="mcard-brief-num">B5</span>The BOLT Brief</div>
+        </div>
+        <div class="mcard-action">Continue Mission →</div>
+      </a>
+
+      <!-- Mission 4 — Locked -->
+      <div class="mcard locked-card">
+        <div class="mcard-top">
+          <span class="mcard-badge badge-gen">Mission 04</span>
+          <span class="mcard-status status-locked">Locked</span>
+        </div>
+        <div class="mcard-title">Prompting Perfect Visuals</div>
+        <div class="mcard-briefs">
+          <div class="mcard-brief"><span class="mcard-brief-num">B1</span>From Ideas to Visuals</div>
+          <div class="mcard-brief"><span class="mcard-brief-num">B2</span>VISION for Video</div>
+          <div class="mcard-brief"><span class="mcard-brief-num">B3</span>Tools of the Trade</div>
+          <div class="mcard-brief"><span class="mcard-brief-num">B4</span>Style DNA</div>
+          <div class="mcard-brief"><span class="mcard-brief-num">B5</span>The BOLT Visual Campaign</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ════════════════════════════════════ -->
+  <!-- TRACK 2: AGENTIC AI                 -->
+  <!-- ════════════════════════════════════ -->
+  <div class="track-section">
+    <div class="track-header age" style="opacity: 0.55;">
+      <span class="track-pill pill-age"><span class="dot"></span> Track 2</span>
+      <div class="track-header-info">
+        <div class="track-header-title">Agentic AI Essentials</div>
+        <div class="track-header-sub">Unlocks when you complete Generative AI</div>
+      </div>
+      <div class="track-progress-block">
+        <div class="track-progress-row">
+          <span class="track-progress-label">0 of 6 missions</span>
+          <span class="track-progress-pct">0%</span>
+        </div>
+        <div class="progress-bar" style="width: 160px;">
+          <div class="progress-fill fill-age" style="width: 0%;"></div>
+        </div>
+      </div>
+      <span class="track-cert-badge locked">🔒 Agentic AI Specialist</span>
+    </div>
+
+    <div class="mgrid">
+      <div class="mcard locked-card">
+        <div class="mcard-top"><span class="mcard-badge badge-age">Mission 01</span><span class="mcard-status status-locked">Locked</span></div>
+        <div class="mcard-title">AI Program Planning</div>
+        <div class="mcard-briefs">
+          <div class="mcard-brief"><span class="mcard-brief-num">B1</span>The Four Offices</div>
+          <div class="mcard-brief"><span class="mcard-brief-num">B2</span>Three Types of AI</div>
+          <div class="mcard-brief"><span class="mcard-brief-num">B3</span>The 5D Framework</div>
+          <div class="mcard-brief"><span class="mcard-brief-num">B4</span>FAST Goals and ROI</div>
+          <div class="mcard-brief"><span class="mcard-brief-num">B5</span>Build Your Roadmap</div>
+        </div>
+      </div>
+      <div class="mcard locked-card">
+        <div class="mcard-top"><span class="mcard-badge badge-age">Mission 02</span><span class="mcard-status status-locked">Locked</span></div>
+        <div class="mcard-title">From Prompts to Packaged AI</div>
+        <div class="mcard-briefs">
+          <div class="mcard-brief"><span class="mcard-brief-num">B1</span>The Setup Time Problem</div>
+          <div class="mcard-brief"><span class="mcard-brief-num">B2</span>Anatomy of Packaged AI</div>
+          <div class="mcard-brief"><span class="mcard-brief-num">B3</span>Platform Options</div>
+          <div class="mcard-brief"><span class="mcard-brief-num">B4</span>Build Your Prototype</div>
+          <div class="mcard-brief"><span class="mcard-brief-num">B5</span>Test and Ship</div>
+        </div>
+      </div>
+      <div class="mcard locked-card">
+        <div class="mcard-top"><span class="mcard-badge badge-age">Mission 03</span><span class="mcard-status status-locked">Locked</span></div>
+        <div class="mcard-title">Wire the Workflow</div>
+        <div class="mcard-briefs">
+          <div class="mcard-brief"><span class="mcard-brief-num">B1</span>Why You're Still the Bottleneck</div>
+          <div class="mcard-brief"><span class="mcard-brief-num">B2</span>The 5-Part Workflow Blueprint</div>
+          <div class="mcard-brief"><span class="mcard-brief-num">B3</span>Build Your Trigger and Data Layer</div>
+          <div class="mcard-brief"><span class="mcard-brief-num">B4</span>Wire the AI Step and Action</div>
+          <div class="mcard-brief"><span class="mcard-brief-num">B5</span>Log, Test, and Ship</div>
+        </div>
+      </div>
+      <div class="mcard locked-card">
+        <div class="mcard-top"><span class="mcard-badge badge-age">Mission 04</span><span class="mcard-status status-locked">Locked</span></div>
+        <div class="mcard-title">Teach Your Workflow to Decide</div>
+        <div class="mcard-briefs">
+          <div class="mcard-brief"><span class="mcard-brief-num">B1</span>The Linear Workflow Problem</div>
+          <div class="mcard-brief"><span class="mcard-brief-num">B2</span>Classify, Route, Respond</div>
+          <div class="mcard-brief"><span class="mcard-brief-num">B3</span>The Tiny Decision Canvas</div>
+          <div class="mcard-brief"><span class="mcard-brief-num">B4</span>Build the Logic Layer</div>
+          <div class="mcard-brief"><span class="mcard-brief-num">B5</span>Test and Validate</div>
+        </div>
+      </div>
+      <div class="mcard locked-card">
+        <div class="mcard-top"><span class="mcard-badge badge-age">Mission 05</span><span class="mcard-status status-locked">Locked</span></div>
+        <div class="mcard-title">Unleash the Agent</div>
+        <div class="mcard-briefs">
+          <div class="mcard-brief"><span class="mcard-brief-num">B1</span>The Ceiling of Logic</div>
+          <div class="mcard-brief"><span class="mcard-brief-num">B2</span>The Agent Loop</div>
+          <div class="mcard-brief"><span class="mcard-brief-num">B3</span>Agent Anatomy</div>
+          <div class="mcard-brief"><span class="mcard-brief-num">B4</span>Build Your First Agent</div>
+          <div class="mcard-brief"><span class="mcard-brief-num">B5</span>Guardrails and Human in the Loop</div>
+        </div>
+      </div>
+      <div class="mcard locked-card">
+        <div class="mcard-top"><span class="mcard-badge badge-age">Mission 06</span><span class="mcard-status status-coming">Coming Soon</span></div>
+        <div class="mcard-title">Deploy at Scale</div>
+        <div class="mcard-briefs">
+          <div class="mcard-brief"><span class="mcard-brief-num">—</span>In development</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ════════════════════════════════════ -->
+  <!-- TRACK 3: LEADERSHIP / CAIO          -->
+  <!-- ════════════════════════════════════ -->
+  <div class="track-section">
+    <div class="track-header lead">
+      <span class="track-pill pill-lead"><span class="dot"></span> Track 3 · Masters</span>
+      <div class="track-header-info">
+        <div class="track-header-title">Leadership &amp; CAIO Certification</div>
+        <div class="track-header-sub">Unlocks after AI Officer Certified — 12 courses</div>
+      </div>
+      <div class="track-progress-block">
+        <div class="track-progress-row">
+          <span class="track-progress-label">0 of 12 courses</span>
+          <span class="track-progress-pct">0%</span>
+        </div>
+        <div class="progress-bar" style="width: 160px;">
+          <div class="progress-fill fill-lead" style="width: 0%;"></div>
+        </div>
+      </div>
+      <span class="track-cert-badge locked">🔒 CAIO Certified</span>
+    </div>
+
+    <div class="mgrid">
+      <div class="mcard locked-card"><div class="mcard-top"><span class="mcard-badge badge-lead">Course 01</span><span class="mcard-status status-locked">Locked</span></div><div class="mcard-title">The AI Officer in the C-Suite</div></div>
+      <div class="mcard locked-card"><div class="mcard-top"><span class="mcard-badge badge-lead">Course 02</span><span class="mcard-status status-locked">Locked</span></div><div class="mcard-title">AI Strategy and Governance</div></div>
+      <div class="mcard locked-card"><div class="mcard-top"><span class="mcard-badge badge-lead">Course 03</span><span class="mcard-status status-locked">Locked</span></div><div class="mcard-title">Building Your AI Roadmap</div></div>
+      <div class="mcard locked-card"><div class="mcard-top"><span class="mcard-badge badge-lead">Course 04</span><span class="mcard-status status-locked">Locked</span></div><div class="mcard-title">Leading AI Culture Change</div></div>
+      <div class="mcard locked-card"><div class="mcard-top"><span class="mcard-badge badge-lead">Course 05</span><span class="mcard-status status-locked">Locked</span></div><div class="mcard-title">AI Ethics and Risk Management</div></div>
+      <div class="mcard locked-card"><div class="mcard-top"><span class="mcard-badge badge-lead">Course 06</span><span class="mcard-status status-locked">Locked</span></div><div class="mcard-title">AI Talent and Team Building</div></div>
+      <div class="mcard locked-card"><div class="mcard-top"><span class="mcard-badge badge-lead">Course 07</span><span class="mcard-status status-locked">Locked</span></div><div class="mcard-title">Measuring AI ROI</div></div>
+      <div class="mcard locked-card"><div class="mcard-top"><span class="mcard-badge badge-lead">Course 08</span><span class="mcard-status status-locked">Locked</span></div><div class="mcard-title">Vendor and Partnership Strategy</div></div>
+      <div class="mcard locked-card"><div class="mcard-top"><span class="mcard-badge badge-lead">Course 09</span><span class="mcard-status status-locked">Locked</span></div><div class="mcard-title">Scaling AI Across the Enterprise</div></div>
+      <div class="mcard locked-card"><div class="mcard-top"><span class="mcard-badge badge-lead">Course 10</span><span class="mcard-status status-locked">Locked</span></div><div class="mcard-title">AI in the Boardroom</div></div>
+      <div class="mcard locked-card"><div class="mcard-top"><span class="mcard-badge badge-lead">Course 11</span><span class="mcard-status status-locked">Locked</span></div><div class="mcard-title">The Future of Work and AI</div></div>
+      <div class="mcard locked-card"><div class="mcard-top"><span class="mcard-badge badge-lead">Course 12</span><span class="mcard-status status-locked">Locked</span></div><div class="mcard-title">The CAIO Leadership Thesis</div></div>
+    </div>
+  </div>
+
+  <!-- ════════════════════════════════════ -->
+  <!-- SUPPORT                             -->
+  <!-- ════════════════════════════════════ -->
+  <div class="section-head">
+    <span class="section-title">While You're Certifying</span>
+  </div>
+
+  <div class="support-grid">
+    <a href="micro-sessions/index.html" class="support-card">
+      <div class="support-icon">⚡</div>
+      <span class="support-tag tag-micro">Micro Sessions</span>
+      <div class="support-title">Stay Current</div>
+      <div class="support-count micro">17 <span>sessions available</span></div>
+      <div class="support-desc">Short, practical sessions on the tools and AI moves that matter right now. 30 minutes or less, new sessions every week.</div>
+      <div class="support-cta micro">Browse sessions →</div>
+    </a>
+    <a href="#" class="support-card">
+      <div class="support-icon">🎯</div>
+      <span class="support-tag tag-coaching">CAIO Coaching</span>
+      <div class="support-title">Get Help</div>
+      <div class="support-count coaching">3 <span>sessions used</span></div>
+      <div class="support-desc">Live office hours and 1:1 sessions with certified CAIO coaches. Bring your real challenges and leave with a clear path forward.</div>
+      <div class="support-cta coaching">Book a session →</div>
+    </a>
+  </div>
+
+  <div class="page-footer">
+    <div>AIO Labs</div>
+    <div>Prototype · March 2026</div>
+  </div>
+
+</main>
+</body>
+</html>

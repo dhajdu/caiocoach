@@ -3,346 +3,854 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Course Hub — AI Officer Institute</title>
-<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<title>Home — AIO Labs</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="shared/styles.css">
 <style>
+
+  /* ── Extra tokens not in shared/styles.css ── */
+  :root {
+    --bg-white: #ffffff;
+    --border-hover: #b0b6cc;
+    --radius: 10px;
+    --ease: cubic-bezier(0.4, 0, 0.2, 1);
+    --shadow-sm: 0 1px 3px rgba(4,16,45,0.07);
+    --shadow-card-hover: 0 6px 24px rgba(4,16,45,0.10);
+    --text-tertiary: #8b91ac;
+    --royal: #287BE8;
+    --fuchsia: #287BE8;
+  }
+
+  /* ── Topbar extensions ── */
+  .topbar { justify-content: space-between; padding: 0 28px; gap: 16px; }
+  .topbar-nav { margin-left: 8px; }
+  .topbar-right {
+    display: flex; align-items: center; gap: 10px;
+    margin-left: auto; flex-shrink: 0;
+  }
+  .topbar-stat {
+    display: flex; align-items: center; gap: 5px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 13px; font-weight: 600;
+    color: rgba(255,255,255,0.7);
+    background: rgba(255,255,255,0.07);
+    padding: 5px 12px; border-radius: 6px;
+  }
+  .topbar-stat-icon { font-size: 14px; }
+  .topbar-avatar {
+    width: 32px; height: 32px; border-radius: 50%;
+    background: var(--blue);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 12px; font-weight: 700; color: white;
+    flex-shrink: 0;
+  }
+
+  /* ── Page layout ── */
   body { background: var(--surface); }
-  .hub-main { margin-left: 0; max-width: 1100px; margin: 0 auto; padding: 80px 56px 100px; }
+  .page-main {
+    margin-top: 56px;
+    max-width: 1000px;
+    margin-left: auto; margin-right: auto;
+    padding: 32px 40px 100px;
+  }
 
-  /* Hero — solid navy, no pseudo-elements */
-  .hero { background: var(--navy); border-radius: 14px; padding: 48px 52px; margin-bottom: 56px; }
-  .hero-label { font-size: 11px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: var(--mint); margin-bottom: 12px; }
-  .hero h1 { font-size: 36px; font-weight: 700; color: var(--white); line-height: 1.2; letter-spacing: -0.5px; margin-bottom: 14px; }
-  .hero h1 span { color: var(--blue); }
-  .hero p { font-size: 15px; color: rgba(255,255,255,0.55); max-width: 580px; line-height: 1.7; margin-bottom: 32px; }
-  .hero-stats { display: flex; gap: 36px; }
-  .hero-stat-num { font-size: 28px; font-weight: 700; color: var(--white); font-family: 'JetBrains Mono', monospace; margin-bottom: 2px; }
-  .hero-stat-num b { color: var(--blue); }
-  .hero-stat-label { font-size: 11px; color: rgba(255,255,255,0.35); text-transform: uppercase; letter-spacing: 0.8px; }
+  /* ── Hero card ── */
+  .hero-card {
+    background: var(--navy);
+    border-radius: 16px;
+    padding: 40px 44px;
+    margin-bottom: 16px;
+    overflow: hidden;
+    position: relative;
+  }
+  .hero-inner {
+    display: flex; align-items: center;
+    gap: 40px;
+  }
+  .hero-body { flex: 1; min-width: 0; max-width: 50%; }
+  .hero-label {
+    font-size: 11px; font-weight: 700;
+    letter-spacing: 1.4px; text-transform: uppercase;
+    color: var(--mint);
+    margin-bottom: 10px;
+  }
+  .hero-card h1 {
+    font-size: 34px; font-weight: 700;
+    color: var(--white); line-height: 1.15;
+    letter-spacing: -0.5px; margin-bottom: 12px;
+  }
+  .hero-card h1 em {
+    font-style: normal;
+    color: var(--blue);
+  }
+  .hero-sub {
+    font-size: 14px; color: rgba(255,255,255,0.5);
+    line-height: 1.6; margin-bottom: 16px;
+  }
+  .hero-meta {
+    display: flex; align-items: center; gap: 10px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px; color: rgba(255,255,255,0.35);
+    margin-bottom: 14px;
+  }
+  .hero-meta-sep {
+    width: 3px; height: 3px; border-radius: 50%;
+    background: rgba(255,255,255,0.25);
+    flex-shrink: 0;
+  }
+  .hero-progress-row {
+    display: flex; align-items: center; gap: 12px;
+    margin-bottom: 24px;
+  }
+  .hero-progress-bar {
+    flex: 1; height: 4px; border-radius: 2px;
+    background: rgba(255,255,255,0.12);
+    overflow: hidden;
+  }
+  .hero-progress-fill {
+    height: 100%; border-radius: 2px;
+    background: var(--blue);
+  }
+  .hero-progress-pct {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px; font-weight: 700;
+    color: var(--blue); flex-shrink: 0;
+  }
+  .hero-actions { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
 
-  /* Track headers */
-  .track-header { display: flex; align-items: center; gap: 14px; margin: 56px 0 24px; }
-  .track-header:first-of-type { margin-top: 0; }
-  .track-pill { display: inline-flex; align-items: center; gap: 8px; font-size: 11px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; padding: 5px 14px; border-radius: 20px; }
-  .track-pill .dot { width: 6px; height: 6px; border-radius: 50%; background: currentColor; }
-  .track-pill.gen { background: rgba(209,69,139,0.1); color: #D1458B; border: 1px solid rgba(209,69,139,0.25); }
-  .track-pill.age { background: rgba(40,123,232,0.1); color: #287BE8; border: 1px solid rgba(40,123,232,0.25); }
-  .track-pill.micro { background: rgba(26,158,116,0.1); color: #1a9e74; border: 1px solid rgba(26,158,116,0.25); }
-  .track-title { font-size: 22px; font-weight: 700; letter-spacing: -0.3px; }
-  .track-count { font-size: 13px; color: var(--text-muted); margin-left: auto; font-family: 'JetBrains Mono', monospace; }
+  .hero-video {
+    flex: 1; min-width: 0;
+    height: 220px;
+    border-radius: 12px;
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.1);
+    display: flex; align-items: center; justify-content: center;
+    position: relative; overflow: hidden;
+    cursor: pointer;
+  }
+  .hero-video-bg {
+    position: absolute; inset: 0;
+    background: linear-gradient(135deg, rgba(40,123,232,0.15), rgba(26,158,116,0.1));
+  }
+  .hero-play {
+    width: 56px; height: 56px; border-radius: 50%;
+    background: rgba(255,255,255,0.15);
+    display: flex; align-items: center; justify-content: center;
+    position: relative; z-index: 1;
+    transition: background 0.2s;
+  }
+  .hero-video:hover .hero-play { background: var(--blue); }
 
-  /* Mission card grid */
-  .mgrid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 16px; }
-  .mcard { background: var(--card-bg); border: 1px solid var(--border); border-radius: 12px; padding: 24px; text-decoration: none; color: inherit; display: flex; flex-direction: column; gap: 10px; transition: box-shadow 0.15s, border-color 0.15s; }
-  .mcard:hover { box-shadow: 0 4px 20px rgba(4,16,45,0.08); border-color: rgba(40,123,232,0.3); }
-  .mcard-top { display: flex; align-items: center; justify-content: space-between; }
-  .mcard-badge { font-family: 'JetBrains Mono', monospace; font-size: 11px; font-weight: 500; padding: 3px 9px; border-radius: 5px; }
-  .mcard-badge.gen { background: rgba(209,69,139,0.1); color: #D1458B; }
-  .mcard-badge.age { background: rgba(40,123,232,0.1); color: #287BE8; }
-  .mcard-badge.micro { background: rgba(26,158,116,0.1); color: #1a9e74; }
-  .mcard-arrow { font-size: 14px; color: var(--text-muted); transition: color 0.15s; }
-  .mcard:hover .mcard-arrow { color: var(--blue); }
-  .mcard-title { font-size: 16px; font-weight: 600; line-height: 1.3; letter-spacing: -0.2px; }
-  .mcard-desc { font-size: 13px; color: var(--text-muted); line-height: 1.55; flex: 1; }
-  .mcard-briefs { display: flex; flex-direction: column; gap: 3px; border-top: 1px solid var(--surface); padding-top: 12px; margin-top: 4px; }
-  .mcard-brief { display: flex; align-items: baseline; gap: 8px; font-size: 12px; color: var(--text-muted); }
-  .mcard-brief-num { font-family: 'JetBrains Mono', monospace; font-size: 10px; color: var(--border); min-width: 14px; }
+  /* ── Buttons ── */
+  .btn {
+    display: inline-flex; align-items: center; gap: 6px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 14px; font-weight: 600;
+    padding: 10px 20px; border-radius: 8px;
+    text-decoration: none; cursor: pointer; border: none;
+    transition: all 0.15s var(--ease);
+    white-space: nowrap;
+  }
+  .btn-white {
+    background: var(--white); color: var(--navy);
+  }
+  .btn-white:hover { background: #eef1f8; transform: translateY(-1px); }
+  .btn-lg { padding: 12px 24px; font-size: 15px; }
+  .btn-outline-light {
+    background: transparent; color: rgba(255,255,255,0.7);
+    border: 1px solid rgba(255,255,255,0.2);
+  }
+  .btn-outline-light:hover { background: rgba(255,255,255,0.08); color: white; }
+  .btn-outline {
+    background: var(--bg-white); color: var(--text-secondary);
+    border: 1px solid var(--border);
+  }
+  .btn-outline:hover { border-color: var(--royal); color: var(--royal); }
+  .btn-sm { padding: 7px 14px; font-size: 12px; }
 
-  /* Footer */
-  .hub-footer { margin-top: 64px; padding-top: 24px; border-top: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; color: var(--text-muted); font-size: 13px; }
-  .hub-footer-brand { font-weight: 600; color: var(--text-secondary); }
-  .hub-footer-brand span { color: var(--blue); }
+  /* ── Stats row ── */
+  .stats-row {
+    display: flex; gap: 8px;
+    margin-bottom: 32px;
+  }
+  .stat-chip {
+    display: flex; align-items: center; gap: 6px;
+    background: var(--bg-white);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 10px 16px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 13px; font-weight: 600;
+    color: var(--text-primary);
+    box-shadow: var(--shadow-sm);
+  }
+  .stat-chip-label {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 12px; font-weight: 500;
+    color: var(--text-tertiary);
+  }
+  .progress-strip {
+    display: flex; align-items: center; gap: 14px;
+    background: var(--bg-white);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 10px 16px; flex: 1;
+    box-shadow: var(--shadow-sm);
+  }
+  .progress-strip-label {
+    font-size: 12px; font-weight: 600;
+    color: var(--text-secondary); white-space: nowrap;
+  }
+  .progress-strip-bar { flex: 1; }
+  .progress-strip-pct {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 13px; font-weight: 700;
+    color: var(--royal);
+  }
 
+  /* ── Progress bars ── */
+  .progress {
+    width: 100%; background: var(--surface);
+    border-radius: 3px; overflow: hidden;
+  }
+  .progress-fill {
+    height: 100%; border-radius: 3px;
+    transition: width 0.4s var(--ease);
+  }
+  .progress-fill.navy  { background: var(--navy); }
+  .progress-fill.royal { background: var(--royal); }
+  .progress-fill.mint  { background: var(--mint-dark); }
+
+  /* ── Section header ── */
+  .section-header {
+    display: flex; align-items: center; gap: 10px;
+    margin: 36px 0 16px;
+  }
+  .section-pill {
+    display: inline-flex; align-items: center; gap: 6px;
+    font-size: 10px; font-weight: 700; letter-spacing: 0.8px;
+    text-transform: uppercase; padding: 4px 10px;
+    border-radius: 20px; flex-shrink: 0;
+  }
+  .section-pill .dot { width: 5px; height: 5px; border-radius: 50%; background: currentColor; }
+  .section-pill.royal  { background: rgba(40,123,232,0.1);  color: #287BE8; border: 1px solid rgba(40,123,232,0.2); }
+  .section-pill.fuchsia{ background: rgba(40,123,232,0.1);  color: #287BE8; border: 1px solid rgba(40,123,232,0.2); }
+  .section-title {
+    font-size: 18px; font-weight: 700;
+    color: var(--text-primary); letter-spacing: -0.2px;
+  }
+  .section-meta {
+    margin-left: auto;
+    font-size: 13px; color: var(--text-muted);
+  }
+  .section-meta a { color: var(--text-muted); text-decoration: none; }
+  .section-meta a:hover { color: var(--royal); }
+
+  /* ── Grids ── */
+  .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+  .grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 14px; }
+
+  /* ── Up Next cards ── */
+  .upnext-card {
+    background: var(--bg-white);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 24px;
+    transition: all 0.2s var(--ease);
+    position: relative;
+    box-shadow: var(--shadow-sm);
+    color: inherit;
+  }
+  .upnext-card:hover {
+    border-color: var(--border-hover);
+    box-shadow: var(--shadow-card-hover);
+    transform: translateY(-1px);
+  }
+  .upnext-eyebrow {
+    font-size: 10px; font-weight: 700;
+    letter-spacing: 0.8px; text-transform: uppercase;
+    color: var(--text-tertiary); margin-bottom: 6px;
+  }
+  .upnext-title {
+    font-size: 16px; font-weight: 600;
+    color: var(--text-primary); line-height: 1.35; margin-bottom: 6px;
+  }
+  .upnext-desc {
+    font-size: 13px; color: var(--text-secondary);
+    line-height: 1.55; margin-bottom: 12px;
+  }
+  .upnext-meta {
+    display: flex; align-items: center; gap: 8px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px; color: var(--text-tertiary);
+    margin-bottom: 14px;
+  }
+  .meta-dot { width: 3px; height: 3px; border-radius: 50%; background: var(--text-muted); }
+  .upnext-arrow {
+    position: absolute; top: 22px; right: 22px;
+    color: var(--text-muted); font-size: 16px;
+    transition: all 0.2s var(--ease);
+  }
+  .upnext-card:hover .upnext-arrow { color: var(--royal); transform: translateX(3px); }
+
+  /* ── Blog row ── */
+  .blog-row {
+    background: var(--bg-white);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 18px 22px;
+    display: flex; align-items: center; gap: 16px;
+    transition: all 0.2s var(--ease);
+    box-shadow: var(--shadow-sm);
+    color: inherit; text-decoration: none;
+  }
+  .blog-row:hover {
+    border-color: var(--border-hover);
+    box-shadow: var(--shadow-card-hover);
+    transform: translateY(-1px);
+  }
+  .blog-row-dot {
+    width: 8px; height: 8px; border-radius: 50%;
+    background: var(--mint-dark); flex-shrink: 0;
+  }
+  .blog-row-body { flex: 1; min-width: 0; }
+  .blog-row-eyebrow {
+    font-size: 10px; font-weight: 700; letter-spacing: 0.5px;
+    text-transform: uppercase; color: var(--text-tertiary); margin-bottom: 2px;
+  }
+  .blog-row-title { font-size: 15px; font-weight: 600; color: var(--text-primary); }
+  .blog-row-date {
+    font-size: 11px; color: var(--text-tertiary);
+    font-family: 'JetBrains Mono', monospace; flex-shrink: 0;
+  }
+
+  /* ── Leaderboard ── */
+  .leaderboard {
+    background: var(--bg-white);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    overflow: hidden;
+    box-shadow: var(--shadow-sm);
+  }
+  .leaderboard-row {
+    display: flex; align-items: center; gap: 14px;
+    padding: 13px 20px;
+    border-bottom: 1px solid var(--border);
+    transition: background 0.15s;
+  }
+  .leaderboard-row:last-child { border-bottom: none; }
+  .leaderboard-row:hover { background: var(--surface); }
+  .leaderboard-row.you { background: rgba(40,123,232,0.04); }
+  .leaderboard-row.you:hover { background: rgba(40,123,232,0.07); }
+  .lb-rank {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 13px; font-weight: 600;
+    color: var(--text-muted); min-width: 28px; text-align: center;
+  }
+  .lb-rank.gold   { color: #d4a017; }
+  .lb-rank.silver { color: #8a8fa8; }
+  .lb-rank.bronze { color: #a0613a; }
+  .lb-name {
+    flex: 1; font-size: 14px; font-weight: 500;
+    color: var(--text-primary);
+    display: flex; align-items: center; gap: 8px;
+  }
+  .lb-you {
+    font-size: 9px; font-weight: 700; letter-spacing: 0.8px;
+    text-transform: uppercase; padding: 2px 7px; border-radius: 4px;
+    background: var(--royal); color: white;
+  }
+  .lb-detail { font-size: 12px; color: var(--text-muted); min-width: 100px; }
+  .lb-pts {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 13px; font-weight: 700; color: var(--text-secondary);
+  }
+  .lb-gap {
+    height: 1px; background: var(--border);
+    width: 100%; margin: 2px 0;
+    border-top: 2px dashed var(--border);
+  }
+  .lb-cert {
+    font-size: 10px; font-weight: 700; letter-spacing: 0.4px;
+    padding: 2px 8px; border-radius: 4px;
+    white-space: nowrap; flex-shrink: 0;
+  }
+  .lb-cert.caio     { background: rgba(4,16,45,0.08);   color: var(--navy);     border: 1px solid rgba(4,16,45,0.15); }
+  .lb-cert.officer  { background: rgba(40,123,232,0.1); color: #287BE8;         border: 1px solid rgba(40,123,232,0.2); }
+  .lb-cert.gen-ai   { background: rgba(40,123,232,0.1); color: #287BE8;          border: 1px solid rgba(40,123,232,0.2); }
+  .lb-cert.agentic  { background: rgba(26,158,116,0.1); color: #1a9e74;         border: 1px solid rgba(26,158,116,0.2); }
+
+  /* ── Track cards ── */
+  .track-card {
+    background: var(--bg-white);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 20px 22px;
+    box-shadow: var(--shadow-sm);
+    transition: all 0.2s var(--ease);
+    color: inherit;
+  }
+  a.track-card:hover {
+    border-color: var(--border-hover);
+    box-shadow: var(--shadow-card-hover);
+    transform: translateY(-1px);
+  }
+  .track-card-top {
+    display: flex; align-items: center; justify-content: space-between;
+    margin-bottom: 10px;
+  }
+  .track-card-name {
+    font-size: 16px; font-weight: 700;
+    color: var(--text-primary); margin-bottom: 4px;
+  }
+  .track-card-pct {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 14px; font-weight: 700;
+  }
+  .track-card-meta {
+    font-size: 12px; color: var(--text-muted);
+    margin-top: 8px;
+  }
+
+  /* ── Badges ── */
+  .badge {
+    font-size: 10px; font-weight: 700; letter-spacing: 0.5px;
+    text-transform: uppercase; padding: 3px 9px; border-radius: 5px;
+  }
+  .badge-fuchsia { background: rgba(40,123,232,0.1); color: #287BE8; }
+  .badge-royal   { background: rgba(40,123,232,0.1); color: #287BE8; }
+  .badge-mint    { background: rgba(26,158,116,0.1); color: #1a9e74; }
+
+  /* ── Page footer ── */
+  .page-footer {
+    margin-top: 64px; padding-top: 24px;
+    border-top: 1px solid var(--border);
+    display: flex; align-items: center; justify-content: space-between;
+    font-size: 13px; color: var(--text-muted);
+  }
+
+  /* ── AI Buddy ── */
+  .buddy-fab {
+    position: fixed; bottom: 28px; right: 28px; z-index: 1000;
+    display: flex; align-items: center; gap: 10px;
+    background: var(--navy);
+    border: 1px solid rgba(111,242,193,0.25);
+    border-radius: 50px;
+    padding: 12px 20px 12px 14px;
+    cursor: pointer;
+    box-shadow: 0 8px 32px rgba(4,16,45,0.28);
+    transition: all 0.2s var(--ease);
+    color: var(--white);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 14px; font-weight: 600;
+    user-select: none;
+  }
+  .buddy-fab:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 40px rgba(4,16,45,0.35);
+    border-color: rgba(111,242,193,0.5);
+  }
+  .buddy-fab-avatar {
+    width: 32px; height: 32px; border-radius: 50%;
+    background: linear-gradient(135deg, #287BE8, #1A9E74);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 15px; flex-shrink: 0;
+  }
+  .buddy-fab-pulse {
+    width: 8px; height: 8px; border-radius: 50%;
+    background: #6FF2C1; margin-left: 4px;
+    animation: buddy-pulse 2s infinite;
+  }
+  @keyframes buddy-pulse {
+    0%   { box-shadow: 0 0 0 0 rgba(111,242,193,0.5); }
+    70%  { box-shadow: 0 0 0 6px rgba(111,242,193,0); }
+    100% { box-shadow: 0 0 0 0 rgba(111,242,193,0); }
+  }
+  .buddy-panel {
+    position: fixed; bottom: 92px; right: 28px; z-index: 999;
+    width: 340px;
+    background: var(--bg-white);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    box-shadow: 0 16px 56px rgba(4,16,45,0.18);
+    overflow: hidden; display: none; flex-direction: column;
+  }
+  .buddy-panel.open { display: flex; animation: buddy-slide-in 0.2s var(--ease); }
+  @keyframes buddy-slide-in {
+    from { opacity: 0; transform: translateY(12px) scale(0.97); }
+    to   { opacity: 1; transform: translateY(0) scale(1); }
+  }
+  .buddy-panel-head {
+    background: var(--navy); padding: 14px 18px;
+    display: flex; align-items: center; gap: 12px;
+  }
+  .buddy-panel-head-avatar {
+    width: 36px; height: 36px; border-radius: 50%;
+    background: linear-gradient(135deg, #287BE8, #1A9E74);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 18px; flex-shrink: 0;
+  }
+  .buddy-panel-head-info { flex: 1; }
+  .buddy-panel-head-name { font-size: 14px; font-weight: 700; color: var(--white); }
+  .buddy-panel-head-status { font-size: 11px; color: #6FF2C1; margin-top: 1px; }
+  .buddy-panel-close {
+    width: 28px; height: 28px; border-radius: 50%;
+    background: rgba(255,255,255,0.1);
+    display: flex; align-items: center; justify-content: center;
+    cursor: pointer; font-size: 14px; color: rgba(255,255,255,0.6);
+    transition: background 0.15s;
+  }
+  .buddy-panel-close:hover { background: rgba(255,255,255,0.2); color: white; }
+  .buddy-panel-msgs {
+    flex: 1; padding: 16px; display: flex; flex-direction: column; gap: 10px;
+    min-height: 180px; max-height: 280px; overflow-y: auto;
+  }
+  .buddy-msg {
+    max-width: 85%; padding: 10px 14px; border-radius: 12px;
+    font-size: 13px; line-height: 1.55;
+  }
+  .buddy-msg.from-buddy {
+    background: var(--surface); border: 1px solid var(--border);
+    color: var(--text-primary); align-self: flex-start;
+    border-bottom-left-radius: 3px;
+  }
+  .buddy-msg.from-user {
+    background: var(--navy); color: rgba(255,255,255,0.9);
+    align-self: flex-end; border-bottom-right-radius: 3px;
+  }
+  .buddy-msg-name {
+    font-size: 10px; font-weight: 700; text-transform: uppercase;
+    letter-spacing: 0.5px; color: var(--text-muted); margin-bottom: 4px;
+  }
+  .buddy-panel-input {
+    padding: 12px 16px; border-top: 1px solid var(--border);
+    display: flex; align-items: center; gap: 10px;
+  }
+  .buddy-input-field {
+    flex: 1; background: var(--surface);
+    border: 1px solid var(--border); border-radius: 8px;
+    padding: 9px 12px; font-size: 13px; color: var(--text-primary);
+    font-family: inherit; outline: none; transition: border-color 0.15s;
+  }
+  .buddy-input-field:focus { border-color: var(--royal); }
+  .buddy-input-field::placeholder { color: var(--text-muted); }
+  .buddy-send-btn {
+    width: 34px; height: 34px; border-radius: 8px;
+    background: var(--navy); border: none; cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    color: white; font-size: 14px; transition: background 0.15s; flex-shrink: 0;
+  }
+  .buddy-send-btn:hover { background: var(--royal); }
+
+  /* ── Responsive ── */
   @media (max-width: 900px) {
-    .hub-main { padding: 70px 20px 80px; }
-    .hero { padding: 32px 24px; }
-    .hero h1 { font-size: 26px; }
-    .mgrid { grid-template-columns: 1fr; }
+    .page-main { padding: 24px 20px 80px; }
+    .hero-card { padding: 28px 24px; }
+    .hero-inner { flex-direction: column; gap: 24px; }
+    .hero-video { display: none; }
+    .hero-card h1 { font-size: 26px; }
+    .grid-2, .grid-3 { grid-template-columns: 1fr; }
+    .stats-row { flex-direction: column; }
+    .topbar-nav { display: none; }
+    .topbar-right { display: none; }
   }
 </style>
 </head>
 <body>
 
+<!-- ═══════════════════════════════════════════ -->
+<!-- TOP BAR                                     -->
+<!-- ═══════════════════════════════════════════ -->
 <div class="topbar">
-  <a href="index.html" class="topbar-brand">AI Officer <span>Institute</span></a>
-  <div class="topbar-divider"></div>
+  <a href="index.html" class="topbar-brand">AIO <span>Labs</span></a>
   <nav class="topbar-nav">
-      <a href="index.html" class="tnav-link active">Hub</a>
-      <a href="generative-ai/index.html" class="tnav-link"><span class="tnav-dot" style="background:#D1458B"></span>Generative AI</a>
-      <a href="agentic-ai/index.html" class="tnav-link"><span class="tnav-dot" style="background:#287BE8"></span>Agentic AI</a>
-      <a href="micro-sessions/index.html" class="tnav-link"><span class="tnav-dot" style="background:#1a9e74"></span>Micro-Sessions</a>
-    <a href="blog/index.html" class="tnav-link"><span class="tnav-dot" style="background:#6FF2C1"></span>Blog</a>
+    <a href="index.html" class="tnav-link active"><span class="tnav-dot" style="background:#8b91ac"></span> Home</a>
+    <a href="certification.html" class="tnav-link"><span class="tnav-dot" style="background:#287BE8"></span> Certification</a>
+    <a href="#" class="tnav-link"><span class="tnav-dot" style="background:#287BE8"></span> Coaching</a>
+    <a href="micro-sessions/index.html" class="tnav-link"><span class="tnav-dot" style="background:#1A9E74"></span> Micro-Sessions</a>
+    <a href="blog/index.html" class="tnav-link"><span class="tnav-dot" style="background:#6FF2C1"></span> Blog</a>
+    <a href="#" class="tnav-link"><span class="tnav-dot" style="background:#8b91ac"></span> My Team</a>
   </nav>
+  <div class="topbar-right">
+    <div class="topbar-stat">
+      <span class="topbar-stat-icon">🔥</span> 7
+    </div>
+    <div class="topbar-stat">
+      <span class="topbar-stat-icon">⭐</span> 1,240
+    </div>
+    <div class="topbar-divider"></div>
+    <div class="topbar-avatar">DH</div>
+  </div>
 </div>
-<div class="layout">
-  <main class="hub-main">
 
-    <div class="hero">
-      <div class="hero-label">AI Officer Institute</div>
-      <h1>Your Learning <span>Hub</span></h1>
-      <p>Two complete learning tracks and hands-on micro-sessions — from AI fundamentals to building agentic workflows, all in one place.</p>
-      <div class="hero-stats">
-        <div><div class="hero-stat-num">2<b>×</b></div><div class="hero-stat-label">Tracks</div></div>
-        <div><div class="hero-stat-num">9</div><div class="hero-stat-label">Missions</div></div>
-        <div><div class="hero-stat-num">45<b>+</b></div><div class="hero-stat-label">Briefs</div></div>
-        <div><div class="hero-stat-num">17</div><div class="hero-stat-label">Micro-Sessions</div></div>
+<!-- ═══════════════════════════════════════════ -->
+<!-- PAGE                                        -->
+<!-- ═══════════════════════════════════════════ -->
+<main class="page-main">
+
+  <!-- ── HERO ── -->
+  <div class="hero-card">
+    <div class="hero-inner">
+      <div class="hero-body">
+        <div class="hero-label">Certification Journey</div>
+        <h1>Complete Your<br><em>Challenge</em></h1>
+        <p class="hero-sub">You're on Mission 3 of Generative AI — Advanced Prompt Frameworks. Pick up where you left off.</p>
+        <div class="hero-meta">
+          <span>Mission 3 of 4</span>
+          <span class="hero-meta-sep"></span>
+          <span>Brief 2 of 5</span>
+        </div>
+        <div class="hero-progress-row">
+          <div class="hero-progress-bar">
+            <div class="hero-progress-fill" style="width: 40%;"></div>
+          </div>
+          <span class="hero-progress-pct">40%</span>
+        </div>
+        <div class="hero-actions">
+          <a href="generative-ai/mission-3.html" class="btn btn-white btn-lg">Complete Your Challenge →</a>
+          <a href="generative-ai/mission-3.html" class="btn btn-outline-light">View Briefing</a>
+        </div>
+      </div>
+      <div class="hero-video">
+        <div class="hero-video-bg"></div>
+        <div class="hero-play">
+          <svg width="22" height="24" viewBox="0 0 20 22" fill="white"><polygon points="0,0 20,11 0,22"/></svg>
+        </div>
       </div>
     </div>
+  </div>
 
-    <div class="track-header">
-      <span class="track-pill gen"><span class="dot"></span>Generative AI</span>
-      <span class="track-title">Generative AI for Business</span>
-      <span class="track-count">4 missions — <a href="generative-ai/index.html" style="color:var(--text-muted);text-decoration:none;font-size:13px;">view all →</a></span>
+  <!-- Stats row -->
+  <div class="stats-row">
+    <div class="stat-chip">
+      6 <span class="stat-chip-label">Micro Sessions</span>
     </div>
-    <div class="mgrid">
-      <a href="generative-ai/mission-1.html" class="mcard gen">
-        <div class="mcard-top">
-          <span class="mcard-badge gen">Mission 01</span>
-          <span class="mcard-arrow">→</span>
+    <div class="stat-chip">
+      3 <span class="stat-chip-label">CAIO Coaching</span>
+    </div>
+    <div class="stat-chip">
+      #12 <span class="stat-chip-label">Rank</span>
+    </div>
+    <div class="progress-strip">
+      <span class="progress-strip-label">AI Officer Certified</span>
+      <div class="progress-strip-bar">
+        <div class="progress" style="height: 4px;">
+          <div class="progress-fill royal" style="width: 36%;"></div>
         </div>
-        <div class="mcard-title">Enter the AI Officer</div>
-        <div class="mcard-desc">Establish your role as an AI leader and build your first strategic AI brief.</div>
-        <div class="mcard-briefs">
-        <div class="mcard-brief"><span class="mcard-brief-num">B1</span>Brief 1: The Other 50%</div>
-        <div class="mcard-brief"><span class="mcard-brief-num">B2</span>Brief 2: The AI Officer Mindset</div>
-        <div class="mcard-brief"><span class="mcard-brief-num">B3</span>Brief 3: What is AI?</div>
-        <div class="mcard-brief"><span class="mcard-brief-num">B4</span>Brief 4: The Path to 99%</div>
-        <div class="mcard-brief"><span class="mcard-brief-num">B5</span>Brief 5: The AI Kingdoms</div>
-        <div class="mcard-brief"><span class="mcard-brief-num">B6</span>The BOLT Challenge</div>
-        </div>
-      </a>
-      <a href="generative-ai/mission-2.html" class="mcard gen">
-        <div class="mcard-top">
-          <span class="mcard-badge gen">Mission 02</span>
-          <span class="mcard-arrow">→</span>
-        </div>
-        <div class="mcard-title">Clean Data</div>
-        <div class="mcard-desc">Understand how to prepare, validate, and structure data to power AI tools.</div>
-        <div class="mcard-briefs">
-        <div class="mcard-brief"><span class="mcard-brief-num">B1</span>Brief 1: The Truth About AI Failure</div>
-        <div class="mcard-brief"><span class="mcard-brief-num">B2</span>Brief 2: How AI Processes Data</div>
-        <div class="mcard-brief"><span class="mcard-brief-num">B3</span>Brief 3: Implementation & Safety</div>
-        <div class="mcard-brief"><span class="mcard-brief-num">B4</span>Brief 4: The Right AI</div>
-        <div class="mcard-brief"><span class="mcard-brief-num">B5</span>The BOLT Data Challenge</div>
-        </div>
-      </a>
-      <a href="generative-ai/mission-3.html" class="mcard gen">
-        <div class="mcard-top">
-          <span class="mcard-badge gen">Mission 03</span>
-          <span class="mcard-arrow">→</span>
-        </div>
-        <div class="mcard-title">Advanced Prompt Frameworks</div>
-        <div class="mcard-desc">Go beyond basic prompting with structured frameworks for consistent, high-quality outputs.</div>
-        <div class="mcard-briefs">
-        <div class="mcard-brief"><span class="mcard-brief-num">B1</span>Brief 1: Stack Your Frameworks</div>
-        <div class="mcard-brief"><span class="mcard-brief-num">B2</span>Brief 2: The AI Interview</div>
-        <div class="mcard-brief"><span class="mcard-brief-num">B3</span>Brief 3: Let AI Teach You</div>
-        <div class="mcard-brief"><span class="mcard-brief-num">B4</span>Brief 4: Check Before You Send</div>
-        <div class="mcard-brief"><span class="mcard-brief-num">B5</span>The BOLT Brief</div>
-        </div>
-      </a>
-      <a href="generative-ai/mission-4.html" class="mcard gen">
-        <div class="mcard-top">
-          <span class="mcard-badge gen">Mission 04</span>
-          <span class="mcard-arrow">→</span>
-        </div>
-        <div class="mcard-title">Prompting Perfect Visuals</div>
-        <div class="mcard-desc">Learn to write prompts that generate compelling images and visual assets.</div>
-        <div class="mcard-briefs">
-        <div class="mcard-brief"><span class="mcard-brief-num">B1</span>Brief 1: From Ideas to Visuals</div>
-        <div class="mcard-brief"><span class="mcard-brief-num">B2</span>Brief 2: VISION for Video</div>
-        <div class="mcard-brief"><span class="mcard-brief-num">B3</span>Brief 3: Tools of the Trade</div>
-        <div class="mcard-brief"><span class="mcard-brief-num">B4</span>Brief 4: Style DNA</div>
-        <div class="mcard-brief"><span class="mcard-brief-num">B5</span>The BOLT Visual Campaign</div>
-        </div>
-      </a>
+      </div>
+      <span class="progress-strip-pct">36%</span>
+    </div>
+  </div>
+
+  <!-- ── UP NEXT ── -->
+  <div class="section-header">
+    <span class="section-title">Up Next</span>
+  </div>
+
+  <div class="grid-2">
+
+    <a href="micro-sessions/how-to-brief-an-ai-agent.html" class="upnext-card" style="text-decoration:none; display:block;">
+      <div class="upnext-eyebrow">Micro Session</div>
+      <div class="upnext-title">How to Brief an AI Agent</div>
+      <div class="upnext-desc">The 4 components of a strong agent brief — and why most people get it wrong.</div>
+      <div class="upnext-meta">
+        <span class="tnav-dot" style="background:#287BE8; width:5px; height:5px;"></span>
+        <span>Agentic AI</span>
+        <span class="meta-dot"></span>
+        <span>Apr 3 · 12 PM ET</span>
+        <span class="meta-dot"></span>
+        <span>30 min</span>
+      </div>
+      <span class="btn btn-outline btn-sm">View Session →</span>
+      <span class="upnext-arrow">→</span>
+    </a>
+
+    <div class="upnext-card">
+      <div class="upnext-eyebrow">CAIO Coaching</div>
+      <div class="upnext-title">Office Hours: AI Strategy Review</div>
+      <div class="upnext-desc">Live feedback on your AI roadmap from a certified CAIO coach.</div>
+      <div class="upnext-meta">
+        <span>Live Session</span>
+        <span class="meta-dot"></span>
+        <span>Apr 5 · 1 PM ET</span>
+        <span class="meta-dot"></span>
+        <span>60 min</span>
+      </div>
+      <a href="#" class="btn btn-outline btn-sm">Sign Up →</a>
+      <span class="upnext-arrow">→</span>
     </div>
 
-    <div class="track-header">
-      <span class="track-pill age"><span class="dot"></span>Agentic AI</span>
-      <span class="track-title">Agentic AI Essentials</span>
-      <span class="track-count">5 missions — <a href="agentic-ai/index.html" style="color:var(--text-muted);text-decoration:none;font-size:13px;">view all →</a></span>
-    </div>
-    <div class="mgrid">
-      <a href="agentic-ai/mission-1.html" class="mcard age">
-        <div class="mcard-top">
-          <span class="mcard-badge age">Mission 01</span>
-          <span class="mcard-arrow">→</span>
-        </div>
-        <div class="mcard-title">AI Program Planning</div>
-        <div class="mcard-desc">Map your AI landscape, set FAST goals, and build a strategic roadmap.</div>
-        <div class="mcard-briefs">
-        <div class="mcard-brief"><span class="mcard-brief-num">B1</span>Brief 1: The Four Offices</div>
-        <div class="mcard-brief"><span class="mcard-brief-num">B2</span>Brief 2: Three Types of AI</div>
-        <div class="mcard-brief"><span class="mcard-brief-num">B3</span>Brief 3: The 5D Framework</div>
-        <div class="mcard-brief"><span class="mcard-brief-num">B4</span>Brief 4: FAST Goals and ROI</div>
-        <div class="mcard-brief"><span class="mcard-brief-num">B5</span>Brief 5: Build Your Roadmap</div>
-        </div>
-      </a>
-      <a href="agentic-ai/mission-2.html" class="mcard age">
-        <div class="mcard-top">
-          <span class="mcard-badge age">Mission 02</span>
-          <span class="mcard-arrow">→</span>
-        </div>
-        <div class="mcard-title">From Prompts to Packaged AI</div>
-        <div class="mcard-desc">Transform ad-hoc prompts into repeatable, packaged AI processes for your team.</div>
-        <div class="mcard-briefs">
-        <div class="mcard-brief"><span class="mcard-brief-num">B1</span>The Setup Time Problem</div>
-        <div class="mcard-brief"><span class="mcard-brief-num">B2</span>Anatomy of Packaged AI</div>
-        <div class="mcard-brief"><span class="mcard-brief-num">B3</span>Platform Options</div>
-        <div class="mcard-brief"><span class="mcard-brief-num">B4</span>Build Your Prototype</div>
-        <div class="mcard-brief"><span class="mcard-brief-num">B5</span>Test and Ship</div>
-        </div>
-      </a>
-      <a href="agentic-ai/mission-3.html" class="mcard age">
-        <div class="mcard-top">
-          <span class="mcard-badge age">Mission 03</span>
-          <span class="mcard-arrow">→</span>
-        </div>
-        <div class="mcard-title">Wire the Workflow</div>
-        <div class="mcard-desc">Design and connect multi-step AI workflows using triggers and action nodes.</div>
-        <div class="mcard-briefs">
-        <div class="mcard-brief"><span class="mcard-brief-num">B1</span>Brief 1: Why You're Still the Bottleneck</div>
-        <div class="mcard-brief"><span class="mcard-brief-num">B2</span>Brief 2: The 5-Part Workflow Blueprint</div>
-        <div class="mcard-brief"><span class="mcard-brief-num">B3</span>Brief 3: Build Your Trigger and Data Layer</div>
-        <div class="mcard-brief"><span class="mcard-brief-num">B4</span>Brief 4: Wire the AI Step and Action</div>
-        <div class="mcard-brief"><span class="mcard-brief-num">B5</span>Brief 5: Log, Test, and Ship</div>
-        </div>
-      </a>
-      <a href="agentic-ai/mission-4.html" class="mcard age">
-        <div class="mcard-top">
-          <span class="mcard-badge age">Mission 04</span>
-          <span class="mcard-arrow">→</span>
-        </div>
-        <div class="mcard-title">Teach Your Workflow to Decide</div>
-        <div class="mcard-desc">Add logic and conditional routing so your workflows classify, decide, and respond.</div>
-        <div class="mcard-briefs">
-        <div class="mcard-brief"><span class="mcard-brief-num">B1</span>Brief 1: The Linear Workflow Problem</div>
-        <div class="mcard-brief"><span class="mcard-brief-num">B2</span>Brief 2: Classify, Route, Respond</div>
-        <div class="mcard-brief"><span class="mcard-brief-num">B3</span>Brief 3: The Tiny Decision Canvas</div>
-        <div class="mcard-brief"><span class="mcard-brief-num">B4</span>Brief 4: Build the Logic Layer</div>
-        <div class="mcard-brief"><span class="mcard-brief-num">B5</span>Brief 5: Test and Validate</div>
-        </div>
-      </a>
-      <a href="agentic-ai/mission-5.html" class="mcard age">
-        <div class="mcard-top">
-          <span class="mcard-badge age">Mission 05</span>
-          <span class="mcard-arrow">→</span>
-        </div>
-        <div class="mcard-title">Unleash the Agent</div>
-        <div class="mcard-desc">Build your first true AI agent — one that loops, reasons, and uses tools.</div>
-        <div class="mcard-briefs">
-        <div class="mcard-brief"><span class="mcard-brief-num">B1</span>Brief 1: The Ceiling of Logic</div>
-        <div class="mcard-brief"><span class="mcard-brief-num">B2</span>Brief 2: The Agent Loop</div>
-        <div class="mcard-brief"><span class="mcard-brief-num">B3</span>Brief 3: Agent Anatomy</div>
-        <div class="mcard-brief"><span class="mcard-brief-num">B4</span>Brief 4: Build Your First Agent</div>
-        <div class="mcard-brief"><span class="mcard-brief-num">B5</span>Brief 5: Guardrails and Human in the Loop</div>
-        </div>
-      </a>
-    </div>
+  </div>
 
-    <div class="track-header">
-      <span class="track-pill micro"><span class="dot"></span>Micro-Sessions</span>
-      <span class="track-title">Hands-On Practice</span>
-      <span class="track-count">17 sessions — <a href="micro-sessions/index.html" style="color:var(--text-muted);text-decoration:none;font-size:13px;">view all →</a></span>
+  <!-- Blog row -->
+  <a href="blog/posts/four-offices-of-the-future.html" class="blog-row" style="margin-top: 14px;">
+    <div class="blog-row-dot"></div>
+    <div class="blog-row-body">
+      <div class="blog-row-eyebrow">Thought Leadership</div>
+      <div class="blog-row-title">The Four Offices of the Future</div>
     </div>
-    <div class="mgrid">
-      <a href="micro-sessions/claude-cowork-first-workflow.html" class="mcard micro">
-        <div class="mcard-top"><span class="mcard-badge micro">Agentic AI</span><span class="mcard-arrow">→</span></div>
-        <div class="mcard-title">Your First Cowork Workflow</div>
-        <div class="mcard-desc">Build your first AI-assisted workflow using Claude Cowork — from problem framing to shipping a working automation.</div>
-      </a>
-      <a href="micro-sessions/build-your-ai-team-paperclip.html" class="mcard micro">
-        <div class="mcard-top"><span class="mcard-badge micro">Agentic AI</span><span class="mcard-arrow">→</span></div>
-        <div class="mcard-title">Build Your AI Team with Paperclip</div>
-        <div class="mcard-desc">Orchestrate multiple AI agents working in parallel toward a single goal using Paperclip.</div>
-      </a>
-      <a href="micro-sessions/how-to-brief-an-ai-agent.html" class="mcard micro">
-        <div class="mcard-top"><span class="mcard-badge micro">Agentic AI</span><span class="mcard-arrow">→</span></div>
-        <div class="mcard-title">How to Brief an AI Agent</div>
-        <div class="mcard-desc">Most agent failures start with a bad brief. Learn the structure that gets consistent results from any AI agent you deploy.</div>
-      </a>
-      <a href="micro-sessions/paperclip-pipelines.html" class="mcard micro">
-        <div class="mcard-top"><span class="mcard-badge micro">Agentic AI</span><span class="mcard-arrow">→</span></div>
-        <div class="mcard-title">Paperclip Pipelines</div>
-        <div class="mcard-desc">Build a multi-step AI workflow that runs without you — chaining agents, triggers, and outputs into a repeatable pipeline.</div>
-      </a>
-      <a href="micro-sessions/claude-dispatch.html" class="mcard micro">
-        <div class="mcard-top"><span class="mcard-badge micro">Agentic AI</span><span class="mcard-arrow">→</span></div>
-        <div class="mcard-title">Claude Dispatch</div>
-        <div class="mcard-desc">Design a system where AI handles routing, triage, and first response — so your team only sees what needs a human decision.</div>
-      </a>
-      <a href="micro-sessions/cowork-and-calendar.html" class="mcard micro">
-        <div class="mcard-top"><span class="mcard-badge micro">Agentic AI</span><span class="mcard-arrow">→</span></div>
-        <div class="mcard-title">Cowork + Calendar</div>
-        <div class="mcard-desc">Connect Claude Cowork to your calendar and let it do the prep work — briefings, agendas, and follow-ups before you open a meeting.</div>
-      </a>
-      <a href="micro-sessions/claude-code-for-non-coders.html" class="mcard micro">
-        <div class="mcard-top"><span class="mcard-badge micro">Agentic AI</span><span class="mcard-arrow">→</span></div>
-        <div class="mcard-title">Claude Code for Non-Coders</div>
-        <div class="mcard-desc">You don't need to write code to use Claude Code. Learn how to direct it, review its work, and ship real outputs as a non-technical leader.</div>
-      </a>
-      <a href="micro-sessions/the-command-line.html" class="mcard micro">
-        <div class="mcard-top"><span class="mcard-badge micro">Agentic AI</span><span class="mcard-arrow">→</span></div>
-        <div class="mcard-title">The Command Line</div>
-        <div class="mcard-desc">Understand what the command line is, why it matters for AI Officers, and how to use it to unlock tools your browser can't reach.</div>
-      </a>
-      <a href="micro-sessions/deep-research.html" class="mcard micro">
-        <div class="mcard-top"><span class="mcard-badge micro">Generative AI</span><span class="mcard-arrow">→</span></div>
-        <div class="mcard-title">Deep Research</div>
-        <div class="mcard-desc">Use AI to conduct structured research, synthesize sources, and produce briefings your team can act on.</div>
-      </a>
-      <a href="micro-sessions/seo-or-geo.html" class="mcard micro">
-        <div class="mcard-top"><span class="mcard-badge micro">Generative AI</span><span class="mcard-arrow">→</span></div>
-        <div class="mcard-title">SEO or GEO</div>
-        <div class="mcard-desc">Search is changing. Learn how to write content that ranks in both traditional search and AI-generated answers.</div>
-      </a>
-      <a href="micro-sessions/from-one-post-to-every-platform.html" class="mcard micro">
-        <div class="mcard-top"><span class="mcard-badge micro">Generative AI</span><span class="mcard-arrow">→</span></div>
-        <div class="mcard-title">From One Post To Every Platform</div>
-        <div class="mcard-desc">Write once, distribute everywhere. Build an AI workflow that adapts a single piece of content for LinkedIn, X, email, and more.</div>
-      </a>
-      <a href="micro-sessions/build-your-personal-brand.html" class="mcard micro">
-        <div class="mcard-top"><span class="mcard-badge micro">Generative AI</span><span class="mcard-arrow">→</span></div>
-        <div class="mcard-title">Build Your Personal Brand Doc</div>
-        <div class="mcard-desc">Use AI to define and document your professional identity so every piece of content sounds like you — consistently.</div>
-      </a>
-      <a href="micro-sessions/build-your-digital-twin.html" class="mcard micro">
-        <div class="mcard-top"><span class="mcard-badge micro">Generative AI</span><span class="mcard-arrow">→</span></div>
-        <div class="mcard-title">Build Your Digital Twin</div>
-        <div class="mcard-desc">Create an AI version of yourself that can answer questions, draft in your voice, and represent your thinking without you in the room.</div>
-      </a>
-      <a href="micro-sessions/ai-browsers.html" class="mcard micro">
-        <div class="mcard-top"><span class="mcard-badge micro">Generative AI</span><span class="mcard-arrow">→</span></div>
-        <div class="mcard-title">AI Browsers: Working Smarter</div>
-        <div class="mcard-desc">How AI-native browsers change the way you research, summarize, and act on information — and what that means for your team.</div>
-      </a>
-      <a href="micro-sessions/ai-shopping.html" class="mcard micro">
-        <div class="mcard-top"><span class="mcard-badge micro">Generative AI</span><span class="mcard-arrow">→</span></div>
-        <div class="mcard-title">AI Shopping: The End of Browse and Click</div>
-        <div class="mcard-desc">AI is replacing the search bar in commerce. Learn what this shift means for revenue strategy and how AI Officers should respond.</div>
-      </a>
-      <a href="micro-sessions/prompting-101-video.html" class="mcard micro">
-        <div class="mcard-top"><span class="mcard-badge micro">Generative AI</span><span class="mcard-arrow">→</span></div>
-        <div class="mcard-title">Prompting 101: Video</div>
-        <div class="mcard-desc">Apply prompting frameworks to video scripts and briefs. Get consistent, on-brand video output from AI tools.</div>
-      </a>
-      <a href="micro-sessions/agents-compared.html" class="mcard micro">
-        <div class="mcard-top"><span class="mcard-badge micro">Leadership</span><span class="mcard-arrow">→</span></div>
-        <div class="mcard-title">Agents Compared</div>
-        <div class="mcard-desc">A decision framework for evaluating AI agent platforms — so you can make the right call for your organization's maturity, budget, and goals.</div>
-      </a>
-    </div>
+    <div class="blog-row-date">Mar 19 · 8 min</div>
+  </a>
 
-    <div class="hub-footer">
-      <span class="hub-footer-brand">AI Officer <span>Institute</span></span>
-      <span>2 tracks · 9 missions · 2 micro-sessions · 45+ briefs</span>
-    </div>
+  <!-- ── LEADERBOARD ── -->
+  <div class="section-header">
+    <span class="section-pill royal"><span class="dot"></span> Community</span>
+    <span class="section-title">Leaderboard</span>
+    <span class="section-meta">48 cadets — <a href="#">view all →</a></span>
+  </div>
 
-  </main>
+  <div class="leaderboard">
+    <div class="leaderboard-row">
+      <div class="lb-rank gold">1</div>
+      <div class="lb-name">Sarah Chen</div>
+      <span class="lb-cert caio">CAIO Certified</span>
+      <div class="lb-pts">2,890</div>
+    </div>
+    <div class="leaderboard-row">
+      <div class="lb-rank silver">2</div>
+      <div class="lb-name">James Liu</div>
+      <span class="lb-cert officer">AI Officer Certified</span>
+      <div class="lb-pts">2,640</div>
+    </div>
+    <div class="leaderboard-row">
+      <div class="lb-rank bronze">3</div>
+      <div class="lb-name">Priya Patel</div>
+      <span class="lb-cert officer">AI Officer Certified</span>
+      <div class="lb-pts">2,310</div>
+    </div>
+    <div class="leaderboard-row" style="padding: 0 22px;"><div class="lb-gap"></div></div>
+    <div class="leaderboard-row">
+      <div class="lb-rank">11</div>
+      <div class="lb-name">Ryan Park</div>
+      <span class="lb-cert agentic">Agentic AI Specialist</span>
+      <div class="lb-pts">1,320</div>
+    </div>
+    <div class="leaderboard-row you">
+      <div class="lb-rank" style="color: var(--royal); font-weight: 700;">12</div>
+      <div class="lb-name">Dave Hajdu <span class="lb-you">YOU</span></div>
+      <span class="lb-cert gen-ai">Generative AI Specialist</span>
+      <div class="lb-pts" style="color: var(--royal);">1,240</div>
+    </div>
+    <div class="leaderboard-row">
+      <div class="lb-rank">13</div>
+      <div class="lb-name">Cadet</div>
+      <span class="lb-cert gen-ai">Generative AI Specialist</span>
+      <div class="lb-pts">1,180</div>
+    </div>
+  </div>
+
+  <!-- ── YOUR TRACKS ── -->
+  <div class="section-header">
+    <span class="section-pill fuchsia"><span class="dot"></span> Progress</span>
+    <span class="section-title">Your Tracks</span>
+  </div>
+
+  <div class="grid-3">
+    <a href="generative-ai/index.html" class="track-card" style="text-decoration:none; display:block;">
+      <div class="track-card-top">
+        <span class="badge badge-fuchsia">Active</span>
+        <span class="track-card-pct" style="color: var(--text-primary);">65%</span>
+      </div>
+      <div class="track-card-name">Generative AI</div>
+      <div style="margin: 8px 0;">
+        <div class="progress" style="height: 5px;"><div class="progress-fill navy" style="width: 65%;"></div></div>
+      </div>
+      <div class="track-card-meta">4 of 6 missions · AI Officer</div>
+    </a>
+
+    <a href="agentic-ai/index.html" class="track-card" style="text-decoration:none; display:block;">
+      <div class="track-card-top">
+        <span class="badge badge-royal">Locked</span>
+        <span class="track-card-pct" style="color: var(--text-muted);">0%</span>
+      </div>
+      <div class="track-card-name">Agentic AI</div>
+      <div style="margin: 8px 0;">
+        <div class="progress" style="height: 5px;"><div class="progress-fill royal" style="width: 0%;"></div></div>
+      </div>
+      <div class="track-card-meta">0 of 5 missions · AI Officer</div>
+    </a>
+
+    <div class="track-card" style="opacity: 0.55; cursor: default;">
+      <div class="track-card-top">
+        <span class="badge badge-mint">Locked</span>
+        <span class="track-card-pct" style="color: var(--text-muted);">0%</span>
+      </div>
+      <div class="track-card-name">Leadership</div>
+      <div style="margin: 4px 0 8px; font-size: 11px; font-weight: 700; letter-spacing: 0.5px; text-transform: uppercase; color: var(--text-muted);">Masters · CAIO Certification</div>
+      <div style="margin: 8px 0;">
+        <div class="progress" style="height: 5px;"><div class="progress-fill mint" style="width: 0%;"></div></div>
+      </div>
+      <div class="track-card-meta" style="color: var(--text-muted);">Unlocks after AI Officer</div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <div class="page-footer">
+    <div>AIO Labs</div>
+    <div>Prototype · March 2026</div>
+  </div>
+
+</main>
+
+<!-- ═══════════════════════════════════════════ -->
+<!-- AI BUDDY                                    -->
+<!-- ═══════════════════════════════════════════ -->
+
+<div class="buddy-panel" id="buddyPanel">
+  <div class="buddy-panel-head">
+    <div class="buddy-panel-head-avatar">🤖</div>
+    <div class="buddy-panel-head-info">
+      <div class="buddy-panel-head-name">AI Buddy</div>
+      <div class="buddy-panel-head-status">● Online · Your learning assistant</div>
+    </div>
+    <div class="buddy-panel-close" onclick="toggleBuddy()">✕</div>
+  </div>
+  <div class="buddy-panel-msgs" id="buddyMsgs">
+    <div class="buddy-msg from-buddy">
+      <div class="buddy-msg-name">AI Buddy</div>
+      Hey Dave! 👋 You're on Mission 3 — Advanced Prompt Frameworks. What can I help you with today?
+    </div>
+    <div class="buddy-msg from-buddy">
+      <div class="buddy-msg-name">AI Buddy</div>
+      Ask me anything about your coursework, or I can quiz you on what you've covered so far.
+    </div>
+  </div>
+  <div class="buddy-panel-input">
+    <input class="buddy-input-field" id="buddyInput" type="text" placeholder="Ask your AI Buddy…" onkeydown="if(event.key==='Enter') sendBuddyMsg()">
+    <button class="buddy-send-btn" onclick="sendBuddyMsg()">→</button>
+  </div>
 </div>
 
-<script src="shared/nav.js"></script>
+<div class="buddy-fab" id="buddyFab" onclick="toggleBuddy()">
+  <div class="buddy-fab-avatar">🤖</div>
+  AI Buddy
+  <div class="buddy-fab-pulse"></div>
+</div>
+
+<script>
+  function toggleBuddy() {
+    document.getElementById('buddyPanel').classList.toggle('open');
+  }
+  function sendBuddyMsg() {
+    const input = document.getElementById('buddyInput');
+    const msgs = document.getElementById('buddyMsgs');
+    const text = input.value.trim();
+    if (!text) return;
+    const userMsg = document.createElement('div');
+    userMsg.className = 'buddy-msg from-user';
+    userMsg.textContent = text;
+    msgs.appendChild(userMsg);
+    input.value = '';
+    msgs.scrollTop = msgs.scrollHeight;
+    setTimeout(() => {
+      const reply = document.createElement('div');
+      reply.className = 'buddy-msg from-buddy';
+      reply.innerHTML = '<div class="buddy-msg-name">AI Buddy</div>Great question! Full AI responses coming soon.';
+      msgs.appendChild(reply);
+      msgs.scrollTop = msgs.scrollHeight;
+    }, 600);
+  }
+</script>
+
 </body>
 </html>

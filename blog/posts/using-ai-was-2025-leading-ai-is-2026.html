@@ -3,20 +3,21 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="index, follow">
     <title>Using AI Was 2025. Leading AI Is 2026. | AI Officer Institute</title>
-    <meta name="description" content="Jack Dorsey cut 40% of Block's workforce on a profitable quarter. The stock went up 24%. Here's what that means for every leader heading into 2026.">
+    <meta name="description" content="The 50/50 Era is here: teams now manage 50% people, 50% AI. Leaders who lead AI—not just use it—will define the next generation.">
 
     <!-- Open Graph Tags -->
     <meta property="og:type" content="article">
     <meta property="og:title" content="Using AI Was 2025. Leading AI Is 2026.">
-    <meta property="og:description" content="Jack Dorsey cut 40% of Block's workforce on a profitable quarter. The stock went up 24%. Here's what that means for every leader heading into 2026.">
+    <meta property="og:description" content="The 50/50 Era is here: teams now manage 50% people, 50% AI. Leaders who lead AI—not just use it—will define the next generation.">
     <meta property="og:url" content="https://www.ai-officer.com/blog/posts/using-ai-was-2025-leading-ai-is-2026.html">
     <meta property="og:site_name" content="AI Officer Institute">
 
     <!-- Twitter Card Tags -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="Using AI Was 2025. Leading AI Is 2026.">
-    <meta name="twitter:description" content="Jack Dorsey cut 40% of Block's workforce on a profitable quarter. The stock went up 24%. Here's what that means for every leader heading into 2026.">
+    <meta name="twitter:description" content="The 50/50 Era is here: teams now manage 50% people, 50% AI. Leaders who lead AI—not just use it—will define the next generation.">
 
     <!-- Canonical URL -->
     <link rel="canonical" href="https://www.ai-officer.com/blog/posts/using-ai-was-2025-leading-ai-is-2026.html">
@@ -27,7 +28,7 @@
         "@context": "https://schema.org",
         "@type": "Article",
         "headline": "Using AI Was 2025. Leading AI Is 2026.",
-        "description": "Jack Dorsey cut 40% of Block's workforce on a profitable quarter. The stock went up 24%. Here's what that means for every leader heading into 2026.",
+        "description": "The 50/50 Era is here: teams now manage 50% people, 50% AI. Leaders who lead AI—not just use it—will define the next generation.",
         "datePublished": "2026-03-30",
         "dateModified": "2026-03-30",
         "author": {
@@ -94,26 +95,46 @@
     <link rel="stylesheet" href="../styles.css">
 
     <style>
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        .post-content > * {
-            animation: fadeInUp 0.6s ease-out forwards;
-        }
-
-        .post-content h2:nth-of-type(1) { animation-delay: 0.1s; }
-        .post-content h2:nth-of-type(2) { animation-delay: 0.2s; }
-        .post-content h2:nth-of-type(3) { animation-delay: 0.3s; }
-        .post-content h2:nth-of-type(4) { animation-delay: 0.4s; }
-        .post-content h2:nth-of-type(5) { animation-delay: 0.5s; }
+        /* THESIS FORMAT */
+        .post-layout { max-width: 720px; margin: 0 auto; padding: 0 24px; }
+        .thesis-lede { font-size: 1.25rem; line-height: 1.85; color: var(--text-primary); font-style: italic; border-left: 5px solid #D1458B; padding: 20px 24px; margin: 36px 0; background: #fdf7fb; border-radius: 0 10px 10px 0; }
+        .thesis-section { margin: 48px 0; }
+        .thesis-section h2 { font-size: 1.35rem; font-weight: 800; margin-bottom: 20px; padding-bottom: 12px; border-bottom: 2px solid var(--border); }
+        .pull-quote { font-size: 1.6rem; font-weight: 700; line-height: 1.4; color: var(--text-primary); text-align: center; padding: 40px 32px; margin: 40px 0; border-top: 3px solid #D1458B; border-bottom: 3px solid #D1458B; position: relative; }
+        .pull-quote::before { content: '"'; font-size: 5rem; color: #D1458B; opacity: 0.2; position: absolute; top: -20px; left: 0; line-height: 1; }
+        .data-callout { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin: 36px 0; }
+        .data-card { text-align: center; border: 2px solid var(--border); border-radius: 12px; padding: 24px 16px; }
+        .data-card .num { font-size: 2.2rem; font-weight: 900; color: #D1458B; }
+        .data-card .label { font-size: 0.8rem; color: var(--text-muted); margin-top: 6px; line-height: 1.4; }
+        .argument-block { margin: 32px 0; }
+        .argument-block h3 { font-size: 1.05rem; font-weight: 700; color: #287BE8; text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 12px; }
+        .emphasis-box { background: #0d1b3e; color: white; border-radius: 12px; padding: 28px 32px; margin: 36px 0; }
+        .emphasis-box p { color: rgba(255,255,255,0.9); line-height: 1.75; margin: 0; font-size: 1.05rem; }
+        .emphasis-box strong { color: #6FF2C1; }
+        .research-cite { background: #f8f9fc; border-left: 4px solid #287BE8; padding: 16px 20px; border-radius: 0 8px 8px 0; margin: 24px 0; font-size: 0.93rem; color: var(--text-secondary); }
+        .research-cite strong { color: #287BE8; }
+        .author-note { display: grid; grid-template-columns: auto 1fr; gap: 20px; align-items: start; background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 24px; margin: 48px 0; }
+        .author-avatar { width: 52px; height: 52px; border-radius: 50%; background: linear-gradient(135deg, #287BE8, #D1458B); display: flex; align-items: center; justify-content: center; color: white; font-weight: 800; font-size: 1.2rem; flex-shrink: 0; }
+        .author-note-text p { font-size: 0.88rem; color: var(--text-secondary); line-height: 1.7; margin: 0; }
+        .conclusion-box { background: linear-gradient(135deg, #0d1b3e 0%, #1a2d5a 100%); color: white; border-radius: 16px; padding: 40px; margin: 48px 0; }
+        .conclusion-box h2 { color: #6FF2C1; margin-bottom: 16px; }
+        .conclusion-box p { color: rgba(255,255,255,0.85); line-height: 1.7; margin-bottom: 16px; }
+        .conclusion-box a { color: #6FF2C1; }
+        .faq-section { margin: 60px 0 0; }
+        .faq-section h2 { font-size: 1.4rem; margin-bottom: 28px; }
+        .faq-item { border-bottom: 1px solid var(--border); padding: 20px 0; }
+        .faq-item h3 { font-size: 1rem; font-weight: 600; margin-bottom: 10px; }
+        .faq-item p { font-size: 0.93rem; color: var(--text-secondary); line-height: 1.7; margin: 0; }
+        .post-nav-section { margin: 60px 0; padding: 32px 0; border-top: 1px solid var(--border); display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+        .post-nav-card { border: 1px solid var(--border); border-radius: 10px; padding: 20px; text-decoration: none; color: inherit; transition: border-color 0.2s; }
+        .post-nav-card:hover { border-color: var(--blue); }
+        .post-nav-label { font-size: 0.75rem; color: var(--text-muted); margin-bottom: 6px; text-transform: uppercase; letter-spacing: 0.1em; }
+        .post-nav-title { font-size: 0.95rem; font-weight: 600; color: var(--text-primary); }
+        .tl-dr-box { background: #f0f7ff; border: 1px solid #287BE8; border-radius: 12px; padding: 24px; margin: 32px 0; }
+        .tl-dr-box h3 { color: #287BE8; font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 16px; font-weight: 700; }
+        .tl-dr-box ul { margin: 0; padding-left: 20px; }
+        .tl-dr-box li { font-size: 0.9rem; color: var(--text-secondary); margin-bottom: 8px; line-height: 1.6; }
+        .tl-dr-box li:last-child { margin-bottom: 0; }
     </style>
 </head>
 <body>
@@ -128,9 +149,9 @@
     <a href="../../my-team.html" class="tnav-link"><span class="tnav-dot" style="background:#8b91ac"></span> My Team</a>
   </nav>
   <div class="topbar-right">
-    <a href="../../ai-buddy.html" class="buddy-launch-btn">🤖 AI Buddy</a>
+    <a href="../../ai-buddy.html" class="buddy-launch-btn">AI Buddy</a>
     <div class="topbar-stat">🔥 7</div>
-    <div class="topbar-stat">⭐ 1,240</div>
+    <div class="topbar-stat">1,240 xp</div>
     <div class="topbar-divider"></div>
     <div class="topbar-avatar">DH</div>
   </div>
@@ -144,7 +165,7 @@
             </div>
             <div class="post-eyebrow">AI News &amp; Updates</div>
             <h1>Using AI Was 2025. Leading AI Is 2026.</h1>
-            <p class="post-subtitle">Jack Dorsey cut 40% of Block's workforce on a profitable quarter. The stock went up 24%. Here's what that means for every leader heading into 2026.</p>
+            <p class="post-subtitle">The 50/50 Era is here. Teams now manage 50% people, 50% AI. Leaders who lead AI—not just use it—will define the next generation.</p>
         </div>
     </section>
 
@@ -166,115 +187,161 @@
             </div>
         </div>
     </div>
-</div>
 
     <!-- Post Content -->
     <article class="post-content-section">
-        <div class="container-narrow">
-            <div class="post-content">
+        <div class="post-layout">
 
+            <!-- TL;DR Box -->
+            <div class="tl-dr-box">
+                <h3>Quick Summary</h3>
+                <ul>
+                    <li>Jack Dorsey cut 40% of Block's workforce. Stock jumped 24%. Block is already profitable—this wasn't survival.</li>
+                    <li>Using AI in 2025 was about experimentation. Leading AI in 2026 is about managing AI as a co-worker.</li>
+                    <li>The 50/50 Era: your team is now 50% people, 50% AI systems. Leadership skills must evolve accordingly.</li>
+                    <li>The companies moving now are building the operational advantage that will be nearly impossible to close later.</li>
+                </ul>
+            </div>
+
+            <!-- Opening Lede -->
+            <div class="thesis-lede">
+                Block was profitable. Growing. Gross profit hit $2.87 billion last quarter, up 26% year over year. Jack Dorsey didn't cut 40% of his workforce because the business was failing. He did it because he believes AI has fundamentally changed what it takes to run a company. And the market listened: stock up 24% in after-hours trading.
+            </div>
+
+            <!-- Section 1: The Signal Nobody's Talking About -->
+            <section class="thesis-section">
                 <h2>The Signal Nobody's Talking About</h2>
-                <p>Block is profitable. Growing. Gross profit hit $2.87 billion last quarter, up 26% year over year. This wasn't a company in trouble.</p>
-                <p>Jack Dorsey didn't cut 40% of his workforce because the business was failing. He did it because he believes AI has fundamentally changed what it takes to run a company. One memo, 4,000 people, stock up 24% in after-hours trading.</p>
                 <p>While every other CEO trims 5–10% and calls it "restructuring," Dorsey went 40% in a single move. And here's the part that should keep you up at night: he said most companies are late, and he expects the majority to reach the same conclusion within the next year.</p>
 
-                <div class="stat-grid">
-                    <div class="stat-card">
-                        <div class="stat-number">40%</div>
-                        <div class="stat-label">Workforce cut in one move</div>
+                <div class="data-callout">
+                    <div class="data-card">
+                        <div class="num">40%</div>
+                        <div class="label">Workforce cut in one move</div>
                     </div>
-                    <div class="stat-card">
-                        <div class="stat-number">+24%</div>
-                        <div class="stat-label">Stock surge after announcement</div>
+                    <div class="data-card">
+                        <div class="num">+24%</div>
+                        <div class="label">Stock surge after announcement</div>
                     </div>
-                    <div class="stat-card">
-                        <div class="stat-number">$2.87B</div>
-                        <div class="stat-label">Q4 gross profit, up 26% YoY</div>
+                    <div class="data-card">
+                        <div class="num">$2.87B</div>
+                        <div class="label">Q4 gross profit, up 26% YoY</div>
                     </div>
                 </div>
 
+                <p>This wasn't a cost-cutting exercise. It was a statement about the future. Block didn't need to cut costs. It needed to restructure for a new operating model where AI is a co-worker, not a tool.</p>
+            </section>
+
+            <!-- Section 2: SaaS Disruption -->
+            <section class="thesis-section">
                 <h2>SaaS Is Getting Disrupted from the Bottom Up</h2>
                 <p>The media framed this as "AI replacing workers." That's only half the story. The bigger disruption is happening underneath.</p>
-                <p>I built my own CRM. Right now I'm building a recruiting system. It'll take 3–4 weeks. Packaged AI scanning resumes. AI recording and rating interviews. Automated workflows. All running on a database that costs $50/month.</p>
-                <p>I don't need the ATS anymore. I don't need the CRM anymore. Startups everywhere are doing the same thing. When companies can build their own tools in weeks instead of buying six-figure SaaS contracts, the math changes fast. Pricing pressure. Margin compression. Headcount cuts.</p>
-                <p>Bloomberg analyst Dan Ives called it a "trillion-dollar tech wipeout." This isn't a blip. The market is pricing in a structural shift. We covered the full breakdown of Dorsey's decision in <a href="jack-dorsey-layoffs.html">Jack Dorsey Layoffs: What 4,000 Cuts Reveal About AI and SaaS</a>.</p>
 
+                <p>I built my own CRM. Right now I'm building a recruiting system. It'll take 3–4 weeks. Packaged AI scanning resumes. AI recording and rating interviews. Automated workflows. All running on a database that costs $50/month.</p>
+
+                <p>I don't need the ATS anymore. I don't need the CRM anymore. Startups everywhere are doing the same thing. When companies can build their own tools in weeks instead of buying six-figure SaaS contracts, the math changes fast. Pricing pressure. Margin compression. Headcount cuts.</p>
+
+                <p>Bloomberg analyst Dan Ives called it a "trillion-dollar tech wipeout." This isn't a blip. The market is pricing in a structural shift. We covered the full breakdown of Dorsey's decision in <a href="jack-dorsey-layoffs.html">Jack Dorsey Layoffs: What 4,000 Cuts Reveal About AI and SaaS</a>.</p>
+            </section>
+
+            <!-- Section 3: Research -->
+            <section class="thesis-section">
                 <h2>The Research Says: One Clean Cut</h2>
                 <p>My partner Dr. Brooks Holtom at Georgetown University was quoted in Business Insider on the Block layoffs. His research on employee retention and organizational shocks is some of the most cited in the field.</p>
-                <p>The research is clear: repeated rounds of layoffs create what Holtom calls "layoff fatigue and chronic anxiety." People stop working and start wondering if they're next. Morale drops. Productivity drops. Trust drops.</p>
-                <p>One clean cut beats the slow bleed. Every time.</p>
 
-                <div class="callout-highlight">
-                    <div class="callout-highlight-label">Georgetown Research Finding</div>
-                    <div class="callout-highlight-text">40% is extreme. Holtom acknowledged that. But Dorsey paired it with 20 weeks of severance plus tenure bonuses, six months of healthcare, equity vesting through May, and corporate devices employees could keep. Holtom told Business Insider the overall approach aligned with what good management research recommends.</div>
+                <p>The research is clear: repeated rounds of layoffs create what Holtom calls "layoff fatigue and chronic anxiety." People stop working and start wondering if they're next. Morale drops. Productivity drops. Trust drops.</p>
+
+                <div class="pull-quote">
+                    One clean cut beats the slow bleed. Every time.
                 </div>
 
+                <div class="research-cite">
+                    <strong>Georgetown Research Finding:</strong> 40% is extreme. Holtom acknowledged that. But Dorsey paired it with 20 weeks of severance plus tenure bonuses, six months of healthcare, equity vesting through May, and corporate devices employees could keep. Holtom told Business Insider the overall approach aligned with what good management research recommends.
+                </div>
+            </section>
+
+            <!-- Section 4: The 50/50 Era -->
+            <section class="thesis-section">
                 <h2>Welcome to the 50/50 Era</h2>
                 <p>Here's what is actually happening. We're entering an era where your team isn't just humans anymore. Half your workforce will be people. Half will be AI. Not in some distant future. Now.</p>
-                <p>That changes the entire job of leadership.</p>
-                <p>When Dorsey said a "significantly smaller team, using the tools we're building, can do more and do it better," he wasn't describing a cost-cutting exercise. He was describing a new operating model. One where AI isn't a tool you hand to employees. It's a co-worker on the team that you need to manage, direct, and integrate into how your company actually works.</p>
-                <p>Last year, the conversation was about using AI. Experimenting. Trying ChatGPT. Running a pilot. That was fine for 2025.</p>
-                <p>In 2026, the leaders who win will be the ones who figure out how to bring AI onto their team as a co-worker and actually lead it. Who reports to the AI system? Who trains it? Who's accountable when it makes a bad call? Who decides what it should and shouldn't do? The <a href="four-offices-of-the-future.html">Four Offices framework</a> is a practical starting point for that diagnostic.</p>
 
-                <div class="callout">
-                    <strong>These aren't technical questions. They're leadership questions.</strong>
+                <div class="argument-block">
+                    <h3>What Changed</h3>
+                    <p>When Dorsey said a "significantly smaller team, using the tools we're building, can do more and do it better," he wasn't describing a cost-cutting exercise. He was describing a new operating model. One where AI isn't a tool you hand to employees. It's a co-worker on the team that you need to manage, direct, and integrate into how your company actually works.</p>
                 </div>
 
+                <div class="emphasis-box">
+                    <p><strong>Last year, the conversation was about using AI.</strong> Experimenting. Trying ChatGPT. Running a pilot. That was fine for 2025. In 2026, the leaders who win will be the ones who figure out how to bring AI onto their team as a co-worker and actually lead it.</p>
+                </div>
+
+                <div class="argument-block">
+                    <h3>The Questions Get Harder</h3>
+                    <p>Who reports to the AI system? Who trains it? Who's accountable when it makes a bad call? Who decides what it should and shouldn't do? These aren't technical questions. They're leadership questions. The <a href="four-offices-of-the-future.html">Four Offices framework</a> is a practical starting point for that diagnostic.</p>
+                </div>
+            </section>
+
+            <!-- Section 5: What This Means -->
+            <section class="thesis-section">
                 <h2>What This Means for You</h2>
                 <p>Dorsey put it simply: "I'd rather get there honestly and on our own terms than be forced into it reactively." The question isn't whether this is coming to your company. It's whether you'll be ready when it does.</p>
 
-                <h3>If You're a Founder</h3>
-                <p>Look at your org chart. How many roles could AI do alongside a smaller, sharper human team? Not "someday." This quarter. The companies moving now are building the operational advantage that will be nearly impossible to close later.</p>
-
-                <h3>If You're an Executive</h3>
-                <p>The CEO who figures this out first has the advantage. The one who waits gets Dorsey'd: a reactive, painful restructuring forced by competitive pressure instead of strategic choice. That's the alternative to leading this transition yourself.</p>
-
-                <h3>If You're Building a Career</h3>
-                <p>"I know how to use AI" is table stakes now. The valuable skill is leading a team where half the contributors aren't human. That's the skill gap nobody's talking about yet. The people who close it first will define the next generation of leadership.</p>
-
-                <div class="callout-highlight">
-                    <div class="callout-highlight-label">Ready to Lead in the 50/50 Era?</div>
-                    <div class="callout-highlight-text">The AI Officer Institute teaches founders and executives how to lead teams where AI is a co-worker, not just a tool. <a href="https://www.ai-officer.com">Learn more at ai-officer.com</a></div>
+                <div class="argument-block">
+                    <h3>If You're a Founder</h3>
+                    <p>Look at your org chart. How many roles could AI do alongside a smaller, sharper human team? Not "someday." This quarter. The companies moving now are building the operational advantage that will be nearly impossible to close later.</p>
                 </div>
 
-                <p><em>Dave Hajdu is the co-founder of the AI Officer Institute and founder of Edge8 AI. He works with Dr. Brooks Holtom (Georgetown University) and David Nilssen to help founders and executives build the leadership capabilities the AI era demands. He is also the founder and board member of EO Vietnam. Dave splits his time between Ho Chi Minh City and Seattle.</em></p>
+                <div class="argument-block">
+                    <h3>If You're an Executive</h3>
+                    <p>The CEO who figures this out first has the advantage. The one who waits gets Dorsey'd: a reactive, painful restructuring forced by competitive pressure instead of strategic choice. That's the alternative to leading this transition yourself.</p>
+                </div>
 
+                <div class="argument-block">
+                    <h3>If You're Building a Career</h3>
+                    <p>"I know how to use AI" is table stakes now. The valuable skill is leading a team where half the contributors aren't human. That's the skill gap nobody's talking about yet. The people who close it first will define the next generation of leadership.</p>
+                </div>
+            </section>
+
+            <!-- Conclusion -->
+            <div class="conclusion-box">
+                <h2>Ready to Lead in the 50/50 Era?</h2>
+                <p>The AI Officer Institute teaches founders and executives how to lead teams where AI is a co-worker, not just a tool. Master the frameworks, the conversations, and the organizational structures that turn AI from a capability into a competitive advantage.</p>
+                <p><strong>The 50/50 Era is here. The companies moving now are building the structures that will define the next decade.</strong> <a href="../../certification.html">Learn more about our certification program</a> and join the leaders reshaping AI-driven organizations.</p>
             </div>
+
+            <!-- Author Note -->
+            <div class="author-note">
+                <div class="author-avatar">DH</div>
+                <div class="author-note-text">
+                    <p><strong>Dave Hajdu</strong> is the co-founder of the AI Officer Institute and founder of Edge8 AI. He works with Dr. Brooks Holtom (Georgetown University) and David Nilssen to help founders and executives build the leadership capabilities the AI era demands. Dave is also founder and board member of EO Vietnam, and splits his time between Ho Chi Minh City and Seattle.</p>
+                </div>
+            </div>
+
         </div>
     </article>
 
     <!-- FAQ Section -->
     <section class="faq-wrapper">
-        <div class="container-narrow">
+        <div class="post-layout">
             <div class="faq-section">
-                <h2 class="faq-section-title">Frequently Asked Questions</h2>
+                <h2>Frequently Asked Questions</h2>
 
                 <div class="faq-item">
-                    <h3 class="faq-question">Why did Block's stock go up 24% after Dorsey cut 40% of the workforce?</h3>
-                    <div class="faq-answer">
-                        <p>Block was already profitable — gross profit hit $2.87B last quarter, up 26% YoY. The market's reaction wasn't about cost-cutting. It was about a new operating model where a significantly smaller team, using AI, can do more and do it better. Investors are pricing in structural efficiency, not just headcount reduction.</p>
-                    </div>
+                    <h3>Why did Block's stock go up 24% after Dorsey cut 40% of the workforce?</h3>
+                    <p>Block was already profitable — gross profit hit $2.87B last quarter, up 26% YoY. The market's reaction wasn't about cost-cutting. It was about a new operating model where a significantly smaller team, using AI, can do more and do it better. Investors are pricing in structural efficiency, not just headcount reduction.</p>
                 </div>
 
                 <div class="faq-item">
-                    <h3 class="faq-question">What is the 50/50 era of leadership?</h3>
-                    <div class="faq-answer">
-                        <p>The 50/50 era means your team isn't just humans anymore. Half your effective workforce will be people. Half will be AI systems. This changes the entire job of leadership — from managing only humans to managing both humans and AI as co-workers on the same team.</p>
-                    </div>
+                    <h3>What is the 50/50 era of leadership?</h3>
+                    <p>The 50/50 era means your team isn't just humans anymore. Half your effective workforce will be people. Half will be AI systems. This changes the entire job of leadership — from managing only humans to managing both humans and AI as co-workers on the same team.</p>
                 </div>
 
                 <div class="faq-item">
-                    <h3 class="faq-question">What is the difference between using AI and leading AI?</h3>
-                    <div class="faq-answer">
-                        <p>Using AI means experimenting with tools — trying ChatGPT, running pilots, adopting software. That was 2025. Leading AI means bringing AI onto your team as a co-worker: deciding who reports to the AI system, who trains it, who is accountable when it makes a bad call, and what it should and shouldn't do. These are leadership questions, not technical ones.</p>
-                    </div>
+                    <h3>What is the difference between using AI and leading AI?</h3>
+                    <p>Using AI means experimenting with tools — trying ChatGPT, running pilots, adopting software. That was 2025. Leading AI means bringing AI onto your team as a co-worker: deciding who reports to the AI system, who trains it, who is accountable when it makes a bad call, and what it should and shouldn't do. These are leadership questions, not technical ones.</p>
                 </div>
 
                 <div class="faq-item">
-                    <h3 class="faq-question">What should founders do about the AI and workforce shift right now?</h3>
-                    <div class="faq-answer">
-                        <p>Look at your org chart and ask how many roles could AI do alongside a smaller, sharper human team — not someday, but this quarter. The companies moving now are building the operational advantage that will be nearly impossible to close later. Dorsey's framing: better to get there honestly on your own terms than be forced into it reactively.</p>
-                    </div>
+                    <h3>What should founders do about the AI and workforce shift right now?</h3>
+                    <p>Look at your org chart and ask how many roles could AI do alongside a smaller, sharper human team — not someday, but this quarter. The companies moving now are building the operational advantage that will be nearly impossible to close later. Dorsey's framing: better to get there honestly on your own terms than be forced into it reactively.</p>
                 </div>
             </div>
         </div>
@@ -282,15 +349,15 @@
 
     <!-- Previous/Next Navigation -->
     <section class="post-nav-wrapper">
-        <div class="container-narrow">
-            <div class="post-nav">
-                <a class="post-nav-card" href="hotel-ai-personalization-guest-experience.html">
+        <div class="post-layout">
+            <div class="post-nav-section">
+                <a class="post-nav-card" href="jack-dorsey-layoffs.html">
                     <div class="post-nav-label">← Previous Post</div>
-                    <h3 class="post-nav-title">The Hotel AI Personalization Gap</h3>
+                    <div class="post-nav-title">Jack Dorsey Layoffs: What 4,000 Cuts Reveal About AI and SaaS</div>
                 </a>
-                <a class="post-nav-card" href="18-entrepreneurial-learnings-worlds-toughest-markets.html">
+                <a class="post-nav-card" href="four-offices-of-the-future.html">
                     <div class="post-nav-label">Next Post →</div>
-                    <h3 class="post-nav-title">18 Entrepreneurial Learnings from the World's Toughest Markets</h3>
+                    <div class="post-nav-title">Four Offices of the Future</div>
                 </a>
             </div>
         </div>

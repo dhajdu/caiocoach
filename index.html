@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>AI Officer Institute — Lead the AI Era</title>
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -11,14 +12,11 @@
   /* ── Extra tokens not in shared/styles.css ── */
   :root {
     --bg-white: #ffffff;
-    --border-hover: #b0b6cc;
     --radius: 10px;
     --ease: cubic-bezier(0.4, 0, 0.2, 1);
     --shadow-sm: 0 1px 3px rgba(4,16,45,0.07);
     --shadow-card-hover: 0 6px 24px rgba(4,16,45,0.10);
     --text-tertiary: #8b91ac;
-    --royal: #287BE8;
-    --fuchsia: #287BE8;
   }
 
   /* ── Topbar extensions ── */
@@ -165,7 +163,7 @@
     background: var(--bg-white); color: var(--text-secondary);
     border: 1px solid var(--border);
   }
-  .btn-outline:hover { border-color: var(--royal); color: var(--royal); }
+  .btn-outline:hover { border-color: var(--blue); color: var(--blue); }
   .btn-sm { padding: 7px 14px; font-size: 12px; }
 
   /* ── Stats row ── */
@@ -205,7 +203,7 @@
   .progress-strip-pct {
     font-family: 'JetBrains Mono', monospace;
     font-size: 13px; font-weight: 700;
-    color: var(--royal);
+    color: var(--blue);
   }
 
   /* ── Progress bars ── */
@@ -218,7 +216,7 @@
     transition: width 0.4s var(--ease);
   }
   .progress-fill.navy  { background: var(--navy); }
-  .progress-fill.royal { background: var(--royal); }
+  .progress-fill.royal { background: var(--blue); }
   .progress-fill.mint  { background: var(--mint-dark); }
 
   /* ── Section header ── */
@@ -244,7 +242,7 @@
     font-size: 13px; color: var(--text-muted);
   }
   .section-meta a { color: var(--text-muted); text-decoration: none; }
-  .section-meta a:hover { color: var(--royal); }
+  .section-meta a:hover { color: var(--blue); }
 
   /* ── Grids ── */
   .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
@@ -291,7 +289,7 @@
     color: var(--text-muted); font-size: 16px;
     transition: all 0.2s var(--ease);
   }
-  .upnext-card:hover .upnext-arrow { color: var(--royal); transform: translateX(3px); }
+  .upnext-card:hover .upnext-arrow { color: var(--blue); transform: translateX(3px); }
 
   /* ── Blog row ── */
   .blog-row {
@@ -358,7 +356,7 @@
   .lb-you {
     font-size: 9px; font-weight: 700; letter-spacing: 0.8px;
     text-transform: uppercase; padding: 2px 7px; border-radius: 4px;
-    background: var(--royal); color: white;
+    background: var(--blue); color: white;
   }
   .lb-detail { font-size: 12px; color: var(--text-muted); min-width: 100px; }
   .lb-pts {
@@ -532,7 +530,7 @@
     padding: 9px 12px; font-size: 13px; color: var(--text-primary);
     font-family: inherit; outline: none; transition: border-color 0.15s;
   }
-  .buddy-input-field:focus { border-color: var(--royal); }
+  .buddy-input-field:focus { border-color: var(--blue); }
   .buddy-input-field::placeholder { color: var(--text-muted); }
   .buddy-send-btn {
     width: 34px; height: 34px; border-radius: 8px;
@@ -540,7 +538,7 @@
     display: flex; align-items: center; justify-content: center;
     color: white; font-size: 14px; transition: background 0.15s; flex-shrink: 0;
   }
-  .buddy-send-btn:hover { background: var(--royal); }
+  .buddy-send-btn:hover { background: var(--blue); }
 
   /* ── Responsive ── */
   @media (max-width: 900px) {
@@ -733,10 +731,10 @@
       <div class="lb-pts">1,320</div>
     </div>
     <div class="leaderboard-row you">
-      <div class="lb-rank" style="color: var(--royal); font-weight: 700;">12</div>
+      <div class="lb-rank" style="color: var(--blue); font-weight: 700;">12</div>
       <div class="lb-name">Dave Hajdu <span class="lb-you">YOU</span></div>
       <span class="lb-cert gen-ai">Generative AI Specialist</span>
-      <div class="lb-pts" style="color: var(--royal);">1,240</div>
+      <div class="lb-pts" style="color: var(--blue);">1,240</div>
     </div>
     <div class="leaderboard-row">
       <div class="lb-rank">13</div>

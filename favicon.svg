@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
+  <rect width="32" height="32" rx="7" fill="#04102D"/>
+  <text x="50%" y="50%" dominant-baseline="central" text-anchor="middle"
+        font-family="system-ui, -apple-system, sans-serif"
+        font-weight="800" font-size="13" letter-spacing="-0.5"
+        fill="#287BE8">AIO</text>
+  <rect x="6" y="23" width="20" height="2" rx="1" fill="#6FF2C1"/>
+</svg>

@@ -347,6 +347,15 @@ p strong { color: var(--text-primary); font-weight: 600; }
 .filter-tab.age.active  { background: #287BE8; }
 .filter-tab.lead.active { background: #1a9e74; }
 
+/* ── SITE CONTAINER — single source of truth for all horizontal alignment ── */
+.site-wrap {
+  max-width: 1060px;
+  margin: 0 auto;
+  padding: 0 40px;
+}
+/* page-main: vertical padding only — site-wrap class handles centering */
+.page-main { padding: 80px 0 100px; }
+
 /* ── PAGE HERO ── */
 .hero {
   background: var(--navy);
@@ -361,7 +370,8 @@ p strong { color: var(--text-primary); font-weight: 600; }
     radial-gradient(ellipse 45% 70% at 5% 85%, rgba(209,69,139,0.18) 0%, transparent 60%),
     radial-gradient(ellipse 30% 50% at 50% 0%, rgba(111,242,193,0.06) 0%, transparent 50%);
 }
-.hero-content { position: relative; max-width: 1060px; margin: 0 auto; padding: 0 40px; }
+/* hero-content inherits alignment from site-wrap — only adds position:relative */
+.hero-content { position: relative; }
 .hero-eyebrow {
   font-size: 10.5px; font-weight: 600; letter-spacing: 0.22em;
   text-transform: uppercase; color: var(--mint);

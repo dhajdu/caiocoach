@@ -428,10 +428,35 @@ p strong { color: var(--text-primary); font-weight: 600; }
 /* When .layout follows .hero, remove its top offset (hero already clears topbar) */
 .hero + .layout { margin-top: 0; }
 
+/* ── NAV TOGGLE (hamburger) ── */
+.nav-toggle {
+  display: none;
+  background: none; border: none; cursor: pointer;
+  color: rgba(255,255,255,0.85); font-size: 22px; line-height: 1;
+  padding: 6px 8px; margin-left: auto; flex-shrink: 0;
+}
+.nav-toggle:focus-visible { outline: 2px solid var(--mint); border-radius: 4px; }
+
 /* ── RESPONSIVE ── */
 @media (max-width: 900px) {
   .sidebar { display: none; }
   .main { margin-left: 0; padding: 32px 24px 80px; }
   .fw-grid, .compare-block { grid-template-columns: 1fr; }
   .topbar-nav { display: none; }
+  .topbar-right { display: none; }
+  .nav-toggle { display: block; }
+
+  /* Mobile nav drawer — activated when .topbar-nav gets .open class */
+  .topbar-nav.open {
+    display: flex !important; flex-direction: column; align-items: stretch;
+    position: fixed; top: 56px; left: 0; right: 0;
+    background: var(--navy); border-top: 1px solid rgba(255,255,255,0.08);
+    padding: 8px 0 16px; z-index: 99;
+    box-shadow: 0 8px 32px rgba(4,16,45,0.4);
+  }
+  .topbar-nav.open .tnav-link {
+    padding: 14px 24px; border-bottom: 1px solid rgba(255,255,255,0.06);
+    font-size: 14px;
+  }
+  .topbar-nav.open .tnav-link:last-child { border-bottom: none; }
 }

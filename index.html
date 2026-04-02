@@ -1,384 +1,627 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-<meta charset="UTF-8">
-<link rel="icon" type="image/svg+xml" href="/favicon.svg">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>CAIO Coach — Lead the AI Era</title>
-<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="shared/styles.css">
-<style>
+  <meta charset="UTF-8">
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CAIO Coach — Lead the AI Era</title>
+  <link
+    href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=JetBrains+Mono:wght@400;500;600;700&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="shared/styles.css">
+  <style>
+    :root {
+      --ease: cubic-bezier(0.4, 0, 0.2, 1);
+      --radius: 12px;
+      --shadow-sm: 0 1px 3px rgba(4, 16, 45, 0.07);
+      --shadow-hover: 0 6px 24px rgba(4, 16, 45, 0.10);
+      --border-hover: #b0b6cc;
+    }
 
-:root {
-  --ease: cubic-bezier(0.4, 0, 0.2, 1);
-  --radius: 12px;
-  --shadow-sm: 0 1px 3px rgba(4,16,45,0.07);
-  --shadow-hover: 0 6px 24px rgba(4,16,45,0.10);
-  --border-hover: #b0b6cc;
-}
-body { background: var(--surface); }
+    body {
+      background: var(--surface);
+    }
 
-/* ── Page layout ── */
-.page-main {
-  max-width: 1000px;
-  margin: 0 auto;
-  padding: 48px 40px 100px;
-}
+    /* ── Page layout ── */
+    .page-main {
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 48px 40px 100px;
+    }
 
-/* ── Section headers ── */
-.section-header {
-  display: flex; align-items: center; gap: 10px;
-  margin: 48px 0 18px;
-}
-.section-pill {
-  display: inline-flex; align-items: center; gap: 6px;
-  font-size: 10px; font-weight: 700; letter-spacing: 0.8px;
-  text-transform: uppercase; padding: 4px 10px;
-  border-radius: 20px; flex-shrink: 0;
-}
-.section-pill .dot { width: 5px; height: 5px; border-radius: 50%; background: currentColor; }
-.section-pill.blue  { background: rgba(40,123,232,0.1); color: #287BE8; border: 1px solid rgba(40,123,232,0.2); }
-.section-pill.mint  { background: rgba(111,242,193,0.15); color: #1a9e74; border: 1px solid rgba(26,158,116,0.2); }
-.section-pill.mag   { background: rgba(209,69,139,0.1); color: #D1458B; border: 1px solid rgba(209,69,139,0.2); }
-.section-title {
-  font-size: 18px; font-weight: 700;
-  color: var(--text-primary); letter-spacing: -0.2px;
-}
-.section-meta { margin-left: auto; font-size: 13px; color: var(--text-muted); }
-.section-meta a { color: var(--text-muted); text-decoration: none; }
-.section-meta a:hover { color: var(--blue); }
+    /* ── Section headers ── */
+    .section-header {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin: 48px 0 18px;
+    }
 
-/* ── About card ── */
-.about-card {
-  background: var(--card-bg);
-  border: 1px solid var(--border);
-  border-radius: var(--radius);
-  padding: 32px 36px;
-  box-shadow: var(--shadow-sm);
-  display: grid;
-  grid-template-columns: 72px 1fr;
-  gap: 28px;
-  align-items: start;
-}
-.about-avatar {
-  width: 72px; height: 72px; border-radius: 50%;
-  background: linear-gradient(135deg, #287BE8, #1A9E74);
-  display: flex; align-items: center; justify-content: center;
-  font-size: 26px; font-weight: 700; color: white;
-  flex-shrink: 0;
-}
-.about-name {
-  font-size: 20px; font-weight: 700;
-  color: var(--text-primary); letter-spacing: -0.3px;
-  margin-bottom: 4px;
-}
-.about-title {
-  font-size: 13px; font-weight: 600;
-  color: var(--blue); margin-bottom: 14px;
-}
-.about-bio {
-  font-size: 14px; color: var(--text-secondary);
-  line-height: 1.7;
-}
-.about-bio p { margin-bottom: 10px; }
-.about-bio p:last-child { margin-bottom: 0; }
-.about-chips {
-  display: flex; flex-wrap: wrap; gap: 8px;
-  margin-top: 16px;
-}
-.about-chip {
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 11px; font-weight: 600;
-  color: var(--text-muted);
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: 6px;
-  padding: 4px 10px;
-}
+    .section-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.8px;
+      text-transform: uppercase;
+      padding: 4px 10px;
+      border-radius: 20px;
+      flex-shrink: 0;
+    }
 
-/* ── Offer cards ── */
-.grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    .section-pill .dot {
+      width: 5px;
+      height: 5px;
+      border-radius: 50%;
+      background: currentColor;
+    }
 
-.offer-card {
-  background: var(--card-bg);
-  border: 1px solid var(--border);
-  border-radius: var(--radius);
-  padding: 28px 30px;
-  box-shadow: var(--shadow-sm);
-}
-.offer-card.featured {
-  border-color: rgba(40,123,232,0.3);
-  background: linear-gradient(160deg, #ffffff 0%, rgba(40,123,232,0.03) 100%);
-}
-.offer-label {
-  font-size: 10px; font-weight: 700; letter-spacing: 1px;
-  text-transform: uppercase; color: #287BE8;
-  margin-bottom: 10px;
-}
-.offer-heading {
-  font-size: 18px; font-weight: 700;
-  color: var(--text-primary); letter-spacing: -0.3px;
-  margin-bottom: 10px;
-}
-.offer-price {
-  display: flex; align-items: baseline; gap: 6px;
-  margin-bottom: 14px;
-}
-.offer-price-num {
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 28px; font-weight: 700;
-  color: var(--text-primary);
-}
-.offer-price-period {
-  font-size: 13px; color: var(--text-muted);
-}
-.offer-desc {
-  font-size: 14px; color: var(--text-secondary);
-  line-height: 1.65; margin-bottom: 18px;
-}
-.offer-list {
-  display: flex; flex-direction: column; gap: 8px;
-  margin-bottom: 22px;
-}
-.offer-item {
-  display: flex; align-items: baseline; gap: 10px;
-  font-size: 13px; color: var(--text-secondary);
-}
-.offer-dot {
-  width: 5px; height: 5px; border-radius: 50%;
-  background: #287BE8; flex-shrink: 0; margin-top: 6px;
-}
-.offer-item.muted .offer-dot { background: var(--text-muted); }
-.offer-item.muted { color: var(--text-muted); }
+    .section-pill.blue {
+      background: rgba(40, 123, 232, 0.1);
+      color: #287BE8;
+      border: 1px solid rgba(40, 123, 232, 0.2);
+    }
 
-.btn-primary {
-  display: inline-flex; align-items: center; gap: 6px;
-  background: var(--navy); color: white;
-  font-family: 'DM Sans', sans-serif;
-  font-size: 14px; font-weight: 600;
-  padding: 11px 22px; border-radius: 8px;
-  text-decoration: none; border: none; cursor: pointer;
-  transition: all 0.15s var(--ease);
-  white-space: nowrap;
-}
-.btn-primary:hover { background: #287BE8; transform: translateY(-1px); }
-.btn-secondary {
-  display: inline-flex; align-items: center; gap: 6px;
-  background: var(--surface); color: var(--text-secondary);
-  font-family: 'DM Sans', sans-serif;
-  font-size: 14px; font-weight: 600;
-  padding: 11px 22px; border-radius: 8px;
-  text-decoration: none; border: 1px solid var(--border); cursor: pointer;
-  transition: all 0.15s var(--ease);
-  white-space: nowrap;
-}
-.btn-secondary:hover { border-color: var(--blue); color: var(--blue); transform: translateY(-1px); }
+    .section-pill.mint {
+      background: rgba(111, 242, 193, 0.15);
+      color: #1a9e74;
+      border: 1px solid rgba(26, 158, 116, 0.2);
+    }
 
-/* ── Post cards ── */
-.posts-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 14px; }
+    .section-pill.mag {
+      background: rgba(209, 69, 139, 0.1);
+      color: #D1458B;
+      border: 1px solid rgba(209, 69, 139, 0.2);
+    }
 
-.post-card {
-  background: var(--card-bg);
-  border: 1px solid var(--border);
-  border-radius: var(--radius);
-  padding: 22px 24px;
-  text-decoration: none; color: inherit;
-  display: flex; flex-direction: column; gap: 10px;
-  box-shadow: var(--shadow-sm);
-  transition: all 0.15s var(--ease);
-}
-.post-card:hover {
-  border-color: rgba(40,123,232,0.3);
-  box-shadow: var(--shadow-hover);
-  transform: translateY(-1px);
-}
-.post-date {
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 11px; color: var(--text-muted);
-}
-.post-title {
-  font-size: 15px; font-weight: 700;
-  color: var(--text-primary); line-height: 1.35;
-  letter-spacing: -0.2px; flex: 1;
-}
-.post-excerpt {
-  font-size: 13px; color: var(--text-secondary);
-  line-height: 1.6;
-}
-.post-arrow {
-  font-size: 13px; color: var(--text-muted);
-  margin-top: 4px; transition: color 0.12s;
-}
-.post-card:hover .post-arrow { color: var(--blue); }
+    .section-title {
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--text-primary);
+      letter-spacing: -0.2px;
+    }
 
-/* ── Page footer ── */
-.page-footer {
-  margin-top: 64px; padding-top: 24px;
-  border-top: 1px solid var(--border);
-  display: flex; align-items: center; justify-content: space-between;
-  font-size: 13px; color: var(--text-muted);
-}
-.page-footer a { color: var(--text-muted); text-decoration: none; }
-.page-footer a:hover { color: var(--blue); }
-.footer-brand { font-weight: 600; color: var(--text-secondary); }
-.footer-brand span { color: var(--blue); }
+    .section-meta {
+      margin-left: auto;
+      font-size: 13px;
+      color: var(--text-muted);
+    }
 
-/* ── Responsive ── */
-@media (max-width: 900px) {
-  .page-main { padding: 32px 20px 80px; }
-  .grid-2 { grid-template-columns: 1fr; }
-  .posts-grid { grid-template-columns: 1fr; }
-  .about-card { grid-template-columns: 1fr; }
-  .topbar-nav { display: none; }
-  .topbar-right { display: none; }
-}
-</style>
+    .section-meta a {
+      color: var(--text-muted);
+      text-decoration: none;
+    }
+
+    .section-meta a:hover {
+      color: var(--blue);
+    }
+
+    /* ── Hero image ── */
+    .hero-img-wrap {
+      position: absolute; top: 0; right: 0;
+      width: 42%; height: 100%; overflow: hidden;
+    }
+    .hero-img-wrap img {
+      width: 100%; height: 100%;
+      object-fit: cover; object-position: center top; opacity: 0.75;
+    }
+    .hero-img-fade {
+      position: absolute; inset: 0;
+      background: linear-gradient(to right, var(--navy) 5%, transparent 55%);
+    }
+
+    /* ── About card ── */
+    .about-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 0;
+      box-shadow: var(--shadow-sm);
+      display: grid;
+      grid-template-columns: 260px 1fr;
+      gap: 0;
+      align-items: stretch;
+      overflow: hidden;
+    }
+
+    .about-photo {
+      width: 100%; height: 100%;
+      min-height: 280px;
+      object-fit: cover; object-position: center top;
+      display: block;
+    }
+
+    .about-body {
+      padding: 32px 36px;
+    }
+
+    .about-name {
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--text-primary);
+      letter-spacing: -0.3px;
+      margin-bottom: 4px;
+    }
+
+    .about-title {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--blue);
+      margin-bottom: 14px;
+    }
+
+    .about-bio {
+      font-size: 14px;
+      color: var(--text-secondary);
+      line-height: 1.7;
+    }
+
+    .about-bio p {
+      margin-bottom: 10px;
+    }
+
+    .about-bio p:last-child {
+      margin-bottom: 0;
+    }
+
+    .about-chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 16px;
+    }
+
+    .about-chip {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--text-muted);
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 4px 10px;
+    }
+
+    /* ── Offer cards ── */
+    .grid-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+
+    .offer-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 28px 30px;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .offer-card.featured {
+      border-color: rgba(40, 123, 232, 0.3);
+      background: linear-gradient(160deg, #ffffff 0%, rgba(40, 123, 232, 0.03) 100%);
+    }
+
+    .offer-label {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      color: #287BE8;
+      margin-bottom: 10px;
+    }
+
+    .offer-heading {
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--text-primary);
+      letter-spacing: -0.3px;
+      margin-bottom: 10px;
+    }
+
+    .offer-price {
+      display: flex;
+      align-items: baseline;
+      gap: 6px;
+      margin-bottom: 14px;
+    }
+
+    .offer-price-num {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 28px;
+      font-weight: 700;
+      color: var(--text-primary);
+    }
+
+    .offer-price-period {
+      font-size: 13px;
+      color: var(--text-muted);
+    }
+
+    .offer-desc {
+      font-size: 14px;
+      color: var(--text-secondary);
+      line-height: 1.65;
+      margin-bottom: 18px;
+    }
+
+    .offer-list {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      margin-bottom: 22px;
+    }
+
+    .offer-item {
+      display: flex;
+      align-items: baseline;
+      gap: 10px;
+      font-size: 13px;
+      color: var(--text-secondary);
+    }
+
+    .offer-dot {
+      width: 5px;
+      height: 5px;
+      border-radius: 50%;
+      background: #287BE8;
+      flex-shrink: 0;
+      margin-top: 6px;
+    }
+
+    .offer-item.muted .offer-dot {
+      background: var(--text-muted);
+    }
+
+    .offer-item.muted {
+      color: var(--text-muted);
+    }
+
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: var(--navy);
+      color: white;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 14px;
+      font-weight: 600;
+      padding: 11px 22px;
+      border-radius: 8px;
+      text-decoration: none;
+      border: none;
+      cursor: pointer;
+      transition: all 0.15s var(--ease);
+      white-space: nowrap;
+    }
+
+    .btn-primary:hover {
+      background: #287BE8;
+      transform: translateY(-1px);
+    }
+
+    .btn-secondary {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: var(--surface);
+      color: var(--text-secondary);
+      font-family: 'DM Sans', sans-serif;
+      font-size: 14px;
+      font-weight: 600;
+      padding: 11px 22px;
+      border-radius: 8px;
+      text-decoration: none;
+      border: 1px solid var(--border);
+      cursor: pointer;
+      transition: all 0.15s var(--ease);
+      white-space: nowrap;
+    }
+
+    .btn-secondary:hover {
+      border-color: var(--blue);
+      color: var(--blue);
+      transform: translateY(-1px);
+    }
+
+    /* ── Post cards ── */
+    .posts-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 14px;
+    }
+
+    .post-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 22px 24px;
+      text-decoration: none;
+      color: inherit;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      box-shadow: var(--shadow-sm);
+      transition: all 0.15s var(--ease);
+    }
+
+    .post-card:hover {
+      border-color: rgba(40, 123, 232, 0.3);
+      box-shadow: var(--shadow-hover);
+      transform: translateY(-1px);
+    }
+
+    .post-date {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      color: var(--text-muted);
+    }
+
+    .post-title {
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--text-primary);
+      line-height: 1.35;
+      letter-spacing: -0.2px;
+      flex: 1;
+    }
+
+    .post-excerpt {
+      font-size: 13px;
+      color: var(--text-secondary);
+      line-height: 1.6;
+    }
+
+    .post-arrow {
+      font-size: 13px;
+      color: var(--text-muted);
+      margin-top: 4px;
+      transition: color 0.12s;
+    }
+
+    .post-card:hover .post-arrow {
+      color: var(--blue);
+    }
+
+    /* ── Page footer ── */
+    .page-footer {
+      margin-top: 64px;
+      padding-top: 24px;
+      border-top: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 13px;
+      color: var(--text-muted);
+    }
+
+    .page-footer a {
+      color: var(--text-muted);
+      text-decoration: none;
+    }
+
+    .page-footer a:hover {
+      color: var(--blue);
+    }
+
+    .footer-brand {
+      font-weight: 600;
+      color: var(--text-secondary);
+    }
+
+    .footer-brand span {
+      color: var(--blue);
+    }
+
+    /* ── Responsive ── */
+    @media (max-width: 900px) {
+      .page-main {
+        padding: 32px 20px 80px;
+      }
+
+      .grid-2 {
+        grid-template-columns: 1fr;
+      }
+
+      .posts-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .about-card {
+        grid-template-columns: 1fr;
+      }
+
+      .topbar-nav {
+        display: none;
+      }
+
+      .topbar-right {
+        display: none;
+      }
+    }
+  </style>
 </head>
+
 <body>
 
-<!-- ═══════════════════════════════════════════ -->
-<!-- TOPBAR                                      -->
-<!-- ═══════════════════════════════════════════ -->
-<div class="topbar">
-  <a href="index.html" class="topbar-brand">CAIO <span>Coach</span></a>
-  <button class="nav-toggle" id="navToggle" onclick="var n=this.closest('div.topbar').querySelector('.topbar-nav');n.classList.toggle('open');this.textContent=n.classList.contains('open')?'✕':'☰';" aria-label="Toggle navigation">☰</button>
-  <nav class="topbar-nav">
-    <a href="coaching.html" class="tnav-link"><span class="tnav-dot" style="background:#287BE8"></span> Coaching</a>
-    <a href="blog/index.html" class="tnav-link"><span class="tnav-dot" style="background:#6FF2C1"></span> Thought Leadership</a>
-    <a href="certification.html" class="tnav-link"><span class="tnav-dot" style="background:#D1458B"></span> Certification</a>
-    <a href="community.html" class="tnav-link"><span class="tnav-dot" style="background:#1A9E74"></span> Community</a>
-  </nav>
-</div>
+  <!-- ═══════════════════════════════════════════ -->
+  <!-- TOPBAR                                      -->
+  <!-- ═══════════════════════════════════════════ -->
+  <div class="topbar">
+    <a href="index.html" class="topbar-brand">CAIO <span>Coach</span></a>
+    <button class="nav-toggle" id="navToggle"
+      onclick="var n=this.closest('div.topbar').querySelector('.topbar-nav');n.classList.toggle('open');this.textContent=n.classList.contains('open')?'✕':'☰';"
+      aria-label="Toggle navigation">☰</button>
+    <nav class="topbar-nav">
+      <a href="coaching.html" class="tnav-link"><span class="tnav-dot" style="background:#287BE8"></span> Coaching</a>
+      <a href="blog/index.html" class="tnav-link"><span class="tnav-dot" style="background:#6FF2C1"></span> Thought
+        Leadership</a>
+      <a href="certification.html" class="tnav-link"><span class="tnav-dot" style="background:#D1458B"></span>
+        Certification</a>
+      <a href="community.html" class="tnav-link"><span class="tnav-dot" style="background:#1A9E74"></span> Community</a>
+    </nav>
+  </div>
 
-<!-- ═══════════════════════════════════════════ -->
-<!-- HERO                                        -->
-<!-- ═══════════════════════════════════════════ -->
-<section class="hero">
-  <div class="hero-content site-wrap">
-    <p class="hero-eyebrow">CAIO Coach &middot; Dave Hajdu</p>
-    <h1>Lead the Other<br><span class="accent">50%</span></h1>
-    <p class="hero-subtitle">You already know how to lead people. Now master the other half of every modern workflow — AI. Weekly live coaching, real strategies, no theory.</p>
-    <div class="hero-pills">
-      <span class="pill pill-navy">Weekly Live Sessions</span>
-      <span class="pill pill-navy">$99 / month</span>
-      <a href="coaching.html" class="pill pill-blue">Start Coaching →</a>
+  <!-- ═══════════════════════════════════════════ -->
+  <!-- HERO                                        -->
+  <!-- ═══════════════════════════════════════════ -->
+  <section class="hero" style="position:relative;overflow:hidden;">
+    <div class="hero-img-wrap">
+      <img src="images/dave-coaching-room.webp" alt="Dave Hajdu coaching executives on AI leadership">
+      <div class="hero-img-fade"></div>
     </div>
-  </div>
-</section>
-
-<!-- ═══════════════════════════════════════════ -->
-<!-- PAGE MAIN                                   -->
-<!-- ═══════════════════════════════════════════ -->
-<main class="page-main site-wrap">
-
-  <!-- ── ABOUT DAVE ── -->
-  <div class="section-header">
-    <span class="section-pill blue"><span class="dot"></span> Your Coach</span>
-    <span class="section-title">Dave Hajdu</span>
-  </div>
-
-  <div class="about-card">
-    <div class="about-avatar">DH</div>
-    <div>
-      <div class="about-name">Dave Hajdu</div>
-      <div class="about-title">Founder &amp; Chief AI Officer, Edge8 AI</div>
-      <div class="about-bio">
-        <p>I raised $9.5 million for TINYpulse. Had Baseline Venture Capital behind us, a real board, and a real team. And for most of that journey, I couldn't tell you the difference between a repository and a folder.</p>
-        <p>That wasn't laziness. That was just how it worked — until AI made it inefficient. Now every executive faces the same inflection point I did. The wall between leadership and the technical side of the business is coming down, whether you're ready or not.</p>
-        <p>I coach leaders to get ready. Not to code. Not to become data scientists. To lead the AI half of every workflow they're already responsible for.</p>
-      </div>
-      <div class="about-chips">
-        <span class="about-chip">TINYpulse · $9.5M raised</span>
-        <span class="about-chip">Microsoft Alumni</span>
-        <span class="about-chip">Founder, Edge8 AI</span>
-        <span class="about-chip">Global Faculty, EOVietnam</span>
+    <div class="hero-content site-wrap" style="position:relative;z-index:1;">
+      <p class="hero-eyebrow">CAIO Coach &middot; Dave Hajdu</p>
+      <h1>Lead the Other <span class="accent">50%</span></h1>
+      <p class="hero-subtitle">You already know how to lead people. Now master the other half of every modern workflow — AI. Weekly live coaching, real strategies, no theory.</p>
+      <div class="hero-pills">
+        <span class="pill pill-navy">Weekly Live Sessions</span>
+        <span class="pill pill-navy">$99 / month</span>
+        <a href="coaching.html" class="pill pill-blue">Start Coaching →</a>
       </div>
     </div>
-  </div>
+  </section>
 
-  <!-- ── COACHING OFFER ── -->
-  <div class="section-header">
-    <span class="section-pill blue"><span class="dot"></span> How It Works</span>
-    <span class="section-title">The Coaching Program</span>
-  </div>
+  <!-- ═══════════════════════════════════════════ -->
+  <!-- PAGE MAIN                                   -->
+  <!-- ═══════════════════════════════════════════ -->
+  <main class="page-main site-wrap">
 
-  <div class="grid-2">
-
-    <div class="offer-card featured">
-      <div class="offer-label">Group Coaching</div>
-      <div class="offer-heading">Weekly Live Sessions</div>
-      <div class="offer-price">
-        <span class="offer-price-num">$99</span>
-        <span class="offer-price-period">/ month</span>
-      </div>
-      <div class="offer-desc">Each week, members submit the AI challenges they're facing. Dave coaches the top topics live. Anyone can join, ask questions, and get real-time guidance on their specific situation.</div>
-      <div class="offer-list">
-        <div class="offer-item"><div class="offer-dot"></div><span>Weekly live coaching sessions</span></div>
-        <div class="offer-item"><div class="offer-dot"></div><span>Submit your topics and questions</span></div>
-        <div class="offer-item"><div class="offer-dot"></div><span>Access to all micro-sessions and thought leadership</span></div>
-        <div class="offer-item"><div class="offer-dot"></div><span>Community of global AI leaders</span></div>
-        <div class="offer-item"><div class="offer-dot"></div><span>Certification program included</span></div>
-      </div>
-      <a href="coaching.html" class="btn-primary">Join for $99/month →</a>
+    <!-- ── ABOUT DAVE ── -->
+    <div class="section-header">
+      <span class="section-pill blue"><span class="dot"></span> Your Coach</span>
+      <span class="section-title">Dave Hajdu</span>
     </div>
 
-    <div class="offer-card">
-      <div class="offer-label">Private Coaching</div>
-      <div class="offer-heading">One-on-One Sessions</div>
-      <div class="offer-price">
-        <span class="offer-price-num" style="font-size:20px; color: var(--text-muted);">By arrangement</span>
+    <div class="about-card">
+      <img class="about-photo" src="images/dave-speaking.webp" alt="Dave Hajdu — CAIO Coach">
+      <div class="about-body">
+        <div class="about-name">Dave Hajdu</div>
+        <div class="about-title">Founder &amp; Chief AI Officer, Edge8 AI</div>
+        <div class="about-bio">
+          <p>I raised $9.5 million for TINYpulse. Had Baseline Venture Capital behind us, a real board, and a real team. And for most of that journey, I couldn't tell you the difference between a repository and a folder.</p>
+          <p>That wasn't laziness. That was just how it worked — until AI made it inefficient. Now every executive faces the same inflection point I did. The wall between leadership and the technical side of the business is coming down, whether you're ready or not.</p>
+          <p>I coach leaders to get ready. Not to code. Not to become data scientists. To lead the AI half of every workflow they're already responsible for.</p>
+        </div>
+        <div class="about-chips">
+          <span class="about-chip">TINYpulse · $9.5M raised</span>
+          <span class="about-chip">Microsoft Alumni</span>
+          <span class="about-chip">Founder, Edge8 AI</span>
+          <span class="about-chip">Global Faculty, EOVietnam</span>
+        </div>
       </div>
-      <div class="offer-desc">For executives who want focused, private attention on their AI strategy. Dave works directly with you on your roadmap, your team, and your specific business context.</div>
-      <div class="offer-list">
-        <div class="offer-item"><div class="offer-dot"></div><span>Dedicated 1:1 sessions with Dave</span></div>
-        <div class="offer-item"><div class="offer-dot"></div><span>Custom AI roadmap for your organisation</span></div>
-        <div class="offer-item"><div class="offer-dot"></div><span>Team coaching and enablement</span></div>
-        <div class="offer-item muted"><div class="offer-dot"></div><span>Limited availability</span></div>
-      </div>
-      <a href="coaching.html" class="btn-secondary">Enquire About Private Coaching →</a>
     </div>
 
-  </div>
+    <!-- ── COACHING OFFER ── -->
+    <div class="section-header">
+      <span class="section-pill blue"><span class="dot"></span> How It Works</span>
+      <span class="section-title">The Coaching Program</span>
+    </div>
 
-  <!-- ── THOUGHT LEADERSHIP ── -->
-  <div class="section-header" style="margin-top: 56px;">
-    <span class="section-pill mint"><span class="dot"></span> Thought Leadership</span>
-    <span class="section-title">Latest Insights</span>
-    <span class="section-meta"><a href="blog/index.html">View all →</a></span>
-  </div>
+    <div class="grid-2">
 
-  <div class="posts-grid">
+      <div class="offer-card featured">
+        <div class="offer-label">Group Coaching</div>
+        <div class="offer-heading">Weekly Live Sessions</div>
+        <div class="offer-price">
+          <span class="offer-price-num">$99</span>
+          <span class="offer-price-period">/ month</span>
+        </div>
+        <div class="offer-desc">Each week, members submit the AI challenges they're facing. Dave coaches the top topics
+          live. Anyone can join, ask questions, and get real-time guidance on their specific situation.</div>
+        <div class="offer-list">
+          <div class="offer-item">
+            <div class="offer-dot"></div><span>Weekly live coaching sessions</span>
+          </div>
+          <div class="offer-item">
+            <div class="offer-dot"></div><span>Submit your topics and questions</span>
+          </div>
+          <div class="offer-item">
+            <div class="offer-dot"></div><span>Access to all micro-sessions and thought leadership</span>
+          </div>
+          <div class="offer-item">
+            <div class="offer-dot"></div><span>Community of global AI leaders</span>
+          </div>
+          <div class="offer-item">
+            <div class="offer-dot"></div><span>Certification program included</span>
+          </div>
+        </div>
+        <a href="coaching.html" class="btn-primary">Join for $99/month →</a>
+      </div>
 
-    <a href="blog/posts/i-raised-9-5m-and-couldnt-read-my-own-codebase.html" class="post-card">
-      <div class="post-date">Apr 2, 2026</div>
-      <div class="post-title">I Raised $9.5M and Still Couldn't Read My Own Codebase. Then AI Happened.</div>
-      <div class="post-excerpt">The gap between a founder and the developer stack was never a skill gap. It was a guide gap. That guide exists now.</div>
-      <div class="post-arrow">Read →</div>
-    </a>
+      <div class="offer-card">
+        <div class="offer-label">Private Coaching</div>
+        <div class="offer-heading">One-on-One Sessions</div>
+        <div class="offer-price">
+          <span class="offer-price-num" style="font-size:20px; color: var(--text-muted);">By arrangement</span>
+        </div>
+        <div class="offer-desc">For executives who want focused, private attention on their AI strategy. Dave works
+          directly with you on your roadmap, your team, and your specific business context.</div>
+        <div class="offer-list">
+          <div class="offer-item">
+            <div class="offer-dot"></div><span>Dedicated 1:1 sessions with Dave</span>
+          </div>
+          <div class="offer-item">
+            <div class="offer-dot"></div><span>Custom AI roadmap for your organisation</span>
+          </div>
+          <div class="offer-item">
+            <div class="offer-dot"></div><span>Team coaching and enablement</span>
+          </div>
+          <div class="offer-item muted">
+            <div class="offer-dot"></div><span>Limited availability</span>
+          </div>
+        </div>
+        <a href="coaching.html" class="btn-secondary">Enquire About Private Coaching →</a>
+      </div>
 
-    <a href="blog/posts/the-cms-is-dead-ai-killed-it.html" class="post-card">
-      <div class="post-date">Apr 1, 2026</div>
-      <div class="post-title">The CMS Is Dead. AI Killed It.</div>
-      <div class="post-excerpt">Non-technical founders can now control their content and ship like engineers. No WordPress. No plugins. No waiting on developers.</div>
-      <div class="post-arrow">Read →</div>
-    </a>
+    </div>
 
-    <a href="blog/posts/hotel-ai-personalization-guest-experience.html" class="post-card">
-      <div class="post-date">Mar 30, 2026</div>
-      <div class="post-title">The Hotel AI Personalization Gap</div>
-      <div class="post-excerpt">Hotels have more guest data than ever before. They just don't know how to activate it. This is a leadership problem, not a technology problem.</div>
-      <div class="post-arrow">Read →</div>
-    </a>
+    <!-- ── THOUGHT LEADERSHIP ── -->
+    <div class="section-header" style="margin-top: 56px;">
+      <span class="section-pill mint"><span class="dot"></span> Thought Leadership</span>
+      <span class="section-title">Latest Insights</span>
+      <span class="section-meta"><a href="blog/index.html">View all →</a></span>
+    </div>
 
-  </div>
+    <div class="posts-grid">
 
-  <!-- ── FOOTER ── -->
-  <div class="page-footer">
-    <div class="footer-brand">CAIO <span>Coach</span></div>
-    <div>© 2026 Edge8 AI &nbsp;·&nbsp; <a href="community.html">Community</a> &nbsp;·&nbsp; <a href="coaching.html">Coaching</a></div>
-  </div>
+      <a href="blog/posts/i-raised-9-5m-and-couldnt-read-my-own-codebase.html" class="post-card">
+        <div class="post-date">Apr 2, 2026</div>
+        <div class="post-title">I Raised $9.5M and Still Couldn't Read My Own Codebase. Then AI Happened.</div>
+        <div class="post-excerpt">The gap between a founder and the developer stack was never a skill gap. It was a
+          guide gap. That guide exists now.</div>
+        <div class="post-arrow">Read →</div>
+      </a>
 
-</main>
+      <a href="blog/posts/the-cms-is-dead-ai-killed-it.html" class="post-card">
+        <div class="post-date">Apr 1, 2026</div>
+        <div class="post-title">The CMS Is Dead. AI Killed It.</div>
+        <div class="post-excerpt">Non-technical founders can now control their content and ship like engineers. No
+          WordPress. No plugins. No waiting on developers.</div>
+        <div class="post-arrow">Read →</div>
+      </a>
+
+      <a href="blog/posts/hotel-ai-personalization-guest-experience.html" class="post-card">
+        <div class="post-date">Mar 30, 2026</div>
+        <div class="post-title">The Hotel AI Personalization Gap</div>
+        <div class="post-excerpt">Hotels have more guest data than ever before. They just don't know how to activate it.
+          This is a leadership problem, not a technology problem.</div>
+        <div class="post-arrow">Read →</div>
+      </a>
+
+    </div>
+
+    <!-- ── FOOTER ── -->
+    <div class="page-footer">
+      <div class="footer-brand">CAIO <span>Coach</span></div>
+      <div>© 2026 Edge8 AI &nbsp;·&nbsp; <a href="community.html">Community</a> &nbsp;·&nbsp; <a
+          href="coaching.html">Coaching</a></div>
+    </div>
+
+  </main>
 
 </body>
+
 </html>

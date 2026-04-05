@@ -38,7 +38,7 @@ git add -u
 
 echo ""
 echo "📝 Changes to commit:"
-git status --short | grep -v '.DS_Store\|\.claude'
+git status --short | grep -v '.DS_Store\|\.claude' || true
 echo ""
 
 # Commit with timestamp

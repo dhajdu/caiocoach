@@ -325,6 +325,157 @@
       font-size: 14px;
     }
 
+    /* Clickable row cursor */
+    table.clickable-rows tbody tr { cursor: pointer; }
+
+    /* Detail view */
+    .detail-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+      margin-bottom: 16px;
+      flex-wrap: wrap;
+    }
+    .detail-header-left, .detail-header-right {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+    }
+    .detail-position {
+      font-size: 13px;
+      color: var(--text-muted);
+      font-family: 'JetBrains Mono', monospace;
+      min-width: 70px;
+      text-align: center;
+    }
+    .detail-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow-sm);
+      padding: 28px 32px;
+    }
+    .detail-hero {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 20px;
+      padding-bottom: 20px;
+      margin-bottom: 24px;
+      border-bottom: 1px solid var(--border);
+      flex-wrap: wrap;
+    }
+    .detail-hero h2 {
+      font-size: 24px;
+      font-weight: 700;
+      color: var(--text-primary);
+      margin-bottom: 4px;
+      letter-spacing: -0.3px;
+    }
+    .detail-sub {
+      font-size: 13px;
+      color: var(--text-secondary);
+    }
+    .detail-sub a {
+      color: var(--blue);
+      text-decoration: none;
+    }
+    .detail-sub a:hover { text-decoration: underline; }
+    .detail-status-wrap label {
+      display: block;
+      font-size: 11px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--text-muted);
+      margin-bottom: 6px;
+    }
+    .status-inline {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 6px 12px;
+    }
+    .status-inline .status-select {
+      width: auto;
+      min-width: 120px;
+      font-size: 13px;
+      padding: 2px 4px;
+    }
+
+    .detail-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 18px 32px;
+      margin-bottom: 24px;
+    }
+    @media (max-width: 700px) {
+      .detail-grid { grid-template-columns: 1fr; }
+      .detail-card { padding: 20px; }
+    }
+    .detail-item { }
+    .detail-label {
+      font-size: 11px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--text-muted);
+      margin-bottom: 5px;
+    }
+    .detail-value {
+      font-size: 14px;
+      color: var(--text-primary);
+      font-weight: 500;
+    }
+    .detail-value.mono {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 13px;
+    }
+    .detail-value.muted { color: var(--text-muted); font-weight: 400; }
+
+    .detail-block {
+      margin-top: 20px;
+      padding-top: 20px;
+      border-top: 1px solid var(--border);
+    }
+    .detail-longtext {
+      font-size: 14px;
+      color: var(--text-primary);
+      line-height: 1.6;
+      white-space: pre-wrap;
+    }
+    .detail-longtext.muted-empty {
+      color: var(--text-muted);
+      font-style: italic;
+    }
+    .detail-notes {
+      width: 100%;
+      min-height: 90px;
+      font-family: inherit;
+      font-size: 14px;
+      line-height: 1.5;
+      padding: 12px 14px;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      background: var(--surface);
+      color: var(--text-primary);
+      resize: vertical;
+      margin-top: 4px;
+      transition: border-color 0.12s, background 0.12s;
+    }
+    .detail-notes:focus {
+      outline: none;
+      border-color: var(--blue);
+      background: white;
+    }
+    .detail-notes.saving  { background: #fef9c3; border-color: #fde047; }
+    .detail-notes.saved   { background: #dcfce7; border-color: #86efac; }
+    .detail-notes.error   { background: #fef2f2; border-color: #fecaca; }
+
     @media (max-width: 900px) {
       .page { padding: 20px 12px 60px; }
       .toolbar { border-radius: var(--radius); border-bottom: 1px solid var(--border); }
@@ -399,26 +550,71 @@
         </div>
 
         <div class="table-wrap">
-          <table id="participantsTable">
+          <table id="participantsTable" class="clickable-rows">
             <thead>
               <tr>
-                <th data-sort="created_at">Signed up <span class="sort-indicator">↓</span></th>
                 <th data-sort="name">Name <span class="sort-indicator">↕</span></th>
                 <th data-sort="email">Email <span class="sort-indicator">↕</span></th>
                 <th data-sort="role">Role <span class="sort-indicator">↕</span></th>
                 <th data-sort="company">Company <span class="sort-indicator">↕</span></th>
                 <th data-sort="angle">Angle <span class="sort-indicator">↕</span></th>
-                <th data-sort="region">Region <span class="sort-indicator">↕</span></th>
-                <th data-sort="ai_fluency">AI fluency <span class="sort-indicator">↕</span></th>
-                <th data-sort="retreat_date">Retreat <span class="sort-indicator">↕</span></th>
                 <th data-sort="lead_status">Status <span class="sort-indicator">↕</span></th>
-                <th>Goal</th>
-                <th>Notes</th>
               </tr>
             </thead>
             <tbody id="tableBody"></tbody>
           </table>
           <div class="empty-state" id="emptyState" style="display:none;">No participants match your filters.</div>
+        </div>
+      </div>
+
+      <!-- DETAIL VIEW -->
+      <div id="detailView" style="display:none;">
+        <div class="detail-header">
+          <div class="detail-header-left">
+            <button class="btn" id="backBtn" type="button">← Back to list</button>
+          </div>
+          <div class="detail-header-right">
+            <button class="btn" id="prevBtn" type="button">← Previous</button>
+            <span class="detail-position" id="detailPosition"></span>
+            <button class="btn" id="nextBtn" type="button">Next →</button>
+          </div>
+        </div>
+
+        <div class="detail-card">
+          <div class="detail-hero">
+            <div>
+              <h2 id="detailName"></h2>
+              <div class="detail-sub"><a id="detailEmail" href="#"></a> · <span class="muted" id="detailCreated"></span></div>
+            </div>
+            <div class="detail-status-wrap">
+              <label for="detailStatus">Status</label>
+              <div class="status-inline">
+                <span class="status-dot" id="detailStatusDot"></span>
+                <select id="detailStatus" class="status-select"></select>
+              </div>
+            </div>
+          </div>
+
+          <div class="detail-grid">
+            <div class="detail-item"><div class="detail-label">Role</div><div class="detail-value" id="detailRole"></div></div>
+            <div class="detail-item"><div class="detail-label">Company</div><div class="detail-value" id="detailCompany"></div></div>
+            <div class="detail-item"><div class="detail-label">Angle</div><div class="detail-value" id="detailAngle"></div></div>
+            <div class="detail-item"><div class="detail-label">Region</div><div class="detail-value" id="detailRegion"></div></div>
+            <div class="detail-item"><div class="detail-label">AI fluency</div><div class="detail-value" id="detailAiFluency"></div></div>
+            <div class="detail-item"><div class="detail-label">Retreat date</div><div class="detail-value mono" id="detailRetreatDate"></div></div>
+            <div class="detail-item"><div class="detail-label">Waitlist (Jun 19–21)</div><div class="detail-value" id="detailWaitlistJune"></div></div>
+            <div class="detail-item"><div class="detail-label">Notify next session</div><div class="detail-value" id="detailNotifyNext"></div></div>
+          </div>
+
+          <div class="detail-block">
+            <div class="detail-label">Goal</div>
+            <div class="detail-longtext" id="detailGoal"></div>
+          </div>
+
+          <div class="detail-block">
+            <div class="detail-label">Notes <span class="muted" style="font-weight:400;">(click to edit)</span></div>
+            <textarea id="detailNotes" class="detail-notes" placeholder="Add a note about this person…"></textarea>
+          </div>
         </div>
       </div>
 
@@ -603,86 +799,211 @@
       }
 
       function renderRow(r) {
-        const date = r.created_at ? new Date(r.created_at).toLocaleDateString(undefined, {
-          month: 'short', day: 'numeric', year: 'numeric'
-        }) : '';
-        const statusOptions = STATUS_OPTIONS.map(s =>
-          `<option value="${s}"${s === r.lead_status ? ' selected' : ''}>${s}</option>`
-        ).join('');
         const angle = r.angle ? `<span class="pill-mini">${escapeHtml(r.angle)}</span>` : '';
-        const region = r.region ? `<span class="pill-mini">${escapeHtml(r.region.replace(/_/g, ' '))}</span>` : '';
-        const aiFluency = r.ai_fluency ? `<span class="pill-mini">${escapeHtml(r.ai_fluency.replace(/_/g, ' '))}</span>` : '';
         const role = r.role ? `<span class="pill-mini">${escapeHtml(r.role)}</span>` : '';
+        const status = r.lead_status || 'new';
 
         return `
-          <tr data-id="${r.id}">
-            <td class="nowrap muted">${escapeHtml(date)}</td>
+          <tr data-id="${escapeHtml(r.id)}">
             <td class="nowrap"><strong>${escapeHtml(r.name || '')}</strong></td>
-            <td class="nowrap"><a href="mailto:${escapeHtml(r.email || '')}">${escapeHtml(r.email || '')}</a></td>
+            <td class="nowrap">${escapeHtml(r.email || '')}</td>
             <td>${role}</td>
             <td>${escapeHtml(r.company || '')}</td>
             <td>${angle}</td>
-            <td>${region}</td>
-            <td>${aiFluency}</td>
-            <td class="mono nowrap">${escapeHtml(r.retreat_date || '')}</td>
-            <td>
-              <span class="status-dot status-${escapeHtml(r.lead_status || 'new')}"></span>
-              <select class="status-select" data-field="lead_status">
-                ${statusOptions}
-              </select>
+            <td class="nowrap">
+              <span class="status-dot status-${escapeHtml(status)}"></span>
+              <span class="pill-mini">${escapeHtml(status)}</span>
             </td>
-            <td class="muted">${escapeHtml(r.goal || '')}</td>
-            <td><input type="text" class="notes-input" data-field="notes" value="${escapeHtml(r.notes || '')}" placeholder="Add note…"></td>
           </tr>
         `;
       }
 
       function wireInlineEditors() {
-        document.querySelectorAll('.status-select').forEach(el => {
-          el.addEventListener('change', onEditableChange);
-        });
-        document.querySelectorAll('.notes-input').forEach(el => {
-          el.addEventListener('blur', onEditableChange);
-          el.addEventListener('keydown', (e) => {
-            if (e.key === 'Enter') { e.preventDefault(); el.blur(); }
+        document.querySelectorAll('#tableBody tr').forEach(tr => {
+          tr.addEventListener('click', () => {
+            const id = tr.getAttribute('data-id');
+            openDetail(id);
           });
         });
       }
 
-      async function onEditableChange(e) {
-        const el = e.currentTarget;
-        const tr = el.closest('tr');
-        const id = tr.getAttribute('data-id');
-        const field = el.getAttribute('data-field');
-        const value = el.value;
+      // ── Detail view ───────────────────────────────
+      const detailView    = document.getElementById('detailView');
+      const backBtn       = document.getElementById('backBtn');
+      const prevBtn       = document.getElementById('prevBtn');
+      const nextBtn       = document.getElementById('nextBtn');
+      const detailPosition = document.getElementById('detailPosition');
+      const detailName    = document.getElementById('detailName');
+      const detailEmail   = document.getElementById('detailEmail');
+      const detailCreated = document.getElementById('detailCreated');
+      const detailRole    = document.getElementById('detailRole');
+      const detailCompany = document.getElementById('detailCompany');
+      const detailAngle   = document.getElementById('detailAngle');
+      const detailRegion  = document.getElementById('detailRegion');
+      const detailAiFluency = document.getElementById('detailAiFluency');
+      const detailRetreatDate = document.getElementById('detailRetreatDate');
+      const detailWaitlistJune = document.getElementById('detailWaitlistJune');
+      const detailNotifyNext = document.getElementById('detailNotifyNext');
+      const detailGoal    = document.getElementById('detailGoal');
+      const detailNotes   = document.getElementById('detailNotes');
+      const detailStatus  = document.getElementById('detailStatus');
+      const detailStatusDot = document.getElementById('detailStatusDot');
 
-        // Don't save unchanged notes
-        const row = allRows.find(r => r.id === id);
-        if (row && row[field] === value) return;
-        if (row && field === 'notes' && (row.notes || '') === value) return;
+      // Populate the status dropdown once
+      detailStatus.innerHTML = STATUS_OPTIONS.map(s => `<option value="${s}">${s}</option>`).join('');
 
-        el.classList.remove('saved', 'error');
-        el.classList.add('saving');
+      let currentDetailList = [];  // snapshot of ids at time of open
+      let currentDetailIdx = -1;
 
-        const { error } = await sb.from(TABLE).update({ [field]: value }).eq('id', id);
+      function openDetail(id) {
+        const rows = getFilteredSortedRows();
+        currentDetailList = rows.map(r => r.id);
+        currentDetailIdx = currentDetailList.indexOf(id);
+        if (currentDetailIdx === -1) return;
+        renderDetail();
+        appView.style.display = 'none';
+        detailView.style.display = 'block';
+        window.scrollTo({ top: 0, behavior: 'instant' in window ? 'instant' : 'auto' });
+      }
 
-        el.classList.remove('saving');
-        if (error) {
-          console.error(error);
-          el.classList.add('error');
-          setTimeout(() => el.classList.remove('error'), 2000);
-          return;
+      function closeDetail() {
+        detailView.style.display = 'none';
+        appView.style.display = 'block';
+        currentDetailIdx = -1;
+      }
+
+      function renderDetail() {
+        const id = currentDetailList[currentDetailIdx];
+        const r = allRows.find(x => x.id === id);
+        if (!r) { closeDetail(); return; }
+
+        detailName.textContent   = r.name || '(no name)';
+        detailEmail.textContent  = r.email || '';
+        detailEmail.href         = r.email ? 'mailto:' + r.email : '#';
+        detailCreated.textContent = r.created_at
+          ? 'Signed up ' + new Date(r.created_at).toLocaleString(undefined, {
+              month: 'short', day: 'numeric', year: 'numeric', hour: '2-digit', minute: '2-digit'
+            })
+          : '';
+
+        setValue(detailRole,       r.role);
+        setValue(detailCompany,    r.company);
+        setValue(detailAngle,      r.angle);
+        setValue(detailRegion,     r.region ? r.region.replace(/_/g, ' ') : '');
+        setValue(detailAiFluency,  r.ai_fluency ? r.ai_fluency.replace(/_/g, ' ') : '');
+        setValue(detailRetreatDate, r.retreat_date);
+        detailWaitlistJune.textContent = r.waitlist_june ? 'Yes' : 'No';
+        detailNotifyNext.textContent  = r.notify_next_session ? 'Yes' : 'No';
+
+        if (r.goal && r.goal.trim()) {
+          detailGoal.textContent = r.goal;
+          detailGoal.classList.remove('muted-empty');
+        } else {
+          detailGoal.textContent = 'No goal shared.';
+          detailGoal.classList.add('muted-empty');
         }
-        if (row) row[field] = value;
-        el.classList.add('saved');
-        setTimeout(() => el.classList.remove('saved'), 1200);
 
-        // Update status dot color on status change
-        if (field === 'lead_status') {
-          const dot = tr.querySelector('.status-dot');
-          if (dot) dot.className = 'status-dot status-' + value;
+        detailNotes.value = r.notes || '';
+        detailNotes.classList.remove('saving', 'saved', 'error');
+
+        const status = r.lead_status || 'new';
+        detailStatus.value = status;
+        detailStatusDot.className = 'status-dot status-' + status;
+
+        // Nav state
+        detailPosition.textContent = (currentDetailIdx + 1) + ' of ' + currentDetailList.length;
+        prevBtn.disabled = currentDetailIdx <= 0;
+        nextBtn.disabled = currentDetailIdx >= currentDetailList.length - 1;
+        prevBtn.style.opacity = prevBtn.disabled ? '0.4' : '1';
+        nextBtn.style.opacity = nextBtn.disabled ? '0.4' : '1';
+      }
+
+      function setValue(el, v) {
+        if (v == null || v === '') {
+          el.textContent = '—';
+          el.classList.add('muted');
+        } else {
+          el.textContent = v;
+          el.classList.remove('muted');
         }
       }
+
+      backBtn.addEventListener('click', closeDetail);
+      prevBtn.addEventListener('click', () => {
+        if (currentDetailIdx > 0) {
+          currentDetailIdx--;
+          renderDetail();
+          window.scrollTo({ top: 0, behavior: 'instant' in window ? 'instant' : 'auto' });
+        }
+      });
+      nextBtn.addEventListener('click', () => {
+        if (currentDetailIdx < currentDetailList.length - 1) {
+          currentDetailIdx++;
+          renderDetail();
+          window.scrollTo({ top: 0, behavior: 'instant' in window ? 'instant' : 'auto' });
+        }
+      });
+
+      // Keyboard nav in detail view
+      document.addEventListener('keydown', (e) => {
+        if (detailView.style.display !== 'block') return;
+        // don't hijack arrow keys while typing in notes
+        if (e.target === detailNotes) return;
+        if (e.key === 'ArrowLeft' && !prevBtn.disabled) prevBtn.click();
+        else if (e.key === 'ArrowRight' && !nextBtn.disabled) nextBtn.click();
+        else if (e.key === 'Escape') closeDetail();
+      });
+
+      // Inline edit: status dropdown in detail view
+      detailStatus.addEventListener('change', async () => {
+        const id = currentDetailList[currentDetailIdx];
+        const row = allRows.find(r => r.id === id);
+        if (!row) return;
+        const newStatus = detailStatus.value;
+        if (row.lead_status === newStatus) return;
+
+        detailStatus.classList.remove('saved', 'error');
+        detailStatus.classList.add('saving');
+
+        const { error } = await sb.from(TABLE).update({ lead_status: newStatus }).eq('id', id);
+
+        detailStatus.classList.remove('saving');
+        if (error) {
+          console.error(error);
+          detailStatus.classList.add('error');
+          setTimeout(() => detailStatus.classList.remove('error'), 2000);
+          return;
+        }
+        row.lead_status = newStatus;
+        detailStatusDot.className = 'status-dot status-' + newStatus;
+        detailStatus.classList.add('saved');
+        setTimeout(() => detailStatus.classList.remove('saved'), 1200);
+      });
+
+      // Inline edit: notes in detail view
+      detailNotes.addEventListener('blur', async () => {
+        const id = currentDetailList[currentDetailIdx];
+        const row = allRows.find(r => r.id === id);
+        if (!row) return;
+        const newNotes = detailNotes.value;
+        if ((row.notes || '') === newNotes) return;
+
+        detailNotes.classList.remove('saved', 'error');
+        detailNotes.classList.add('saving');
+
+        const { error } = await sb.from(TABLE).update({ notes: newNotes }).eq('id', id);
+
+        detailNotes.classList.remove('saving');
+        if (error) {
+          console.error(error);
+          detailNotes.classList.add('error');
+          setTimeout(() => detailNotes.classList.remove('error'), 2000);
+          return;
+        }
+        row.notes = newNotes;
+        detailNotes.classList.add('saved');
+        setTimeout(() => detailNotes.classList.remove('saved'), 1200);
+      });
 
       // ── Sorting ───────────────────────────────────
       document.querySelectorAll('th[data-sort]').forEach(th => {

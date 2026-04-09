@@ -802,6 +802,9 @@
         const angle = r.angle ? `<span class="pill-mini">${escapeHtml(r.angle)}</span>` : '';
         const role = r.role ? `<span class="pill-mini">${escapeHtml(r.role)}</span>` : '';
         const status = r.lead_status || 'new';
+        const statusOptions = STATUS_OPTIONS.map(s =>
+          `<option value="${s}"${s === status ? ' selected' : ''}>${s}</option>`
+        ).join('');
 
         return `
           <tr data-id="${escapeHtml(r.id)}">
@@ -810,21 +813,58 @@
             <td>${role}</td>
             <td>${escapeHtml(r.company || '')}</td>
             <td>${angle}</td>
-            <td class="nowrap">
+            <td class="nowrap no-row-click">
               <span class="status-dot status-${escapeHtml(status)}"></span>
-              <span class="pill-mini">${escapeHtml(status)}</span>
+              <select class="status-select" data-field="lead_status">
+                ${statusOptions}
+              </select>
             </td>
           </tr>
         `;
       }
 
       function wireInlineEditors() {
+        // Row click → detail view (ignored for cells inside .no-row-click)
         document.querySelectorAll('#tableBody tr').forEach(tr => {
-          tr.addEventListener('click', () => {
+          tr.addEventListener('click', (e) => {
+            if (e.target.closest('.no-row-click')) return;
             const id = tr.getAttribute('data-id');
             openDetail(id);
           });
         });
+
+        // Inline status dropdown
+        document.querySelectorAll('#tableBody .status-select').forEach(el => {
+          el.addEventListener('click', (e) => e.stopPropagation());
+          el.addEventListener('change', onListStatusChange);
+        });
+      }
+
+      async function onListStatusChange(e) {
+        const el = e.currentTarget;
+        const tr = el.closest('tr');
+        const id = tr.getAttribute('data-id');
+        const newStatus = el.value;
+        const row = allRows.find(r => r.id === id);
+        if (!row || row.lead_status === newStatus) return;
+
+        el.classList.remove('saved', 'error');
+        el.classList.add('saving');
+
+        const { error } = await sb.from(TABLE).update({ lead_status: newStatus }).eq('id', id);
+
+        el.classList.remove('saving');
+        if (error) {
+          console.error(error);
+          el.classList.add('error');
+          setTimeout(() => el.classList.remove('error'), 2000);
+          return;
+        }
+        row.lead_status = newStatus;
+        const dot = tr.querySelector('.status-dot');
+        if (dot) dot.className = 'status-dot status-' + newStatus;
+        el.classList.add('saved');
+        setTimeout(() => el.classList.remove('saved'), 1200);
       }
 
       // ── Detail view ───────────────────────────────

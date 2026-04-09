@@ -5,13 +5,13 @@
   <meta charset="UTF-8">
   <link rel="icon" type="image/svg+xml" href="/favicon.svg">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Infinite Leverage Retreat — CAIO Coach</title>
+  <title>Infinite Leverage Retreat | CAIO Coach</title>
   <meta name="description"
-    content="An intimate 3-day, 2-night founders retreat in Saigon — June 19–21, 2026. Get infinite leverage with agentic AI. Capped at 20 seats.">
+    content="An intimate 3-day, 2-night founders retreat in Nha Trang, June 19 to 21, 2026. Get infinite leverage with agentic AI. Capped at 30 seats.">
   <!-- Open Graph -->
-  <meta property="og:title" content="Infinite Leverage Retreat — CAIO Coach">
+  <meta property="og:title" content="Infinite Leverage Retreat | CAIO Coach">
   <meta property="og:description"
-    content="June 19–21, 2026 in Saigon. Twenty seats. Walk in with an idea, walk out with a working agent stack.">
+    content="June 19 to 21, 2026 in Nha Trang. Thirty seats. Walk in with an idea, walk out with working agents.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://www.caiocoach.com/retreat.html">
   <meta property="og:image" content="https://www.caiocoach.com/images/og-image.jpg">
@@ -19,9 +19,9 @@
   <meta property="og:image:height" content="630">
   <!-- Twitter Card -->
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Infinite Leverage Retreat — CAIO Coach">
+  <meta name="twitter:title" content="Infinite Leverage Retreat | CAIO Coach">
   <meta name="twitter:description"
-    content="June 19–20, 2026 in Saigon. Twenty seats. Walk in with an idea, walk out with a working agent stack.">
+    content="June 19 to 20, 2026 in Nha Trang. Thirty seats. Walk in with an idea, walk out with working agents.">
   <meta name="twitter:image" content="https://www.caiocoach.com/images/og-image.jpg">
   <link
     href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=JetBrains+Mono:wght@400;500;600;700&display=swap"
@@ -38,7 +38,7 @@
 
     body { background: var(--surface); }
 
-    /* max-width and centering are handled by site-wrap — only vertical padding here */
+    /* max-width and centering are handled by site-wrap, only vertical padding here */
     .page-main { padding: 48px 0 100px; }
 
     /* ── Section headers ── */
@@ -152,6 +152,71 @@
       display: flex;
       align-items: center;
       gap: 6px;
+    }
+
+    /* Nha Trang location strip (under hero) */
+    .location-strip {
+      position: relative;
+      width: 100%;
+      height: 340px;
+      overflow: hidden;
+      background: var(--navy);
+    }
+    .location-strip img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center 55%;
+      display: block;
+    }
+    .location-strip-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, rgba(4,16,45,0.35) 0%, rgba(4,16,45,0) 35%, rgba(4,16,45,0) 65%, rgba(4,16,45,0.55) 100%);
+      pointer-events: none;
+    }
+    .location-strip-caption {
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 20px;
+      text-align: center;
+      color: white;
+      font-size: 14px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      font-weight: 500;
+      text-shadow: 0 1px 2px rgba(0,0,0,0.4);
+    }
+    @media (max-width: 900px) {
+      .location-strip { height: 220px; }
+    }
+
+    /* Student gallery */
+    .student-gallery {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 12px;
+      margin: 24px 0 8px;
+    }
+    .student-gallery-item {
+      position: relative;
+      aspect-ratio: 4 / 5;
+      border-radius: var(--radius);
+      overflow: hidden;
+      background: var(--navy);
+      box-shadow: var(--shadow-sm);
+    }
+    .student-gallery-item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.4s var(--ease);
+    }
+    .student-gallery-item:hover img { transform: scale(1.03); }
+    @media (max-width: 900px) {
+      .student-gallery { grid-template-columns: repeat(2, 1fr); }
     }
 
     /* Fun callout strip */
@@ -310,6 +375,7 @@
     }
     .form-field input[type="text"],
     .form-field input[type="email"],
+    .form-field select,
     .form-field textarea {
       background: var(--surface);
       border: 1px solid var(--border);
@@ -321,6 +387,7 @@
       transition: border-color 0.12s, background 0.12s;
     }
     .form-field input:focus,
+    .form-field select:focus,
     .form-field textarea:focus {
       outline: none;
       border-color: #287BE8;
@@ -329,6 +396,9 @@
     .form-field textarea { resize: vertical; min-height: 90px; line-height: 1.5; }
 
     .radio-group { display: flex; flex-wrap: wrap; gap: 8px; }
+    .radio-group.stacked { flex-direction: column; flex-wrap: nowrap; gap: 10px; }
+    .radio-group.stacked .radio-option { width: 100%; }
+    .radio-group.stacked .radio-option label { width: 100%; display: block; text-align: left; white-space: normal; }
     .radio-option { position: relative; }
     .radio-option input[type="radio"] { position: absolute; opacity: 0; pointer-events: none; }
     .radio-option label {
@@ -356,7 +426,7 @@
       box-shadow: 0 0 0 3px rgba(40, 123, 232, 0.2);
     }
 
-    /* Checkboxes — side by side */
+    /* Checkboxes, side by side */
     .checkbox-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
@@ -473,14 +543,23 @@
     <div class="hero-content site-wrap">
       <p class="hero-eyebrow">CAIO Coach &middot; Founders Retreat</p>
       <h1>The <span style="color:#6FF2C1">Infinite Leverage</span> Retreat</h1>
-      <p class="hero-subtitle">Three days in Saigon — June 19–21, 2026 — to get infinite leverage with agentic AI. Whether you're building an AI-first company or reinventing a department with agents, walk in with the idea and walk out with the working stack.</p>
+      <p class="hero-subtitle">Three days in Nha Trang, June 19 to 21, 2026, to get infinite leverage with agentic AI. Whether you're starting a new AI-first company or re-imagining how a department operates, walk in with the idea and walk out with working agents.</p>
       <div class="hero-pills">
-        <span class="pill pill-mint">Saigon · June 19–21, 2026</span>
+        <span class="pill pill-mint">Nha Trang · June 19 to 21, 2026</span>
         <span class="pill pill-navy">3 days · 2 nights</span>
-        <span class="pill pill-navy">20 seats</span>
+        <span class="pill pill-navy">30 seats</span>
         <a href="#waitlist" class="pill pill-blue">Join the waitlist →</a>
       </div>
     </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════ -->
+  <!-- LOCATION STRIP (Nha Trang)                  -->
+  <!-- ═══════════════════════════════════════════ -->
+  <section class="location-strip" aria-label="Nha Trang, Vietnam">
+    <img src="images/nha-trang-hero.webp" alt="Nha Trang coastline and beach, Vietnam">
+    <div class="location-strip-overlay"></div>
+    <div class="location-strip-caption">Nha Trang, Vietnam</div>
   </section>
 
   <!-- ═══════════════════════════════════════════ -->
@@ -498,23 +577,22 @@
 
       <div class="offer-card">
         <div class="offer-label">Angle 01 · For Founders</div>
-        <div class="offer-heading">Build AI-first</div>
-        <div class="offer-desc">You're launching an agent-native company. You want the blueprint for composing agents, wiring the data layer, and shipping your first product with infinite leverage built in from day one.</div>
+        <div class="offer-heading">Start a new company</div>
+        <div class="offer-desc">You're launching an AI-first company. You want the blueprint for designing your agents, shaping how they work together, and shipping your first product with infinite leverage built in from day one.</div>
         <div class="offer-list">
-          <div class="offer-item"><div class="offer-dot"></div><span>Agent architecture &amp; data layer design</span></div>
-          <div class="offer-item"><div class="offer-dot"></div><span>Stack selection and first deploy</span></div>
-          <div class="offer-item"><div class="offer-dot"></div><span>Vetted AI engineers on-site to pair with</span></div>
+          <div class="offer-item"><div class="offer-dot"></div><span>Design your agents and how they work together</span></div>
+          <div class="offer-item"><div class="offer-dot"></div><span>Launch your first working agents</span></div>
         </div>
       </div>
 
       <div class="offer-card featured">
         <div class="offer-label">Angle 02 · For Executives</div>
         <div class="offer-heading">Reinvent a department</div>
-        <div class="offer-desc">You're deploying agents into marketing, ops, product, or customer success. You want to rewire how your team works — and leave with a working agent stack your org can actually run on Monday.</div>
+        <div class="offer-desc">You're bringing agents into marketing, ops, product, or customer success. You want to rewire how your team works, and leave with working agents your team can actually use on Monday.</div>
         <div class="offer-list">
           <div class="offer-item"><div class="offer-dot"></div><span>Pick the department, map the workflows</span></div>
-          <div class="offer-item"><div class="offer-dot"></div><span>Build and deploy the agents on-site</span></div>
-          <div class="offer-item"><div class="offer-dot"></div><span>Change-management playbook for rollout</span></div>
+          <div class="offer-item"><div class="offer-dot"></div><span>Build and launch the agents on-site</span></div>
+          <div class="offer-item"><div class="offer-dot"></div><span>A playbook for rolling it out with your team</span></div>
         </div>
       </div>
 
@@ -529,7 +607,7 @@
     <div class="grid-4">
       <div class="detail-card">
         <div class="detail-label">Location</div>
-        <div class="detail-value">Saigon</div>
+        <div class="detail-value">Nha Trang</div>
         <div class="detail-sub">Vietnam · Cohort 01</div>
       </div>
       <div class="detail-card">
@@ -539,7 +617,7 @@
       </div>
       <div class="detail-card">
         <div class="detail-label">Seats</div>
-        <div class="detail-value">20</div>
+        <div class="detail-value">30</div>
         <div class="detail-sub">Intentionally small</div>
       </div>
       <div class="detail-card">
@@ -552,7 +630,7 @@
     <!-- ── HOW IT WORKS ── -->
     <div class="section-header">
       <span class="section-pill blue"><span class="dot"></span> How It Works</span>
-      <span class="section-title">Three days, one working agent stack</span>
+      <span class="section-title">Three days, 5 working agents</span>
     </div>
 
     <div class="grid-3">
@@ -566,7 +644,7 @@
           <div class="day-item"><div class="day-dot"></div><span>Agent Org Chart mapping across your five core functions</span></div>
           <div class="day-item"><div class="day-dot"></div><span>Pod work with engineers to draft your blueprint</span></div>
         </div>
-        <div class="day-social">● Light social at East West Brewery</div>
+        <div class="day-social">● Light social at Sailing Club</div>
       </div>
 
       <div class="day-card">
@@ -575,10 +653,10 @@
         <div class="day-sub">Fri Jun 20 · 9:00 AM – 6:00 PM</div>
         <div class="day-list">
           <div class="day-item"><div class="day-dot"></div><span>Four 2-hour build sessions across the day</span></div>
-          <div class="day-item"><div class="day-dot"></div><span>One engineer per three founders for config &amp; debugging</span></div>
+          <div class="day-item"><div class="day-dot"></div><span>One engineer per three founders to help guide you through the process</span></div>
           <div class="day-item"><div class="day-dot"></div><span>Goal: at least one live agent running on your real data</span></div>
         </div>
-        <div class="day-social">● Social at Chill Sky Bar</div>
+        <div class="day-social">● Social at Skylight</div>
       </div>
 
       <div class="day-card">
@@ -586,9 +664,9 @@
         <div class="day-title">Polish &amp; Awards</div>
         <div class="day-sub">Sat Jun 21 · morning</div>
         <div class="day-list">
-          <div class="day-item"><div class="day-dot"></div><span>Final build session — refine, polish, finish</span></div>
-          <div class="day-item"><div class="day-dot"></div><span>Engineers on-site through the morning for last-mile support</span></div>
-          <div class="day-item"><div class="day-dot"></div><span>Awards ceremony — celebrate what your cohort shipped</span></div>
+          <div class="day-item"><div class="day-dot"></div><span>Final build session: refine, polish, finish</span></div>
+          <div class="day-item"><div class="day-dot"></div><span>Engineers on-site through the morning to help you across the finish line</span></div>
+          <div class="day-item"><div class="day-dot"></div><span>Awards ceremony: celebrate what your cohort shipped</span></div>
         </div>
       </div>
 
@@ -596,7 +674,23 @@
 
     <div class="fun-callout">
       <span class="fun-label">We won't forget the fun</span>
-      <span class="fun-text"><strong>Two social nights</strong> bookend the work — a light welcome at <strong>East West Brewery</strong> on Day 01 and a proper evening at <strong>Chill Sky Bar</strong> on Day 02. Saigon at its best, with the only 19 people who'll actually get what you just built.</span>
+      <span class="fun-text"><strong>Two social nights</strong> bookend the work. A light welcome at <strong>Sailing Club</strong> on Day 01 and a proper evening at <strong>Skylight</strong> on Day 02. Nha Trang at its best, with the only 29 people who'll actually get what you just built.</span>
+    </div>
+
+    <!-- ── STUDENT GALLERY ── -->
+    <div class="student-gallery">
+      <div class="student-gallery-item">
+        <img src="images/community-coaching.webp" alt="Founders working together in a live coaching session" loading="lazy">
+      </div>
+      <div class="student-gallery-item">
+        <img src="images/K01-Danang-Coaching.webp" alt="Founders pairing with a coach on their laptops" loading="lazy">
+      </div>
+      <div class="student-gallery-item">
+        <img src="images/K01-Danang-Smiling.webp" alt="Cohort members smiling during a break" loading="lazy">
+      </div>
+      <div class="student-gallery-item">
+        <img src="images/community-session.webp" alt="Group session in the CAIO community" loading="lazy">
+      </div>
     </div>
 
     <!-- ── WHAT YOU LEAVE WITH ── -->
@@ -608,25 +702,25 @@
     <div class="grid-2">
 
       <div class="offer-card">
-        <div class="offer-label">01 — Working Stack</div>
-        <div class="offer-heading">A shipped agent stack, not a deck</div>
-        <div class="offer-desc">You don't leave with slides. You leave with real agents running against your real data — wired, tested, and ready to ship.</div>
+        <div class="offer-label">01 · Working Agents</div>
+        <div class="offer-heading">Real working agents, not a deck</div>
+        <div class="offer-desc">You don't leave with slides. You leave with real agents running on your real work. Built, tested, and ready to use.</div>
       </div>
 
       <div class="offer-card">
-        <div class="offer-label">02 — Engineers On-site</div>
-        <div class="offer-heading">Unstuck in under an hour</div>
-        <div class="offer-desc">A pool of vetted AI engineers is on-site throughout the retreat to unblock your config, debug your flows, and pair with you on the hard parts.</div>
+        <div class="offer-label">02 · Engineers On-site</div>
+        <div class="offer-heading">AI engineers building alongside you</div>
+        <div class="offer-desc">AI engineers will be on site to help you build your agents in real time, so you can focus on the ideas while they handle the hard parts.</div>
       </div>
 
       <div class="offer-card">
-        <div class="offer-label">03 — A Cohort of 20</div>
+        <div class="offer-label">03 · A Cohort of 30</div>
         <div class="offer-heading">Peers solving the same problem</div>
-        <div class="offer-desc">Capped at 20 for a reason. You'll debate, pressure-test, and share pipelines with 19 other operators as far along as you are — or further.</div>
+        <div class="offer-desc">Capped at 30 for a reason. You'll debate, pressure-test, and share pipelines with 29 other operators as far along as you are, or further.</div>
       </div>
 
       <div class="offer-card">
-        <div class="offer-label">04 — Hiring Pipeline</div>
+        <div class="offer-label">04 · Hiring Pipeline</div>
         <div class="offer-heading">Meet your next AI hire</div>
         <div class="offer-desc">The engineers who unblock you during the retreat are hireable. If you want to bring one home, we'll help make that happen.</div>
       </div>
@@ -641,7 +735,7 @@
 
     <div class="form-section">
       <div class="form-card">
-        <p class="form-intro">Seats are capped at 20 for the June 19–21, 2026 cohort. Drop your details and we'll be in touch as the programme firms up. Takes 60 seconds.</p>
+        <p class="form-intro">Seats are capped at 30 for the June 19 to 21, 2026 cohort. Drop your details and we'll be in touch as the programme firms up. Takes 60 seconds.</p>
 
         <form id="retreatForm" novalidate>
           <div class="form-grid">
@@ -676,33 +770,40 @@
             </div>
 
             <div class="form-field full">
-              <label>Which angle is most compelling to you?</label>
-              <div class="radio-group">
+              <label for="retreat-date">Retreat date</label>
+              <select id="retreat-date" name="retreat_date" required>
+                <option value="2026-06-19-nha-trang" selected>June 19–21, 2026 · Nha Trang</option>
+              </select>
+            </div>
+
+            <div class="form-field full">
+              <label>Which angle is most interesting to you?</label>
+              <div class="radio-group stacked">
                 <div class="radio-option">
                   <input type="radio" id="angle-build" name="angle" value="build" required>
-                  <label for="angle-build">Build AI-first</label>
+                  <label for="angle-build">Begin working on a brand new AI-first company</label>
                 </div>
                 <div class="radio-option">
                   <input type="radio" id="angle-reinvent" name="angle" value="reinvent">
-                  <label for="angle-reinvent">Reinvent a department</label>
+                  <label for="angle-reinvent">Help me re-imagine a department's operations</label>
                 </div>
                 <div class="radio-option">
                   <input type="radio" id="angle-both" name="angle" value="both">
-                  <label for="angle-both">Both, equally</label>
+                  <label for="angle-both">Or both</label>
                 </div>
               </div>
             </div>
 
             <div class="form-field full">
               <label>Preferred region</label>
-              <div class="radio-group">
+              <div class="radio-group stacked">
                 <div class="radio-option">
-                  <input type="radio" id="region-close" name="region" value="close_to_home" required>
-                  <label for="region-close">Close to home</label>
+                  <input type="radio" id="region-travel" name="region" value="excited_to_travel" required>
+                  <label for="region-travel">Traveling to a destination would allow me to focus</label>
                 </div>
                 <div class="radio-option">
-                  <input type="radio" id="region-travel" name="region" value="excited_to_travel">
-                  <label for="region-travel">Excited to travel</label>
+                  <input type="radio" id="region-close" name="region" value="close_to_home">
+                  <label for="region-close">I would prefer to do something closer to home</label>
                 </div>
               </div>
             </div>
@@ -717,8 +818,8 @@
                 <div class="checkbox-row">
                   <input type="checkbox" id="waitlist-june" name="waitlist_june" value="yes">
                   <label for="waitlist-june">
-                    Put me on the June 19–21 waitlist
-                    <span>First cohort, 20 seats, Saigon.</span>
+                    Put me on the June 19 to 21 waitlist
+                    <span>First cohort, 30 seats, Nha Trang.</span>
                   </label>
                 </div>
                 <div class="checkbox-row">
@@ -742,7 +843,7 @@
         <div class="form-success" id="formSuccess">
           <div class="form-success-icon">✓</div>
           <h3>You're in the loop.</h3>
-          <p>Thanks — we'll be in touch as the June 19–21, 2026 cohort firms up. In the meantime, reply to any email from us with questions.</p>
+          <p>Thanks, we'll be in touch as the June 19 to 21, 2026 cohort firms up. In the meantime, reply to any email from us with questions.</p>
         </div>
       </div>
     </div>
@@ -804,15 +905,20 @@
 
   </main>
 
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script>
-    // STUB submit handler — NOT wired to Supabase yet.
-    // Logs the form payload to the console so we can iterate on fields first.
     (function () {
+      const SUPABASE_URL = 'https://pjecfbywrawpuutswvrb.supabase.co';
+      const SUPABASE_PUBLISHABLE_KEY = 'sb_publishable_kYjgPfDeMaVSatFG12XGwA_3uy9YODL';
+      const TABLE = 'retreat_participants';
+
+      const sb = window.supabase.createClient(SUPABASE_URL, SUPABASE_PUBLISHABLE_KEY);
+
       const form = document.getElementById('retreatForm');
       const btn = document.getElementById('submitBtn');
       const success = document.getElementById('formSuccess');
 
-      form.addEventListener('submit', function (e) {
+      form.addEventListener('submit', async function (e) {
         e.preventDefault();
 
         if (!form.checkValidity()) {
@@ -828,21 +934,31 @@
           company: fd.get('company') || null,
           angle: fd.get('angle'),
           region: fd.get('region'),
+          retreat_date: fd.get('retreat_date'),
           waitlist_june: fd.get('waitlist_june') === 'yes',
           notify_next_session: fd.get('notify_next_session') === 'yes',
           goal: fd.get('goal') || null,
-          submitted_at: new Date().toISOString()
+          lead_status: 'new',
+          lead_source: 'retreat_page'
         };
 
-        console.log('[retreat form] payload →', payload);
-
         btn.disabled = true;
-        btn.textContent = 'Saved ✓';
+        const originalText = btn.textContent;
+        btn.textContent = 'Saving…';
 
-        setTimeout(function () {
-          form.style.display = 'none';
-          success.classList.add('visible');
-        }, 300);
+        const { error } = await sb.from(TABLE).insert(payload);
+
+        if (error) {
+          console.error('[retreat form] supabase insert failed', error);
+          btn.disabled = false;
+          btn.textContent = originalText;
+          alert('Sorry, something went wrong saving your details. Please try again, or email dave@edge8.ai.');
+          return;
+        }
+
+        btn.textContent = 'Saved ✓';
+        form.style.display = 'none';
+        success.classList.add('visible');
       });
     })();
   </script>

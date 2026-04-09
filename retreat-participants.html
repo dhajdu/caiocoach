@@ -1,0 +1,759 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex, nofollow">
+  <title>Retreat Participants · Private</title>
+  <link
+    href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="shared/styles.css">
+  <style>
+    :root {
+      --radius: 12px;
+      --shadow-sm: 0 1px 3px rgba(4, 16, 45, 0.07);
+      --shadow-md: 0 6px 24px rgba(4, 16, 45, 0.10);
+    }
+
+    body { background: var(--surface); }
+
+    .page {
+      min-height: 100vh;
+      padding: 40px 24px 80px;
+    }
+    .wrap {
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+
+    /* Header */
+    .page-header {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      gap: 24px;
+      margin-bottom: 24px;
+      flex-wrap: wrap;
+    }
+    .page-header h1 {
+      font-size: 28px;
+      font-weight: 700;
+      color: var(--text-primary);
+      letter-spacing: -0.3px;
+      line-height: 1.2;
+    }
+    .page-header .sub {
+      font-size: 13px;
+      color: var(--text-muted);
+      margin-top: 4px;
+    }
+    .page-header .actions {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+    }
+    .btn {
+      font-family: inherit;
+      font-size: 13px;
+      font-weight: 600;
+      padding: 9px 16px;
+      border-radius: 8px;
+      border: 1px solid var(--border);
+      background: white;
+      color: var(--text-primary);
+      cursor: pointer;
+      transition: background 0.12s, border-color 0.12s;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .btn:hover { background: var(--sidebar-hover); border-color: var(--border-hover); }
+    .btn-primary {
+      background: var(--blue);
+      border-color: var(--blue);
+      color: white;
+    }
+    .btn-primary:hover { background: #1f64c4; border-color: #1f64c4; color: white; }
+    .btn-ghost {
+      background: transparent;
+      border-color: transparent;
+      color: var(--text-muted);
+    }
+    .btn-ghost:hover { background: var(--sidebar-hover); }
+
+    /* Login card */
+    .login-wrap {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 70vh;
+    }
+    .login-card {
+      width: 100%;
+      max-width: 400px;
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 32px;
+      box-shadow: var(--shadow-md);
+    }
+    .login-card h2 {
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--text-primary);
+      margin-bottom: 6px;
+    }
+    .login-card p {
+      font-size: 13px;
+      color: var(--text-muted);
+      margin-bottom: 20px;
+    }
+    .login-card label {
+      display: block;
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--text-secondary);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      margin-bottom: 6px;
+    }
+    .login-card input {
+      width: 100%;
+      font-family: inherit;
+      font-size: 15px;
+      padding: 11px 13px;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      background: var(--surface);
+      color: var(--text-primary);
+      margin-bottom: 14px;
+      transition: border-color 0.12s, background 0.12s;
+    }
+    .login-card input:focus {
+      outline: none;
+      border-color: var(--blue);
+      background: white;
+    }
+    .login-card .btn-primary {
+      width: 100%;
+      padding: 12px;
+      font-size: 14px;
+      justify-content: center;
+    }
+    .login-error {
+      margin-top: 10px;
+      padding: 10px 12px;
+      background: #fef2f2;
+      border: 1px solid #fecaca;
+      border-radius: 8px;
+      color: #991b1b;
+      font-size: 13px;
+      display: none;
+    }
+    .login-error.visible { display: block; }
+
+    /* Toolbar */
+    .toolbar {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      align-items: center;
+      padding: 14px 16px;
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: var(--radius) var(--radius) 0 0;
+      border-bottom: none;
+    }
+    .toolbar .filter-group {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+      font-size: 13px;
+      color: var(--text-secondary);
+    }
+    .toolbar select, .toolbar input[type="text"] {
+      font-family: inherit;
+      font-size: 13px;
+      padding: 7px 11px;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      background: white;
+      color: var(--text-primary);
+    }
+    .toolbar select:focus, .toolbar input[type="text"]:focus {
+      outline: none;
+      border-color: var(--blue);
+    }
+    .toolbar .spacer { flex: 1; }
+    .toolbar .count {
+      font-size: 13px;
+      color: var(--text-muted);
+      font-weight: 500;
+    }
+
+    /* Table */
+    .table-wrap {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 0 0 var(--radius) var(--radius);
+      overflow: auto;
+      box-shadow: var(--shadow-sm);
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 13px;
+    }
+    thead {
+      background: var(--sidebar-bg);
+      position: sticky;
+      top: 0;
+      z-index: 2;
+    }
+    th {
+      text-align: left;
+      padding: 12px 14px;
+      font-weight: 600;
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--text-secondary);
+      border-bottom: 1px solid var(--border);
+      white-space: nowrap;
+      cursor: pointer;
+      user-select: none;
+    }
+    th:hover { background: var(--sidebar-hover); }
+    th .sort-indicator {
+      display: inline-block;
+      margin-left: 4px;
+      opacity: 0.4;
+      font-size: 10px;
+    }
+    th.sorted .sort-indicator { opacity: 1; color: var(--blue); }
+    td {
+      padding: 12px 14px;
+      border-bottom: 1px solid var(--border);
+      color: var(--text-primary);
+      vertical-align: middle;
+    }
+    tbody tr:hover { background: var(--sidebar-hover); }
+    tbody tr:last-child td { border-bottom: none; }
+    td.muted { color: var(--text-muted); }
+    td.mono {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 12px;
+      color: var(--text-muted);
+    }
+    td.nowrap { white-space: nowrap; }
+
+    .pill-mini {
+      display: inline-block;
+      padding: 3px 8px;
+      border-radius: 999px;
+      font-size: 11px;
+      font-weight: 600;
+      background: var(--sidebar-hover);
+      color: var(--text-secondary);
+      text-transform: capitalize;
+    }
+
+    /* Inline editors */
+    .status-select, .notes-input {
+      font-family: inherit;
+      font-size: 12px;
+      padding: 5px 8px;
+      border: 1px solid transparent;
+      border-radius: 6px;
+      background: transparent;
+      color: var(--text-primary);
+      width: 100%;
+      transition: border-color 0.12s, background 0.12s;
+    }
+    .status-select { font-weight: 600; }
+    .status-select:hover, .notes-input:hover {
+      border-color: var(--border);
+      background: white;
+    }
+    .status-select:focus, .notes-input:focus {
+      outline: none;
+      border-color: var(--blue);
+      background: white;
+    }
+    .notes-input {
+      min-width: 180px;
+    }
+    .status-select.saving, .notes-input.saving {
+      background: #fef9c3;
+      border-color: #fde047;
+    }
+    .status-select.saved, .notes-input.saved {
+      background: #dcfce7;
+      border-color: #86efac;
+    }
+    .status-select.error, .notes-input.error {
+      background: #fef2f2;
+      border-color: #fecaca;
+    }
+
+    /* Status color dots */
+    .status-dot {
+      display: inline-block;
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      margin-right: 6px;
+      vertical-align: middle;
+    }
+    .status-new         { background: #9ca3af; }
+    .status-contacted   { background: #287BE8; }
+    .status-qualified   { background: #a855f7; }
+    .status-waitlisted  { background: #f59e0b; }
+    .status-confirmed   { background: #10b981; }
+    .status-attended    { background: #059669; }
+    .status-declined    { background: #6b7280; }
+    .status-lost        { background: #ef4444; }
+
+    .empty-state {
+      padding: 60px 20px;
+      text-align: center;
+      color: var(--text-muted);
+      font-size: 14px;
+    }
+
+    @media (max-width: 900px) {
+      .page { padding: 20px 12px 60px; }
+      .toolbar { border-radius: var(--radius); border-bottom: 1px solid var(--border); }
+      .table-wrap { border-radius: var(--radius); margin-top: 10px; }
+      th, td { padding: 10px 10px; }
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="page">
+    <div class="wrap">
+
+      <!-- LOGIN VIEW -->
+      <div id="loginView" class="login-wrap">
+        <div class="login-card">
+          <h2>Retreat Participants</h2>
+          <p>Sign in to view and manage signups.</p>
+          <form id="loginForm">
+            <label for="login-email">Email</label>
+            <input type="email" id="login-email" autocomplete="email" required>
+            <label for="login-password">Password</label>
+            <input type="password" id="login-password" autocomplete="current-password" required>
+            <button type="submit" class="btn btn-primary" id="loginBtn">Sign in</button>
+            <div class="login-error" id="loginError"></div>
+          </form>
+        </div>
+      </div>
+
+      <!-- APP VIEW -->
+      <div id="appView" style="display:none;">
+        <div class="page-header">
+          <div>
+            <h1>Retreat Participants</h1>
+            <div class="sub" id="subtitle">Signed in as <span id="whoami"></span></div>
+          </div>
+          <div class="actions">
+            <button class="btn" id="refreshBtn" type="button">Refresh</button>
+            <button class="btn" id="exportBtn" type="button">Export CSV</button>
+            <button class="btn btn-ghost" id="signOutBtn" type="button">Sign out</button>
+          </div>
+        </div>
+
+        <div class="toolbar">
+          <div class="filter-group">
+            <label for="filterDate">Retreat date</label>
+            <select id="filterDate">
+              <option value="">All</option>
+            </select>
+          </div>
+          <div class="filter-group">
+            <label for="filterStatus">Status</label>
+            <select id="filterStatus">
+              <option value="">All</option>
+              <option value="new">New</option>
+              <option value="contacted">Contacted</option>
+              <option value="qualified">Qualified</option>
+              <option value="waitlisted">Waitlisted</option>
+              <option value="confirmed">Confirmed</option>
+              <option value="attended">Attended</option>
+              <option value="declined">Declined</option>
+              <option value="lost">Lost</option>
+            </select>
+          </div>
+          <div class="filter-group">
+            <label for="filterSearch">Search</label>
+            <input type="text" id="filterSearch" placeholder="Name, email, company…">
+          </div>
+          <div class="spacer"></div>
+          <div class="count" id="rowCount">0 rows</div>
+        </div>
+
+        <div class="table-wrap">
+          <table id="participantsTable">
+            <thead>
+              <tr>
+                <th data-sort="created_at">Signed up <span class="sort-indicator">↓</span></th>
+                <th data-sort="name">Name <span class="sort-indicator">↕</span></th>
+                <th data-sort="email">Email <span class="sort-indicator">↕</span></th>
+                <th data-sort="role">Role <span class="sort-indicator">↕</span></th>
+                <th data-sort="company">Company <span class="sort-indicator">↕</span></th>
+                <th data-sort="angle">Angle <span class="sort-indicator">↕</span></th>
+                <th data-sort="region">Region <span class="sort-indicator">↕</span></th>
+                <th data-sort="retreat_date">Retreat <span class="sort-indicator">↕</span></th>
+                <th data-sort="lead_status">Status <span class="sort-indicator">↕</span></th>
+                <th>Goal</th>
+                <th>Notes</th>
+              </tr>
+            </thead>
+            <tbody id="tableBody"></tbody>
+          </table>
+          <div class="empty-state" id="emptyState" style="display:none;">No participants match your filters.</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script>
+    (function () {
+      const SUPABASE_URL = 'https://pjecfbywrawpuutswvrb.supabase.co';
+      const SUPABASE_PUBLISHABLE_KEY = 'sb_publishable_kYjgPfDeMaVSatFG12XGwA_3uy9YODL';
+      const TABLE = 'retreat_participants';
+
+      const sb = window.supabase.createClient(SUPABASE_URL, SUPABASE_PUBLISHABLE_KEY, {
+        auth: { persistSession: true, autoRefreshToken: true }
+      });
+
+      const loginView  = document.getElementById('loginView');
+      const appView    = document.getElementById('appView');
+      const loginForm  = document.getElementById('loginForm');
+      const loginBtn   = document.getElementById('loginBtn');
+      const loginError = document.getElementById('loginError');
+      const emailIn    = document.getElementById('login-email');
+      const passIn     = document.getElementById('login-password');
+      const whoami     = document.getElementById('whoami');
+      const tbody      = document.getElementById('tableBody');
+      const emptyState = document.getElementById('emptyState');
+      const rowCount   = document.getElementById('rowCount');
+      const filterDate   = document.getElementById('filterDate');
+      const filterStatus = document.getElementById('filterStatus');
+      const filterSearch = document.getElementById('filterSearch');
+      const refreshBtn = document.getElementById('refreshBtn');
+      const exportBtn  = document.getElementById('exportBtn');
+      const signOutBtn = document.getElementById('signOutBtn');
+
+      const STATUS_OPTIONS = [
+        'new', 'contacted', 'qualified', 'waitlisted',
+        'confirmed', 'attended', 'declined', 'lost'
+      ];
+
+      let allRows = [];
+      let sortKey = 'created_at';
+      let sortDir = 'desc';
+
+      // ── Session bootstrap ─────────────────────────
+      async function checkSession() {
+        const { data: { session } } = await sb.auth.getSession();
+        if (session) {
+          showApp(session.user.email);
+          await loadRows();
+        }
+      }
+
+      function showApp(email) {
+        loginView.style.display = 'none';
+        appView.style.display = 'block';
+        whoami.textContent = email;
+      }
+
+      function showLogin() {
+        appView.style.display = 'none';
+        loginView.style.display = 'flex';
+        passIn.value = '';
+      }
+
+      // ── Auth ──────────────────────────────────────
+      loginForm.addEventListener('submit', async function (e) {
+        e.preventDefault();
+        loginError.classList.remove('visible');
+        loginBtn.disabled = true;
+        loginBtn.textContent = 'Signing in…';
+
+        const { data, error } = await sb.auth.signInWithPassword({
+          email: emailIn.value.trim(),
+          password: passIn.value
+        });
+
+        loginBtn.disabled = false;
+        loginBtn.textContent = 'Sign in';
+
+        if (error) {
+          loginError.textContent = error.message || 'Sign-in failed.';
+          loginError.classList.add('visible');
+          return;
+        }
+
+        showApp(data.user.email);
+        await loadRows();
+      });
+
+      signOutBtn.addEventListener('click', async function () {
+        await sb.auth.signOut();
+        allRows = [];
+        tbody.innerHTML = '';
+        showLogin();
+      });
+
+      // ── Data ──────────────────────────────────────
+      async function loadRows() {
+        tbody.innerHTML = '<tr><td colspan="11" class="muted" style="padding:40px 20px;text-align:center;">Loading…</td></tr>';
+        emptyState.style.display = 'none';
+
+        const { data, error } = await sb
+          .from(TABLE)
+          .select('*')
+          .order('created_at', { ascending: false });
+
+        if (error) {
+          console.error(error);
+          tbody.innerHTML = '<tr><td colspan="11" class="muted" style="padding:40px 20px;text-align:center;color:#991b1b;">' +
+            (error.message || 'Failed to load rows.') + '</td></tr>';
+          return;
+        }
+
+        allRows = data || [];
+        populateDateFilter();
+        render();
+      }
+
+      function populateDateFilter() {
+        const current = filterDate.value;
+        const dates = [...new Set(allRows.map(r => r.retreat_date).filter(Boolean))].sort();
+        filterDate.innerHTML = '<option value="">All</option>' +
+          dates.map(d => `<option value="${escapeHtml(d)}">${escapeHtml(d)}</option>`).join('');
+        filterDate.value = current;
+      }
+
+      function getFilteredSortedRows() {
+        const dateF = filterDate.value;
+        const statusF = filterStatus.value;
+        const searchF = filterSearch.value.trim().toLowerCase();
+
+        let rows = allRows.filter(r => {
+          if (dateF && r.retreat_date !== dateF) return false;
+          if (statusF && r.lead_status !== statusF) return false;
+          if (searchF) {
+            const hay = [r.name, r.email, r.company, r.goal, r.notes]
+              .filter(Boolean).join(' ').toLowerCase();
+            if (!hay.includes(searchF)) return false;
+          }
+          return true;
+        });
+
+        rows.sort((a, b) => {
+          const av = a[sortKey], bv = b[sortKey];
+          if (av == null && bv == null) return 0;
+          if (av == null) return 1;
+          if (bv == null) return -1;
+          if (av < bv) return sortDir === 'asc' ? -1 : 1;
+          if (av > bv) return sortDir === 'asc' ? 1 : -1;
+          return 0;
+        });
+
+        return rows;
+      }
+
+      function render() {
+        const rows = getFilteredSortedRows();
+        rowCount.textContent = rows.length + (rows.length === 1 ? ' row' : ' rows');
+
+        if (rows.length === 0) {
+          tbody.innerHTML = '';
+          emptyState.style.display = 'block';
+        } else {
+          emptyState.style.display = 'none';
+          tbody.innerHTML = rows.map(renderRow).join('');
+          wireInlineEditors();
+        }
+
+        // Update sort indicators
+        document.querySelectorAll('th[data-sort]').forEach(th => {
+          const k = th.getAttribute('data-sort');
+          const arrow = th.querySelector('.sort-indicator');
+          if (k === sortKey) {
+            th.classList.add('sorted');
+            arrow.textContent = sortDir === 'asc' ? '↑' : '↓';
+          } else {
+            th.classList.remove('sorted');
+            arrow.textContent = '↕';
+          }
+        });
+      }
+
+      function renderRow(r) {
+        const date = r.created_at ? new Date(r.created_at).toLocaleDateString(undefined, {
+          month: 'short', day: 'numeric', year: 'numeric'
+        }) : '';
+        const statusOptions = STATUS_OPTIONS.map(s =>
+          `<option value="${s}"${s === r.lead_status ? ' selected' : ''}>${s}</option>`
+        ).join('');
+        const angle = r.angle ? `<span class="pill-mini">${escapeHtml(r.angle)}</span>` : '';
+        const region = r.region ? `<span class="pill-mini">${escapeHtml(r.region.replace(/_/g, ' '))}</span>` : '';
+        const role = r.role ? `<span class="pill-mini">${escapeHtml(r.role)}</span>` : '';
+
+        return `
+          <tr data-id="${r.id}">
+            <td class="nowrap muted">${escapeHtml(date)}</td>
+            <td class="nowrap"><strong>${escapeHtml(r.name || '')}</strong></td>
+            <td class="nowrap"><a href="mailto:${escapeHtml(r.email || '')}">${escapeHtml(r.email || '')}</a></td>
+            <td>${role}</td>
+            <td>${escapeHtml(r.company || '')}</td>
+            <td>${angle}</td>
+            <td>${region}</td>
+            <td class="mono nowrap">${escapeHtml(r.retreat_date || '')}</td>
+            <td>
+              <span class="status-dot status-${escapeHtml(r.lead_status || 'new')}"></span>
+              <select class="status-select" data-field="lead_status">
+                ${statusOptions}
+              </select>
+            </td>
+            <td class="muted">${escapeHtml(r.goal || '')}</td>
+            <td><input type="text" class="notes-input" data-field="notes" value="${escapeHtml(r.notes || '')}" placeholder="Add note…"></td>
+          </tr>
+        `;
+      }
+
+      function wireInlineEditors() {
+        document.querySelectorAll('.status-select').forEach(el => {
+          el.addEventListener('change', onEditableChange);
+        });
+        document.querySelectorAll('.notes-input').forEach(el => {
+          el.addEventListener('blur', onEditableChange);
+          el.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter') { e.preventDefault(); el.blur(); }
+          });
+        });
+      }
+
+      async function onEditableChange(e) {
+        const el = e.currentTarget;
+        const tr = el.closest('tr');
+        const id = tr.getAttribute('data-id');
+        const field = el.getAttribute('data-field');
+        const value = el.value;
+
+        // Don't save unchanged notes
+        const row = allRows.find(r => r.id === id);
+        if (row && row[field] === value) return;
+        if (row && field === 'notes' && (row.notes || '') === value) return;
+
+        el.classList.remove('saved', 'error');
+        el.classList.add('saving');
+
+        const { error } = await sb.from(TABLE).update({ [field]: value }).eq('id', id);
+
+        el.classList.remove('saving');
+        if (error) {
+          console.error(error);
+          el.classList.add('error');
+          setTimeout(() => el.classList.remove('error'), 2000);
+          return;
+        }
+        if (row) row[field] = value;
+        el.classList.add('saved');
+        setTimeout(() => el.classList.remove('saved'), 1200);
+
+        // Update status dot color on status change
+        if (field === 'lead_status') {
+          const dot = tr.querySelector('.status-dot');
+          if (dot) dot.className = 'status-dot status-' + value;
+        }
+      }
+
+      // ── Sorting ───────────────────────────────────
+      document.querySelectorAll('th[data-sort]').forEach(th => {
+        th.addEventListener('click', () => {
+          const k = th.getAttribute('data-sort');
+          if (sortKey === k) {
+            sortDir = sortDir === 'asc' ? 'desc' : 'asc';
+          } else {
+            sortKey = k;
+            sortDir = k === 'created_at' ? 'desc' : 'asc';
+          }
+          render();
+        });
+      });
+
+      // ── Filters ───────────────────────────────────
+      filterDate.addEventListener('change', render);
+      filterStatus.addEventListener('change', render);
+      filterSearch.addEventListener('input', debounce(render, 150));
+      refreshBtn.addEventListener('click', loadRows);
+
+      // ── Export CSV ────────────────────────────────
+      exportBtn.addEventListener('click', function () {
+        const rows = getFilteredSortedRows();
+        if (rows.length === 0) return;
+        const cols = [
+          'created_at','name','email','role','company','angle','region',
+          'retreat_date','waitlist_june','notify_next_session',
+          'lead_status','lead_source','goal','notes'
+        ];
+        const header = cols.join(',');
+        const body = rows.map(r => cols.map(c => csvCell(r[c])).join(',')).join('\n');
+        const csv = header + '\n' + body;
+        const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = 'retreat-participants-' + new Date().toISOString().slice(0, 10) + '.csv';
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        URL.revokeObjectURL(url);
+      });
+
+      // ── Helpers ───────────────────────────────────
+      function csvCell(v) {
+        if (v == null) return '';
+        const s = String(v);
+        if (s.includes(',') || s.includes('"') || s.includes('\n')) {
+          return '"' + s.replace(/"/g, '""') + '"';
+        }
+        return s;
+      }
+      function escapeHtml(v) {
+        if (v == null) return '';
+        return String(v)
+          .replace(/&/g, '&amp;')
+          .replace(/</g, '&lt;')
+          .replace(/>/g, '&gt;')
+          .replace(/"/g, '&quot;')
+          .replace(/'/g, '&#39;');
+      }
+      function debounce(fn, ms) {
+        let t;
+        return function () {
+          const args = arguments;
+          clearTimeout(t);
+          t = setTimeout(() => fn.apply(this, args), ms);
+        };
+      }
+
+      checkSession();
+    })();
+  </script>
+</body>
+
+</html>

@@ -558,6 +558,7 @@
                 <th data-sort="role">Role <span class="sort-indicator">↕</span></th>
                 <th data-sort="company">Company <span class="sort-indicator">↕</span></th>
                 <th data-sort="angle">Angle <span class="sort-indicator">↕</span></th>
+                <th data-sort="referral_source">How heard <span class="sort-indicator">↕</span></th>
                 <th data-sort="lead_status">Status <span class="sort-indicator">↕</span></th>
               </tr>
             </thead>
@@ -604,6 +605,7 @@
             <div class="detail-item"><div class="detail-label">Retreat date</div><div class="detail-value mono" id="detailRetreatDate"></div></div>
             <div class="detail-item"><div class="detail-label">Waitlist (Jun 19–21)</div><div class="detail-value" id="detailWaitlistJune"></div></div>
             <div class="detail-item"><div class="detail-label">Notify next session</div><div class="detail-value" id="detailNotifyNext"></div></div>
+            <div class="detail-item"><div class="detail-label">How heard</div><div class="detail-value" id="detailHowHeard"></div></div>
           </div>
 
           <div class="detail-block">
@@ -813,6 +815,7 @@
             <td>${role}</td>
             <td>${escapeHtml(r.company || '')}</td>
             <td>${angle}</td>
+            <td>${escapeHtml(r.referral_source || '')}</td>
             <td class="nowrap no-row-click">
               <span class="status-dot status-${escapeHtml(status)}"></span>
               <select class="status-select" data-field="lead_status">
@@ -884,6 +887,7 @@
       const detailRetreatDate = document.getElementById('detailRetreatDate');
       const detailWaitlistJune = document.getElementById('detailWaitlistJune');
       const detailNotifyNext = document.getElementById('detailNotifyNext');
+      const detailHowHeard = document.getElementById('detailHowHeard');
       const detailGoal    = document.getElementById('detailGoal');
       const detailNotes   = document.getElementById('detailNotes');
       const detailStatus  = document.getElementById('detailStatus');
@@ -934,6 +938,7 @@
         setValue(detailRetreatDate, r.retreat_date);
         detailWaitlistJune.textContent = r.waitlist_june ? 'Yes' : 'No';
         detailNotifyNext.textContent  = r.notify_next_session ? 'Yes' : 'No';
+        setValue(detailHowHeard, r.referral_source ? r.referral_source.replace(/_/g, ' ') : '');
 
         if (r.goal && r.goal.trim()) {
           detailGoal.textContent = r.goal;
@@ -1071,7 +1076,7 @@
         if (rows.length === 0) return;
         const cols = [
           'created_at','name','email','role','company','angle','region','ai_fluency',
-          'retreat_date','waitlist_june','notify_next_session',
+          'retreat_date','waitlist_june','notify_next_session','referral_source',
           'lead_status','lead_source','goal','notes'
         ];
         const header = cols.join(',');

@@ -107,12 +107,19 @@
     .cost-row {
       display: flex;
       align-items: center;
-      justify-content: space-between;
       padding: 6px 0;
       font-size: 13px;
       color: var(--text-secondary);
     }
     .cost-row .label { flex: 1; }
+    .cost-row .input-group {
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      gap: 2px;
+      min-width: 200px;
+      text-align: right;
+    }
     .cost-row .value {
       font-family: 'JetBrains Mono', monospace;
       font-size: 13px;
@@ -210,6 +217,29 @@
     .summary-row .val.profit { color: var(--green); }
     .summary-row .val.loss { color: var(--red); }
 
+    /* ── Export button ── */
+    .export-bar {
+      display: flex;
+      gap: 10px;
+      margin-top: 20px;
+    }
+    .btn-export {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 20px;
+      background: var(--navy);
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.15s;
+    }
+    .btn-export:hover { background: #0a1a40; }
+
     /* ── Responsive ── */
     @media (max-width: 768px) {
       .city-grid { grid-template-columns: 1fr; }
@@ -301,23 +331,23 @@
             <div class="cost-section-title">Attendee Costs (per person)</div>
             <div class="cost-row">
               <span class="label">Hotel</span>
-              <span>$</span><input type="number" class="edit-input" data-city="sg" data-key="hotel" value="150" min="0"><span class="unit">/night</span>
+              <div class="input-group"><span>$</span><input type="number" class="edit-input" data-city="sg" data-key="hotel" value="150" min="0"><span class="unit">/night</span></div>
             </div>
             <div class="cost-row">
               <span class="label">Food & Drink</span>
-              <span>$</span><input type="number" class="edit-input" data-city="sg" data-key="fb" value="50" min="0"><span class="unit">/day</span>
+              <div class="input-group"><span>$</span><input type="number" class="edit-input" data-city="sg" data-key="fb" value="50" min="0"><span class="unit">/day</span></div>
             </div>
             <div class="cost-row">
               <span class="label">Transport + VIP Immigration</span>
-              <span>$</span><input type="number" class="edit-input" data-city="sg" data-key="transport" value="150" min="0"><span class="unit">&times; 2 ways</span>
+              <div class="input-group"><span>$</span><input type="number" class="edit-input" data-city="sg" data-key="transport" value="150" min="0"><span class="unit">&times; 2 ways</span></div>
             </div>
             <div class="cost-row">
               <span class="label">Activities (after dinner)</span>
-              <span>$</span><input type="number" class="edit-input" data-city="sg" data-key="activities" value="50" min="0"><span class="unit">/night &times; 2</span>
+              <div class="input-group"><span>$</span><input type="number" class="edit-input" data-city="sg" data-key="activities" value="50" min="0"><span class="unit">/night &times; 2</span></div>
             </div>
             <div class="cost-row">
               <span class="label">Swag Bag</span>
-              <span>$</span><input type="number" class="edit-input" data-city="sg" data-key="swag" value="75" min="0"><span class="unit">/person</span>
+              <div class="input-group"><span>$</span><input type="number" class="edit-input" data-city="sg" data-key="swag" value="75" min="0"><span class="unit">/person</span></div>
             </div>
           </div>
 
@@ -325,11 +355,11 @@
             <div class="cost-section-title">Engineer Costs (per engineer)</div>
             <div class="cost-row">
               <span class="label">Flights</span>
-              <span>$</span><input type="number" class="edit-input" data-city="sg" data-key="engFlights" value="100" min="0"><span class="unit">/each</span>
+              <div class="input-group"><span>$</span><input type="number" class="edit-input" data-city="sg" data-key="engFlights" value="100" min="0"><span class="unit">/each</span></div>
             </div>
             <div class="cost-row">
               <span class="label">Hotel</span>
-              <span>$</span><input type="number" class="edit-input" data-city="sg" data-key="engHotel" value="50" min="0"><span class="unit">/night</span>
+              <div class="input-group"><span>$</span><input type="number" class="edit-input" data-city="sg" data-key="engHotel" value="50" min="0"><span class="unit">/night</span></div>
             </div>
           </div>
 
@@ -337,15 +367,15 @@
             <div class="cost-section-title">Fixed Costs (flat)</div>
             <div class="cost-row">
               <span class="label">Venue / Conference Room</span>
-              <span>$</span><input type="number" class="edit-input" data-city="sg" data-key="venue" value="500" min="0"><span class="unit">/day</span>
+              <div class="input-group"><span>$</span><input type="number" class="edit-input" data-city="sg" data-key="venue" value="500" min="0"><span class="unit">/day</span></div>
             </div>
             <div class="cost-row">
               <span class="label">AV / Tech Equipment</span>
-              <span>$</span><input type="number" class="edit-input" data-city="sg" data-key="av" value="500" min="0"><span class="unit">/day</span>
+              <div class="input-group"><span>$</span><input type="number" class="edit-input" data-city="sg" data-key="av" value="500" min="0"><span class="unit">/day</span></div>
             </div>
             <div class="cost-row">
               <span class="label">Staff Assistants</span>
-              <input type="number" class="edit-input narrow" data-city="sg" data-key="staffCount" value="2" min="0"><span class="unit">people &times; $</span><input type="number" class="edit-input" data-city="sg" data-key="staffRate" value="500" min="0"><span class="unit">each</span>
+              <div class="input-group"><input type="number" class="edit-input narrow" data-city="sg" data-key="staffCount" value="2" min="0"><span class="unit">ppl &times; $</span><input type="number" class="edit-input" data-city="sg" data-key="staffRate" value="500" min="0"><span class="unit">each</span></div>
             </div>
           </div>
 
@@ -361,23 +391,23 @@
             <div class="cost-section-title">Attendee Costs (per person)</div>
             <div class="cost-row">
               <span class="label">Hotel</span>
-              <span>$</span><input type="number" class="edit-input" data-city="nt" data-key="hotel" value="150" min="0"><span class="unit">/night</span>
+              <div class="input-group"><span>$</span><input type="number" class="edit-input" data-city="nt" data-key="hotel" value="150" min="0"><span class="unit">/night</span></div>
             </div>
             <div class="cost-row">
               <span class="label">Food & Drink</span>
-              <span>$</span><input type="number" class="edit-input" data-city="nt" data-key="fb" value="50" min="0"><span class="unit">/day</span>
+              <div class="input-group"><span>$</span><input type="number" class="edit-input" data-city="nt" data-key="fb" value="50" min="0"><span class="unit">/day</span></div>
             </div>
             <div class="cost-row">
               <span class="label">Transport + VIP Immigration</span>
-              <span>$</span><input type="number" class="edit-input" data-city="nt" data-key="transport" value="150" min="0"><span class="unit">&times; 2 ways</span>
+              <div class="input-group"><span>$</span><input type="number" class="edit-input" data-city="nt" data-key="transport" value="150" min="0"><span class="unit">&times; 2 ways</span></div>
             </div>
             <div class="cost-row">
               <span class="label">Activities (after dinner)</span>
-              <span>$</span><input type="number" class="edit-input" data-city="nt" data-key="activities" value="50" min="0"><span class="unit">/night &times; 2</span>
+              <div class="input-group"><span>$</span><input type="number" class="edit-input" data-city="nt" data-key="activities" value="50" min="0"><span class="unit">/night &times; 2</span></div>
             </div>
             <div class="cost-row">
               <span class="label">Swag Bag</span>
-              <span>$</span><input type="number" class="edit-input" data-city="nt" data-key="swag" value="75" min="0"><span class="unit">/person</span>
+              <div class="input-group"><span>$</span><input type="number" class="edit-input" data-city="nt" data-key="swag" value="75" min="0"><span class="unit">/person</span></div>
             </div>
           </div>
 
@@ -385,11 +415,11 @@
             <div class="cost-section-title">Engineer Costs (per engineer)</div>
             <div class="cost-row">
               <span class="label">Flights</span>
-              <span>$</span><input type="number" class="edit-input" data-city="nt" data-key="engFlights" value="100" min="0"><span class="unit">/each</span>
+              <div class="input-group"><span>$</span><input type="number" class="edit-input" data-city="nt" data-key="engFlights" value="100" min="0"><span class="unit">/each</span></div>
             </div>
             <div class="cost-row">
               <span class="label">Hotel</span>
-              <span>$</span><input type="number" class="edit-input" data-city="nt" data-key="engHotel" value="50" min="0"><span class="unit">/night</span>
+              <div class="input-group"><span>$</span><input type="number" class="edit-input" data-city="nt" data-key="engHotel" value="50" min="0"><span class="unit">/night</span></div>
             </div>
           </div>
 
@@ -397,15 +427,15 @@
             <div class="cost-section-title">Fixed Costs (flat)</div>
             <div class="cost-row">
               <span class="label">Venue / Conference Room</span>
-              <span>$</span><input type="number" class="edit-input" data-city="nt" data-key="venue" value="500" min="0"><span class="unit">/day</span>
+              <div class="input-group"><span>$</span><input type="number" class="edit-input" data-city="nt" data-key="venue" value="500" min="0"><span class="unit">/day</span></div>
             </div>
             <div class="cost-row">
               <span class="label">AV / Tech Equipment</span>
-              <span>$</span><input type="number" class="edit-input" data-city="nt" data-key="av" value="500" min="0"><span class="unit">/day</span>
+              <div class="input-group"><span>$</span><input type="number" class="edit-input" data-city="nt" data-key="av" value="500" min="0"><span class="unit">/day</span></div>
             </div>
             <div class="cost-row">
               <span class="label">Staff Assistants</span>
-              <input type="number" class="edit-input narrow" data-city="nt" data-key="staffCount" value="2" min="0"><span class="unit">people &times; $</span><input type="number" class="edit-input" data-city="nt" data-key="staffRate" value="500" min="0"><span class="unit">each</span>
+              <div class="input-group"><input type="number" class="edit-input narrow" data-city="nt" data-key="staffCount" value="2" min="0"><span class="unit">ppl &times; $</span><input type="number" class="edit-input" data-city="nt" data-key="staffRate" value="500" min="0"><span class="unit">each</span></div>
             </div>
           </div>
 
@@ -454,6 +484,18 @@
         </div>
 
       </div>
+    </div>
+
+    <!-- ── Export Buttons ── -->
+    <div class="export-bar">
+      <button class="btn-export" onclick="exportCSV()">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+        Export CSV
+      </button>
+      <button class="btn-export" onclick="exportExcel()">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+        Export Excel
+      </button>
     </div>
 
   </main>
@@ -610,6 +652,116 @@
 
     // Initial calc
     calc();
+
+    // ── Export helpers ──
+    function buildRows() {
+      const attendees = val('g-attendees');
+      const ticket = val('g-ticket');
+      const commPct = val('g-commission');
+      const engineers = val('g-engineers');
+      const nights = val('g-nights');
+      const days = val('g-days');
+      const contPct = val('g-contingency');
+
+      const rows = [
+        ['Retreat Price Model', '', ''],
+        ['', 'Saigon', 'Nha Trang'],
+        [''],
+        ['GLOBAL SETTINGS', '', ''],
+        ['Attendees', attendees, attendees],
+        ['Ticket Price', ticket, ticket],
+        ['Referral Commission %', commPct, commPct],
+        ['Engineers', engineers, engineers],
+        ['Nights', nights, nights],
+        ['Days', days, days],
+        ['Contingency %', contPct, contPct],
+        [''],
+      ];
+
+      ['sg', 'nt'].forEach((prefix, i) => {
+        const c = getCity(prefix);
+        if (i === 0) {
+          rows.push(['ATTENDEE COSTS (per person)', 'Saigon', 'Nha Trang']);
+        }
+        const col = i + 1;
+        if (i === 0) {
+          rows.push(['Hotel /night', c.hotel, '']);
+          rows.push(['Food & Drink /day', c.fb, '']);
+          rows.push(['Transport + VIP (x2 ways)', c.transport, '']);
+          rows.push(['Activities /night (x2)', c.activities, '']);
+          rows.push(['Swag Bag /person', c.swag, '']);
+          rows.push(['']);
+          rows.push(['ENGINEER COSTS (per engineer)', '', '']);
+          rows.push(['Flights /each', c.engFlights, '']);
+          rows.push(['Hotel /night', c.engHotel, '']);
+          rows.push(['']);
+          rows.push(['FIXED COSTS', '', '']);
+          rows.push(['Venue /day', c.venue, '']);
+          rows.push(['AV/Tech /day', c.av, '']);
+          rows.push(['Staff (count)', c.staffCount, '']);
+          rows.push(['Staff (rate each)', c.staffRate, '']);
+        } else {
+          // Fill Nha Trang column
+          const ntC = c;
+          rows[rows.length - 14][2] = ntC.hotel;
+          rows[rows.length - 13][2] = ntC.fb;
+          rows[rows.length - 12][2] = ntC.transport;
+          rows[rows.length - 11][2] = ntC.activities;
+          rows[rows.length - 10][2] = ntC.swag;
+          rows[rows.length - 8][2] = ntC.engFlights;
+          rows[rows.length - 7][2] = ntC.engHotel;
+          rows[rows.length - 5][2] = ntC.venue;
+          rows[rows.length - 4][2] = ntC.av;
+          rows[rows.length - 3][2] = ntC.staffCount;
+          rows[rows.length - 2][2] = ntC.staffRate;
+        }
+      });
+
+      rows.push(['']);
+      rows.push(['P&L SUMMARY', 'Saigon', 'Nha Trang']);
+
+      const summaryKeys = ['revenue', 'commission', 'netRevenue', 'attendeeCost', 'engineerCost', 'fixedCost', 'subtotal', 'contingency', 'totalCost', 'profit', 'margin', 'costPerAttendee'];
+      const summaryLabels = ['Gross Revenue', 'Referral Commission', 'Net Revenue', 'Attendee Costs', 'Engineer Costs', 'Fixed Costs', 'Subtotal Costs', 'Contingency', 'Total Costs', 'Profit', 'Margin', 'Cost per Attendee'];
+
+      summaryLabels.forEach((label, i) => {
+        const sgVal = $('totals-sg').querySelector(`[data-t="${summaryKeys[i]}"]`).textContent;
+        const ntVal = $('totals-nt').querySelector(`[data-t="${summaryKeys[i]}"]`).textContent;
+        rows.push([label, sgVal, ntVal]);
+      });
+
+      return rows;
+    }
+
+    function exportCSV() {
+      const rows = buildRows();
+      const csv = rows.map(r => r.map(c => '"' + String(c).replace(/"/g, '""') + '"').join(',')).join('\n');
+      const blob = new Blob([csv], { type: 'text/csv' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'retreat-pricing-model.csv';
+      a.click();
+      URL.revokeObjectURL(url);
+    }
+
+    function exportExcel() {
+      const rows = buildRows();
+      // Build a simple HTML table that Excel can open
+      let html = '<html xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:x="urn:schemas-microsoft-com:office:excel"><head><meta charset="UTF-8"><!--[if gte mso 9]><xml><x:ExcelWorkbook><x:ExcelWorksheets><x:ExcelWorksheet><x:Name>Retreat Pricing</x:Name></x:ExcelWorksheet></x:ExcelWorksheets></x:ExcelWorkbook></xml><![endif]--></head><body><table>';
+      rows.forEach(r => {
+        html += '<tr>';
+        r.forEach(c => { html += '<td>' + String(c).replace(/</g, '&lt;') + '</td>'; });
+        html += '</tr>';
+      });
+      html += '</table></body></html>';
+      const blob = new Blob([html], { type: 'application/vnd.ms-excel' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'retreat-pricing-model.xls';
+      a.click();
+      URL.revokeObjectURL(url);
+    }
   </script>
 
 </body>

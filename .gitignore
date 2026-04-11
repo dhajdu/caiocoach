@@ -20,3 +20,4 @@ images/*.TIFF
 Website HTML Style Guide.md
 Website Instructions.md
 _templates/
+.vercel

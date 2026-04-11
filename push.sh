@@ -33,6 +33,7 @@ git add \
   community.html \
   retreat.html \
   retreat-participants.html \
+  retreat-pricing.html \
   favicon.svg \
   og-image.jpg
 # Stage any deletions (removed folders like agentic-ai, circle-embeds, generative-ai)

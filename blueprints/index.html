@@ -147,10 +147,11 @@
       padding: 3px 10px;
       border-radius: 5px;
     }
-    .card-category.company { background: rgba(40,123,232,0.1); color: #287BE8; }
-    .card-category.content { background: rgba(26,158,116,0.1); color: #1a9e74; }
-    .card-category.ops { background: rgba(209,69,139,0.1); color: #D1458B; }
-    .card-category.arch { background: rgba(111,242,193,0.15); color: #04102D; }
+    .card-category.leverage { background: rgba(40,123,232,0.1); color: #287BE8; }
+    .card-category.talent { background: rgba(26,158,116,0.1); color: #1a9e74; }
+    .card-category.operations { background: rgba(209,69,139,0.1); color: #D1458B; }
+    .card-category.innovation { background: rgba(111,242,193,0.15); color: #04102D; }
+    .card-category.revenue { background: rgba(201,168,76,0.15); color: #8B7225; }
     .card-type {
       font-family: 'JetBrains Mono', monospace;
       font-size: 9px;
@@ -247,10 +248,11 @@
     <div style="display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:12px; margin-bottom:32px;">
       <div class="filter-bar" style="margin-bottom:0;">
         <button class="filter-tab active" onclick="filterCards('all')">All</button>
-        <button class="filter-tab" onclick="filterCards('company')"><span class="dot" style="background:#287BE8"></span> One-Person Company</button>
-        <button class="filter-tab" onclick="filterCards('content')"><span class="dot" style="background:#1a9e74"></span> Content &amp; Publishing</button>
-        <button class="filter-tab" onclick="filterCards('ops')"><span class="dot" style="background:#D1458B"></span> Operations</button>
-        <button class="filter-tab" onclick="filterCards('arch')"><span class="dot" style="background:#6FF2C1"></span> Architecture</button>
+        <button class="filter-tab" onclick="filterCards('leverage')"><span class="dot" style="background:#287BE8"></span> Infinite Leverage</button>
+        <button class="filter-tab" onclick="filterCards('talent')"><span class="dot" style="background:#1a9e74"></span> Talent</button>
+        <button class="filter-tab" onclick="filterCards('operations')"><span class="dot" style="background:#D1458B"></span> Operations</button>
+        <button class="filter-tab" onclick="filterCards('innovation')"><span class="dot" style="background:#6FF2C1"></span> Innovation</button>
+        <button class="filter-tab" onclick="filterCards('revenue')"><span class="dot" style="background:#C9A84C"></span> Revenue</button>
       </div>
       <div style="display:flex; gap:6px;">
         <button class="filter-tab active" onclick="sortCards('date')" id="sortDate">Newest</button>
@@ -260,11 +262,11 @@
 
     <div class="grid" id="blueprintGrid">
 
-      <!-- ONE-PERSON COMPANY -->
+      <!-- INFINITE LEVERAGE -->
 
-      <a href="the-infinite-leverage-blueprint" class="card" data-category="company" data-date="2026-04-05" data-name="The Infinite Leverage Blueprint">
+      <a href="the-infinite-leverage-blueprint" class="card" data-category="leverage" data-date="2026-04-05" data-name="The Infinite Leverage Blueprint">
         <div class="card-top">
-          <span class="card-category company">One-Person Company</span>
+          <span class="card-category leverage">Infinite Leverage</span>
           <span class="card-type">Plan</span>
           <span class="card-arrow">&rarr;</span>
         </div>
@@ -273,9 +275,9 @@
         <div class="card-footer"><span class="card-date">Apr 5, 2026</span></div>
       </a>
 
-      <a href="mahjong-mirror-plan" class="card" data-category="company" data-date="2026-04-01" data-name="Mahjong Tarot">
+      <a href="mahjong-mirror-plan" class="card" data-category="leverage" data-date="2026-04-01" data-name="Mahjong Tarot">
         <div class="card-top">
-          <span class="card-category company">One-Person Company</span>
+          <span class="card-category leverage">Infinite Leverage</span>
           <span class="card-type">Plan</span>
           <span class="card-arrow">&rarr;</span>
         </div>
@@ -284,9 +286,9 @@
         <div class="card-footer"><span class="card-date">Apr 1, 2026</span></div>
       </a>
 
-      <a href="fab-four-plan" class="card" data-category="company" data-date="2026-04-01" data-name="Fab Four Academy">
+      <a href="fab-four-plan" class="card" data-category="leverage" data-date="2026-04-01" data-name="Fab Four Academy">
         <div class="card-top">
-          <span class="card-category company">One-Person Company</span>
+          <span class="card-category leverage">Infinite Leverage</span>
           <span class="card-type">Plan</span>
           <span class="card-arrow">&rarr;</span>
         </div>
@@ -295,33 +297,11 @@
         <div class="card-footer"><span class="card-date">Apr 1, 2026</span></div>
       </a>
 
-      <!-- CONTENT & PUBLISHING -->
+      <!-- REVENUE — making more money -->
 
-      <a href="blog-workflow" class="card" data-category="content" data-date="2026-04-12" data-name="How We Publish">
+      <a href="content-studio-plan" class="card" data-category="revenue" data-date="2026-04-12" data-name="Content Studio Production Blueprint">
         <div class="card-top">
-          <span class="card-category content">Content &amp; Publishing</span>
-          <span class="card-type">Workflow</span>
-          <span class="card-arrow">&rarr;</span>
-        </div>
-        <div class="card-title">How We Publish</div>
-        <div class="card-desc">The end-to-end blog publishing workflow &mdash; from content creation and image optimisation to git and going live.</div>
-        <div class="card-footer"><span class="card-date">Apr 12, 2026</span></div>
-      </a>
-
-      <a href="workflow-doc-1" class="card" data-category="content" data-date="2026-03-28" data-name="AIO Daily Post Workflow">
-        <div class="card-top">
-          <span class="card-category content">Content &amp; Publishing</span>
-          <span class="card-type">Workflow</span>
-          <span class="card-arrow">&rarr;</span>
-        </div>
-        <div class="card-title">AIO Daily Post Workflow</div>
-        <div class="card-desc">Step-by-step daily post production process for the AI Officer Institute content team.</div>
-        <div class="card-footer"><span class="card-date">Mar 28, 2026</span></div>
-      </a>
-
-      <a href="content-studio-plan" class="card" data-category="content" data-date="2026-04-12" data-name="Content Studio Production Blueprint">
-        <div class="card-top">
-          <span class="card-category content">Content &amp; Publishing</span>
+          <span class="card-category revenue">Revenue</span>
           <span class="card-type">Plan</span>
           <span class="card-arrow">&rarr;</span>
         </div>
@@ -330,9 +310,9 @@
         <div class="card-footer"><span class="card-date">Apr 12, 2026</span></div>
       </a>
 
-      <a href="content-studio-workflow-diagram" class="card" data-category="content" data-date="2026-04-12" data-name="Content Studio Workflow Diagram">
+      <a href="content-studio-workflow-diagram" class="card" data-category="revenue" data-date="2026-04-12" data-name="Content Studio Workflow Diagram">
         <div class="card-top">
-          <span class="card-category content">Content &amp; Publishing</span>
+          <span class="card-category revenue">Revenue</span>
           <span class="card-type">Diagram</span>
           <span class="card-arrow">&rarr;</span>
         </div>
@@ -341,44 +321,35 @@
         <div class="card-footer"><span class="card-date">Apr 12, 2026</span></div>
       </a>
 
-      <a href="web-developer-plan" class="card" data-category="content" data-date="2026-04-12" data-name="Web Developer System Plan">
+      <a href="workflow-doc-1" class="card" data-category="revenue" data-date="2026-03-28" data-name="AIO Daily Post Workflow">
         <div class="card-top">
-          <span class="card-category content">Content &amp; Publishing</span>
-          <span class="card-type">Plan</span>
+          <span class="card-category revenue">Revenue</span>
+          <span class="card-type">Workflow</span>
           <span class="card-arrow">&rarr;</span>
         </div>
-        <div class="card-title">Web Developer &mdash; Complete System Plan</div>
-        <div class="card-desc">The publishing and page-building system. 7 sites, /publish and /build skills, blog workflow, form handling, and the full implementation roadmap.</div>
-        <div class="card-footer"><span class="card-date">Apr 12, 2026</span></div>
+        <div class="card-title">AIO Daily Post Workflow</div>
+        <div class="card-desc">Step-by-step daily post production process for the AI Officer Institute content team.</div>
+        <div class="card-footer"><span class="card-date">Mar 28, 2026</span></div>
       </a>
 
-      <a href="web-developer-workflow-diagram" class="card" data-category="content" data-date="2026-04-12" data-name="Web Developer Workflow Diagram">
-        <div class="card-top">
-          <span class="card-category content">Content &amp; Publishing</span>
-          <span class="card-type">Diagram</span>
-          <span class="card-arrow">&rarr;</span>
-        </div>
-        <div class="card-title">Web Developer &mdash; Visual Workflow</div>
-        <div class="card-desc">Interactive diagram of the blog publishing pipeline. Gather, build, index, and ship phases with site-specific variations.</div>
-        <div class="card-footer"><span class="card-date">Apr 12, 2026</span></div>
-      </a>
+      <!-- TALENT — improving team performance -->
 
-      <!-- OPERATIONS -->
-
-      <a href="coaching-workflow" class="card" data-category="ops" data-date="2026-03-25" data-name="Coaching Session Workflow">
+      <a href="coaching-workflow" class="card" data-category="talent" data-date="2026-03-25" data-name="Coaching Session Workflow">
         <div class="card-top">
-          <span class="card-category ops">Operations</span>
+          <span class="card-category talent">Talent</span>
           <span class="card-type">Workflow</span>
           <span class="card-arrow">&rarr;</span>
         </div>
         <div class="card-title">Coaching Session Workflow</div>
-        <div class="card-desc">Operating procedure for running and managing AI Officer coaching sessions.</div>
+        <div class="card-desc">Operating procedure for running and managing AI Officer coaching sessions to improve leader performance.</div>
         <div class="card-footer"><span class="card-date">Mar 25, 2026</span></div>
       </a>
 
-      <a href="invoicing-workflow" class="card" data-category="ops" data-date="2026-03-20" data-name="Edge 8 AI Monthly Invoicing">
+      <!-- OPERATIONS — saving money on non-revenue activity -->
+
+      <a href="invoicing-workflow" class="card" data-category="operations" data-date="2026-03-20" data-name="Edge 8 AI Monthly Invoicing">
         <div class="card-top">
-          <span class="card-category ops">Operations</span>
+          <span class="card-category operations">Operations</span>
           <span class="card-type">Workflow</span>
           <span class="card-arrow">&rarr;</span>
         </div>
@@ -387,16 +358,49 @@
         <div class="card-footer"><span class="card-date">Mar 20, 2026</span></div>
       </a>
 
-      <!-- ARCHITECTURE -->
-
-      <a href="eo-architecture-diagram" class="card" data-category="arch" data-date="2026-04-03" data-name="EO Global System Architecture">
+      <a href="blog-workflow" class="card" data-category="operations" data-date="2026-04-12" data-name="How We Publish">
         <div class="card-top">
-          <span class="card-category arch">Architecture</span>
+          <span class="card-category operations">Operations</span>
+          <span class="card-type">Workflow</span>
+          <span class="card-arrow">&rarr;</span>
+        </div>
+        <div class="card-title">How We Publish</div>
+        <div class="card-desc">The end-to-end blog publishing workflow. From content creation and image optimisation to git and going live.</div>
+        <div class="card-footer"><span class="card-date">Apr 12, 2026</span></div>
+      </a>
+
+      <a href="web-developer-workflow-diagram" class="card" data-category="operations" data-date="2026-04-12" data-name="Web Developer Workflow Diagram">
+        <div class="card-top">
+          <span class="card-category operations">Operations</span>
+          <span class="card-type">Diagram</span>
+          <span class="card-arrow">&rarr;</span>
+        </div>
+        <div class="card-title">Web Developer &mdash; Visual Workflow</div>
+        <div class="card-desc">Interactive diagram of the blog publishing pipeline. Gather, build, index, and ship phases with site-specific variations.</div>
+        <div class="card-footer"><span class="card-date">Apr 12, 2026</span></div>
+      </a>
+
+      <!-- INNOVATION — new prototypes, concepts, disruption -->
+
+      <a href="web-developer-plan" class="card" data-category="innovation" data-date="2026-04-12" data-name="Web Developer System Plan">
+        <div class="card-top">
+          <span class="card-category innovation">Innovation</span>
+          <span class="card-type">Plan</span>
+          <span class="card-arrow">&rarr;</span>
+        </div>
+        <div class="card-title">Web Developer &mdash; Complete System Plan</div>
+        <div class="card-desc">The publishing and page-building system. 7 sites, /publish and /build skills, blog workflow, form handling, and the full implementation roadmap.</div>
+        <div class="card-footer"><span class="card-date">Apr 12, 2026</span></div>
+      </a>
+
+      <a href="eo-architecture-diagram" class="card" data-category="innovation" data-date="2026-04-03" data-name="EO Global System Architecture">
+        <div class="card-top">
+          <span class="card-category innovation">Innovation</span>
           <span class="card-type">Diagram</span>
           <span class="card-arrow">&rarr;</span>
         </div>
         <div class="card-title">EO Global &mdash; System Architecture</div>
-        <div class="card-desc">Visual overview of the EO Global system architecture &mdash; components, integrations, and data flows.</div>
+        <div class="card-desc">Visual overview of the EO Global system architecture. Components, integrations, and data flows.</div>
         <div class="card-footer"><span class="card-date">Apr 3, 2026</span></div>
       </a>
 

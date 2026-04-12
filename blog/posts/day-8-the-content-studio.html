@@ -190,6 +190,15 @@
             .topbar-nav { display: none; }
             .topbar-right { display: none; }
         }
+    
+        /* Series navigation */
+        .series-nav { margin: 0 0 36px; text-align: center; }
+        .sn-label { font-size: 10px; font-weight: 700; letter-spacing: 1.2px; text-transform: uppercase; color: #287BE8; font-family: 'JetBrains Mono', monospace; margin-bottom: 12px; }
+        .sn-pills { display: flex; gap: 6px; flex-wrap: wrap; justify-content: center; }
+        .sn-pill { width: 32px; height: 32px; display: inline-flex; align-items: center; justify-content: center; border: 1px solid var(--border); border-radius: 6px; font-size: 11px; font-weight: 700; color: var(--text-primary); text-decoration: none; background: var(--card-bg); transition: border-color 0.15s; }
+        .sn-pill:hover { border-color: #287BE8; }
+        .sn-current { border: 2px solid #287BE8; background: rgba(40,123,232,0.06); color: #287BE8; }
+        .sn-future { border-style: dashed; color: var(--text-muted); opacity: 0.4; }
     </style>
 </head>
 <body>
@@ -246,18 +255,24 @@
         <div class="post-layout">
             <div class="post-content">
 
-                <!-- Series Nav -->
-                <div style="margin:0 0 36px;">
-                    <div style="font-size:10px; font-weight:700; letter-spacing:1.2px; text-transform:uppercase; color:#287BE8; font-family:'JetBrains Mono',monospace; margin-bottom:14px; text-align:center;">Infinite Leverage Blueprint Series</div>
-                    <div style="display:flex; gap:8px; flex-wrap:wrap; justify-content:center;">
-                        <a href="day-1-infinite-leverage-blueprint" style="border:1px solid var(--border); border-radius:8px; padding:8px 14px; background:var(--card-bg); text-decoration:none; font-size:11px; font-weight:600; color:var(--text-primary); transition:border-color 0.15s;" onmouseover="this.style.borderColor='#287BE8'" onmouseout="this.style.borderColor='var(--border)'">Day 1</a>
-                        <a href="day-2-infinite-leverage-blueprint" style="border:1px solid var(--border); border-radius:8px; padding:8px 14px; background:var(--card-bg); text-decoration:none; font-size:11px; font-weight:600; color:var(--text-primary); transition:border-color 0.15s;" onmouseover="this.style.borderColor='#287BE8'" onmouseout="this.style.borderColor='var(--border)'">Day 2</a>
-                        <a href="day-3-infinite-leverage-blueprint" style="border:1px solid var(--border); border-radius:8px; padding:8px 14px; background:var(--card-bg); text-decoration:none; font-size:11px; font-weight:600; color:var(--text-primary); transition:border-color 0.15s;" onmouseover="this.style.borderColor='#287BE8'" onmouseout="this.style.borderColor='var(--border)'">Day 3</a>
-                        <a href="day-4-infinite-leverage-blueprint" style="border:1px solid var(--border); border-radius:8px; padding:8px 14px; background:var(--card-bg); text-decoration:none; font-size:11px; font-weight:600; color:var(--text-primary); transition:border-color 0.15s;" onmouseover="this.style.borderColor='#287BE8'" onmouseout="this.style.borderColor='var(--border)'">Day 4</a>
-                        <a href="day-5-infinite-leverage-blueprint" style="border:1px solid var(--border); border-radius:8px; padding:8px 14px; background:var(--card-bg); text-decoration:none; font-size:11px; font-weight:600; color:var(--text-primary); transition:border-color 0.15s;" onmouseover="this.style.borderColor='#287BE8'" onmouseout="this.style.borderColor='var(--border)'">Day 5</a>
-                        <a href="day-6-infinite-leverage-blueprint" style="border:1px solid var(--border); border-radius:8px; padding:8px 14px; background:var(--card-bg); text-decoration:none; font-size:11px; font-weight:600; color:var(--text-primary); transition:border-color 0.15s;" onmouseover="this.style.borderColor='#287BE8'" onmouseout="this.style.borderColor='var(--border)'">Day 6</a>
-                        <a href="day-7-infinite-leverage-blueprint" style="border:1px solid var(--border); border-radius:8px; padding:8px 14px; background:var(--card-bg); text-decoration:none; font-size:11px; font-weight:600; color:var(--text-primary); transition:border-color 0.15s;" onmouseover="this.style.borderColor='#287BE8'" onmouseout="this.style.borderColor='var(--border)'">Day 7</a>
-                        <div style="border:2px solid #287BE8; border-radius:8px; padding:8px 14px; background:rgba(40,123,232,0.06); font-size:11px; font-weight:700; color:#287BE8;">Day 8 &middot; Here</div>
+                <!-- Series Navigation -->
+                <div class="series-nav">
+                    <div class="sn-label">Infinite Leverage Blueprint</div>
+                    <div class="sn-pills">
+                        <a href="day-1-infinite-leverage-blueprint" class="sn-pill">1</a>
+                        <a href="day-2-infinite-leverage-blueprint" class="sn-pill">2</a>
+                        <a href="day-3-infinite-leverage-blueprint" class="sn-pill">3</a>
+                        <a href="day-4-infinite-leverage-blueprint" class="sn-pill">4</a>
+                        <a href="day-5-infinite-leverage-blueprint" class="sn-pill">5</a>
+                        <a href="day-6-infinite-leverage-blueprint" class="sn-pill">6</a>
+                        <a href="day-7-infinite-leverage-blueprint" class="sn-pill">7</a>
+                        <span class="sn-pill sn-current">8</span>
+                        <span class="sn-pill sn-future">9</span>
+                        <span class="sn-pill sn-future">10</span>
+                        <span class="sn-pill sn-future">11</span>
+                        <span class="sn-pill sn-future">12</span>
+                        <span class="sn-pill sn-future">13</span>
+                        <span class="sn-pill sn-future">14</span>
                     </div>
                 </div>
 

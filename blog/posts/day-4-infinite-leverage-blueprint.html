@@ -332,6 +332,15 @@
             .topbar-nav { display: none; }
             .topbar-right { display: none; }
         }
+    
+        /* Series navigation */
+        .series-nav { margin: 0 0 36px; text-align: center; }
+        .sn-label { font-size: 10px; font-weight: 700; letter-spacing: 1.2px; text-transform: uppercase; color: #287BE8; font-family: 'JetBrains Mono', monospace; margin-bottom: 12px; }
+        .sn-pills { display: flex; gap: 6px; flex-wrap: wrap; justify-content: center; }
+        .sn-pill { width: 32px; height: 32px; display: inline-flex; align-items: center; justify-content: center; border: 1px solid var(--border); border-radius: 6px; font-size: 11px; font-weight: 700; color: var(--text-primary); text-decoration: none; background: var(--card-bg); transition: border-color 0.15s; }
+        .sn-pill:hover { border-color: #287BE8; }
+        .sn-current { border: 2px solid #287BE8; background: rgba(40,123,232,0.06); color: #287BE8; }
+        .sn-future { border-style: dashed; color: var(--text-muted); opacity: 0.4; }
     </style>
 </head>
 <body>
@@ -385,82 +394,24 @@
     <article class="post-content-section">
         <div class="post-layout">
 
-            <!-- Series Navigation (top) -->
-            <div style="margin:0 0 36px;">
-                <div style="font-size:10px; font-weight:700; letter-spacing:1.2px; text-transform:uppercase; color:#287BE8; font-family:'JetBrains Mono',monospace; margin-bottom:14px; text-align:center;">Infinite Leverage Blueprint Series</div>
-                <div style="display:grid; grid-template-columns:repeat(7, 1fr); gap:8px;">
-                    <a href="day-1-infinite-leverage-blueprint" style="display:block; border:1px solid var(--border); border-radius:10px; padding:14px 8px; background:var(--card-bg); text-align:center; text-decoration:none; color:inherit; transition:border-color 0.15s;" onmouseover="this.style.borderColor='#287BE8'" onmouseout="this.style.borderColor='var(--border)'">
-                        <div style="font-size:9px; font-weight:700; letter-spacing:0.8px; text-transform:uppercase; color:var(--text-muted); font-family:'JetBrains Mono',monospace; margin-bottom:6px;">&larr; Day 1</div>
-                        <div style="font-size:10px; font-weight:700; color:var(--text-primary); line-height:1.35;">The Vision</div>
-                    </a>
-                    <a href="day-2-infinite-leverage-blueprint" style="display:block; border:1px solid var(--border); border-radius:10px; padding:14px 8px; background:var(--card-bg); text-align:center; text-decoration:none; color:inherit; transition:border-color 0.15s;" onmouseover="this.style.borderColor='#287BE8'" onmouseout="this.style.borderColor='var(--border)'">
-                        <div style="font-size:9px; font-weight:700; letter-spacing:0.8px; text-transform:uppercase; color:var(--text-muted); font-family:'JetBrains Mono',monospace; margin-bottom:6px;">&larr; Day 2</div>
-                        <div style="font-size:10px; font-weight:700; color:var(--text-primary); line-height:1.35;">Set Up Trauma</div>
-                    </a>
-                    <a href="day-3-infinite-leverage-blueprint" style="display:block; border:1px solid var(--border); border-radius:10px; padding:14px 8px; background:var(--card-bg); text-align:center; text-decoration:none; color:inherit; transition:border-color 0.15s;" onmouseover="this.style.borderColor='#287BE8'" onmouseout="this.style.borderColor='var(--border)'">
-                        <div style="font-size:9px; font-weight:700; letter-spacing:0.8px; text-transform:uppercase; color:var(--text-muted); font-family:'JetBrains Mono',monospace; margin-bottom:6px;">&larr; Day 3</div>
-                        <div style="font-size:10px; font-weight:700; color:var(--text-primary); line-height:1.35;">System Running</div>
-                    </a>
-                    <div style="border:2px solid #287BE8; border-radius:10px; padding:14px 8px; background:rgba(40,123,232,0.06); text-align:center;">
-                        <div style="font-size:9px; font-weight:700; letter-spacing:0.8px; text-transform:uppercase; color:#287BE8; font-family:'JetBrains Mono',monospace; margin-bottom:6px;">Day 4 &middot; Here</div>
-                        <div style="font-size:10px; font-weight:700; color:var(--text-primary); line-height:1.35;">Claude Code</div>
-                    </div>
-                    <a href="day-5-infinite-leverage-blueprint" style="display:block; border:1px solid var(--border); border-radius:10px; padding:14px 8px; background:var(--card-bg); text-align:center; text-decoration:none; color:inherit; transition:border-color 0.15s;" onmouseover="this.style.borderColor='#287BE8'" onmouseout="this.style.borderColor='var(--border)'">
-                        <div style="font-size:9px; font-weight:700; letter-spacing:0.8px; text-transform:uppercase; color:var(--text-muted); font-family:'JetBrains Mono',monospace; margin-bottom:6px;">Day 5 &rarr;</div>
-                        <div style="font-size:10px; font-weight:700; color:var(--text-primary); line-height:1.35;">SUPAbase</div>
-                    </a>
-                    <a href="day-6-infinite-leverage-blueprint" style="display:block; border:1px solid var(--border); border-radius:10px; padding:14px 8px; background:var(--card-bg); text-align:center; text-decoration:none; color:inherit; transition:border-color 0.15s;" onmouseover="this.style.borderColor='#287BE8'" onmouseout="this.style.borderColor='var(--border)'">
-                        <div style="font-size:9px; font-weight:700; letter-spacing:0.8px; text-transform:uppercase; color:var(--text-muted); font-family:'JetBrains Mono',monospace; margin-bottom:6px;">Day 6 &rarr;</div>
-                        <div style="font-size:10px; font-weight:700; color:var(--text-primary); line-height:1.35;">Notifications</div>
-                    </a>
-                    <a href="day-7-infinite-leverage-blueprint" style="display:block; border:1px solid var(--border); border-radius:10px; padding:14px 8px; background:var(--card-bg); text-align:center; text-decoration:none; color:inherit; transition:border-color 0.15s;" onmouseover="this.style.borderColor='#287BE8'" onmouseout="this.style.borderColor='var(--border)'">
-                        <div style="font-size:9px; font-weight:700; letter-spacing:0.8px; text-transform:uppercase; color:var(--text-muted); font-family:'JetBrains Mono',monospace; margin-bottom:6px;">Day 7 &rarr;</div>
-                        <div style="font-size:10px; font-weight:700; color:var(--text-primary); line-height:1.35;">The Machine</div>
-                    </a>
-                </div>
-            </div>
-
-            <!-- Hero Image -->
-            <div class="hero-image-wrap">
-                <img src="../images/day-4-infinite-leverage-blueprint.webp" alt="Day 4 Infinite Leverage Blueprint: the day we embraced Claude Code" loading="eager">
-            </div>
-
-            <!-- TL;DR -->
-            <div class="tl-dr-box">
-                <h3>Quick Summary</h3>
-                <ul>
-                    <li>We killed Co-work as the primary harness and moved the whole operation to Claude Code. Native schedule, native dispatch, and git push working from inside a session, which is what finally flipped the math.</li>
-                    <li>A client bought a 5-day Infinite Leverage Blueprint engagement and is flying in to build with the team. The curriculum just got a deadline.</li>
-                    <li>Not much shipped on the core project. A lot shipped on the operator. Supabase wired end to end, three contact forms feeding one table, and a static site migrated to clean URLs.</li>
-                    <li>Trust then verify is not a slogan. Claude gave me outdated Supabase key names because its training lagged the rename. The Supabase dashboard caught it.</li>
-                    <li>Closed the laptop at 4:00 PM to go teach. The side project still runs around a real job, and the new tooling stack is what makes that sustainable.</li>
-                </ul>
-            </div>
-
-            <!-- Opening Lede -->
-            <div class="thesis-lede">
-                Day 1 was vision. Day 2 was foundation. Day 3 was the day the machine started moving without me. Day 4 was the day I picked the harness I am going to run the rest of the 88-day build inside, and the day a stranger bought a seat inside the program I am still writing.
-            </div>
-
-            <!-- Context -->
-            <section class="problem-section" style="margin-top: 8px;">
-                <h2 style="font-size: 1.4rem; font-weight: 800; color: var(--text-primary); margin-bottom: 20px; letter-spacing: -0.3px;">The Context</h2>
-
-                <p>A reminder of the setup. This is the journey to building a 1-person agentic company. The end state is one human (me) plus a fleet of agents. Yon is learning alongside me, a lawyer turned curious generalist, and Trac is the engineering consultant we pull in on demand when the code gets real.</p>
-
-                <p>Day 4 was not a big shipping day on the core project. It was a foundational-decision day. Those matter more than most of the shipping days, which is annoying, because foundational decisions never look like progress on a dashboard.</p>
-            </section>
-
-            <!-- Point 1 -->
-            <section class="problem-section">
-                <div class="problem-header">
-                    <div class="problem-badge">
-                        <span class="problem-badge-label">Point</span>
-                        <span class="problem-badge-num">01</span>
-                    </div>
-                    <div class="problem-header-text">
-                        <div class="problem-chapter-label">Your tooling stack should never cost more than it gives you</div>
-                        <div class="problem-title">Goodbye Co-work, Hello Claude Code</div>
+            <!-- Series Navigation -->
+                <div class="series-nav">
+                    <div class="sn-label">Infinite Leverage Blueprint</div>
+                    <div class="sn-pills">
+                        <a href="day-1-infinite-leverage-blueprint" class="sn-pill">1</a>
+                        <a href="day-2-infinite-leverage-blueprint" class="sn-pill">2</a>
+                        <a href="day-3-infinite-leverage-blueprint" class="sn-pill">3</a>
+                        <span class="sn-pill sn-current">4</span>
+                        <a href="day-5-infinite-leverage-blueprint" class="sn-pill">5</a>
+                        <a href="day-6-infinite-leverage-blueprint" class="sn-pill">6</a>
+                        <a href="day-7-infinite-leverage-blueprint" class="sn-pill">7</a>
+                        <a href="day-8-the-content-studio" class="sn-pill">8</a>
+                        <span class="sn-pill sn-future">9</span>
+                        <span class="sn-pill sn-future">10</span>
+                        <span class="sn-pill sn-future">11</span>
+                        <span class="sn-pill sn-future">12</span>
+                        <span class="sn-pill sn-future">13</span>
+                        <span class="sn-pill sn-future">14</span>
                     </div>
                 </div>
                 <div class="problem-divider"></div>

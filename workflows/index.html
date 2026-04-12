@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Workflows | AI Officer Institute</title>
-  <meta name="description" content="Internal workflows and operating procedures for the AI Officer Institute.">
+  <title>Blueprints | CAIO Coach</title>
+  <meta name="description" content="Agent development plans, workflows, and system architecture for building AI-powered one-person companies.">
   <link rel="icon" type="image/svg+xml" href="/favicon.svg">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -16,16 +16,19 @@
       --blue: #287BE8;
       --magenta: #D1458B;
       --mint: #6FF2C1;
+      --mint-dark: #1a9e74;
       --gray: #EAEEF2;
       --ink: #3A4A60;
       --mid: #8A9BB0;
+      --border: #DDE3EC;
+      --surface: #F4F7FB;
     }
 
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     body {
       font-family: 'DM Sans', sans-serif;
-      background: #F4F7FB;
+      background: var(--surface);
       color: var(--ink);
     }
 
@@ -66,70 +69,111 @@
     .hero p {
       font-size: 18px;
       color: var(--mid);
-      max-width: 540px;
+      max-width: 580px;
       margin: 0 auto;
       line-height: 1.6;
     }
 
-    /* ── GRID ── */
+    /* ── CONTAINER ── */
     .container {
-      max-width: 860px;
+      max-width: 900px;
       margin: 0 auto;
-      padding: 64px 24px;
+      padding: 48px 24px 80px;
     }
 
+    /* ── FILTER TABS ── */
+    .filter-bar {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-bottom: 32px;
+    }
+    .filter-tab {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      padding: 8px 16px;
+      border-radius: 8px;
+      border: 1px solid var(--border);
+      background: #fff;
+      color: var(--ink);
+      cursor: pointer;
+      transition: all 0.15s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .filter-tab:hover { border-color: var(--blue); }
+    .filter-tab.active { background: var(--navy); color: #fff; border-color: var(--navy); }
+    .filter-tab .dot { width: 6px; height: 6px; border-radius: 50%; }
+
+    /* ── GRID ── */
     .grid {
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
-      gap: 20px;
+      gap: 16px;
     }
 
     /* ── CARD ── */
     .card {
       background: #fff;
       border-radius: 12px;
-      border: 1px solid #DDE3EC;
-      padding: 28px;
+      border: 1px solid var(--border);
+      padding: 24px 28px;
       text-decoration: none;
       color: inherit;
       display: flex;
       flex-direction: column;
-      gap: 10px;
+      gap: 8px;
       transition: box-shadow 0.18s ease, transform 0.18s ease;
     }
     .card:hover {
       box-shadow: 0 8px 28px rgba(4,16,45,0.10);
       transform: translateY(-2px);
     }
-    .card-icon {
-      font-size: 28px;
-      line-height: 1;
+    .card.hidden { display: none; }
+    .card-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
     }
+    .card-category {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      padding: 3px 10px;
+      border-radius: 5px;
+    }
+    .card-category.company { background: rgba(40,123,232,0.1); color: #287BE8; }
+    .card-category.content { background: rgba(26,158,116,0.1); color: #1a9e74; }
+    .card-category.ops { background: rgba(209,69,139,0.1); color: #D1458B; }
+    .card-category.arch { background: rgba(111,242,193,0.15); color: #04102D; }
+    .card-arrow {
+      font-size: 13px;
+      color: var(--mid);
+      transition: color 0.12s;
+    }
+    .card:hover .card-arrow { color: var(--blue); }
     .card-title {
-      font-size: 17px;
+      font-size: 16px;
       font-weight: 700;
       color: var(--navy);
       line-height: 1.3;
     }
     .card-desc {
-      font-size: 14px;
+      font-size: 13px;
       color: var(--mid);
       line-height: 1.55;
     }
-    .card-arrow {
-      margin-top: auto;
-      font-size: 13px;
-      font-weight: 600;
-      color: var(--blue);
-      display: flex;
-      align-items: center;
-      gap: 4px;
-    }
-    .card-arrow::after {
-      content: '→';
-    }
-  
-        /* ── Dark site footer ── */
+
+    /* ── EMPTY STATE ── */
+    .no-results { display: none; padding: 48px; text-align: center; color: var(--mid); font-size: 14px; }
+    .no-results.visible { display: block; }
+
+    /* ── FOOTER ── */
     .footer { margin-top: 80px; background: var(--navy); border-top: 1px solid rgba(111,242,193,0.12); }
     .footer-container { max-width: 1200px; margin: 0 auto; padding: 56px 48px 32px; }
     .footer-content { display: grid; grid-template-columns: 1.8fr 1fr 1fr 1fr 1fr; gap: 36px; margin-bottom: 44px; }
@@ -142,7 +186,13 @@
     .footer-section ul li a:hover, .footer-section p a:hover { color: var(--mint); }
     .footer-bottom { border-top: 1px solid rgba(255,255,255,0.07); padding-top: 24px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px; }
     .footer-bottom p { font-size: 11.5px; color: rgba(255,255,255,0.30); letter-spacing: 0.02em; }
-    @media (max-width: 900px) { .footer-content { grid-template-columns: 1fr 1fr; } .footer-container { padding: 40px 24px 28px; } }
+    @media (max-width: 900px) {
+      .topbar-nav { display: none; }
+      .topbar-right { display: none; }
+      .footer-content { grid-template-columns: 1fr 1fr; }
+      .footer-container { padding: 40px 24px 28px; }
+      .grid { grid-template-columns: 1fr; }
+    }
     @media (max-width: 480px) { .footer-content { grid-template-columns: 1fr; } }
   </style>
 </head>
@@ -160,85 +210,117 @@
   </div>
 
   <section class="hero">
-    <div class="eyebrow">AI Officer Institute</div>
-    <h1>Workflows</h1>
-    <p>Internal operating procedures for publishing, content, and production.</p>
+    <div class="eyebrow">CAIO Coach</div>
+    <h1>Blueprints</h1>
+    <p>Agent development plans, production workflows, and system architecture for building AI-powered one-person companies.</p>
   </section>
 
   <div class="container">
-    <div class="grid">
 
-      <a href="blog-workflow" class="card">
-        <div class="card-icon"><i data-lucide="file-text"></i></div>
-        <div class="card-title">How We Publish</div>
-        <div class="card-desc">The end-to-end blog publishing workflow — from content creation and image optimisation to git and going live.</div>
-        <div class="card-arrow">View workflow</div>
-      </a>
+    <!-- Filter Tabs -->
+    <div class="filter-bar">
+      <button class="filter-tab active" onclick="filterCards('all')">All</button>
+      <button class="filter-tab" onclick="filterCards('company')"><span class="dot" style="background:#287BE8"></span> One-Person Company</button>
+      <button class="filter-tab" onclick="filterCards('content')"><span class="dot" style="background:#1a9e74"></span> Content &amp; Publishing</button>
+      <button class="filter-tab" onclick="filterCards('ops')"><span class="dot" style="background:#D1458B"></span> Operations</button>
+      <button class="filter-tab" onclick="filterCards('arch')"><span class="dot" style="background:#6FF2C1"></span> Architecture</button>
+    </div>
 
-      <a href="workflow-doc-1" class="card">
-        <div class="card-icon"><i data-lucide="calendar"></i></div>
-        <div class="card-title">AIO Daily Post Workflow</div>
-        <div class="card-desc">Step-by-step daily post production process for the AI Officer Institute content team.</div>
-        <div class="card-arrow">View workflow</div>
-      </a>
+    <div class="grid" id="blueprintGrid">
 
-      <a href="coaching-workflow" class="card">
-        <div class="card-icon"><i data-lucide="target"></i></div>
-        <div class="card-title">Coaching Session Workflow</div>
-        <div class="card-desc">Operating procedure for running and managing AI Officer coaching sessions.</div>
-        <div class="card-arrow">View workflow</div>
-      </a>
+      <!-- ONE-PERSON COMPANY -->
 
-      <a href="eo-architecture-diagram" class="card">
-        <div class="card-icon"><i data-lucide="network"></i></div>
-        <div class="card-title">EO Global — System Architecture</div>
-        <div class="card-desc">Visual overview of the EO Global system architecture — components, integrations, and data flows.</div>
-        <div class="card-arrow">View diagram</div>
-      </a>
-
-      <a href="the-infinite-leverage-blueprint" class="card">
-        <div class="card-icon"><i data-lucide="infinity"></i></div>
+      <a href="the-infinite-leverage-blueprint" class="card" data-category="company">
+        <div class="card-top">
+          <span class="card-category company">One-Person Company</span>
+          <span class="card-arrow">&rarr;</span>
+        </div>
         <div class="card-title">The Infinite Leverage Blueprint</div>
         <div class="card-desc">A founder's retreat framework. Two hours of teaching, a day and a half of building. You leave with a working agent stack and 15% margin baked into the design.</div>
-        <div class="card-arrow">View blueprint</div>
       </a>
 
-      <a href="mahjong-mirror-plan" class="card">
-        <div class="card-icon"><i data-lucide="sparkles"></i></div>
-        <div class="card-title">Mahjong Tarot — 1 Man Company Plan</div>
+      <a href="mahjong-mirror-plan" class="card" data-category="company">
+        <div class="card-top">
+          <span class="card-category company">One-Person Company</span>
+          <span class="card-arrow">&rarr;</span>
+        </div>
+        <div class="card-title">Mahjong Tarot &mdash; 1 Man Company Plan</div>
         <div class="card-desc">An AI-powered system that turns the Mahjong Tarot book and monthly conversations into a steady stream of content and a full book launch campaign.</div>
-        <div class="card-arrow">View plan</div>
       </a>
 
-      <a href="fab-four-plan" class="card">
-        <div class="card-icon"><i data-lucide="users"></i></div>
-        <div class="card-title">Fab Four — 1 Man Company Plan</div>
+      <a href="fab-four-plan" class="card" data-category="company">
+        <div class="card-top">
+          <span class="card-category company">One-Person Company</span>
+          <span class="card-arrow">&rarr;</span>
+        </div>
+        <div class="card-title">Fab Four Academy &mdash; 1 Man Company Plan</div>
         <div class="card-desc">An AI-powered system that turns Dan's books and monthly conversations into a steady stream of content and handles the full launch of his new book.</div>
-        <div class="card-arrow">View plan</div>
       </a>
 
-      <a href="invoicing-workflow" class="card">
-        <div class="card-icon"><i data-lucide="receipt"></i></div>
-        <div class="card-title">Edge 8 AI — Monthly Invoicing</div>
+      <!-- CONTENT & PUBLISHING -->
+
+      <a href="blog-workflow" class="card" data-category="content">
+        <div class="card-top">
+          <span class="card-category content">Content &amp; Publishing</span>
+          <span class="card-arrow">&rarr;</span>
+        </div>
+        <div class="card-title">How We Publish</div>
+        <div class="card-desc">The end-to-end blog publishing workflow &mdash; from content creation and image optimisation to git and going live.</div>
+      </a>
+
+      <a href="workflow-doc-1" class="card" data-category="content">
+        <div class="card-top">
+          <span class="card-category content">Content &amp; Publishing</span>
+          <span class="card-arrow">&rarr;</span>
+        </div>
+        <div class="card-title">AIO Daily Post Workflow</div>
+        <div class="card-desc">Step-by-step daily post production process for the AI Officer Institute content team.</div>
+      </a>
+
+      <!-- OPERATIONS -->
+
+      <a href="coaching-workflow" class="card" data-category="ops">
+        <div class="card-top">
+          <span class="card-category ops">Operations</span>
+          <span class="card-arrow">&rarr;</span>
+        </div>
+        <div class="card-title">Coaching Session Workflow</div>
+        <div class="card-desc">Operating procedure for running and managing AI Officer coaching sessions.</div>
+      </a>
+
+      <a href="invoicing-workflow" class="card" data-category="ops">
+        <div class="card-top">
+          <span class="card-category ops">Operations</span>
+          <span class="card-arrow">&rarr;</span>
+        </div>
+        <div class="card-title">Edge 8 AI &mdash; Monthly Invoicing</div>
         <div class="card-desc">End-to-end billing workflow: create invoices on the 31st, date to the 1st, due the 20th, credit card rules by client, and escalation if unpaid.</div>
-        <div class="card-arrow">View workflow</div>
+      </a>
+
+      <!-- ARCHITECTURE -->
+
+      <a href="eo-architecture-diagram" class="card" data-category="arch">
+        <div class="card-top">
+          <span class="card-category arch">Architecture</span>
+          <span class="card-arrow">&rarr;</span>
+        </div>
+        <div class="card-title">EO Global &mdash; System Architecture</div>
+        <div class="card-desc">Visual overview of the EO Global system architecture &mdash; components, integrations, and data flows.</div>
       </a>
 
     </div>
+
+    <div class="no-results" id="noResults">No blueprints in this category yet.</div>
+
   </div>
 
-  
-    <footer class="footer">
+  <footer class="footer">
     <div class="footer-container">
       <div class="footer-content">
-
-        <!-- Brand -->
         <div class="footer-brand">
           <h4>CAIO Coach</h4>
           <p>Expert AI coaching for executives ready to lead the AI era.</p>
         </div>
-
-        <!-- Main Menu -->
         <div class="footer-section">
           <h5>Menu</h5>
           <ul>
@@ -248,10 +330,8 @@
             <li><a href="../certification">Certification</a></li>
             <li><a href="../community">Community</a></li>
             <li><a href="../100-business-frameworks">100 Frameworks</a></li>
-</ul>
+          </ul>
         </div>
-
-        <!-- AI-Officer -->
         <div class="footer-section">
           <h5>AI-Officer</h5>
           <ul>
@@ -260,26 +340,20 @@
             <li><a href="https://www.ai-officer.com/leadership-training" target="_blank">Leadership Training</a></li>
           </ul>
         </div>
-
-        <!-- Contact -->
         <div class="footer-section">
           <h5>Contact</h5>
           <p><a href="tel:+84909958581">+84 90 995 8581</a> (VN)</p>
           <p style="margin-top:8px;"><a href="tel:+12063958872">+1 206 395 8872</a> (US)</p>
           <p style="margin-top:8px;"><a href="mailto:dave@edge8.ai">dave@edge8.ai</a></p>
         </div>
-
-        <!-- Social -->
         <div class="footer-section">
           <h5>Social</h5>
           <ul>
             <li><a href="https://community.ai-officer.com" target="_blank">Community</a></li>
             <li><a href="https://www.linkedin.com/company/aiofficerinstitute/" target="_blank">LinkedIn</a></li>
             <li><a href="https://www.facebook.com/aiofficerinstitute" target="_blank">Facebook</a></li>
-            <li><a href="https://www.instagram.com/aiofficerinstitute/" target="_blank">Instagram</a></li>
           </ul>
         </div>
-
       </div>
       <div class="footer-bottom">
         <p>Copyright, 2025 | AI Officer Institute LLC | USA</p>
@@ -287,7 +361,21 @@
     </div>
   </footer>
 
-<script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
-<script>lucide.createIcons();</script>
+  <script>
+  function filterCards(category) {
+    document.querySelectorAll('.filter-tab').forEach(btn => btn.classList.remove('active'));
+    event.target.closest('.filter-tab').classList.add('active');
+    const cards = document.querySelectorAll('.card');
+    let visible = 0;
+    cards.forEach(card => {
+      const show = category === 'all' || card.dataset.category === category;
+      card.classList.toggle('hidden', !show);
+      if (show) visible++;
+    });
+    const empty = document.getElementById('noResults');
+    if (empty) empty.classList.toggle('visible', visible === 0);
+  }
+  </script>
+
 </body>
 </html>

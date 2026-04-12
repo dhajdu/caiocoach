@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="index, follow">
+    <title>How I Built a Content Studio With Claude Code in One Conversation &mdash; CAIO Coach</title>
+    <meta name="description" content="I built a multi-brand content production system using Claude Code in a single session. Here's the three-layer framework — context, instructions, workflow — that makes AI content actually sound like you.">
+
+    <!-- Open Graph Tags -->
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="How I Built a Content Studio With Claude Code in One Conversation">
+    <meta property="og:description" content="I built a multi-brand content production system using Claude Code in a single session. Here's the three-layer framework that makes AI content actually sound like you.">
+    <meta property="og:url" content="https://www.caiocoach.com/blog/posts/day-8-the-content-studio.html">
+    <meta property="og:image" content="https://www.caiocoach.com/blog/images/day-8-the-content-studio.webp">
+    <meta property="og:site_name" content="CAIO Coach">
+
+    <!-- Twitter Card Tags -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="How I Built a Content Studio With Claude Code in One Conversation">
+    <meta name="twitter:description" content="The three-layer framework — context, instructions, workflow — that makes AI content actually sound like you.">
+    <meta name="twitter:image" content="https://www.caiocoach.com/blog/images/day-8-the-content-studio.webp">
+
+    <!-- Canonical URL -->
+    <link rel="canonical" href="https://www.caiocoach.com/blog/posts/day-8-the-content-studio.html">
+
+    <!-- JSON-LD Article Schema -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "Article",
+        "headline": "How I Built a Content Studio With Claude Code in One Conversation",
+        "description": "I built a multi-brand content production system using Claude Code in a single session. Here's the three-layer framework — context, instructions, workflow — that makes AI content actually sound like you.",
+        "datePublished": "2026-04-12",
+        "dateModified": "2026-04-12",
+        "image": "https://www.caiocoach.com/blog/images/day-8-the-content-studio.webp",
+        "author": {
+            "@type": "Person",
+            "name": "Dave Hajdu",
+            "jobTitle": "Founder & Chief AI Officer",
+            "worksFor": {
+                "@type": "Organization",
+                "name": "AI Officer Institute"
+            }
+        },
+        "publisher": {
+            "@type": "Organization",
+            "name": "AI Officer Institute",
+            "url": "https://www.caiocoach.com"
+        },
+        "articleSection": "AI for Learning & Upskilling",
+        "keywords": ["how to make AI write in your voice", "AI content workflow", "Claude Code for writing", "AI content creation system", "content studio", "Claude Code skills"]
+    }
+    </script>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="../../shared/styles.css">
+    <link rel="stylesheet" href="../styles.css">
+
+    <style>
+        :root {
+            --ease: cubic-bezier(0.4, 0, 0.2, 1);
+            --radius: 12px;
+            --shadow-sm: 0 1px 3px rgba(4,16,45,0.07);
+            --shadow-hover: 0 6px 24px rgba(4,16,45,0.10);
+        }
+        body { background: var(--surface); }
+
+        .post-layout { max-width: 720px; margin: 0 auto; padding: 0 24px; }
+
+        /* Hero image */
+        .hero-image-wrap {
+            margin: 32px 0 40px;
+            border-radius: 14px; overflow: hidden;
+            border: 1px solid var(--border);
+            box-shadow: 0 4px 24px rgba(4,16,45,0.10);
+        }
+        .hero-image-wrap img { width: 100%; height: auto; display: block; }
+
+        /* Lede */
+        .thesis-lede {
+            font-size: 1.15rem; line-height: 1.85; color: var(--text-primary);
+            font-style: italic; border-left: 5px solid #287BE8;
+            padding: 20px 24px; margin: 36px 0;
+            background: #f0f7ff; border-radius: 0 10px 10px 0;
+        }
+
+        /* Framework table */
+        .framework-table {
+            width: 100%; border-collapse: collapse; margin: 28px 0;
+            background: var(--card-bg); border: 1px solid var(--border);
+            border-radius: var(--radius); overflow: hidden;
+            box-shadow: var(--shadow-sm);
+        }
+        .framework-table th {
+            background: #04102D; color: #6FF2C1;
+            font-size: 0.75rem; font-weight: 700; letter-spacing: 0.08em;
+            text-transform: uppercase; padding: 14px 20px; text-align: left;
+        }
+        .framework-table td {
+            padding: 16px 20px; font-size: 0.92rem; color: var(--text-secondary);
+            line-height: 1.6; border-bottom: 1px solid var(--border);
+        }
+        .framework-table td:first-child {
+            font-weight: 700; color: var(--text-primary); white-space: nowrap; width: 100px;
+        }
+        .framework-table tr:last-child td { border-bottom: none; }
+
+        /* Pull quote */
+        .pull-quote {
+            font-size: 1.25rem; font-weight: 700; line-height: 1.4;
+            color: var(--text-primary); text-align: center;
+            padding: 28px 32px; margin: 36px 0;
+            border-top: 3px solid #287BE8; border-bottom: 3px solid #287BE8;
+            position: relative;
+        }
+        .pull-quote::before {
+            content: '\201C'; font-size: 5rem; color: #287BE8; opacity: 0.15;
+            position: absolute; top: -20px; left: 0; line-height: 1;
+        }
+
+        /* Emphasis box */
+        .emphasis-box {
+            background: #04102D; color: white;
+            border-radius: var(--radius); padding: 28px 32px; margin: 28px 0;
+        }
+        .emphasis-box p { color: rgba(255,255,255,0.88); line-height: 1.75; margin: 0; font-size: 1rem; }
+        .emphasis-box strong { color: #6FF2C1; }
+
+        /* Conclusion box */
+        .conclusion-box {
+            background: linear-gradient(135deg, #04102D 0%, #0d1f4a 100%);
+            color: white; border-radius: 16px; padding: 40px; margin: 48px 0;
+        }
+        .conclusion-box h2 { color: #6FF2C1; margin-bottom: 16px; font-size: 1.3rem; }
+        .conclusion-box p { color: rgba(255,255,255,0.85); line-height: 1.75; margin-bottom: 14px; font-size: 0.97rem; }
+        .conclusion-box p:last-child { margin-bottom: 0; }
+
+        /* Author note */
+        .author-note {
+            display: grid; grid-template-columns: auto 1fr; gap: 20px;
+            align-items: start; background: var(--surface);
+            border: 1px solid var(--border); border-radius: var(--radius);
+            padding: 24px; margin: 48px 0;
+        }
+        .author-avatar {
+            width: 52px; height: 52px; border-radius: 50%;
+            background: linear-gradient(135deg, #287BE8, #1a9e74);
+            display: flex; align-items: center; justify-content: center;
+            color: white; font-weight: 800; font-size: 1.2rem; flex-shrink: 0;
+        }
+        .author-note-text p { font-size: 0.88rem; color: var(--text-secondary); line-height: 1.7; margin: 0; }
+
+        /* Section styling */
+        .post-content h2 {
+            font-size: 1.4rem; font-weight: 800; color: var(--text-primary);
+            margin: 48px 0 20px; letter-spacing: -0.3px;
+        }
+        .post-content h3 {
+            font-size: 1.1rem; font-weight: 700; color: var(--text-primary);
+            margin: 32px 0 12px;
+        }
+        .post-content p {
+            font-size: 0.97rem; color: var(--text-secondary); line-height: 1.75; margin-bottom: 16px;
+        }
+        .post-content a { color: #287BE8; }
+
+        /* Post nav */
+        .post-nav-section {
+            margin: 60px 0; padding: 32px 0;
+            border-top: 1px solid var(--border);
+            display: grid; grid-template-columns: 1fr; gap: 16px;
+        }
+        .post-nav-card {
+            border: 1px solid var(--border); border-radius: 10px; padding: 20px;
+            text-decoration: none; color: inherit; transition: border-color 0.2s;
+            background: var(--card-bg);
+        }
+        .post-nav-card:hover { border-color: #287BE8; }
+        .post-nav-label { font-size: 0.75rem; color: var(--text-muted); margin-bottom: 6px; text-transform: uppercase; letter-spacing: 0.1em; }
+        .post-nav-title { font-size: 0.95rem; font-weight: 600; color: var(--text-primary); }
+
+        @media (max-width: 900px) {
+            .topbar-nav { display: none; }
+            .topbar-right { display: none; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Topbar -->
+    <div class="topbar">
+        <a href="../../" class="topbar-brand">CAIO <span>COACH</span></a>
+        <button class="nav-toggle" id="navToggle"
+          onclick="var n=this.closest('div.topbar').querySelector('.topbar-nav');n.classList.toggle('open');this.classList.toggle('open');"
+          aria-label="Toggle navigation"><svg class="nav-icon-menu" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" y1="6" x2="20" y2="6"/><line x1="4" y1="12" x2="20" y2="12"/><line x1="4" y1="18" x2="20" y2="18"/></svg><svg class="nav-icon-close" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
+        <nav class="topbar-nav">
+            <a href="../../coaching" class="tnav-link"><span class="tnav-dot" style="background:#287BE8"></span> Coaching</a>
+            <a href="../" class="tnav-link active"><span class="tnav-dot" style="background:#6FF2C1"></span> Blog</a>
+            <a href="../../certification" class="tnav-link"><span class="tnav-dot" style="background:#D1458B"></span> Certification</a>
+            <a href="../../community" class="tnav-link"><span class="tnav-dot" style="background:#1A9E74"></span> Community</a>
+            <a href="../../retreat" class="tnav-link"><span class="tnav-dot" style="background:#6FF2C1"></span> Retreat</a>
+            <a href="https://www.ai-officer.com/100-business-frameworks" class="tnav-link"><span class="tnav-dot" style="background:#287BE8"></span> 100 Frameworks</a>
+        </nav>
+    </div>
+
+    <!-- Post Hero -->
+    <section class="post-hero">
+        <div class="container-narrow">
+            <div class="breadcrumb">
+                <a href="../">Blog</a> / <span>Day 8: The Content Studio</span>
+            </div>
+            <div class="post-eyebrow">AI for Learning &amp; Upskilling</div>
+            <h1>How I Built a Content Studio <span class="accent">With Claude Code</span> in One Conversation</h1>
+            <p class="post-subtitle">The three-layer framework that makes AI content actually sound like you. Data, logic, workflow. Three foundational skills. Three actual features in Claude Code.</p>
+        </div>
+    </section>
+
+    <!-- Post Meta -->
+    <div class="post-meta-section">
+        <div class="container-narrow">
+            <div class="post-meta">
+                <div class="meta-item">
+                    <span class="meta-label">Published</span>
+                    <span class="meta-value">April 12, 2026</span>
+                </div>
+                <div class="meta-item">
+                    <span class="meta-label">Reading Time</span>
+                    <span class="meta-value">5 min read</span>
+                </div>
+                <div class="meta-item">
+                    <span class="post-meta-category">AI for Learning &amp; Upskilling</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Post Content -->
+    <article class="post-content-section">
+        <div class="post-layout">
+            <div class="post-content">
+
+                <!-- Series Nav -->
+                <div style="margin:0 0 36px;">
+                    <div style="font-size:10px; font-weight:700; letter-spacing:1.2px; text-transform:uppercase; color:#287BE8; font-family:'JetBrains Mono',monospace; margin-bottom:14px; text-align:center;">Infinite Leverage Blueprint Series</div>
+                    <div style="display:flex; gap:8px; flex-wrap:wrap; justify-content:center;">
+                        <a href="day-1-infinite-leverage-blueprint" style="border:1px solid var(--border); border-radius:8px; padding:8px 14px; background:var(--card-bg); text-decoration:none; font-size:11px; font-weight:600; color:var(--text-primary); transition:border-color 0.15s;" onmouseover="this.style.borderColor='#287BE8'" onmouseout="this.style.borderColor='var(--border)'">Day 1</a>
+                        <a href="day-2-infinite-leverage-blueprint" style="border:1px solid var(--border); border-radius:8px; padding:8px 14px; background:var(--card-bg); text-decoration:none; font-size:11px; font-weight:600; color:var(--text-primary); transition:border-color 0.15s;" onmouseover="this.style.borderColor='#287BE8'" onmouseout="this.style.borderColor='var(--border)'">Day 2</a>
+                        <a href="day-3-infinite-leverage-blueprint" style="border:1px solid var(--border); border-radius:8px; padding:8px 14px; background:var(--card-bg); text-decoration:none; font-size:11px; font-weight:600; color:var(--text-primary); transition:border-color 0.15s;" onmouseover="this.style.borderColor='#287BE8'" onmouseout="this.style.borderColor='var(--border)'">Day 3</a>
+                        <a href="day-4-infinite-leverage-blueprint" style="border:1px solid var(--border); border-radius:8px; padding:8px 14px; background:var(--card-bg); text-decoration:none; font-size:11px; font-weight:600; color:var(--text-primary); transition:border-color 0.15s;" onmouseover="this.style.borderColor='#287BE8'" onmouseout="this.style.borderColor='var(--border)'">Day 4</a>
+                        <a href="day-5-infinite-leverage-blueprint" style="border:1px solid var(--border); border-radius:8px; padding:8px 14px; background:var(--card-bg); text-decoration:none; font-size:11px; font-weight:600; color:var(--text-primary); transition:border-color 0.15s;" onmouseover="this.style.borderColor='#287BE8'" onmouseout="this.style.borderColor='var(--border)'">Day 5</a>
+                        <a href="day-6-infinite-leverage-blueprint" style="border:1px solid var(--border); border-radius:8px; padding:8px 14px; background:var(--card-bg); text-decoration:none; font-size:11px; font-weight:600; color:var(--text-primary); transition:border-color 0.15s;" onmouseover="this.style.borderColor='#287BE8'" onmouseout="this.style.borderColor='var(--border)'">Day 6</a>
+                        <a href="day-7-infinite-leverage-blueprint" style="border:1px solid var(--border); border-radius:8px; padding:8px 14px; background:var(--card-bg); text-decoration:none; font-size:11px; font-weight:600; color:var(--text-primary); transition:border-color 0.15s;" onmouseover="this.style.borderColor='#287BE8'" onmouseout="this.style.borderColor='var(--border)'">Day 7</a>
+                        <div style="border:2px solid #287BE8; border-radius:8px; padding:8px 14px; background:rgba(40,123,232,0.06); font-size:11px; font-weight:700; color:#287BE8;">Day 8 &middot; Here</div>
+                    </div>
+                </div>
+
+                <!-- Hero Image -->
+                <div class="hero-image-wrap">
+                    <img src="../images/day-8-the-content-studio.webp" alt="Claude: My Content Studio — comic book style illustration of a content production system" loading="eager">
+                </div>
+
+                <!-- Opening -->
+                <p>You've done it. You've opened Claude, typed "write me a LinkedIn post about AI leadership," and gotten back something that sounds like everyone else. Polished. Correct. Completely generic.</p>
+
+                <p>So you try again. You add more detail to the prompt. You say "make it sound like me." It gets a little better. But it still doesn't land. It doesn't sound like you. It doesn't know your audience. It doesn't understand the difference between what you'd post on LinkedIn versus what you'd put on your blog.</p>
+
+                <div class="pull-quote">The prompt is only half the equation.</div>
+
+                <p>Sunday I took a day off from the team project. Instead, I spent the day learning <a href="https://claude.ai/claude-code" target="_blank" rel="noopener noreferrer">Claude Code</a> and studying how Every.to runs their company. And I built something for myself: a content studio that spans all the projects I'm working on. CAIO Coach, AI Officer Institute, Edge8, my personal blog. One system, multiple brands, all from the command line.</p>
+
+                <p>Here's how it works.</p>
+
+                <h2>The Three Layers of a Content Studio</h2>
+
+                <p>Most people focus entirely on what they ask AI to do. The prompt, the task, the output they want. But the quality of what AI produces is determined just as much by what it knows before you ask. It's what we call "the other 50%" and it is the stuff you set up once that makes everything after it better.</p>
+
+                <p>Building a content studio means building that onboarding. It breaks down into three layers:</p>
+
+                <h3>1. Context: The Data and Information Layer</h3>
+
+                <p>This is everything AI needs to know about you before it writes a single word. Your voice. Your audience. Your credentials. Your channels and the specific rules for each one.</p>
+
+                <p>When I write for CAIO Coach, the context is different than when I write for <a href="https://www.ai-officer.com" target="_blank" rel="noopener noreferrer">AI Officer Institute</a> or Edge8. The audiences are different. The angle is different. On CAIO Coach, I'm a coach helping you find your own answers. On Edge8, I'm talking to CTOs about staffing decisions. Same author, completely different energy.</p>
+
+                <p>That context lives in a structured document that AI reads before it starts working. It includes my author voice, audience personas, active channels, and the formatting rules for each one. Every channel has its own style. Every audience has its own pain points. If you haven't given AI this information, you're asking it to guess. And it will guess wrong every time.</p>
+
+                <h3>2. Instructions: The Rules of Engagement</h3>
+
+                <p>Context tells AI who you are. Instructions tell it how to work.</p>
+
+                <p>Without instructions, AI will skip steps. It'll jump straight to a draft without understanding the idea. It'll produce a blog post but forget the social posts. It'll write something that sounds fine but doesn't follow the process that makes content actually good: the back and forth, the pushback, the "is this section really earning its place?"</p>
+
+                <p>Instructions are the playbook. What to do, what not to do, when to ask questions versus just write, and where the approval gates are. They're not complicated. But they're the difference between AI that follows a process and AI that wings it.</p>
+
+                <h3>3. Workflow: The Production Process</h3>
+
+                <p>This is the part almost nobody builds. Most people treat AI as a one-shot tool: ask a question, get an answer, move on. But content production isn't a single prompt. It's a process.</p>
+
+                <p>My blog workflow has phases: develop the idea with clarifying questions, pick a style, build an outline, run an editorial critique, draft, iterate, get approval, then produce everything. Social posts for every channel, SEO and AI search optimization, even image generation prompts. Each step builds on the last. The AI pushes back, suggests angles, asks if something is missing. It's a thought partner, not a vending machine.</p>
+
+                <p>Without workflow, you get one-off outputs. With workflow, you get a production system.</p>
+
+                <h2>The Framework Maps Directly to Claude Code</h2>
+
+                <p>Here's what clicked for me on Sunday. The three layers we teach: data, instructions, workflow. They aren't just concepts. They map directly to actual features in Claude Code:</p>
+
+                <table class="framework-table">
+                    <tr><th>What We Teach</th><th>What It Is in Claude Code</th></tr>
+                    <tr><td>Data</td><td><strong>Context files</strong> — structured documents Claude reads before it writes. Your voice, audience, channels, credentials.</td></tr>
+                    <tr><td>Logic</td><td><strong>Instructions</strong> — the CLAUDE.md file that tells Claude how to work, what rules to follow, where the gates are.</td></tr>
+                    <tr><td>Workflow</td><td><strong>Skills</strong> — slash commands that chain the whole process together into a repeatable production system.</td></tr>
+                </table>
+
+                <p>This is what makes it real. Not theory. Actual files, actual commands, actual system.</p>
+
+                <div class="emphasis-box">
+                    <p>None of this is advanced. Data, logic, workflow: these are foundational skills. The same ones we teach in our <a href="../../certification" style="color:#6FF2C1;">certification programs</a>. <strong>The people who learn the foundations first are the ones who can build things like this in an afternoon.</strong> The people who skip straight to "write me a blog post" are the ones still getting generic output six months from now.</p>
+                </div>
+
+                <h2>What I Actually Built</h2>
+
+                <p>I built this entire content studio using Claude Code.</p>
+
+                <p>Yes, Claude Code. The tool most people think of as a developer's command line. Not a writing tool. Not a content platform. A coding tool.</p>
+
+                <p>But here's what makes it incredibly fast for content production: I type <code>/studio</code>, and I'm immediately in my content production system. Claude reads the right context files (data), follows the instructions (logic), and runs the skill (workflow). No copy-pasting prompts. No re-explaining my voice every session.</p>
+
+                <p>In a single conversation, I set up four brands, each with its own context: voice, audience, and channel rules. I built a second skill, <code>/onboard</code>, that can interview a new client and build their entire content studio from scratch. The system has editorial lenses baked in: one that critiques the structure of every piece at the outline stage, another that reviews SEO implementation for search and AI discoverability. It even generates image prompts and can hit the Nanobanana API to produce the social card. All without leaving the terminal.</p>
+
+                <p>The result: I go from a raw idea to a full blog post, social posts for every active channel, SEO optimization, and a generated image. All in one session. One person. Multiple brands.</p>
+
+                <p>That's not AI replacing a content team. That's one person doing more, and doing it better, than they could before.</p>
+
+                <h2>What This Means For You</h2>
+
+                <p>Here's the coaching question: how much context have you actually given your AI tools?</p>
+
+                <div class="pull-quote">You're hiring someone new every single time you open a chat window. No memory. No onboarding. No process.</div>
+
+                <p>If the answer is "I just type a prompt and see what happens," you're working with 50% of what's possible.</p>
+
+                <p>The other 50% isn't technical. You don't need to be a developer. You don't need to write code. You need to think honestly about three things:</p>
+
+                <p>When was the last time you wrote down what makes your voice <em>yours</em>? Not "professional and approachable," but the actual way you think, argue, and close?</p>
+
+                <p>Do you know who you're really talking to on each channel? Not "business leaders." What they're afraid of, what they're ignoring, and what would make them stop scrolling?</p>
+
+                <p>And do you have a process, or do you just open a blank chat and hope for the best?</p>
+
+                <p>Write that down. Structure it. Give it to your AI tools.</p>
+
+                <!-- Conclusion -->
+                <div class="conclusion-box">
+                    <h2>The Real Insight</h2>
+                    <p>Once you do, you stop asking AI to write for you. You start working with AI to produce content that actually sounds like it came from a human who gives a damn.</p>
+                    <p>And that's the whole point.</p>
+                    <p>Read the rest of the series: <a href="day-7-infinite-leverage-blueprint" style="color:#6FF2C1;">Day 7</a> &middot; <a href="day-6-infinite-leverage-blueprint" style="color:#6FF2C1;">Day 6</a> &middot; <a href="day-5-infinite-leverage-blueprint" style="color:#6FF2C1;">Day 5</a> &middot; <a href="day-1-infinite-leverage-blueprint" style="color:#6FF2C1;">Day 1</a></p>
+                </div>
+
+                <!-- Author Note -->
+                <div class="author-note">
+                    <div class="author-avatar">DH</div>
+                    <div class="author-note-text">
+                        <p><strong>Dave Hajdu</strong> is the founder of the AI Officer Institute and Edge8 AI. He works with founders and executives across more than 20 countries to build the leadership capabilities the AI era demands. He is also a board member of EO Vietnam and splits his time between Ho Chi Minh City and Seattle. Learn how to build your own AI team at <a href="https://www.caiocoach.com">caiocoach.com</a>.</p>
+                    </div>
+                </div>
+
+                <!-- Post Navigation -->
+                <div class="post-nav-section">
+                    <a href="day-7-infinite-leverage-blueprint" class="post-nav-card">
+                        <div class="post-nav-label">&larr; Previous Post</div>
+                        <div class="post-nav-title">Day 7: Building the Machine Behind the Curtain</div>
+                    </a>
+                </div>
+
+            </div>
+        </div>
+    </article>
+
+</body>
+</html>

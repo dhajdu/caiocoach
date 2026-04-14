@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 100">
+  <!-- White background -->
+  <rect width="120" height="100" fill="white"/>
+
+  <!-- Outer dark navy triangle -->
+  <polygon points="41,6 79,92 3,92" fill="#0f1540"/>
+  <!-- Inner triangle cutout -->
+  <polygon points="41,36 61,83 21,83" fill="white"/>
+
+  <!-- Teal/mint rounded bar -->
+  <rect x="0" y="51" width="84" height="13" rx="6.5" ry="6.5" fill="#68EEC0"/>
+
+  <!-- "i" stem — tall and narrow, reaching to base of triangle -->
+  <rect x="91" y="26" width="10" height="66" rx="5" ry="5" fill="#0f1540"/>
+
+  <!-- "i" dot — small, matching stem width -->
+  <circle cx="96" cy="11" r="5.5" fill="#E8397A"/>
+</svg>

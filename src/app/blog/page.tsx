@@ -13,10 +13,9 @@ export const metadata: Metadata = {
 
 const CATEGORIES = [
   'All Posts',
+  'Claude Code',
+  'Infinite Leverage',
   'AI Leadership',
-  'AI for Learning & Upskilling',
-  'AI News & Updates',
-  'Community Learning & Case Studies',
 ];
 
 export default function BlogIndex() {

@@ -150,9 +150,8 @@ export default function CoachingPage() {
                     {/* Topic rows */}
                     <div className="flex flex-col mt-1">
                       {/* Eric topic */}
-                      <Link
-                        href="/coaching-sessions/C01/C01-Eric-Bhutan-Project"
-                        className="flex items-start gap-3 py-3 border-t border-surface no-underline text-inherit group"
+                      <div
+                        className="flex items-start gap-3 py-3 border-t border-surface"
                       >
                         <div className="w-[34px] h-[34px] rounded-full overflow-hidden flex-shrink-0 mt-0.5">
                           <Image
@@ -177,15 +176,11 @@ export default function CoachingPage() {
                             tracking milestones.
                           </div>
                         </div>
-                        <span className="text-[13px] text-muted-foreground flex-shrink-0 mt-0.5 group-hover:text-blue transition-colors">
-                          &rarr;
-                        </span>
-                      </Link>
+                      </div>
 
                       {/* Julien topic */}
-                      <Link
-                        href="/coaching-sessions/C01/C01-Julien-PowerBI-Cowork"
-                        className="flex items-start gap-3 py-3 border-t border-surface no-underline text-inherit group"
+                      <div
+                        className="flex items-start gap-3 py-3 border-t border-surface"
                       >
                         <div className="w-[34px] h-[34px] rounded-full overflow-hidden flex-shrink-0 mt-0.5">
                           <Image
@@ -210,10 +205,7 @@ export default function CoachingPage() {
                             workflow for future reports.
                           </div>
                         </div>
-                        <span className="text-[13px] text-muted-foreground flex-shrink-0 mt-0.5 group-hover:text-blue transition-colors">
-                          &rarr;
-                        </span>
-                      </Link>
+                      </div>
                     </div>
                   </CardContent>
                 </Card>

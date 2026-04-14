@@ -8,7 +8,7 @@ export const POSTS_STANDALONE_3: Post[] = [
     excerpt: 'Five AI employees, two offices, one weekend. The exact process for building your AI org chart from day one: Toyota Kata, Agile, and the hire order that changes everything.',
     date: '2026-04-05',
     readTime: '5 min read',
-    category: 'Leadership in the AI Era',
+    category: 'Infinite Leverage',
     tags: [
       'building a company with AI agents',
       'AI org chart for startups',

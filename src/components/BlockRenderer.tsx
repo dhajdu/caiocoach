@@ -60,7 +60,7 @@ export default function BlockRenderer({ blocks }: { blocks: Block[] }) {
             return (
               <div key={i} className="text-[1.25rem] font-bold leading-[1.4] text-foreground text-center py-7 my-9 border-t-[3px] border-b-[3px] border-blue relative">
                 <span className="absolute top-[-20px] left-0 text-[5rem] text-blue/15 leading-none">&ldquo;</span>
-                {block.text}
+                {renderInlineHtml(block.text)}
               </div>
             );
           case 'emphasis-box':

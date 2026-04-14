@@ -12,7 +12,7 @@ export const POSTS_DAY6_9: Post[] = [
     excerpt: 'CRM systems across three properties, Telegram and email notifications before 8 AM, Harvard persona frameworks feeding a writer agent, and $24K in retreat pipeline. One person. Day 6.',
     date: 'Apr 10, 2026',
     readTime: '7 min read',
-    category: 'Leadership in the AI Era',
+    category: 'Infinite Leverage',
     tags: ['Telegram notifications', 'Resend email', 'Harvard persona frameworks', 'Empathy Map', 'Jobs to Be Done', 'content workflow', 'AI writer agent', 'Infinite Leverage Blueprint', 'AI leadership'],
     image: '/blog/images/day-6-infinite-leverage-blueprint.webp',
     dayNumber: 6,
@@ -26,7 +26,7 @@ export const POSTS_DAY6_9: Post[] = [
     excerpt: 'First payment hits at 6 AM. Retreat pricing calculator live. Full team sprint. Project manager agent. Marketing workflow locked. One person building systems that keep running after you walk away. Day 7.',
     date: 'Apr 11, 2026',
     readTime: '7 min read',
-    category: 'Leadership in the AI Era',
+    category: 'Infinite Leverage',
     tags: ['first payment', 'retreat pricing', 'project manager agent', 'Telegram automation', 'marketing workflow', 'CLAUDE.md', 'content calendar', 'Infinite Leverage Blueprint', 'AI leadership'],
     image: '/blog/images/day-7-infinite-leverage-blueprint.jpeg',
     dayNumber: 7,
@@ -40,7 +40,7 @@ export const POSTS_DAY6_9: Post[] = [
     excerpt: 'I built a multi-brand content production system using Claude Code in a single session. The three-layer framework of context, instructions, and workflow that makes AI content actually sound like you.',
     date: 'Apr 12, 2026',
     readTime: '5 min read',
-    category: 'AI for Learning & Upskilling',
+    category: 'Claude Code',
     tags: ['how to make AI write in your voice', 'AI content workflow', 'Claude Code for writing', 'AI content creation system', 'content studio', 'Claude Code skills'],
     image: '/blog/images/day-8-the-content-studio.webp',
     dayNumber: 8,
@@ -54,8 +54,7 @@ export const POSTS_DAY6_9: Post[] = [
     excerpt: 'Overengineering produced identical images and wasted hours. Engineering AI agents is about outcomes and guardrails, not detailed instructions. Here is how stripping it back fixed everything.',
     date: 'Apr 14, 2026',
     readTime: '6 min read',
-    category: 'AI Leadership',
-    categories: ['AI Leadership', 'AI for Learning & Upskilling'],
+    category: 'Infinite Leverage',
     tags: ['engineering AI agents', 'AI agent workflow', 'over-engineering AI', 'AI content pipeline', 'one-man company AI', 'AI guardrails vs instructions'],
     image: '/blog/images/day-9-designer-got-stuck.webp',
     dayNumber: 9,
@@ -247,7 +246,7 @@ export const BLOCKS_DAY6_9: Record<string, Block[]> = {
 
     { tag: 'p', text: 'This is what makes it real. Not theory. Actual files, actual commands, actual system.' },
 
-    { tag: 'emphasis-box', text: 'None of this is advanced. Data, logic, workflow: these are foundational skills. The same ones we teach in our <a href="../../certification">certification programs</a>. <strong>The people who learn the foundations first are the ones who can build things like this in an afternoon.</strong> The people who skip straight to "write me a blog post" are the ones still getting generic output six months from now.' },
+    { tag: 'emphasis-box', text: 'None of this is advanced. Data, logic, workflow: these are foundational skills. The same ones we teach in our <a href="/certification">certification programs</a>. <strong>The people who learn the foundations first are the ones who can build things like this in an afternoon.</strong> The people who skip straight to "write me a blog post" are the ones still getting generic output six months from now.' },
 
     { tag: 'h2', text: 'What I Actually Built' },
     { tag: 'p', text: 'I built this entire content studio using Claude Code.' },
@@ -277,7 +276,7 @@ export const BLOCKS_DAY6_9: Record<string, Block[]> = {
   /*  DAY 9                                                            */
   /* ================================================================ */
   'day-9-designer-got-stuck': [
-    { tag: 'pull-quote', text: 'This is part of a daily series where I\'m building toward a one-man company in 14 days using the <a href="day-1-infinite-leverage-blueprint">Infinite Leverage Blueprint</a>. I\'ve got friends and engineers who jump in when I need help, but the goal is to keep solving problems that mean I need them less.' },
+    { tag: 'pull-quote', text: 'This is part of a daily series where I\'m building toward a one-man company in 14 days using the <a href="/blog/day-1-infinite-leverage-blueprint">Infinite Leverage Blueprint</a>. I\'ve got friends and engineers who jump in when I need help, but the goal is to keep solving problems that mean I need them less.' },
 
     { tag: 'h2', text: 'The Morning Standup' },
     { tag: 'shipped-list', title: 'What shipped today', items: [

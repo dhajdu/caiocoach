@@ -23,7 +23,7 @@ export default function Footer() {
                 { label: 'Certification', href: '/certification' },
                 { label: 'Community', href: '/community' },
                 { label: '100 Frameworks', href: '/resources/100-business-frameworks' },
-                { label: 'Workflows', href: '/workflows' },
+                { label: 'Retreat', href: '/retreat' },
               ].map((link) => (
                 <li key={link.href}>
                   <Link href={link.href} className="text-[13px] text-white/60 hover:text-mint transition-colors">{link.label}</Link>

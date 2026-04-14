@@ -263,7 +263,7 @@ export default function CoachingPage() {
               <Card>
                 <CardContent className="p-5">
                   <p className="text-[14px] font-bold text-foreground tracking-tight mb-1.5">
-                    Submit Your Problem
+                    Submit Your AI Challenge
                   </p>
                   <p className="text-[13px] text-muted-foreground leading-[1.55]">
                     Every submission gets reviewed. The most applicable problems

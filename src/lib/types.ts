@@ -11,6 +11,23 @@ export type Block =
   | { tag: 'shipped-list'; title: string; items: string[] }
   | { tag: 'ol-item'; text: string }
   | { tag: 'html'; html: string }
+  | { tag: 'step-card'; eyebrow?: string; title: string; body: Block[] }
+  | { tag: 'phase-lane'; lanes: { title: string; items: string[] }[] }
+  | { tag: 'diagram-ref'; component: string }
+
+export type BlueprintCategory = 'leverage' | 'talent' | 'operations' | 'innovation' | 'revenue';
+export type BlueprintType = 'Plan' | 'Workflow' | 'Diagram' | 'Guide';
+
+export type Blueprint = {
+  slug: string;
+  title: string;
+  subtitle?: string;
+  excerpt: string;
+  date: string;
+  category: BlueprintCategory;
+  type: BlueprintType;
+  image?: string;
+};
 
 export type Post = {
   slug: string;

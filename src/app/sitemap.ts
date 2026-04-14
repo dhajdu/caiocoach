@@ -1,5 +1,6 @@
 import { MetadataRoute } from 'next';
 import { POSTS } from '@/lib/posts-data';
+import { BLUEPRINTS } from '@/lib/blueprints-data';
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const baseUrl = 'https://www.caiocoach.com';
@@ -11,6 +12,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${baseUrl}/community`, lastModified: new Date(), changeFrequency: 'monthly' as const, priority: 0.8 },
     { url: `${baseUrl}/retreat`, lastModified: new Date(), changeFrequency: 'monthly' as const, priority: 0.8 },
     { url: `${baseUrl}/blog`, lastModified: new Date(), changeFrequency: 'weekly' as const, priority: 0.9 },
+    { url: `${baseUrl}/blueprints`, lastModified: new Date(), changeFrequency: 'weekly' as const, priority: 0.9 },
   ];
 
   const blogPages = POSTS.map((post) => ({
@@ -20,5 +22,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.8,
   }));
 
-  return [...staticPages, ...blogPages];
+  const blueprintPages = BLUEPRINTS.map((bp) => ({
+    url: `${baseUrl}/blueprints/${bp.slug}`,
+    lastModified: new Date(),
+    changeFrequency: 'monthly' as const,
+    priority: 0.8,
+  }));
+
+  return [...staticPages, ...blogPages, ...blueprintPages];
 }

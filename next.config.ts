@@ -26,6 +26,17 @@ const nextConfig: NextConfig = {
         destination: '/retreat/participants',
         permanent: true,
       },
+      // Legacy blueprint .html URLs
+      {
+        source: '/blueprints/index.html',
+        destination: '/blueprints',
+        permanent: true,
+      },
+      {
+        source: '/blueprints/:slug.html',
+        destination: '/blueprints/:slug',
+        permanent: true,
+      },
     ];
   },
 };

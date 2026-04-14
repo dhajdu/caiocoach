@@ -23,6 +23,7 @@ export default function Footer() {
                 { label: 'Certification', href: '/certification' },
                 { label: 'Community', href: '/community' },
                 { label: '100 Frameworks', href: '/resources/100-business-frameworks' },
+                { label: 'Blueprints', href: '/blueprints' },
                 { label: 'Retreat', href: '/retreat' },
               ].map((link) => (
                 <li key={link.href}>

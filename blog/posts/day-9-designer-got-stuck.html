@@ -1,0 +1,593 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="index, follow">
+    <title>Day 9: The Day the Designer Got Stuck | Engineering AI Agents &mdash; CAIO Coach</title>
+    <meta name="description" content="Engineering AI Agents is a critical skill to know. Overengineering produced identical images and wasted hours. Here's how stripping it back to outcomes and guardrails fixed everything. Day 9 of building a one-man company.">
+
+    <!-- Open Graph Tags -->
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="Day 9: The Day the Designer Got Stuck | Engineering AI Agents">
+    <meta property="og:description" content="Engineering AI Agents is a critical skill to know. Overengineering produced identical images and wasted hours. Here's how stripping it back to outcomes and guardrails fixed everything.">
+    <meta property="og:url" content="https://www.caiocoach.com/blog/posts/day-9-designer-got-stuck.html">
+    <meta property="og:image" content="https://www.caiocoach.com/blog/images/day-9-designer-got-stuck.webp">
+    <meta property="og:site_name" content="CAIO Coach">
+
+    <!-- Twitter Card Tags -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Day 9: The Day the Designer Got Stuck | Engineering AI Agents">
+    <meta name="twitter:description" content="Overengineering produced identical images and wasted hours. Here's how stripping it back to outcomes and guardrails fixed everything.">
+    <meta name="twitter:image" content="https://www.caiocoach.com/blog/images/day-9-designer-got-stuck.webp">
+
+    <!-- Canonical URL -->
+    <link rel="canonical" href="https://www.caiocoach.com/blog/posts/day-9-designer-got-stuck.html">
+
+    <!-- JSON-LD Article Schema -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "Article",
+        "headline": "Day 9: The Day the Designer Got Stuck | Engineering AI Agents",
+        "description": "Engineering AI Agents is a critical skill to know. Overengineering produced identical images and wasted hours. Here's how stripping it back to outcomes and guardrails fixed everything.",
+        "datePublished": "2026-04-14",
+        "dateModified": "2026-04-14",
+        "image": "https://www.caiocoach.com/blog/images/day-9-designer-got-stuck.webp",
+        "author": {
+            "@type": "Person",
+            "name": "Dave Hajdu",
+            "jobTitle": "Founder & Chief AI Officer",
+            "worksFor": {
+                "@type": "Organization",
+                "name": "AI Officer Institute"
+            }
+        },
+        "publisher": {
+            "@type": "Organization",
+            "name": "AI Officer Institute",
+            "url": "https://www.caiocoach.com"
+        },
+        "articleSection": ["AI Leadership", "AI for Learning & Upskilling"],
+        "keywords": ["engineering AI agents", "AI agent workflow", "over-engineering AI", "AI content pipeline", "one-man company AI", "AI guardrails vs instructions"]
+    }
+    </script>
+
+    <!-- FAQ Schema -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        "mainEntity": [
+            {
+                "@type": "Question",
+                "name": "What is the biggest mistake when engineering AI agents?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "When you give an AI agent too many detailed instructions, it collapses into the safest average of everything you told it. Instead of more instructions, give it clear outcomes and simple guardrails. Let it rotate through options rather than follow a rigid template."
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "What is the difference between an AI skill and an AI workflow?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "An AI skill handles a single task, like writing one social media post. An AI workflow connects multiple skills into a system where outputs build on each other strategically. Skills are tools. Workflows are how you use them together to produce consistent, measurable results."
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "How do you manage 18 pieces of content per week with AI?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "By building a weekly production pipeline: a Monday source interview for ideas, a writer agent that produces all content on Tuesday, human review on Wednesday, a designer agent for images on Thursday, weekend visual review, and automated publishing on Monday. The key is that posts are connected by weekly themes, not produced in isolation."
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "Should I generate AI images directly or write prompts first?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "Write prompts first. Have the AI describe what it plans to create, review the prompt to confirm it understands your intent, then generate. This catches misunderstandings before you waste API calls and time on images that miss the mark."
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "Does a one-man company really mean working alone?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "No. It means building systems that reduce your dependency on others. Even with AI handling execution, having an AI engineer who can build and fix your systems is essential. The goal is a small, leveraged team, not total isolation."
+                }
+            }
+        ]
+    }
+    </script>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="../../shared/styles.css">
+    <link rel="stylesheet" href="../styles.css">
+
+    <style>
+        :root {
+            --ease: cubic-bezier(0.4, 0, 0.2, 1);
+            --radius: 12px;
+            --shadow-sm: 0 1px 3px rgba(4,16,45,0.07);
+            --shadow-hover: 0 6px 24px rgba(4,16,45,0.10);
+        }
+        body { background: var(--surface); }
+
+        .post-layout { max-width: 720px; margin: 0 auto; padding: 0 24px; }
+
+        /* Hero image */
+        .hero-image-wrap {
+            margin: 32px 0 40px;
+            border-radius: 14px; overflow: hidden;
+            border: 1px solid var(--border);
+            box-shadow: 0 4px 24px rgba(4,16,45,0.10);
+        }
+        .hero-image-wrap img { width: 100%; height: auto; display: block; }
+
+        /* Lede */
+        .thesis-lede {
+            font-size: 1.15rem; line-height: 1.85; color: var(--text-primary);
+            font-style: italic; border-left: 5px solid #287BE8;
+            padding: 20px 24px; margin: 36px 0;
+            background: #f0f7ff; border-radius: 0 10px 10px 0;
+        }
+
+        /* Pull quote */
+        .pull-quote {
+            font-size: 1.25rem; font-weight: 700; line-height: 1.4;
+            color: var(--text-primary); text-align: center;
+            padding: 28px 32px; margin: 36px 0;
+            border-top: 3px solid #287BE8; border-bottom: 3px solid #287BE8;
+            position: relative;
+        }
+        .pull-quote::before {
+            content: '\201C'; font-size: 5rem; color: #287BE8; opacity: 0.15;
+            position: absolute; top: -20px; left: 0; line-height: 1;
+        }
+
+        /* Emphasis box */
+        .emphasis-box {
+            background: #04102D; color: white;
+            border-radius: var(--radius); padding: 28px 32px; margin: 28px 0;
+        }
+        .emphasis-box p { color: rgba(255,255,255,0.88); line-height: 1.75; margin: 0; font-size: 1rem; }
+        .emphasis-box strong { color: #6FF2C1; }
+
+        /* Why it matters */
+        .why-matters {
+            border-left: 4px solid #1a9e74; padding: 20px 24px; margin: 28px 0;
+            background: #f0faf5; border-radius: 0 10px 10px 0;
+        }
+        .why-matters-label {
+            font-size: 0.75rem; font-weight: 700; text-transform: uppercase;
+            letter-spacing: 0.1em; color: #1a9e74; margin-bottom: 8px;
+            font-family: 'JetBrains Mono', monospace;
+        }
+        .why-matters p { font-size: 0.95rem; color: var(--text-secondary); line-height: 1.7; margin: 0; }
+
+        /* Shipped list */
+        .shipped-list {
+            background: var(--card-bg); border: 1px solid var(--border);
+            border-radius: var(--radius); padding: 24px; margin: 28px 0;
+            box-shadow: var(--shadow-sm);
+        }
+        .shipped-list-title {
+            font-size: 0.75rem; font-weight: 700; text-transform: uppercase;
+            letter-spacing: 0.1em; color: #287BE8; margin-bottom: 16px;
+            font-family: 'JetBrains Mono', monospace;
+        }
+        .shipped-list ul { margin: 0; padding-left: 20px; }
+        .shipped-list li { font-size: 0.92rem; color: var(--text-secondary); margin-bottom: 10px; line-height: 1.6; }
+
+        /* In-post image */
+        .inline-image-wrap {
+            margin: 32px 0;
+            border-radius: 14px; overflow: hidden;
+            border: 1px solid var(--border);
+            box-shadow: 0 4px 24px rgba(4,16,45,0.10);
+        }
+        .inline-image-wrap img { width: 100%; height: auto; display: block; }
+
+        /* Stat callout */
+        .stat-callout {
+            display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px;
+            margin: 32px 0; text-align: center;
+        }
+        .stat-item { padding: 20px; background: var(--card-bg); border: 1px solid var(--border); border-radius: var(--radius); }
+        .stat-num { font-size: 2rem; font-weight: 800; color: #287BE8; }
+        .stat-num.mag { color: #D1458B; }
+        .stat-num.mint { color: #1a9e74; }
+        .stat-label { font-size: 0.75rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.08em; margin-top: 4px; }
+
+        /* Conclusion box */
+        .conclusion-box {
+            background: linear-gradient(135deg, #04102D 0%, #0d1f4a 100%);
+            color: white; border-radius: 16px; padding: 40px; margin: 48px 0;
+        }
+        .conclusion-box h2 { color: #6FF2C1; margin-bottom: 16px; font-size: 1.3rem; }
+        .conclusion-box p { color: rgba(255,255,255,0.85); line-height: 1.75; margin-bottom: 14px; font-size: 0.97rem; }
+        .conclusion-box p:last-child { margin-bottom: 0; }
+
+        /* Author note */
+        .author-note {
+            display: grid; grid-template-columns: auto 1fr; gap: 20px;
+            align-items: start; background: var(--surface);
+            border: 1px solid var(--border); border-radius: var(--radius);
+            padding: 24px; margin: 48px 0;
+        }
+        .author-avatar {
+            width: 52px; height: 52px; border-radius: 50%;
+            background: linear-gradient(135deg, #287BE8, #1a9e74);
+            display: flex; align-items: center; justify-content: center;
+            color: white; font-weight: 800; font-size: 1.2rem; flex-shrink: 0;
+        }
+        .author-note-text p { font-size: 0.88rem; color: var(--text-secondary); line-height: 1.7; margin: 0; }
+
+        /* Section styling */
+        .post-content h2 {
+            font-size: 1.4rem; font-weight: 800; color: var(--text-primary);
+            margin: 48px 0 20px; letter-spacing: -0.3px;
+        }
+        .post-content h3 {
+            font-size: 1.1rem; font-weight: 700; color: var(--text-primary);
+            margin: 32px 0 12px;
+        }
+        .post-content p {
+            font-size: 0.97rem; color: var(--text-secondary); line-height: 1.75; margin-bottom: 16px;
+        }
+        .post-content a { color: #287BE8; }
+        .post-content ul, .post-content ol { color: var(--text-secondary); font-size: 0.97rem; line-height: 1.75; margin-bottom: 16px; }
+        .post-content li { margin-bottom: 8px; }
+
+        /* FAQ section */
+        .faq-wrapper { max-width: 720px; margin: 48px auto; padding: 0 24px; }
+        .faq-wrapper h2 { font-size: 1.3rem; font-weight: 800; color: var(--text-primary); margin-bottom: 24px; }
+        .faq-item { border: 1px solid var(--border); border-radius: var(--radius); margin-bottom: 12px; overflow: hidden; background: var(--card-bg); }
+        .faq-question { padding: 20px 24px; font-size: 0.95rem; font-weight: 700; color: var(--text-primary); cursor: pointer; display: flex; justify-content: space-between; align-items: center; }
+        .faq-question::after { content: '+'; font-size: 1.2rem; color: var(--text-muted); transition: transform 0.2s; }
+        .faq-item.open .faq-question::after { content: '\2212'; }
+        .faq-answer { padding: 0 24px 20px; font-size: 0.9rem; color: var(--text-secondary); line-height: 1.7; display: none; }
+        .faq-item.open .faq-answer { display: block; }
+
+        /* Related reads */
+        .related-reads { max-width: 720px; margin: 0 auto 48px; padding: 0 24px; }
+        .related-reads h2 { font-size: 1.1rem; font-weight: 700; color: var(--text-primary); margin-bottom: 16px; }
+        .related-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+        .related-card { border: 1px solid var(--border); border-radius: var(--radius); padding: 20px; text-decoration: none; color: inherit; background: var(--card-bg); transition: border-color 0.2s; }
+        .related-card:hover { border-color: #287BE8; }
+        .related-card-title { font-size: 0.92rem; font-weight: 600; color: var(--text-primary); margin-bottom: 6px; }
+        .related-card-date { font-size: 0.75rem; color: var(--text-muted); }
+
+        /* Post nav */
+        .post-nav-section {
+            margin: 60px 0; padding: 32px 0;
+            border-top: 1px solid var(--border);
+            display: grid; grid-template-columns: 1fr; gap: 16px;
+        }
+        .post-nav-card {
+            border: 1px solid var(--border); border-radius: 10px; padding: 20px;
+            text-decoration: none; color: inherit; transition: border-color 0.2s;
+            background: var(--card-bg);
+        }
+        .post-nav-card:hover { border-color: #287BE8; }
+        .post-nav-label { font-size: 0.75rem; color: var(--text-muted); margin-bottom: 6px; text-transform: uppercase; letter-spacing: 0.1em; }
+        .post-nav-title { font-size: 0.95rem; font-weight: 600; color: var(--text-primary); }
+
+        /* Series navigation */
+        .series-nav { margin: 0 0 36px; text-align: center; }
+        .sn-label { font-size: 10px; font-weight: 700; letter-spacing: 1.2px; text-transform: uppercase; color: #287BE8; font-family: 'JetBrains Mono', monospace; margin-bottom: 12px; }
+        .sn-pills { display: flex; gap: 6px; flex-wrap: wrap; justify-content: center; }
+        .sn-pill { width: 32px; height: 32px; display: inline-flex; align-items: center; justify-content: center; border: 1px solid var(--border); border-radius: 6px; font-size: 11px; font-weight: 700; color: var(--text-primary); text-decoration: none; background: var(--card-bg); transition: border-color 0.15s; }
+        .sn-pill:hover { border-color: #287BE8; }
+        .sn-current { border: 2px solid #287BE8; background: rgba(40,123,232,0.06); color: #287BE8; }
+        .sn-future { border-style: dashed; color: var(--text-muted); opacity: 0.4; }
+
+        @media (max-width: 900px) {
+            .topbar-nav { display: none; }
+            .topbar-right { display: none; }
+            .stat-callout { grid-template-columns: 1fr; }
+            .related-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Topbar -->
+    <div class="topbar">
+        <a href="../../" class="topbar-brand">CAIO <span>COACH</span></a>
+        <button class="nav-toggle" id="navToggle"
+          onclick="var n=this.closest('div.topbar').querySelector('.topbar-nav');n.classList.toggle('open');this.classList.toggle('open');"
+          aria-label="Toggle navigation"><svg class="nav-icon-menu" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" y1="6" x2="20" y2="6"/><line x1="4" y1="12" x2="20" y2="12"/><line x1="4" y1="18" x2="20" y2="18"/></svg><svg class="nav-icon-close" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
+        <nav class="topbar-nav">
+            <a href="../../coaching" class="tnav-link"><span class="tnav-dot" style="background:#287BE8"></span> Coaching</a>
+            <a href="../" class="tnav-link active"><span class="tnav-dot" style="background:#6FF2C1"></span> Blog</a>
+            <a href="../../certification" class="tnav-link"><span class="tnav-dot" style="background:#D1458B"></span> Certification</a>
+            <a href="../../community" class="tnav-link"><span class="tnav-dot" style="background:#1A9E74"></span> Community</a>
+            <a href="../../retreat" class="tnav-link"><span class="tnav-dot" style="background:#6FF2C1"></span> Retreat</a>
+            <a href="https://www.ai-officer.com/100-business-frameworks" class="tnav-link"><span class="tnav-dot" style="background:#287BE8"></span> 100 Frameworks</a>
+        </nav>
+    </div>
+
+    <!-- Post Hero -->
+    <section class="post-hero">
+        <div class="container-narrow">
+            <div class="breadcrumb">
+                <a href="../">Blog</a> / <span>Day 9: The Day the Designer Got Stuck</span>
+            </div>
+            <div class="post-eyebrow">AI Leadership</div>
+            <h1>Day 9: The Day <span class="accent">the Designer</span> Got Stuck</h1>
+            <p class="post-subtitle">Engineering AI agents is about outcomes and guardrails, not perfection. I burned 70 API calls learning that the hard way.</p>
+        </div>
+    </section>
+
+    <!-- Post Meta -->
+    <div class="post-meta-section">
+        <div class="container-narrow">
+            <div class="post-meta">
+                <div class="meta-item">
+                    <span class="meta-label">Published</span>
+                    <span class="meta-value">April 14, 2026</span>
+                </div>
+                <div class="meta-item">
+                    <span class="meta-label">Reading Time</span>
+                    <span class="meta-value">6 min read</span>
+                </div>
+                <div class="meta-item">
+                    <span class="post-meta-category">AI Leadership</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Post Content -->
+    <article class="post-content-section">
+        <div class="post-layout">
+            <div class="post-content">
+
+                <!-- Series Navigation -->
+                <div class="series-nav">
+                    <div class="sn-label">Infinite Leverage Blueprint</div>
+                    <div class="sn-pills">
+                        <a href="day-1-infinite-leverage-blueprint" class="sn-pill">1</a>
+                        <a href="day-2-infinite-leverage-blueprint" class="sn-pill">2</a>
+                        <a href="day-3-infinite-leverage-blueprint" class="sn-pill">3</a>
+                        <a href="day-4-infinite-leverage-blueprint" class="sn-pill">4</a>
+                        <a href="day-5-infinite-leverage-blueprint" class="sn-pill">5</a>
+                        <a href="day-6-infinite-leverage-blueprint" class="sn-pill">6</a>
+                        <a href="day-7-infinite-leverage-blueprint" class="sn-pill">7</a>
+                        <a href="day-8-the-content-studio" class="sn-pill">8</a>
+                        <span class="sn-pill sn-current">9</span>
+                        <span class="sn-pill sn-future">10</span>
+                        <span class="sn-pill sn-future">11</span>
+                        <span class="sn-pill sn-future">12</span>
+                        <span class="sn-pill sn-future">13</span>
+                        <span class="sn-pill sn-future">14</span>
+                    </div>
+                </div>
+
+                <!-- Hero Image -->
+                <div class="hero-image-wrap">
+                    <img src="../images/day-9-designer-got-stuck.webp" alt="Day 9 badge: First I fought the bots, then I fought my own agent" loading="eager">
+                </div>
+
+                <!-- Series Intro -->
+                <div class="thesis-lede">
+                    This is part of a daily series where I'm building toward a one-man company in 14 days using the <a href="day-1-infinite-leverage-blueprint">Infinite Leverage Blueprint</a>. I've got friends and engineers who jump in when I need help, but the goal is to keep solving problems that mean I need them less.
+                </div>
+
+                <!-- Morning Standup -->
+                <h2>The Morning Standup</h2>
+
+                <div class="shipped-list">
+                    <div class="shipped-list-title">What shipped today</div>
+                    <ul>
+                        <li><strong>Spam fix.</strong> Woke up to spam flooding the contact forms. Fixed it.</li>
+                        <li><strong>Writer agent live.</strong> It now writes 18 posts per week.</li>
+                        <li><strong>Code review with Track.</strong> Updated the writer. Clean.</li>
+                        <li><strong>Blueprints page.</strong> Built it for CAIO Coach so plans, workflows, and diagrams auto-publish there now.</li>
+                        <li><strong>Telegram to Lark.</strong> Chat threads were fighting me. Switched. Done.</li>
+                        <li><strong>New web developer skills.</strong> Page builder and form builder.</li>
+                    </ul>
+                </div>
+
+                <p>All of this before the day really started. Feeling sharp. And then...</p>
+
+                <!-- Pipeline -->
+                <h2>The Pipeline That Makes This Possible</h2>
+
+                <p>Let me back up and explain why 18 posts a week from one person isn't crazy.</p>
+
+                <p>The Mahjong Tarot project is a labor of love. My dad wrote a book that blends mahjong with tarot-style readings. The goal is simple: bring it back to life. That means content. Lots of it. Consistently.</p>
+
+                <p>Here's the system:</p>
+
+                <ul>
+                    <li><strong>Monday:</strong> A "shock and awe" post that hooks new readers, something bold, like the Year of the Fire Horse. Plus social posts for Monday and Tuesday.</li>
+                    <li><strong>Wednesday:</strong> Pull wisdom directly from the book. Practical advice on making better decisions. Plus social for Wednesday and Thursday.</li>
+                    <li><strong>Friday:</strong> Feel Good Friday, an affirmation or weekend intention. Plus social for Friday and Saturday.</li>
+                </ul>
+
+                <div class="stat-callout">
+                    <div class="stat-item">
+                        <div class="stat-num">18</div>
+                        <div class="stat-label">Posts per week</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-num mag">3</div>
+                        <div class="stat-label">Blog posts</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-num mint">1</div>
+                        <div class="stat-label">Person</div>
+                    </div>
+                </div>
+
+                <p>But here's the part most people miss.</p>
+
+                <p>The posts aren't random. They're connected by strategy. Monday draws you in. Wednesday teaches you something. Friday makes you feel something. You can actually measure what's working and adjust.</p>
+
+                <div class="why-matters">
+                    <div class="why-matters-label">Why It Matters</div>
+                    <p>Someone recently told me they're using <a href="https://claude.ai" target="_blank" rel="noopener noreferrer">Claude's</a> marketing team skills to write their content. That's great. But a skill is a task. It writes one post. What it doesn't do is tie your Monday post to your Wednesday post to your Friday post. It doesn't build a content strategy you can test and iterate on. Getting a set of AI skills is like getting a prompt library. Useful? Sure. Foundational? No. The workflow is the foundation.</p>
+                </div>
+
+                <p>And the workflow has its own rhythm:</p>
+
+                <ul>
+                    <li><strong>Monday 8am:</strong> A 30-minute call with my dad. We talk about the week's themes, he shares stories, new ideas, reactions to what's been published. His thoughts go straight into the source files alongside his old writing and his new book. This is the part that matters most: the ideas. AI doesn't have ideas. People do. AI just executes.</li>
+                    <li><strong>Tuesday:</strong> The writer agent fires and produces everything for the week, pulling from those source files.</li>
+                    <li><strong>Wednesday morning:</strong> The human wakes up to a full content calendar. 48 hours to review and edit.</li>
+                    <li><strong>Thursday:</strong> The designer agent runs and creates all the images.</li>
+                    <li><strong>Weekend:</strong> Human reviews the visuals. Makes swaps if needed.</li>
+                    <li><strong>Monday morning:</strong> The web developer agent starts publishing. And the cycle starts again with another call.</li>
+                </ul>
+
+                <div class="pull-quote">One person. One week of content. Fully orchestrated. But it starts with a conversation, not a prompt.</div>
+
+                <p>Until the designer breaks.</p>
+
+                <!-- Designer Broke -->
+                <h2>Then the Designer Broke</h2>
+
+                <p>Here's the thing about engineering AI agents: the instinct is to be thorough. A friend of mine who's learning this stuff, along with an engineer I work with, built the designer agent. They did what engineers do. They over-engineered it.</p>
+
+                <p>Detailed step-by-step instructions. Multiple skills files. Tons of examples showing exactly what the output should look like. He wanted to remove all ambiguity. Make it foolproof.</p>
+
+                <p>The result? Every single image looked the same.</p>
+
+                <div class="emphasis-box">
+                    <p>One style. No bold text. No variety. It kept generating candles and mahjong tiles over and over. <strong>(It's mahjong cards, not tiles. The agent didn't even get that right.)</strong></p>
+                </div>
+
+                <p>I burned my entire night on this. Hit the 70-image API limit trying to generate my way out of it. Didn't stop until 11pm. Forgot to do my end-of-day review. The whole routine fell apart because one agent couldn't do its job.</p>
+
+                <!-- Lesson -->
+                <h2>The Lesson I Already Teach But Had to Learn Again</h2>
+
+                <p>The hardest part of engineering AI agents is resisting the urge to control every detail. Here's what happened: the agent was given so many instructions that it collapsed into the safest possible average of everything it was told. When you over-specify, AI doesn't get more creative. It gets less creative. It finds the one output that satisfies every constraint and repeats it.</p>
+
+                <p>Engineers do this instinctively. They try to engineer away variability. But with creative work, variability is the entire point.</p>
+
+                <!-- In-post image -->
+                <div class="inline-image-wrap">
+                    <img src="../images/day-9-guardrails.webp" alt="Two charts comparing instructions vs guardrails: more instructions decrease creativity, but guardrails and creativity rise together. Your agent isn't broken. You're micromanaging it." loading="lazy">
+                </div>
+
+                <p>AI doesn't need perfection. It needs outcomes and guardrails.</p>
+
+                <p>Defining your workflow (the steps, the sequence, the handoffs) is good. That's structure. But dictating exactly what each step should produce? That's where it breaks.</p>
+
+                <!-- Fix -->
+                <h2>How I Fixed It</h2>
+
+                <p>I deleted the agent. All of it. Started from zero.</p>
+
+                <p>Instead of detailed generation instructions, I gave it three simple decisions to rotate through:</p>
+
+                <ol>
+                    <li><strong>What's the key theme for this image?</strong> Pull it from the content.</li>
+                    <li><strong>Pick an image style.</strong> Rotate through about ten options: editorial illustration, photorealistic, typography, pop art, cinematic. No repeats back to back.</li>
+                    <li><strong>What type of image?</strong> A human, a scene, or text. If text, write the words in English.</li>
+                </ol>
+
+                <p>Then the real fix: I stopped generating images entirely. Instead, I had the agent write the prompts.</p>
+
+                <div class="emphasis-box">
+                    <p>That's the foundation I teach, and I had to relearn it the hard way: <strong>have AI write the prompt. Read the prompt. Check that it understands what you want. Then, and only then, generate.</strong></p>
+                </div>
+
+                <p>You catch problems at the thinking stage, not after you've burned 70 API calls and your whole evening.</p>
+
+                <!-- Close -->
+                <div class="conclusion-box">
+                    <h2>Day 9 of 14</h2>
+                    <p>Some days you ship ten things before lunch. Some days one broken agent eats your entire night.</p>
+                    <p>That's the build. That's what it actually looks like when you're heading toward a one-man company with AI. Not a highlight reel. Not a polished case study. Just the real thing, wins and failures, with five days left to pull this together.</p>
+                    <p>Here's what I've learned nine days in: you can build an incredible amount with AI, but you can't do it entirely alone. I run two companies full-time, <a href="https://www.edge8.ai" target="_blank" rel="noopener noreferrer" style="color:#6FF2C1;">Edge8 AI</a> and <a href="https://www.ai-officer.com" target="_blank" rel="noopener noreferrer" style="color:#6FF2C1;">AI Officer Institute</a>. I'm the sole operator of both. This 14-day build? It's a side project. And I still need an engineer to call when the designer agent won't cooperate.</p>
+                    <p>That's not a failure. That's the model. Engineering AI agents is a skill every business needs, and I believe every successful business is going to have an AI engineer working alongside them. Not a full dev team. Not an agency. One person who understands how to build and fix the systems that run your company.</p>
+                    <p>The question isn't whether you need one. It's whether you've found yours yet.</p>
+                    <p>If you're building something like this and want to talk through it, <a href="../../retreat" style="color:#6FF2C1;">reach out</a>. I've probably already hit your wall.</p>
+                    <p>Read the rest of the series: <a href="day-8-the-content-studio" style="color:#6FF2C1;">Day 8</a> &middot; <a href="day-7-infinite-leverage-blueprint" style="color:#6FF2C1;">Day 7</a> &middot; <a href="day-6-infinite-leverage-blueprint" style="color:#6FF2C1;">Day 6</a> &middot; <a href="day-1-infinite-leverage-blueprint" style="color:#6FF2C1;">Day 1</a></p>
+                </div>
+
+                <!-- Author Note -->
+                <div class="author-note">
+                    <div class="author-avatar">DH</div>
+                    <div class="author-note-text">
+                        <p><strong>Dave Hajdu</strong> is the founder of the AI Officer Institute and Edge8 AI. He works with founders and executives across more than 20 countries to build the leadership capabilities the AI era demands. He is also a board member of EO Vietnam and splits his time between Ho Chi Minh City and Seattle. Learn how to build your own AI team at <a href="https://www.caiocoach.com">caiocoach.com</a>.</p>
+                    </div>
+                </div>
+
+                <!-- CTA -->
+                <div style="margin: 48px 0;">
+                    <a href="../../certification" style="display:block; background:#04102D; border-radius:12px; padding:28px 32px; text-decoration:none; color:inherit;">
+                        <div style="font-size:11px; font-weight:700; letter-spacing:1px; text-transform:uppercase; color:#6FF2C1; margin-bottom:10px;">CAIO Coach</div>
+                        <div style="font-size:20px; font-weight:700; color:#fff; line-height:1.2; margin-bottom:8px;">Ready to lead AI, not just use it?</div>
+                        <div style="font-size:14px; color:rgba(255,255,255,0.6); margin-bottom:16px;">Explore the Certified AI Officer program and start building the skills the AI era demands.</div>
+                        <span style="display:inline-flex; align-items:center; gap:6px; background:#287BE8; color:#fff; font-size:14px; font-weight:700; padding:10px 20px; border-radius:8px;">View the Certification Program &rarr;</span>
+                    </a>
+                </div>
+
+                <!-- Post Navigation -->
+                <div class="post-nav-section">
+                    <a href="day-8-the-content-studio" class="post-nav-card">
+                        <div class="post-nav-label">&larr; Previous Post</div>
+                        <div class="post-nav-title">How I Built a Content Studio With Claude Code in One Conversation</div>
+                    </a>
+                </div>
+
+            </div>
+        </div>
+    </article>
+
+    <!-- FAQ Section -->
+    <section class="faq-wrapper">
+        <h2>Frequently Asked Questions</h2>
+        <div class="faq-item">
+            <div class="faq-question" onclick="this.parentElement.classList.toggle('open')">What is the biggest mistake when engineering AI agents?</div>
+            <div class="faq-answer">When you give an AI agent too many detailed instructions, it collapses into the safest average of everything you told it. Instead of more instructions, give it clear outcomes and simple guardrails. Let it rotate through options rather than follow a rigid template.</div>
+        </div>
+        <div class="faq-item">
+            <div class="faq-question" onclick="this.parentElement.classList.toggle('open')">What is the difference between an AI skill and an AI workflow?</div>
+            <div class="faq-answer">An AI skill handles a single task, like writing one social media post. An AI workflow connects multiple skills into a system where outputs build on each other strategically. Skills are tools. Workflows are how you use them together to produce consistent, measurable results.</div>
+        </div>
+        <div class="faq-item">
+            <div class="faq-question" onclick="this.parentElement.classList.toggle('open')">How do you manage 18 pieces of content per week with AI?</div>
+            <div class="faq-answer">By building a weekly production pipeline: a Monday source interview for ideas, a writer agent that produces all content on Tuesday, human review on Wednesday, a designer agent for images on Thursday, weekend visual review, and automated publishing on Monday. The key is that posts are connected by weekly themes, not produced in isolation.</div>
+        </div>
+        <div class="faq-item">
+            <div class="faq-question" onclick="this.parentElement.classList.toggle('open')">Should I generate AI images directly or write prompts first?</div>
+            <div class="faq-answer">Write prompts first. Have the AI describe what it plans to create, review the prompt to confirm it understands your intent, then generate. This catches misunderstandings before you waste API calls and time on images that miss the mark.</div>
+        </div>
+        <div class="faq-item">
+            <div class="faq-question" onclick="this.parentElement.classList.toggle('open')">Does a one-man company really mean working alone?</div>
+            <div class="faq-answer">No. It means building systems that reduce your dependency on others. Even with AI handling execution, having an AI engineer who can build and fix your systems is essential. The goal is a small, leveraged team, not total isolation.</div>
+        </div>
+    </section>
+
+    <!-- Related Reads -->
+    <div class="related-reads">
+        <h2>Related Articles</h2>
+        <div class="related-grid">
+            <a href="day-8-the-content-studio" class="related-card">
+                <div class="related-card-title">How I Built a Content Studio With Claude Code in One Conversation</div>
+                <div class="related-card-date">April 12, 2026</div>
+            </a>
+            <a href="day-7-infinite-leverage-blueprint" class="related-card">
+                <div class="related-card-title">Day 7: Building the Machine Behind the Curtain</div>
+                <div class="related-card-date">April 11, 2026</div>
+            </a>
+        </div>
+    </div>
+
+</body>
+</html>

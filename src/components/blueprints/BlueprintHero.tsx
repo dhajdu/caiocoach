@@ -36,7 +36,7 @@ export default function BlueprintHero({ blueprint }: BlueprintHeroProps) {
         }}
       />
 
-      <div className="relative max-w-[1080px] mx-auto px-6 md:px-10 py-16 md:py-24">
+      <div className="relative max-w-[920px] mx-auto px-6 md:px-10 py-16 md:py-24">
         <div className="mb-5">
           <Link
             href="/blueprints"

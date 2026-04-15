@@ -34,7 +34,7 @@ export default function BlueprintsIndex() {
               'radial-gradient(ellipse 40% 50% at 50% 0%, rgba(111,242,193,0.06) 0%, transparent 50%)',
           }}
         />
-        <div className="relative z-10 w-full max-w-[1080px] mx-auto px-6 md:px-10">
+        <div className="relative z-10 w-full max-w-[920px] mx-auto px-6 md:px-10">
           <p className="text-white/70 text-[11px] font-bold tracking-[0.15em] uppercase mb-3 font-mono">
             -- Blueprints &middot; CAIO Coach
           </p>
@@ -51,7 +51,7 @@ export default function BlueprintsIndex() {
       </section>
 
       {/* Grid */}
-      <div className="max-w-[1080px] mx-auto px-6 md:px-10 py-12">
+      <div className="max-w-[920px] mx-auto px-6 md:px-10 py-12">
         <BlueprintGrid blueprints={BLUEPRINTS} />
       </div>
     </>

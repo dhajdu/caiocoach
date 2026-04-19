@@ -80,17 +80,18 @@ export default function CoachingPage() {
                   </Badge>
 
                   <p className="font-mono text-[12px] font-bold text-muted-foreground tracking-[0.05em] uppercase mb-2">
-                    Thursday, 17 Apr 2026 &middot; 11:30 AM GMT+7
+                    Thursday, 23 Apr 2026 &middot; 11:30 AM GMT+7
                   </p>
 
                   <h2 className="text-[20px] font-bold text-foreground tracking-[-0.3px] leading-[1.25] mb-2.5">
-                    Building AI Workflows That Run Without You
+                    Building Routines That Stick
                   </h2>
 
                   <p className="text-[14px] text-muted-foreground leading-[1.65] mb-4.5">
-                    How to set up agentic workflows that execute end to end
-                    without manual intervention. From trigger to output,
-                    building systems that ship while you sleep.
+                    The routines layer of an AI-native operation. Daily
+                    check-ins, weekly rhythms, monthly reviews. How to design
+                    the cadence that keeps your AI team actually moving
+                    instead of quietly drifting.
                   </p>
 
                   <div className="flex items-center gap-2.5 pt-3.5 border-t border-surface">

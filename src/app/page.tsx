@@ -28,13 +28,18 @@ export default function Home() {
           </p>
 
           <div className={styles.ctaRow}>
-            <Link className="btn btn-primary" href="/coaching">
-              Start coaching
-            </Link>
+            <a
+              className="btn btn-primary"
+              href="https://ai-officer.com/retreat"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Join the retreat →
+            </a>
             <Link className="btn btn-ghost" href="/infinite-leverage">
               The Blueprint →
             </Link>
-            <span className={styles.price}>$99 / month · weekly live sessions</span>
+            <span className={styles.price}>3 days · 2 nights · 30 seats</span>
           </div>
 
           <div className={styles.heroStats}>

@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import NewsletterForm from '@/components/NewsletterForm';
+import TestimonialsCarousel from '@/components/TestimonialsCarousel';
 import styles from './page.module.css';
 
 export default function Home() {
@@ -211,11 +212,27 @@ export default function Home() {
         </div>
       </section>
 
+      {/* TESTIMONIALS */}
+      <section className="sec">
+        <div className="page-container">
+          <div className="sec-head">
+            <div className="idx">03 / Voices</div>
+            <div>
+              <h2 className="t-h1">Heard from the room.</h2>
+              <p className="sub">
+                Leaders from across the cohort, in their own words.
+              </p>
+            </div>
+          </div>
+          <TestimonialsCarousel />
+        </div>
+      </section>
+
       {/* FIELD NOTES */}
       <section className="sec">
         <div className="page-container">
           <div className="sec-head">
-            <div className="idx">03 / Writing</div>
+            <div className="idx">04 / Writing</div>
             <div>
               <h2 className="t-h1">Field notes.</h2>
               <p className="sub">

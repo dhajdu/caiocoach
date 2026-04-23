@@ -11,6 +11,7 @@ const NAV_LINKS: NavItem[] = [
   { label: 'Coaching', href: '/coaching' },
   { label: 'Infinite Leverage', href: '/infinite-leverage' },
   { label: 'Blog', href: '/blog' },
+  { label: 'Contact', href: '/contact' },
 ];
 
 export default function Navbar() {

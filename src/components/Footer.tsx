@@ -30,6 +30,7 @@ export default function Footer() {
               { label: 'Frameworks', href: '/resources/100-business-frameworks' },
               { label: 'Blueprints', href: '/blueprints' },
               { label: 'Retreat', href: 'https://ai-officer.com/retreat', external: true },
+              { label: 'Contact', href: '/contact' },
             ]}
           />
           {/* AI-Officer */}

@@ -1,6 +1,8 @@
 import { NextRequest, NextResponse } from "next/server";
+import { cookies } from "next/headers";
 import { supabase } from "@/lib/supabase";
 import { sendLarkMessage } from "@/lib/lark";
+import { resolveAffiliate, AFF_REF_COOKIE } from "@/lib/affiliate";
 
 export async function POST(request: NextRequest) {
   try {
@@ -16,6 +18,10 @@ export async function POST(request: NextRequest) {
       );
     }
 
+    const manualCode = typeof body.ref_code === "string" ? body.ref_code : null;
+    const cookieStore = await cookies();
+    const affiliate = await resolveAffiliate(manualCode ?? cookieStore.get(AFF_REF_COOKIE)?.value);
+
     const { data: inquiryId, error } = await supabase.rpc("submit_inquiry", {
       p_name: email.split("@")[0],
       p_email: email,
@@ -24,6 +30,7 @@ export async function POST(request: NextRequest) {
       p_message: "50/50 memo subscription",
       p_source: source,
       p_source_site: "caiocoach.com",
+      p_affiliate_id: affiliate?.id ?? null,
     });
 
     if (error) {

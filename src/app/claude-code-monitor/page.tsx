@@ -373,25 +373,25 @@ const PROJECTS: Project[] = [
     domain: 'longevity-coach.io',
     created: '2026-04-23',
     lastUpdated: '2026-04-29',
-    phase: 'Phase 2 · Intelligence',
-    totalOpen: '7 open',
-    totalClosed: '1 closed',
+    phase: 'Sprint 2 · Engineering Completeness',
+    totalOpen: '0 open',
+    totalClosed: '8 closed',
     inferred: false,
     epics: [
-      { num: 1, name: 'The Front Door', pipeline: '●●●◐◐', estimate: '90%', open: '2 (P2, P3)', closed: '1' },
-      { num: 2, name: 'The Intake', pipeline: '●●●◐○', estimate: '85%', open: '0', closed: '0' },
-      { num: 3, name: 'The Number', pipeline: '●●○○○', estimate: '50%', open: '1 (P1)', closed: '0' },
-      { num: 4, name: 'The Protocol', pipeline: '●●○○○', estimate: '50%', open: '0', closed: '0' },
-      { num: 5, name: 'The Report', pipeline: '●◐○○○', estimate: '35%', open: '1 (P3)', closed: '0' },
-      { num: 6, name: 'The Coach', pipeline: '●●○○○', estimate: '60%', open: '1 (P2)', closed: '0' },
-      { num: 7, name: 'The Daily Return', pipeline: '●◐○○○', estimate: '25%', open: '0', closed: '0' },
-      { num: 8, name: 'The Living Record', pipeline: '●○○○○', estimate: '5%', open: '0', closed: '0' },
-      { num: 9, name: 'The Care Team', pipeline: '●○○○○', estimate: '5%', open: '0', closed: '0' },
-      { num: 10, name: 'The Knowledge Engine', pipeline: '●○○○○', estimate: '5%', open: '1 (P2)', closed: '0' },
-      { num: 11, name: 'The Trust Layer', pipeline: '●●◐○○', estimate: '55%', open: '1 (P2)', closed: '0' },
-      { num: 12, name: 'The Distribution', pipeline: '●○○○○', estimate: '5%', open: '0', closed: '0' },
-      { num: 13, name: 'The Business Model', pipeline: '●○○○○', estimate: '0%', open: '0', closed: '0' },
-      { num: 14, name: 'The Platform Foundation', pipeline: '●◐○○○', estimate: '40%', open: '0', closed: '0' },
+      { num: 1, name: 'The Front Door', pipeline: '●●●●●', estimate: '100%', open: '0', closed: '3' },
+      { num: 2, name: 'The Intake', pipeline: '●●●◐○', estimate: '99%', open: '0', closed: '0' },
+      { num: 3, name: 'The Number', pipeline: '●●●○○', estimate: '85%', open: '0', closed: '1' },
+      { num: 4, name: 'The Protocol', pipeline: '●●●○○', estimate: '80%', open: '0', closed: '0' },
+      { num: 5, name: 'The Report', pipeline: '●●●○○', estimate: '80%', open: '0', closed: '1' },
+      { num: 6, name: 'The Coach', pipeline: '●●●○○', estimate: '95%', open: '0', closed: '1' },
+      { num: 7, name: 'The Daily Return', pipeline: '●●●○○', estimate: '90%', open: '0', closed: '0' },
+      { num: 8, name: 'The Living Record', pipeline: '●●●○○', estimate: '85%', open: '0', closed: '0' },
+      { num: 9, name: 'The Care Team', pipeline: '●●●◐○', estimate: '75%', open: '0', closed: '0' },
+      { num: 10, name: 'The Knowledge Engine', pipeline: '●◐◐○○', estimate: '60%', open: '0', closed: '1' },
+      { num: 11, name: 'The Trust Layer', pipeline: '●●●○○', estimate: '95%', open: '0', closed: '1' },
+      { num: 12, name: 'The Distribution', pipeline: '●●◐○○', estimate: '55%', open: '0', closed: '0' },
+      { num: 13, name: 'The Business Model', pipeline: '●●◐○○', estimate: '45%', open: '0', closed: '0' },
+      { num: 14, name: 'The Platform Foundation', pipeline: '●●○○○', estimate: '65%', open: '0', closed: '0' },
     ],
     agents: [
       {
@@ -495,7 +495,7 @@ export default function ClaudeCodeMonitorPage() {
             and open bugs across every shipped product.
           </p>
           <div className={styles.metaLine}>
-            7 projects · 63 epics · 6 agents · 19 open bugs · 1 closed
+            7 projects · 63 epics · 6 agents · 12 open bugs · 8 closed
           </div>
         </div>
       </section>
@@ -520,13 +520,13 @@ export default function ClaudeCodeMonitorPage() {
             </div>
             <div className={styles.stat}>
               <div className={styles.statLabel}>Open bugs</div>
-              <div className={styles.statValue}>19</div>
-              <div className={styles.statNote}>12 Forever · 7 Longevity · others not tracked</div>
+              <div className={styles.statValue}>12</div>
+              <div className={styles.statNote}>12 Forever · 0 Longevity · others not tracked</div>
             </div>
             <div className={styles.stat}>
               <div className={styles.statLabel}>Closed bugs</div>
-              <div className={styles.statValue}>1</div>
-              <div className={styles.statNote}>All-time, across projects</div>
+              <div className={styles.statValue}>8</div>
+              <div className={styles.statNote}>8 Longevity · all-time, across projects</div>
             </div>
           </div>
         </div>

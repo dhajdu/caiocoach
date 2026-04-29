@@ -267,6 +267,29 @@ const PROJECTS: Project[] = [
     ],
     agents: [],
   },
+  {
+    slug: 'fab-four',
+    klass: styles.cardFabFour,
+    name: 'Fab Four Academy',
+    tagline: 'Leadership through The Beatles · Dan Absher\'s daily wisdom and book platform',
+    url: 'https://www.fabfouracademy.com',
+    domain: 'fabfouracademy.com',
+    created: '2026-04-23',
+    lastUpdated: '2026-04-29',
+    phase: 'Live, iterating',
+    totalOpen: '0 open',
+    totalClosed: '0 closed',
+    inferred: true,
+    epics: [
+      { num: 1, name: 'Daily Words of Wisdom', pipeline: '●●●○○', estimate: '75%', open: '0', closed: '0' },
+      { num: 2, name: 'Book promotion and conversion', pipeline: '●●○○○', estimate: '65%', open: '0', closed: '0' },
+      { num: 3, name: 'Speaking and consulting funnel', pipeline: '●●○○○', estimate: '65%', open: '0', closed: '0' },
+      { num: 4, name: 'Blog', pipeline: '●●●○○', estimate: '75%', open: '0', closed: '0' },
+      { num: 5, name: 'Email signup and community', pipeline: '●●○○○', estimate: '55%', open: '0', closed: '0' },
+      { num: 6, name: 'Brand-led layout, polish, and SEO', pipeline: '●●○○○', estimate: '60%', open: '0', closed: '0' },
+    ],
+    agents: [],
+  },
 ];
 
 function bugClass(value: string, kind: 'open' | 'closed'): string {
@@ -296,7 +319,7 @@ export default function ClaudeCodeMonitorPage() {
             and open bugs across every shipped product.
           </p>
           <div className={styles.metaLine}>
-            6 projects · 57 epics · 6 agents · 19 open bugs · 1 closed
+            7 projects · 63 epics · 6 agents · 19 open bugs · 1 closed
           </div>
         </div>
       </section>
@@ -306,13 +329,13 @@ export default function ClaudeCodeMonitorPage() {
           <div className={styles.statsGrid}>
             <div className={styles.stat}>
               <div className={styles.statLabel}>Active projects</div>
-              <div className={styles.statValue}>6</div>
-              <div className={styles.statNote}>Forever, Longevity, Mahjong, AIO, Dave Hajdu, CAIO</div>
+              <div className={styles.statValue}>7</div>
+              <div className={styles.statNote}>Forever, Longevity, Mahjong, AIO, Dave Hajdu, CAIO, Fab Four</div>
             </div>
             <div className={styles.stat}>
               <div className={styles.statLabel}>Total epics</div>
-              <div className={styles.statValue}>57</div>
-              <div className={styles.statNote}>9 + 14 + 10 + 10 + 8 + 6</div>
+              <div className={styles.statValue}>63</div>
+              <div className={styles.statNote}>9 + 14 + 10 + 10 + 8 + 6 + 6</div>
             </div>
             <div className={styles.stat}>
               <div className={styles.statLabel}>Total agents</div>

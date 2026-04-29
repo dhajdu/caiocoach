@@ -27,6 +27,13 @@ type Epic = {
   closed: string;
 };
 
+type Agent = {
+  name: string;
+  job: string;
+  schedule: string;
+  context: string[];
+};
+
 type Project = {
   slug: string;
   klass: string;
@@ -41,6 +48,7 @@ type Project = {
   totalClosed: string;
   inferred: boolean;
   epics: Epic[];
+  agents: Agent[];
 };
 
 function ageFromDate(iso: string): string {
@@ -86,6 +94,7 @@ const PROJECTS: Project[] = [
       { num: 8, name: 'The First Five Minutes', pipeline: '●●○○◐', estimate: '65%', open: '4 (P1×3, P2)', closed: '0' },
       { num: 9, name: 'The Voice That Stays', pipeline: '●○○○○', estimate: '5%', open: '0', closed: '0' },
     ],
+    agents: [],
   },
   {
     slug: 'longevity-coach',
@@ -116,6 +125,14 @@ const PROJECTS: Project[] = [
       { num: 13, name: 'The Business Model', pipeline: '●○○○○', estimate: '0%', open: '0', closed: '0' },
       { num: 14, name: 'The Platform Foundation', pipeline: '●◐○○○', estimate: '40%', open: '0', closed: '0' },
     ],
+    agents: [
+      {
+        name: 'Janet',
+        job: 'Real-time health coach that answers patient questions using pre-computed risk and protocol context.',
+        schedule: 'Ad-hoc',
+        context: ['lib/ai/agents/janet.ts', 'docs/architecture/agent-system.md'],
+      },
+    ],
   },
   {
     slug: 'mahjong-tarot',
@@ -141,6 +158,38 @@ const PROJECTS: Project[] = [
       { num: 8, name: '1-on-1 Practice Layer', pipeline: '●○○○○', estimate: '5%', open: '0', closed: '0' },
       { num: 9, name: 'Share and Acquisition Loop', pipeline: '●○○○○', estimate: '5%', open: '0', closed: '0' },
       { num: 10, name: 'Member Dashboard', pipeline: '●◐○○○', estimate: '30%', open: '0', closed: '0' },
+    ],
+    agents: [
+      {
+        name: 'Writer',
+        job: 'Produces every written deliverable for the upcoming week in Bill Hajdu\'s voice.',
+        schedule: 'Ad-hoc',
+        context: ['agents/writer/context/persona.md', 'agents/writer/context/style-guide.md'],
+      },
+      {
+        name: 'Designer',
+        job: 'Generates a unique hero and channel image for every written content piece via Gemini.',
+        schedule: 'Ad-hoc',
+        context: ['agents/designer/context/persona.md'],
+      },
+      {
+        name: 'Web Developer',
+        job: 'Transforms approved markdown into Next.js JSX components and publishes them to the site.',
+        schedule: 'Ad-hoc',
+        context: ['agents/web-developer/context/persona.md', 'web-style-guide.md', 'file-conventions.md'],
+      },
+      {
+        name: 'Product Manager',
+        job: 'Translates ideas and problems into structured PM artifacts (epics, personas, vision reports).',
+        schedule: 'Ad-hoc',
+        context: ['agents/product-manager/context/persona.md'],
+      },
+      {
+        name: 'Project Manager',
+        job: 'Owns delivery — scope, schedule, risk, and quality across stand-ups, RAID, and status reports.',
+        schedule: 'Daily standup',
+        context: ['agents/project-manager/context/persona.md'],
+      },
     ],
   },
   {
@@ -168,6 +217,7 @@ const PROJECTS: Project[] = [
       { num: 9, name: 'Operational notifications', pipeline: '●●●◐○', estimate: '85%', open: '0', closed: '0' },
       { num: 10, name: 'Analytics and instrumentation', pipeline: '●◐○○○', estimate: '25%', open: '0', closed: '0' },
     ],
+    agents: [],
   },
   {
     slug: 'dave-hajdu',
@@ -192,6 +242,7 @@ const PROJECTS: Project[] = [
       { num: 7, name: 'Email and onboarding', pipeline: '●◐○○○', estimate: '30%', open: '0', closed: '0' },
       { num: 8, name: 'Newsletter', pipeline: '○○○○○', estimate: '0%', open: '0', closed: '0' },
     ],
+    agents: [],
   },
   {
     slug: 'caio-coach',
@@ -214,6 +265,7 @@ const PROJECTS: Project[] = [
       { num: 5, name: 'Blueprint library', pipeline: '●●◐○○', estimate: '60%', open: '0', closed: '0' },
       { num: 6, name: 'Retreat landing and redirect', pipeline: '●◐○○○', estimate: '40%', open: '0', closed: '0' },
     ],
+    agents: [],
   },
 ];
 
@@ -278,6 +330,21 @@ export default function ClaudeCodeMonitorPage() {
 
       <section className={styles.projects}>
         <div className="page-container">
+          <div className={styles.globalLegend}>
+            <div>
+              <span className={styles.globalLegendLabel}>Pipeline</span>
+              <span className={styles.globalLegendStages}>
+                Planned · Feature Complete · Unit Tested · Regression · User Reviewed
+              </span>
+            </div>
+            <div className={styles.globalLegendKeys}>
+              <code>●</code> passed
+              <code>◐</code> partial
+              <code>○</code> not yet
+              <code>↻</code> regressed
+            </div>
+          </div>
+
           <div className={styles.grid}>
             {PROJECTS.map((p) => (
               <article key={p.slug} className={`${styles.card} ${p.klass}`}>
@@ -313,12 +380,7 @@ export default function ClaudeCodeMonitorPage() {
                   </a>
                 </div>
 
-                <div className={styles.legend}>
-                  <strong>Pipeline:</strong> Planned · Feature Complete · Unit Tested · Regression · User Reviewed
-                  <br />
-                  <code>●</code> passed · <code>◐</code> partial · <code>○</code> not yet · <code>↻</code> regressed
-                </div>
-
+                <div className={styles.sectionLabel}>Epics</div>
                 <table className={styles.table}>
                   <thead>
                     <tr>
@@ -343,6 +405,39 @@ export default function ClaudeCodeMonitorPage() {
                     ))}
                   </tbody>
                 </table>
+
+                <div className={`${styles.sectionLabel} ${styles.sectionLabelTop}`}>Agents</div>
+                {p.agents.length === 0 ? (
+                  <div className={styles.emptyAgents}>No agents defined yet.</div>
+                ) : (
+                  <table className={styles.table}>
+                    <thead>
+                      <tr>
+                        <th>Agent</th>
+                        <th>Job description</th>
+                        <th className={styles.colSchedule}>Schedule</th>
+                        <th className={styles.colContext}>Context files</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {p.agents.map((a) => (
+                        <tr key={a.name}>
+                          <td className={styles.colEpic}>{a.name}</td>
+                          <td>{a.job}</td>
+                          <td className={styles.colSchedule}>{a.schedule}</td>
+                          <td className={styles.colContext}>
+                            {a.context.map((f, i) => (
+                              <span key={f}>
+                                <code>{f}</code>
+                                {i < a.context.length - 1 ? ' ' : ''}
+                              </span>
+                            ))}
+                          </td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                )}
 
                 <div className={styles.footer}>
                   <span>

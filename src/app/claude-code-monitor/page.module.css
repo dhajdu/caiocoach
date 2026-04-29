@@ -383,6 +383,12 @@
 .cardDave { --card-accent: #ffffff; }
 .cardCaio { --card-accent: #6FF2C1; }
 .cardFabFour { --card-accent: #e6b34d; }
+.cardContent { --card-accent: #9D4DFF; }
+.cardAioPad { --card-accent: #4FBDB8; }
+.cardBhutan { --card-accent: #FFCC00; }
+.cardEdge8 { --card-accent: #E63329; }
+.cardLeadership { --card-accent: #A0A4B0; }
+.cardWebDev { --card-accent: #00C896; }
 
 /* Footnote */
 .footnote {

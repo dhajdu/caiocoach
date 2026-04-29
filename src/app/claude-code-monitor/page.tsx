@@ -296,7 +296,7 @@ export default function ClaudeCodeMonitorPage() {
             and open bugs across every shipped product.
           </p>
           <div className={styles.metaLine}>
-            6 projects · 57 epics tracked · 19 open bugs · 1 closed
+            6 projects · 57 epics · 6 agents · 19 open bugs · 1 closed
           </div>
         </div>
       </section>
@@ -313,6 +313,11 @@ export default function ClaudeCodeMonitorPage() {
               <div className={styles.statLabel}>Total epics</div>
               <div className={styles.statValue}>57</div>
               <div className={styles.statNote}>9 + 14 + 10 + 10 + 8 + 6</div>
+            </div>
+            <div className={styles.stat}>
+              <div className={styles.statLabel}>Total agents</div>
+              <div className={styles.statValue}>6</div>
+              <div className={styles.statNote}>5 Mahjong · 1 Longevity · others not yet</div>
             </div>
             <div className={styles.stat}>
               <div className={styles.statLabel}>Open bugs</div>

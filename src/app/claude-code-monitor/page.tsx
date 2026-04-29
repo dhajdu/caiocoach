@@ -495,7 +495,7 @@ export default function ClaudeCodeMonitorPage() {
             and open bugs across every shipped product.
           </p>
           <div className={styles.metaLine}>
-            7 projects · 63 epics · 6 agents · 12 open bugs · 8 closed
+            13 projects · 95 epics · 13 agents · 12 open bugs · 8 closed
           </div>
         </div>
       </section>
@@ -505,18 +505,18 @@ export default function ClaudeCodeMonitorPage() {
           <div className={styles.statsGrid}>
             <div className={styles.stat}>
               <div className={styles.statLabel}>Active projects</div>
-              <div className={styles.statValue}>7</div>
-              <div className={styles.statNote}>Forever, Longevity, Mahjong, AIO, Dave Hajdu, CAIO, Fab Four</div>
+              <div className={styles.statValue}>13</div>
+              <div className={styles.statNote}>7 customer-facing · 6 internal &amp; pre-build</div>
             </div>
             <div className={styles.stat}>
               <div className={styles.statLabel}>Total epics</div>
-              <div className={styles.statValue}>63</div>
-              <div className={styles.statNote}>9 + 14 + 10 + 10 + 8 + 6 + 6</div>
+              <div className={styles.statValue}>95</div>
+              <div className={styles.statNote}>14 Longevity · 10 Mahjong · 10 AIO · 9 Forever · others smaller</div>
             </div>
             <div className={styles.stat}>
               <div className={styles.statLabel}>Total agents</div>
-              <div className={styles.statValue}>6</div>
-              <div className={styles.statNote}>5 Mahjong · 1 Longevity · others not yet</div>
+              <div className={styles.statValue}>13</div>
+              <div className={styles.statNote}>8 Longevity · 5 Mahjong · others not yet</div>
             </div>
             <div className={styles.stat}>
               <div className={styles.statLabel}>Open bugs</div>

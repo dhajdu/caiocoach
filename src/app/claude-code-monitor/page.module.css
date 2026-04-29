@@ -135,6 +135,10 @@
   box-shadow: 0 0 12px var(--card-accent, var(--fg));
   opacity: 0.9;
 }
+.cardTitleBlock {
+  flex: 1;
+  min-width: 0;
+}
 .cardTitle {
   font-family: var(--font-sans);
   font-weight: 400;
@@ -143,6 +147,41 @@
   letter-spacing: -0.01em;
   color: var(--fg);
   margin: 0;
+}
+.cardTitleLink {
+  color: inherit;
+  display: inline-flex;
+  align-items: baseline;
+  gap: 8px;
+  transition: color 0.15s ease;
+}
+.cardTitleLink:hover {
+  color: var(--card-accent, var(--fg));
+}
+.extArrow {
+  font-family: var(--font-mono);
+  font-size: 14px;
+  color: var(--fg-50);
+  transition: color 0.15s ease, transform 0.15s ease;
+  display: inline-block;
+}
+.cardTitleLink:hover .extArrow {
+  color: var(--card-accent, var(--fg));
+  transform: translate(2px, -2px);
+}
+.domainLink {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  color: var(--fg-70);
+  text-transform: lowercase;
+  border-bottom: 1px dotted var(--fg-30);
+  padding-bottom: 1px;
+  transition: color 0.15s ease, border-color 0.15s ease;
+}
+.domainLink:hover {
+  color: var(--card-accent, var(--fg));
+  border-bottom-color: var(--card-accent, var(--fg));
 }
 .cardTagline {
   font-size: 13px;

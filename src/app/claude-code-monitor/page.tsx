@@ -1,6 +1,8 @@
 import type { Metadata } from 'next';
 import styles from './page.module.css';
 
+export const revalidate = 3600;
+
 export const metadata: Metadata = {
   title: 'Claude Code Monitor',
   description:
@@ -30,6 +32,9 @@ type Project = {
   klass: string;
   name: string;
   tagline: string;
+  url: string;
+  domain: string;
+  created: string;
   lastUpdated: string;
   phase: string;
   totalOpen: string;
@@ -38,12 +43,33 @@ type Project = {
   epics: Epic[];
 };
 
+function ageFromDate(iso: string): string {
+  const start = new Date(iso);
+  const now = new Date();
+  const days = Math.max(0, Math.floor((now.getTime() - start.getTime()) / 86400000));
+  if (days < 1) return 'today';
+  if (days < 14) return `${days} day${days === 1 ? '' : 's'}`;
+  if (days < 60) {
+    const weeks = Math.floor(days / 7);
+    return `${weeks} week${weeks === 1 ? '' : 's'}`;
+  }
+  if (days < 365) {
+    const months = Math.floor(days / 30);
+    return `${months} month${months === 1 ? '' : 's'}`;
+  }
+  const years = (days / 365).toFixed(1);
+  return `${years} years`;
+}
+
 const PROJECTS: Project[] = [
   {
     slug: 'forever-app',
     klass: styles.cardForever,
     name: 'Forever',
     tagline: 'The 8-minute capture loop · memoir engine',
+    url: 'https://forever-8.com',
+    domain: 'forever-8.com',
+    created: '2026-04-25',
     lastUpdated: '2026-04-28',
     phase: 'Pilot',
     totalOpen: '12 open',
@@ -66,6 +92,9 @@ const PROJECTS: Project[] = [
     klass: styles.cardLongevity,
     name: 'Longevity Coach',
     tagline: 'Live longer, on purpose. · biological-age platform',
+    url: 'https://longevity-coach.io',
+    domain: 'longevity-coach.io',
+    created: '2026-04-23',
     lastUpdated: '2026-04-28',
     phase: 'Phase 2 · Intelligence',
     totalOpen: '7 open',
@@ -93,6 +122,9 @@ const PROJECTS: Project[] = [
     klass: styles.cardMahjong,
     name: 'The Mahjong Tarot',
     tagline: 'Eastern divination, treated seriously · daily almanac and readings',
+    url: 'https://mahjongtarot.com',
+    domain: 'mahjongtarot.com',
+    created: '2026-04-06',
     lastUpdated: '2026-04-28',
     phase: 'Phase 1 · Wedge',
     totalOpen: '0 open',
@@ -115,7 +147,10 @@ const PROJECTS: Project[] = [
     slug: 'aio-website',
     klass: styles.cardAio,
     name: 'AI Officer Institute',
-    tagline: 'Train and certify senior leaders as AI Officers · ai-officer.com',
+    tagline: 'Train and certify senior leaders as AI Officers',
+    url: 'https://ai-officer.com',
+    domain: 'ai-officer.com',
+    created: '2026-04-04',
     lastUpdated: '2026-04-29',
     phase: 'Commerce live',
     totalOpen: '0 open',
@@ -139,6 +174,9 @@ const PROJECTS: Project[] = [
     klass: styles.cardDave,
     name: 'Dave Hajdu',
     tagline: 'Senior-leader personal site · speaking, consulting, books',
+    url: 'https://davehajdu.com',
+    domain: 'davehajdu.com',
+    created: '2026-04-01',
     lastUpdated: '2026-04-29',
     phase: 'Live, iterating',
     totalOpen: '0 open',
@@ -160,6 +198,9 @@ const PROJECTS: Project[] = [
     klass: styles.cardCaio,
     name: 'CAIO Coach',
     tagline: 'AI leadership coaching practice · content-led marketing',
+    url: 'https://www.caiocoach.com',
+    domain: 'caiocoach.com',
+    created: '2026-04-02',
     lastUpdated: '2026-04-29',
     phase: 'Live, iterating',
     totalOpen: '0 open',
@@ -242,15 +283,34 @@ export default function ClaudeCodeMonitorPage() {
               <article key={p.slug} className={`${styles.card} ${p.klass}`}>
                 <div className={styles.cardHeader}>
                   <span className={styles.cardDot} aria-hidden />
-                  <div>
-                    <h2 className={styles.cardTitle}>{p.name}</h2>
+                  <div className={styles.cardTitleBlock}>
+                    <h2 className={styles.cardTitle}>
+                      <a
+                        href={p.url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className={styles.cardTitleLink}
+                      >
+                        {p.name}
+                        <span className={styles.extArrow} aria-hidden>↗</span>
+                      </a>
+                    </h2>
                     <p className={styles.cardTagline}>{p.tagline}</p>
                   </div>
                 </div>
 
                 <div className={styles.metaRow}>
+                  <span><strong>Age:</strong> {ageFromDate(p.created)}</span>
                   <span><strong>Updated:</strong> {p.lastUpdated}</span>
                   <span><strong>Phase:</strong> {p.phase}</span>
+                  <a
+                    href={p.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className={styles.domainLink}
+                  >
+                    {p.domain} →
+                  </a>
                 </div>
 
                 <div className={styles.legend}>

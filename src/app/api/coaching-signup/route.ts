@@ -17,7 +17,7 @@ export async function POST(request: NextRequest) {
 
     const manualCode = typeof body.ref_code === "string" ? body.ref_code : null;
     const cookieStore = await cookies();
-    const affiliate = await resolveAffiliate(manualCode ?? cookieStore.get(AFF_REF_COOKIE)?.value);
+    const resolved = await resolveAffiliate(manualCode ?? cookieStore.get(AFF_REF_COOKIE)?.value);
 
     const { data: inquiryId, error } = await supabase.rpc("submit_inquiry", {
       p_name: body.name,
@@ -28,7 +28,7 @@ export async function POST(request: NextRequest) {
       p_source: "coaching_page_caiocoach",
       p_source_site: "caiocoach.com",
       p_date_requested: body.session_date,
-      p_affiliate_id: affiliate?.id ?? null,
+      p_affiliate_id: resolved?.affiliate.id ?? null,
     });
 
     if (error) {

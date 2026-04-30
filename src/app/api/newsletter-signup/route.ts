@@ -20,7 +20,7 @@ export async function POST(request: NextRequest) {
 
     const manualCode = typeof body.ref_code === "string" ? body.ref_code : null;
     const cookieStore = await cookies();
-    const affiliate = await resolveAffiliate(manualCode ?? cookieStore.get(AFF_REF_COOKIE)?.value);
+    const resolved = await resolveAffiliate(manualCode ?? cookieStore.get(AFF_REF_COOKIE)?.value);
 
     const { data: inquiryId, error } = await supabase.rpc("submit_inquiry", {
       p_name: email.split("@")[0],
@@ -30,7 +30,7 @@ export async function POST(request: NextRequest) {
       p_message: "50/50 memo subscription",
       p_source: source,
       p_source_site: "caiocoach.com",
-      p_affiliate_id: affiliate?.id ?? null,
+      p_affiliate_id: resolved?.affiliate.id ?? null,
     });
 
     if (error) {

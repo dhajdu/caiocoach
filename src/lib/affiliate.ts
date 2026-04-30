@@ -6,29 +6,37 @@ export {
   AFF_COOKIE_MAX_AGE_SECONDS,
 } from '@/lib/affiliate-constants';
 
-export type AffiliateProgramType = 'discount' | 'commission';
+export type AffiliateCodeType = 'discount' | 'commission';
 
 export type Affiliate = {
   id: string;
-  code: string;
-  program_type: AffiliateProgramType;
+  code_discount: string | null;
+  code_commission: string | null;
   rate: number;
   stripe_coupon_id: string | null;
   active: boolean;
   person_id: string | null;
 };
 
-// Resolve a referral code to an active affiliate record. Case-insensitive.
-// Returns null if the code is unknown or the affiliate is inactive.
-export async function resolveAffiliate(code: string | null | undefined): Promise<Affiliate | null> {
+export type ResolvedAffiliate = {
+  affiliate: Affiliate;
+  codeType: AffiliateCodeType;
+};
+
+// Resolve a referral code to an active affiliate. Tries the discount column
+// first, then commission. Case-insensitive. Returns null if the code is
+// unknown or the affiliate is inactive.
+export async function resolveAffiliate(
+  code: string | null | undefined,
+): Promise<ResolvedAffiliate | null> {
   if (!code) return null;
   const trimmed = code.trim();
   if (!trimmed) return null;
 
   const { data, error } = await supabase
     .from('affiliates')
-    .select('id, code, program_type, rate, stripe_coupon_id, active, person_id')
-    .ilike('code', trimmed)
+    .select('id, code_discount, code_commission, rate, stripe_coupon_id, active, person_id')
+    .or(`code_discount.ilike.${trimmed},code_commission.ilike.${trimmed}`)
     .eq('active', true)
     .maybeSingle();
 
@@ -36,5 +44,11 @@ export async function resolveAffiliate(code: string | null | undefined): Promise
     console.error('[affiliate] resolveAffiliate error:', error.message);
     return null;
   }
-  return (data as Affiliate | null) ?? null;
+  if (!data) return null;
+
+  const aff = data as Affiliate;
+  const lower = trimmed.toLowerCase();
+  const codeType: AffiliateCodeType =
+    aff.code_discount && aff.code_discount.toLowerCase() === lower ? 'discount' : 'commission';
+  return { affiliate: aff, codeType };
 }

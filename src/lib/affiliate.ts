@@ -10,10 +10,11 @@ export type AffiliateCodeType = 'discount' | 'commission';
 
 export type Affiliate = {
   id: string;
-  code_discount: string | null;
-  code_commission: string | null;
+  code: string;
+  code_discount: string;
+  code_commission: string;
   rate: number;
-  stripe_coupon_id: string | null;
+  stripe_coupon_id: string;
   active: boolean;
   person_id: string | null;
 };
@@ -35,7 +36,7 @@ export async function resolveAffiliate(
 
   const { data, error } = await supabase
     .from('affiliates')
-    .select('id, code_discount, code_commission, rate, stripe_coupon_id, active, person_id')
+    .select('id, code, code_discount, code_commission, rate, stripe_coupon_id, active, person_id')
     .or(`code_discount.ilike.${trimmed},code_commission.ilike.${trimmed}`)
     .eq('active', true)
     .maybeSingle();
@@ -47,8 +48,7 @@ export async function resolveAffiliate(
   if (!data) return null;
 
   const aff = data as Affiliate;
-  const lower = trimmed.toLowerCase();
   const codeType: AffiliateCodeType =
-    aff.code_discount && aff.code_discount.toLowerCase() === lower ? 'discount' : 'commission';
+    aff.code_discount.toLowerCase() === trimmed.toLowerCase() ? 'discount' : 'commission';
   return { affiliate: aff, codeType };
 }

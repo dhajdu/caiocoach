@@ -481,6 +481,36 @@ a.pt-row:hover .pt-name { color: var(--row-accent, var(--fg)); }
 .cc-leadership { --card-accent: #A0A4B0; }
 @media (max-width: 980px) { .cards-grid { grid-template-columns: 1fr; } }
 
+/* ── COMPLETED TODAY ── */
+.completed-section { padding: 48px 0; border-bottom: 1px solid var(--fg-border); }
+.completed-list { border: 1px solid var(--fg-border); background: var(--elev-1); }
+.completed-group-header {
+  display: flex; align-items: center; gap: 16px;
+  padding: 10px 20px;
+  background: var(--elev-2);
+  border-bottom: 1px solid var(--border-strong);
+  font-family: var(--font-mono);
+  font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase;
+}
+.completed-group-name { color: var(--mint); }
+.completed-group-count { color: var(--fg-30); }
+.completed-item {
+  display: grid;
+  grid-template-columns: 1fr 68px;
+  gap: 20px; align-items: center;
+  padding: 10px 20px;
+  border-bottom: 1px solid var(--fg-border);
+  transition: background 0.1s;
+}
+.completed-item:hover { background: var(--elev-2); }
+.completed-item:last-child { border-bottom: none; }
+.completed-msg { font-size: 13px; color: var(--fg-70); line-height: 1.4; }
+.completed-msg strong { color: var(--fg); font-weight: 400; }
+.completed-hash {
+  font-family: var(--font-mono); font-size: 11px;
+  color: var(--fg-30); text-align: right; letter-spacing: 0.04em;
+}
+
 /* ── FOOTER ── */
 .page-footer {
   border-top: 1px solid var(--fg-border);
@@ -532,7 +562,7 @@ a.pt-row:hover .pt-name { color: var(--row-accent, var(--fg)); }
       <div class="eyebrow">Dave Hajdu — Build Portfolio</div>
       <h1 class="display">Claude Code<br>Monitor</h1>
       <p class="lede">Epic summaries across the active build slate. Pipeline progress, estimates, and open bugs across every shipped product.</p>
-      <p class="meta-line">13 projects &middot; 95 epics &middot; 13 agents &middot; 12 open bugs &middot; 8 closed</p>
+      <p class="meta-line">13 projects &middot; 100 epics &middot; 13 agents &middot; 8 needs review &middot; 2 open bugs</p>
     </div>
   </div>
 </section>
@@ -548,8 +578,8 @@ a.pt-row:hover .pt-name { color: var(--row-accent, var(--fg)); }
       </div>
       <div class="stat">
         <div class="stat-label">Total Epics</div>
-        <div class="stat-value mint">95</div>
-        <div class="stat-note">14 Longevity &middot; 10 Mahjong &middot; 10 AIO &middot; 9 Forever &middot; others smaller</div>
+        <div class="stat-value mint">100</div>
+        <div class="stat-note">14 Longevity &middot; 10 Mahjong &middot; 10 AIO &middot; 9 Forever &middot; 9 Fab Four &middot; others smaller</div>
       </div>
       <div class="stat">
         <div class="stat-label">Total Agents</div>
@@ -558,9 +588,82 @@ a.pt-row:hover .pt-name { color: var(--row-accent, var(--fg)); }
       </div>
       <div class="stat">
         <div class="stat-label">Open Bugs</div>
-        <div class="stat-value magenta">12</div>
-        <div class="stat-note">12 Forever &middot; 0 Longevity &middot; others not tracked</div>
+        <div class="stat-value magenta">2</div>
+        <div class="stat-note">2 Longevity &middot; 0 Forever &middot; others not tracked</div>
       </div>
+    </div>
+  </div>
+</section>
+
+<!-- COMPLETED TODAY -->
+<section class="completed-section" id="completed-today">
+  <div class="wrap">
+    <div class="section-header">
+      <span class="section-title">// Completed Today</span>
+      <span class="section-hint">Git pushes &mdash; 2026-05-02</span>
+    </div>
+    <div class="completed-list">
+
+      <!-- forever-app -->
+      <div class="completed-group-header">
+        <span class="completed-group-name">forever-app</span>
+        <span class="completed-group-count">19 commits</span>
+      </div>
+      <div class="completed-item"><div class="completed-msg"><strong>fix(auth):</strong> revert middleware to getUser() &mdash; getClaims() breaks login</div><code class="completed-hash">ba3fac1</code></div>
+      <div class="completed-item"><div class="completed-msg"><strong>feat(authed):</strong> replace TopBar gold-circle mark with Forever. wordmark</div><code class="completed-hash">4822fa1</code></div>
+      <div class="completed-item"><div class="completed-msg"><strong>feat(marketing):</strong> redesign login/signup/contact/stories/blog/not-found</div><code class="completed-hash">194d59f</code></div>
+      <div class="completed-item"><div class="completed-msg"><strong>fix(auth):</strong> accept 6-8 digit OTP codes (Supabase project sends 8)</div><code class="completed-hash">8e38502</code></div>
+      <div class="completed-item"><div class="completed-msg"><strong>docs(epic-status):</strong> confirm a087d85 auth pivot deployed</div><code class="completed-hash">c4755d9</code></div>
+      <div class="completed-item"><div class="completed-msg"><strong>fix(auth):</strong> handle nullable getClaims() data to unblock TypeScript build</div><code class="completed-hash">9295647</code></div>
+      <div class="completed-item"><div class="completed-msg"><strong>docs(epic-status):</strong> log auth flow pivot + Care &amp; Calm design system</div><code class="completed-hash">537167e</code></div>
+      <div class="completed-item"><div class="completed-msg"><strong>feat(about):</strong> redesign About with founder origin story</div><code class="completed-hash">15a8c2f</code></div>
+      <div class="completed-item"><div class="completed-msg"><strong>feat(auth):</strong> switch sign-in to OTP code flow + verify JWT locally</div><code class="completed-hash">a087d85</code></div>
+      <div class="completed-item"><div class="completed-msg"><strong>feat(home):</strong> add temp hero image (picsum, deterministic seed)</div><code class="completed-hash">99a90bc</code></div>
+      <div class="completed-item"><div class="completed-msg"><strong>feat(home):</strong> redesign marketing home with Care &amp; Calm design system</div><code class="completed-hash">d43d740</code></div>
+      <div class="completed-item"><div class="completed-msg"><strong>fix(auth):</strong> use plain OTP token in magic link URL &mdash; no PKCE, no verifier</div><code class="completed-hash">4c7d778</code></div>
+      <div class="completed-item"><div class="completed-msg"><strong>fix(auth):</strong> switch to 6-digit OTP code instead of magic link</div><code class="completed-hash">f50b0b3</code></div>
+      <div class="completed-item"><div class="completed-msg"><strong>fix(auth):</strong> handle token_hash flow in callback for cross-device magic links</div><code class="completed-hash">bbe7ee3</code></div>
+      <div class="completed-item"><div class="completed-msg"><strong>fix(auth):</strong> attach session cookies directly to redirect response</div><code class="completed-hash">a7cd0f9</code></div>
+      <div class="completed-item"><div class="completed-msg"><strong>feat(nav):</strong> add Sign in link before Sign up CTA in top-right</div><code class="completed-hash">170e430</code></div>
+      <div class="completed-item"><div class="completed-msg"><strong>docs:</strong> epic-status + epics &mdash; circle-based Epic 2, shipped Epic 8, pre-launch confirmed</div><code class="completed-hash">f219dea</code></div>
+      <div class="completed-item"><div class="completed-msg"><strong>feat:</strong> marketing site (about/stories/blog/contact/signup) + multi-recorder data model</div><code class="completed-hash">727e54d</code></div>
+      <div class="completed-item"><div class="completed-msg"><strong>docs+infra:</strong> epic-1 reminder plan, marketing/engineering scaffolding, palette mockups</div><code class="completed-hash">388ed2c</code></div>
+
+      <!-- caio-coach -->
+      <div class="completed-group-header">
+        <span class="completed-group-name">caio-coach</span>
+        <span class="completed-group-count">9 commits</span>
+      </div>
+      <div class="completed-item"><div class="completed-msg"><strong>feat:</strong> convert /product-manager to skills/ format with YAML frontmatter</div><code class="completed-hash">3e4de58</code></div>
+      <div class="completed-item"><div class="completed-msg"><strong>feat:</strong> add PM agent persona grounded in Dan Shipper and Basecamp principles</div><code class="completed-hash">7520dc4</code></div>
+      <div class="completed-item"><div class="completed-msg"><strong>chore:</strong> track .claude/commands/ in git; ignore only personal config files</div><code class="completed-hash">5af3a90</code></div>
+      <div class="completed-item"><div class="completed-msg"><strong>feat:</strong> add /product-manager slash command and agents folder</div><code class="completed-hash">eb1521a</code></div>
+      <div class="completed-item"><div class="completed-msg"><strong>feat:</strong> add full project epic breakdown cards to claude-code-monitor</div><code class="completed-hash">ce0f0b6</code></div>
+      <div class="completed-item"><div class="completed-msg"><strong>chore:</strong> remove old Next.js claude-code-monitor route</div><code class="completed-hash">bee50a7</code></div>
+      <div class="completed-item"><div class="completed-msg"><strong>fix:</strong> restore original stats section content in claude-code-monitor</div><code class="completed-hash">38b896b</code></div>
+      <div class="completed-item"><div class="completed-msg"><strong>feat:</strong> restyle claude-code-monitor to match caio-coach brand</div><code class="completed-hash">3412c27</code></div>
+      <div class="completed-item"><div class="completed-msg"><strong>feat:</strong> add Claude Code Monitor and standardize docs structure</div><code class="completed-hash">93b2a1a</code></div>
+
+      <!-- mahjong-tarot -->
+      <div class="completed-group-header">
+        <span class="completed-group-name">mahjong-tarot</span>
+        <span class="completed-group-count">6 commits</span>
+      </div>
+      <div class="completed-item"><div class="completed-msg"><strong>fix(global):</strong> reduce section padding from 96px to 64px</div><code class="completed-hash">85b9516</code></div>
+      <div class="completed-item"><div class="completed-msg"><strong>fix(home):</strong> replace CSS fake book cover with actual book-cover.webp</div><code class="completed-hash">842f022</code></div>
+      <div class="completed-item"><div class="completed-msg">Merge pull request #168 &mdash; member-area UX refresh</div><code class="completed-hash">d0a8d10</code></div>
+      <div class="completed-item"><div class="completed-msg"><strong>ux(dashboard):</strong> horoscope-first dashboard &mdash; Today / Month / Year / Pillars / Purple Star</div><code class="completed-hash">a0dcb3d</code></div>
+      <div class="completed-item"><div class="completed-msg">Merge pull request #167 &mdash; member-area UX refresh (wave 1)</div><code class="completed-hash">958671c</code></div>
+      <div class="completed-item"><div class="completed-msg"><strong>ux(member-area):</strong> MemberNav, dashboard restructure, design token consistency</div><code class="completed-hash">958671c</code></div>
+
+      <!-- aio-website -->
+      <div class="completed-group-header">
+        <span class="completed-group-name">aio-website</span>
+        <span class="completed-group-count">2 commits</span>
+      </div>
+      <div class="completed-item"><div class="completed-msg">Merge pull request #13 &mdash; feat/about-intellectual-lineage</div><code class="completed-hash">e9e92e0</code></div>
+      <div class="completed-item"><div class="completed-msg"><strong>feat:</strong> add intellectual lineage section to About page</div><code class="completed-hash">5c92998</code></div>
+
     </div>
   </div>
 </section>
@@ -577,6 +680,22 @@ a.pt-row:hover .pt-name { color: var(--row-accent, var(--fg)); }
       <div class="needs-item">
         <span class="priority p1">P1</span>
         <div class="needs-body">
+          <strong>longevity-coach</strong> &mdash; CI completely disabled via PR <a href="https://github.com/Work-Healthy-Australia/longevity-coach-wha/pull/102" target="_blank">#102</a>. All PR-triggered checks (lint, typecheck, pgTAP, Gitleaks) are off &mdash; every merge goes to production ungated. Fix: resolve pnpm action version conflict, re-enable <code>pull_request:</code> trigger in ci.yml.
+        </div>
+        <span class="needs-tag">P0 &mdash; CI</span>
+      </div>
+
+      <div class="needs-item">
+        <span class="priority p1">P1</span>
+        <div class="needs-body">
+          <strong>longevity-coach</strong> &mdash; BUG-010: every new onboarding silently fails to write a <code>risk_scores</code> row. Bio-age and domain scores never render for new users. Fix in open PR <a href="https://github.com/Work-Healthy-Australia/longevity-coach-wha/pull/88" target="_blank">#88</a> &mdash; needs review and merge.
+        </div>
+        <span class="needs-tag">Bug &mdash; Epic 3</span>
+      </div>
+
+      <div class="needs-item">
+        <span class="priority p1">P1</span>
+        <div class="needs-body">
           <strong>eo-vietnam</strong> &mdash; RLS enabled on all tables but zero policies exist. Live site: only service role can read/write. No real users can access data.
         </div>
         <span class="needs-tag">Security</span>
@@ -585,17 +704,17 @@ a.pt-row:hover .pt-name { color: var(--row-accent, var(--fg)); }
       <div class="needs-item">
         <span class="priority p1">P1</span>
         <div class="needs-body">
-          <strong>forever-app</strong> &mdash; Epic 8 (Brand Intake) blocked. No brand direction defined. Affects typography, colour palette, logo, and voice across all marketing pages.
+          <strong>aio-website</strong> &mdash; Epic 1 (Public marketing site) at 5%. No <code>app/page.tsx</code> exists &mdash; requests to <code>/</code> 404 in production. The commercial front door for the AI Officer portfolio has no homepage.
         </div>
-        <span class="needs-tag">Decision</span>
+        <span class="needs-tag">Build &mdash; Epic 1</span>
       </div>
 
       <div class="needs-item">
         <span class="priority p2">P2</span>
         <div class="needs-body">
-          <strong>forever-app</strong> &mdash; Epics 1&ndash;7 are code-complete but have not been end-to-end verified. QA pass required before marking complete.
+          <strong>longevity-coach</strong> &mdash; BUG-011: <code>/account</code> forms swallow uncaught throws behind a generic &ldquo;Something went wrong&rdquo; with no signal. Fix in open PR <a href="https://github.com/Work-Healthy-Australia/longevity-coach-wha/pull/93" target="_blank">#93</a>. Also: set <code>NEXT_PUBLIC_SENTRY_DSN</code> in Vercel &mdash; code is wired, probe route is live, one env var away from real-time error monitoring.
         </div>
-        <span class="needs-tag">QA</span>
+        <span class="needs-tag">Bug + Config</span>
       </div>
 
       <div class="needs-item">
@@ -655,21 +774,21 @@ a.pt-row:hover .pt-name { color: var(--row-accent, var(--fg)); }
 
       <a class="pt-row row-longevity" href="#longevity-coach">
         <div class="pt-name">longevity-coach<small>janet.care</small></div>
-        <div class="pt-pipeline"><span class="dot-pass">●</span><span class="dot-pass">●</span><span class="dot-pass">●</span><span class="dot-pass">●</span><span class="dot-partial">◐</span><span class="dot-partial">◐</span><span class="dot-open">○</span><span class="dot-open">○</span></div>
+        <div class="pt-pipeline"><span class="dot-pass">●</span><span class="dot-pass">●</span><span class="dot-pass">●</span><span class="dot-pass">●</span><span class="dot-partial">◐</span><span class="dot-partial">◐</span><span class="dot-open">○</span><span class="dot-blocked">↻</span></div>
         <div class="pt-phase">Phase 2 &mdash; AI</div>
         <div class="pt-go">→</div>
       </a>
 
       <a class="pt-row row-forever" href="#forever-app">
         <div class="pt-name">forever-app<small>forever-8.com</small></div>
-        <div class="pt-pipeline"><span class="dot-partial">◐</span><span class="dot-partial">◐</span><span class="dot-partial">◐</span><span class="dot-partial">◐</span><span class="dot-partial">◐</span><span class="dot-partial">◐</span><span class="dot-partial">◐</span><span class="dot-blocked">↻</span></div>
-        <div class="pt-phase">Phase 1 &mdash; Build</div>
+        <div class="pt-pipeline"><span class="dot-pass">●</span><span class="dot-pass">●</span><span class="dot-pass">●</span><span class="dot-pass">●</span><span class="dot-pass">●</span><span class="dot-pass">●</span><span class="dot-pass">●</span><span class="dot-open">○</span></div>
+        <div class="pt-phase">Phase 1 &mdash; QA</div>
         <div class="pt-go">→</div>
       </a>
 
       <a class="pt-row row-eo-vietnam" href="#eo-vietnam">
         <div class="pt-name">eo-vietnam<small>eovietnamboard.com</small></div>
-        <div class="pt-pipeline"><span class="dot-partial">◐</span><span class="dot-partial">◐</span><span class="dot-open">○</span><span class="dot-open">○</span><span class="dot-open">○</span><span class="dot-open">○</span><span class="dot-open">○</span><span class="dot-open">○</span><span class="dot-open">○</span><span class="dot-open">○</span></div>
+        <div class="pt-pipeline"><span class="dot-partial">◐</span><span class="dot-open">○</span><span class="dot-partial">◐</span><span class="dot-open">○</span><span class="dot-open">○</span><span class="dot-open">○</span><span class="dot-open">○</span><span class="dot-partial">◐</span><span class="dot-open">○</span><span class="dot-partial">◐</span></div>
         <div class="pt-phase">Phase 1 &mdash; Build</div>
         <div class="pt-go">→</div>
       </a>
@@ -707,7 +826,7 @@ a.pt-row:hover .pt-name { color: var(--row-accent, var(--fg)); }
 
       <a class="pt-row row-infinite" href="#infinite-leverage">
         <div class="pt-name">infinite-leverage<small>infiniteleverage.ai</small></div>
-        <div class="pt-pipeline"><span class="dot-pass">●</span><span class="dot-pass">●</span><span class="dot-partial">◐</span><span class="dot-open">○</span><span class="dot-open">○</span></div>
+        <div class="pt-pipeline"><span class="dot-partial">◐</span><span class="dot-pass">●</span><span class="dot-partial">◐</span><span class="dot-pass">●</span><span class="dot-partial">◐</span><span class="dot-open">○</span></div>
         <div class="pt-phase">Live</div>
         <div class="pt-go">→</div>
       </a>
@@ -738,7 +857,7 @@ a.pt-row:hover .pt-name { color: var(--row-accent, var(--fg)); }
 
       <div class="pt-row row-fab-four" style="cursor:default">
         <div class="pt-name">fab-four<small>fabfouracademy.com</small></div>
-        <div class="pt-pipeline"><span class="dot-partial">◐</span><span class="dot-open">○</span><span class="dot-open">○</span><span class="dot-open">○</span><span class="dot-open">○</span><span class="dot-open">○</span></div>
+        <div class="pt-pipeline"><span class="dot-partial">◐</span><span class="dot-partial">◐</span><span class="dot-partial">◐</span><span class="dot-partial">◐</span><span class="dot-partial">◐</span><span class="dot-partial">◐</span><span class="dot-open">○</span><span class="dot-open">○</span><span class="dot-open">○</span></div>
         <div class="pt-phase">Pre-build</div>
         <div class="pt-go" style="color:var(--fg-30)">—</div>
       </div>
@@ -772,20 +891,20 @@ a.pt-row:hover .pt-name { color: var(--row-accent, var(--fg)); }
         <div class="card-meta"><span><strong>Phase:</strong> Sprint 2 · Engineering Completeness</span><a href="https://janet.care" target="_blank">janet.care →</a></div>
         <div class="sub-label">Epics</div>
         <table class="epic-table"><thead><tr><th class="col-n">#</th><th>Epic</th><th class="col-p">Pipeline</th><th class="col-pct">Est.</th><th class="col-b">Open</th><th class="col-b">Closed</th></tr></thead><tbody>
-          <tr><td class="col-n">1</td><td class="col-e">The Front Door</td><td class="col-p">●●●●●</td><td class="col-pct">100%</td><td class="col-b">0</td><td class="col-b cb">3</td></tr>
-          <tr><td class="col-n">2</td><td class="col-e">The Intake</td><td class="col-p">●●●◐○</td><td class="col-pct">99%</td><td class="col-b">0</td><td class="col-b">0</td></tr>
-          <tr><td class="col-n">3</td><td class="col-e">The Number</td><td class="col-p">●●●○○</td><td class="col-pct">85%</td><td class="col-b">0</td><td class="col-b cb">1</td></tr>
-          <tr><td class="col-n">4</td><td class="col-e">The Protocol</td><td class="col-p">●●●○○</td><td class="col-pct">80%</td><td class="col-b">0</td><td class="col-b">0</td></tr>
-          <tr><td class="col-n">5</td><td class="col-e">The Report</td><td class="col-p">●●●○○</td><td class="col-pct">80%</td><td class="col-b">0</td><td class="col-b cb">1</td></tr>
-          <tr><td class="col-n">6</td><td class="col-e">The Coach</td><td class="col-p">●●●○○</td><td class="col-pct">95%</td><td class="col-b">0</td><td class="col-b cb">1</td></tr>
-          <tr><td class="col-n">7</td><td class="col-e">The Daily Return</td><td class="col-p">●●●○○</td><td class="col-pct">90%</td><td class="col-b">0</td><td class="col-b">0</td></tr>
-          <tr><td class="col-n">8</td><td class="col-e">The Living Record</td><td class="col-p">●●●○○</td><td class="col-pct">85%</td><td class="col-b">0</td><td class="col-b">0</td></tr>
-          <tr><td class="col-n">9</td><td class="col-e">The Care Team</td><td class="col-p">●●●◐○</td><td class="col-pct">75%</td><td class="col-b">0</td><td class="col-b">0</td></tr>
-          <tr><td class="col-n">10</td><td class="col-e">The Knowledge Engine</td><td class="col-p">●◐◐○○</td><td class="col-pct">60%</td><td class="col-b">0</td><td class="col-b cb">1</td></tr>
-          <tr><td class="col-n">11</td><td class="col-e">The Trust Layer</td><td class="col-p">●●●○○</td><td class="col-pct">95%</td><td class="col-b">0</td><td class="col-b cb">1</td></tr>
-          <tr><td class="col-n">12</td><td class="col-e">The Distribution</td><td class="col-p">●●◐○○</td><td class="col-pct">55%</td><td class="col-b">0</td><td class="col-b">0</td></tr>
-          <tr><td class="col-n">13</td><td class="col-e">The Business Model</td><td class="col-p">●●◐○○</td><td class="col-pct">45%</td><td class="col-b">0</td><td class="col-b">0</td></tr>
-          <tr><td class="col-n">14</td><td class="col-e">The Platform Foundation</td><td class="col-p">●●○○○</td><td class="col-pct">65%</td><td class="col-b">0</td><td class="col-b">0</td></tr>
+          <tr><td class="col-n">1</td><td class="col-e">The Front Door</td><td class="col-p">●●●●●</td><td class="col-pct">100%</td><td class="col-b ob">1</td><td class="col-b cb">3</td></tr>
+          <tr><td class="col-n">2</td><td class="col-e">The Intake</td><td class="col-p">●●●●○</td><td class="col-pct">100%</td><td class="col-b">0</td><td class="col-b">0</td></tr>
+          <tr><td class="col-n">3</td><td class="col-e">The Number</td><td class="col-p">●●●○○</td><td class="col-pct">90%</td><td class="col-b ob">1</td><td class="col-b cb">2</td></tr>
+          <tr><td class="col-n">4</td><td class="col-e">The Protocol</td><td class="col-p">●●●○○</td><td class="col-pct">87%</td><td class="col-b">0</td><td class="col-b">0</td></tr>
+          <tr><td class="col-n">5</td><td class="col-e">The Report</td><td class="col-p">●●●○○</td><td class="col-pct">92%</td><td class="col-b">0</td><td class="col-b cb">1</td></tr>
+          <tr><td class="col-n">6</td><td class="col-e">The Coach</td><td class="col-p">●●●●○</td><td class="col-pct">100%</td><td class="col-b">0</td><td class="col-b cb">1</td></tr>
+          <tr><td class="col-n">7</td><td class="col-e">The Daily Return</td><td class="col-p">●●●●○</td><td class="col-pct">100%</td><td class="col-b">0</td><td class="col-b">0</td></tr>
+          <tr><td class="col-n">8</td><td class="col-e">The Living Record</td><td class="col-p">●●●○○</td><td class="col-pct">90%</td><td class="col-b">0</td><td class="col-b">0</td></tr>
+          <tr><td class="col-n">9</td><td class="col-e">The Care Team</td><td class="col-p">●●●◐○</td><td class="col-pct">85%</td><td class="col-b">0</td><td class="col-b">0</td></tr>
+          <tr><td class="col-n">10</td><td class="col-e">The Knowledge Engine</td><td class="col-p">●●◐○○</td><td class="col-pct">75%</td><td class="col-b">0</td><td class="col-b cb">1</td></tr>
+          <tr><td class="col-n">11</td><td class="col-e">The Trust Layer</td><td class="col-p">●●●○○</td><td class="col-pct">97%</td><td class="col-b">0</td><td class="col-b cb">1</td></tr>
+          <tr><td class="col-n">12</td><td class="col-e">The Distribution</td><td class="col-p">●●◐○○</td><td class="col-pct">75%</td><td class="col-b">0</td><td class="col-b">0</td></tr>
+          <tr><td class="col-n">13</td><td class="col-e">The Business Model</td><td class="col-p">●●◐○○</td><td class="col-pct">50%</td><td class="col-b">0</td><td class="col-b">0</td></tr>
+          <tr><td class="col-n">14</td><td class="col-e">The Platform Foundation</td><td class="col-p" style="color:var(--magenta)">●●↻○○</td><td class="col-pct">70%</td><td class="col-b">0</td><td class="col-b">0</td></tr>
         </tbody></table>
         <div class="sub-label sub-label-top">Agents</div>
         <table class="epic-table"><thead><tr><th>Agent</th><th>Job</th><th class="col-sched">Schedule</th></tr></thead><tbody>
@@ -798,7 +917,7 @@ a.pt-row:hover .pt-name { color: var(--row-accent, var(--fg)); }
           <tr><td class="col-e">Marco</td><td>Meal plan pipeline worker</td><td class="col-sched">Planned</td></tr>
           <tr><td class="col-e">Nova</td><td>RAG knowledge base pipeline worker</td><td class="col-sched">Planned</td></tr>
         </tbody></table>
-        <div class="card-foot"><span>Bugs: <span>0 open</span> · <span class="cb">8 closed</span></span></div>
+        <div class="card-foot"><span>Bugs: <span class="ob">2 open</span> · <span class="cb">9 closed</span></span></div>
       </article>
 
       <!-- FOREVER APP -->
@@ -810,19 +929,18 @@ a.pt-row:hover .pt-name { color: var(--row-accent, var(--fg)); }
         <div class="card-meta"><span><strong>Phase:</strong> Pilot</span><a href="https://forever-8.com" target="_blank">forever-8.com →</a></div>
         <div class="sub-label">Epics</div>
         <table class="epic-table"><thead><tr><th class="col-n">#</th><th>Epic</th><th class="col-p">Pipeline</th><th class="col-pct">Est.</th><th class="col-b">Open</th><th class="col-b">Closed</th></tr></thead><tbody>
-          <tr><td class="col-n">1</td><td class="col-e">The Ritual</td><td class="col-p">●●◐○○</td><td class="col-pct">60%</td><td class="col-b">0</td><td class="col-b">0</td></tr>
-          <tr><td class="col-n">2</td><td class="col-e">The Catalyst</td><td class="col-p">●●○○◐</td><td class="col-pct">70%</td><td class="col-b">0</td><td class="col-b">0</td></tr>
-          <tr><td class="col-n">3</td><td class="col-e">The Living Archive</td><td class="col-p">●◐○○◐</td><td class="col-pct">55%</td><td class="col-b ob">1 (P1)</td><td class="col-b">0</td></tr>
-          <tr><td class="col-n">4</td><td class="col-e">The Memoir Engine</td><td class="col-p">●●○○◐</td><td class="col-pct">60%</td><td class="col-b ob">5</td><td class="col-b">0</td></tr>
-          <tr><td class="col-n">5</td><td class="col-e">The Family Circle</td><td class="col-p">●○○○○</td><td class="col-pct">10%</td><td class="col-b ob">1 (P3)</td><td class="col-b">0</td></tr>
-          <tr><td class="col-n">6</td><td class="col-e">The Caregiver Toolkit</td><td class="col-p">●○○○○</td><td class="col-pct">10%</td><td class="col-b">0</td><td class="col-b">0</td></tr>
-          <tr><td class="col-n">7</td><td class="col-e">The Trust Foundation</td><td class="col-p">●◐○○○</td><td class="col-pct">25%</td><td class="col-b ob">2 (P1, P3)</td><td class="col-b">0</td></tr>
-          <tr><td class="col-n">8</td><td class="col-e">The First Five Minutes</td><td class="col-p">●●○○◐</td><td class="col-pct">65%</td><td class="col-b ob">4 (P1×3, P2)</td><td class="col-b">0</td></tr>
-          <tr><td class="col-n">9</td><td class="col-e">The Voice That Stays</td><td class="col-p">●○○○○</td><td class="col-pct">5%</td><td class="col-b">0</td><td class="col-b">0</td></tr>
+          <tr><td class="col-n">1</td><td class="col-e">Auth and onboarding</td><td class="col-p">●●●●○</td><td class="col-pct">80%</td><td class="col-b">0</td><td class="col-b">0</td></tr>
+          <tr><td class="col-n">2</td><td class="col-e">Subject (person) management</td><td class="col-p">●●●●○</td><td class="col-pct">80%</td><td class="col-b">0</td><td class="col-b">0</td></tr>
+          <tr><td class="col-n">3</td><td class="col-e">Recording capture and processing</td><td class="col-p">●●●●○</td><td class="col-pct">80%</td><td class="col-b">0</td><td class="col-b">0</td></tr>
+          <tr><td class="col-n">4</td><td class="col-e">Shelf (per-subject library)</td><td class="col-p">●●●○○</td><td class="col-pct">75%</td><td class="col-b">0</td><td class="col-b">0</td></tr>
+          <tr><td class="col-n">5</td><td class="col-e">Conversation starters</td><td class="col-p">●●●●○</td><td class="col-pct">80%</td><td class="col-b">0</td><td class="col-b">0</td></tr>
+          <tr><td class="col-n">6</td><td class="col-e">Book drafting</td><td class="col-p">●●●○○</td><td class="col-pct">75%</td><td class="col-b">0</td><td class="col-b">0</td></tr>
+          <tr><td class="col-n">7</td><td class="col-e">Admin operations</td><td class="col-p">●●●●○</td><td class="col-pct">80%</td><td class="col-b">0</td><td class="col-b">0</td></tr>
+          <tr><td class="col-n">8</td><td class="col-e">Brand and marketing surface</td><td class="col-p">○○○○○</td><td class="col-pct">0%</td><td class="col-b">0</td><td class="col-b">0</td></tr>
         </tbody></table>
         <div class="sub-label sub-label-top">Agents</div>
         <div class="no-agents">No agents defined yet.</div>
-        <div class="card-foot"><span>Bugs: <span class="ob">12 open</span> · <span>0 closed</span></span></div>
+        <div class="card-foot"><span>Bugs: <span>0 open</span> · <span>0 closed</span></span><span style="color:var(--fg-30);font-size:11px">Code audit 2026-04-29</span></div>
       </article>
 
       <!-- EO VIETNAM -->
@@ -834,16 +952,16 @@ a.pt-row:hover .pt-name { color: var(--row-accent, var(--fg)); }
         <div class="card-meta"><span><strong>Phase:</strong> Phase 1 · Build</span><a href="https://eovietnamboard.com" target="_blank">eovietnamboard.com →</a></div>
         <div class="sub-label">Epics</div>
         <table class="epic-table"><thead><tr><th class="col-n">#</th><th>Epic</th><th class="col-p">Pipeline</th><th class="col-pct">Est.</th><th class="col-b">Open</th><th class="col-b">Closed</th></tr></thead><tbody>
-          <tr><td class="col-n">1</td><td class="col-e">Public site</td><td class="col-p">●●◐○○</td><td class="col-pct">60%</td><td class="col-b">0</td><td class="col-b">0</td></tr>
-          <tr><td class="col-n">2</td><td class="col-e">Member inquiry</td><td class="col-p">●●◐○○</td><td class="col-pct">50%</td><td class="col-b">0</td><td class="col-b">0</td></tr>
-          <tr><td class="col-n">3</td><td class="col-e">Staff pipeline (RLS + auth)</td><td class="col-p">○○○○○</td><td class="col-pct">0%</td><td class="col-b ob">P0</td><td class="col-b">0</td></tr>
-          <tr><td class="col-n">4</td><td class="col-e">Application review</td><td class="col-p">○○○○○</td><td class="col-pct">0%</td><td class="col-b">0</td><td class="col-b">0</td></tr>
-          <tr><td class="col-n">5</td><td class="col-e">Email notifications</td><td class="col-p">○○○○○</td><td class="col-pct">0%</td><td class="col-b">0</td><td class="col-b">0</td></tr>
-          <tr><td class="col-n">6</td><td class="col-e">Events</td><td class="col-p">○○○○○</td><td class="col-pct">0%</td><td class="col-b">0</td><td class="col-b">0</td></tr>
-          <tr><td class="col-n">7</td><td class="col-e">Member directory</td><td class="col-p">○○○○○</td><td class="col-pct">0%</td><td class="col-b">0</td><td class="col-b">0</td></tr>
-          <tr><td class="col-n">8</td><td class="col-e">HubSpot CRM sync</td><td class="col-p">○○○○○</td><td class="col-pct">0%</td><td class="col-b">0</td><td class="col-b">0</td></tr>
-          <tr><td class="col-n">9</td><td class="col-e">Analytics</td><td class="col-p">○○○○○</td><td class="col-pct">0%</td><td class="col-b">0</td><td class="col-b">0</td></tr>
-          <tr><td class="col-n">10</td><td class="col-e">Forum / community</td><td class="col-p">○○○○○</td><td class="col-pct">0%</td><td class="col-b">0</td><td class="col-b">0</td></tr>
+          <tr><td class="col-n">1</td><td class="col-e">The Chapter Hub</td><td class="col-p">●◐○○○</td><td class="col-pct">40%</td><td class="col-b">0</td><td class="col-b">0</td></tr>
+          <tr><td class="col-n">2</td><td class="col-e">The Event Machine</td><td class="col-p">●○○○○</td><td class="col-pct">5%</td><td class="col-b">0</td><td class="col-b">0</td></tr>
+          <tr><td class="col-n">3</td><td class="col-e">The Membership Pipeline</td><td class="col-p">●◐○○○</td><td class="col-pct">20%</td><td class="col-b">0</td><td class="col-b">0</td></tr>
+          <tr><td class="col-n">4</td><td class="col-e">The Chapter CRM</td><td class="col-p">●○○○○</td><td class="col-pct">5%</td><td class="col-b">0</td><td class="col-b">0</td></tr>
+          <tr><td class="col-n">5</td><td class="col-e">The Board Room</td><td class="col-p">●○○○○</td><td class="col-pct">0%</td><td class="col-b">0</td><td class="col-b">0</td></tr>
+          <tr><td class="col-n">6</td><td class="col-e">The Member Community</td><td class="col-p">●○○○○</td><td class="col-pct">0%</td><td class="col-b">0</td><td class="col-b">0</td></tr>
+          <tr><td class="col-n">7</td><td class="col-e">The AI Staff</td><td class="col-p">●○○○○</td><td class="col-pct">0%</td><td class="col-b">0</td><td class="col-b">0</td></tr>
+          <tr><td class="col-n">8</td><td class="col-e">The Communications Engine</td><td class="col-p">●◐○○○</td><td class="col-pct">15%</td><td class="col-b">0</td><td class="col-b">0</td></tr>
+          <tr><td class="col-n">9</td><td class="col-e">The Chapter Books</td><td class="col-p">●○○○○</td><td class="col-pct">0%</td><td class="col-b">0</td><td class="col-b">0</td></tr>
+          <tr><td class="col-n">10</td><td class="col-e">The Platform Foundation</td><td class="col-p">●◐○○○</td><td class="col-pct">25%</td><td class="col-b">0</td><td class="col-b">0</td></tr>
         </tbody></table>
         <div class="sub-label sub-label-top">Agents</div>
         <div class="no-agents">No agents defined yet.</div>
@@ -859,12 +977,12 @@ a.pt-row:hover .pt-name { color: var(--row-accent, var(--fg)); }
         <div class="card-meta"><span><strong>Phase:</strong> Live, iterating</span><a href="https://caiocoach.com" target="_blank">caiocoach.com →</a></div>
         <div class="sub-label">Epics</div>
         <table class="epic-table"><thead><tr><th class="col-n">#</th><th>Epic</th><th class="col-p">Pipeline</th><th class="col-pct">Est.</th><th class="col-b">Open</th><th class="col-b">Closed</th></tr></thead><tbody>
-          <tr><td class="col-n">1</td><td class="col-e">Content publishing</td><td class="col-p">●●●○○</td><td class="col-pct">80%</td><td class="col-b">0</td><td class="col-b">0</td></tr>
-          <tr><td class="col-n">2</td><td class="col-e">Coaching marketplace</td><td class="col-p">●●●○○</td><td class="col-pct">75%</td><td class="col-b">0</td><td class="col-b">0</td></tr>
-          <tr><td class="col-n">3</td><td class="col-e">Newsletter funnel</td><td class="col-p">●●○○○</td><td class="col-pct">50%</td><td class="col-b">0</td><td class="col-b">0</td></tr>
-          <tr><td class="col-n">4</td><td class="col-e">Multi-site CRM sync</td><td class="col-p">●●●○○</td><td class="col-pct">80%</td><td class="col-b">0</td><td class="col-b">0</td></tr>
-          <tr><td class="col-n">5</td><td class="col-e">Blueprint library</td><td class="col-p">●●◐○○</td><td class="col-pct">60%</td><td class="col-b">0</td><td class="col-b">0</td></tr>
-          <tr><td class="col-n">6</td><td class="col-e">Retreat landing &amp; redirect</td><td class="col-p">●◐○○○</td><td class="col-pct">40%</td><td class="col-b">0</td><td class="col-b">0</td></tr>
+          <tr><td class="col-n">1</td><td class="col-e">Content publishing</td><td class="col-p">●●●●●</td><td class="col-pct">100%</td><td class="col-b">0</td><td class="col-b">0</td></tr>
+          <tr><td class="col-n">2</td><td class="col-e">Coaching marketplace</td><td class="col-p">●●●●●</td><td class="col-pct">100%</td><td class="col-b">0</td><td class="col-b">0</td></tr>
+          <tr><td class="col-n">3</td><td class="col-e">Newsletter funnel</td><td class="col-p">●●●●●</td><td class="col-pct">100%</td><td class="col-b">0</td><td class="col-b">0</td></tr>
+          <tr><td class="col-n">4</td><td class="col-e">Multi-site CRM sync</td><td class="col-p">●●●●●</td><td class="col-pct">100%</td><td class="col-b">0</td><td class="col-b">0</td></tr>
+          <tr><td class="col-n">5</td><td class="col-e">Blueprint library</td><td class="col-p">●◐○○○</td><td class="col-pct">40%</td><td class="col-b">0</td><td class="col-b">0</td></tr>
+          <tr><td class="col-n">6</td><td class="col-e">Retreat landing &amp; redirect</td><td class="col-p">●●●●●</td><td class="col-pct">100%</td><td class="col-b">0</td><td class="col-b">0</td></tr>
         </tbody></table>
         <div class="sub-label sub-label-top">Agents</div>
         <div class="no-agents">No agents defined yet.</div>
@@ -921,16 +1039,17 @@ a.pt-row:hover .pt-name { color: var(--row-accent, var(--fg)); }
       <article class="card cc-infinite" id="infinite-leverage">
         <div class="card-header"><span class="card-dot"></span><div class="card-title-block">
           <h2 class="card-title"><a href="https://infiniteleverage.ai" target="_blank">Infinite Leverage <span class="ext">↗</span></a></h2>
-          <p class="card-tagline">AI leverage content series</p>
+          <p class="card-tagline">Retreat events · Melbourne, Nha Trang, Seattle 2026</p>
         </div></div>
-        <div class="card-meta"><span><strong>Phase:</strong> Live</span><a href="https://infiniteleverage.ai" target="_blank">infiniteleverage.ai →</a></div>
+        <div class="card-meta"><span><strong>Phase:</strong> Live, building</span><a href="https://infiniteleverage.ai" target="_blank">infiniteleverage.ai →</a></div>
         <div class="sub-label">Epics</div>
         <table class="epic-table"><thead><tr><th class="col-n">#</th><th>Epic</th><th class="col-p">Pipeline</th><th class="col-pct">Est.</th><th class="col-b">Open</th><th class="col-b">Closed</th></tr></thead><tbody>
-          <tr><td class="col-n">1</td><td class="col-e">14-day content series</td><td class="col-p">●●●●●</td><td class="col-pct">100%</td><td class="col-b">0</td><td class="col-b">0</td></tr>
-          <tr><td class="col-n">2</td><td class="col-e">Newsletter funnel</td><td class="col-p">●●●○○</td><td class="col-pct">75%</td><td class="col-b">0</td><td class="col-b">0</td></tr>
-          <tr><td class="col-n">3</td><td class="col-e">Coaching CTA</td><td class="col-p">●●◐○○</td><td class="col-pct">60%</td><td class="col-b">0</td><td class="col-b">0</td></tr>
-          <tr><td class="col-n">4</td><td class="col-e">SEO and distribution</td><td class="col-p">●◐○○○</td><td class="col-pct">30%</td><td class="col-b">0</td><td class="col-b">0</td></tr>
-          <tr><td class="col-n">5</td><td class="col-e">Analytics</td><td class="col-p">○○○○○</td><td class="col-pct">0%</td><td class="col-b">0</td><td class="col-b">0</td></tr>
+          <tr><td class="col-n">1</td><td class="col-e">Marketing &amp; event pages</td><td class="col-p">●●●◐○</td><td class="col-pct">70%</td><td class="col-b">0</td><td class="col-b">0</td></tr>
+          <tr><td class="col-n">2</td><td class="col-e">Retreat signup flow</td><td class="col-p">●●●●○</td><td class="col-pct">80%</td><td class="col-b">0</td><td class="col-b">0</td></tr>
+          <tr><td class="col-n">3</td><td class="col-e">Stripe checkout</td><td class="col-p">●●●○○</td><td class="col-pct">60%</td><td class="col-b">0</td><td class="col-b">0</td></tr>
+          <tr><td class="col-n">4</td><td class="col-e">Lead capture &amp; CRM integration</td><td class="col-p">●●●●○</td><td class="col-pct">80%</td><td class="col-b">0</td><td class="col-b">0</td></tr>
+          <tr><td class="col-n">5</td><td class="col-e">Operational notifications</td><td class="col-p">●●●○○</td><td class="col-pct">60%</td><td class="col-b">0</td><td class="col-b">0</td></tr>
+          <tr><td class="col-n">6</td><td class="col-e">Brand discipline, SEO, and analytics</td><td class="col-p">●◐○○○</td><td class="col-pct">25%</td><td class="col-b">0</td><td class="col-b">0</td></tr>
         </tbody></table>
         <div class="sub-label sub-label-top">Agents</div>
         <div class="no-agents">No agents defined yet.</div>
@@ -1018,15 +1137,18 @@ a.pt-row:hover .pt-name { color: var(--row-accent, var(--fg)); }
           <h2 class="card-title"><a href="https://fabfouracademy.com" target="_blank">Fab Four Academy <span class="ext">↗</span></a></h2>
           <p class="card-tagline">Leadership through The Beatles · Dan Absher's daily wisdom and book platform</p>
         </div></div>
-        <div class="card-meta"><span><strong>Phase:</strong> Pre-build</span><a href="https://fabfouracademy.com" target="_blank">fabfouracademy.com →</a></div>
+        <div class="card-meta"><span><strong>Phase:</strong> Building</span><a href="https://fabfouracademy.com" target="_blank">fabfouracademy.com →</a></div>
         <div class="sub-label">Epics</div>
         <table class="epic-table"><thead><tr><th class="col-n">#</th><th>Epic</th><th class="col-p">Pipeline</th><th class="col-pct">Est.</th><th class="col-b">Open</th><th class="col-b">Closed</th></tr></thead><tbody>
-          <tr><td class="col-n">1</td><td class="col-e">Daily Words of Wisdom</td><td class="col-p">●◐○○○</td><td class="col-pct">15%</td><td class="col-b">0</td><td class="col-b">0</td></tr>
-          <tr><td class="col-n">2</td><td class="col-e">Book promotion and conversion</td><td class="col-p">○○○○○</td><td class="col-pct">0%</td><td class="col-b">0</td><td class="col-b">0</td></tr>
-          <tr><td class="col-n">3</td><td class="col-e">Speaking and consulting funnel</td><td class="col-p">●○○○○</td><td class="col-pct">5%</td><td class="col-b">0</td><td class="col-b">0</td></tr>
-          <tr><td class="col-n">4</td><td class="col-e">Blog</td><td class="col-p">○○○○○</td><td class="col-pct">0%</td><td class="col-b">0</td><td class="col-b">0</td></tr>
-          <tr><td class="col-n">5</td><td class="col-e">Email signup and community</td><td class="col-p">●○○○○</td><td class="col-pct">10%</td><td class="col-b">0</td><td class="col-b">0</td></tr>
-          <tr><td class="col-n">6</td><td class="col-e">Brand-led layout, polish, SEO</td><td class="col-p">○○○○○</td><td class="col-pct">0%</td><td class="col-b">0</td><td class="col-b">0</td></tr>
+          <tr><td class="col-n">1</td><td class="col-e">Daily Words of Wisdom</td><td class="col-p">●●◐○○</td><td class="col-pct">50%</td><td class="col-b">0</td><td class="col-b">0</td></tr>
+          <tr><td class="col-n">2</td><td class="col-e">Book promotion and conversion</td><td class="col-p">●●○○○</td><td class="col-pct">40%</td><td class="col-b">0</td><td class="col-b">0</td></tr>
+          <tr><td class="col-n">3</td><td class="col-e">Speaking and consulting funnel</td><td class="col-p">●◐○○○</td><td class="col-pct">35%</td><td class="col-b">0</td><td class="col-b">0</td></tr>
+          <tr><td class="col-n">4</td><td class="col-e">Blog</td><td class="col-p">●◐○○○</td><td class="col-pct">30%</td><td class="col-b">0</td><td class="col-b">0</td></tr>
+          <tr><td class="col-n">5</td><td class="col-e">Daily email and community list</td><td class="col-p">●●●◐○</td><td class="col-pct">70%</td><td class="col-b">0</td><td class="col-b">0</td></tr>
+          <tr><td class="col-n">6</td><td class="col-e">Brand-led layout, polish, and SEO</td><td class="col-p">●●○○○</td><td class="col-pct">45%</td><td class="col-b">0</td><td class="col-b">0</td></tr>
+          <tr><td class="col-n">7</td><td class="col-e">CRM foundation</td><td class="col-p">○○○○○</td><td class="col-pct">0%</td><td class="col-b">0</td><td class="col-b">0</td></tr>
+          <tr><td class="col-n">8</td><td class="col-e">Membership product</td><td class="col-p">○○○○○</td><td class="col-pct">0%</td><td class="col-b">0</td><td class="col-b">0</td></tr>
+          <tr><td class="col-n">9</td><td class="col-e">Product catalog and commerce</td><td class="col-p">○○○○○</td><td class="col-pct">0%</td><td class="col-b">0</td><td class="col-b">0</td></tr>
         </tbody></table>
         <div class="sub-label sub-label-top">Agents</div>
         <div class="no-agents">No agents defined yet.</div>

@@ -36,8 +36,9 @@ yarn-error.log*
 # vercel
 .vercel
 
-# local dev tooling
-.claude/
+# local dev tooling — ignore personal config, track shared commands
+.claude/settings.local.json
+.claude/launch.json
 
 # typescript
 *.tsbuildinfo

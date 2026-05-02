@@ -29,6 +29,7 @@
 }
 
 * { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
 html, body { margin: 0; padding: 0; }
 body {
   font-family: var(--font-sans);
@@ -322,7 +323,11 @@ a { color: inherit; text-decoration: none; }
   border-bottom: 1px solid var(--fg-border);
   transition: background 0.1s;
   position: relative;
+  cursor: pointer;
+  text-decoration: none;
+  color: inherit;
 }
+a.pt-row:hover .pt-name { color: var(--row-accent, var(--fg)); }
 .pt-row::before {
   content: '';
   position: absolute;
@@ -395,6 +400,86 @@ a { color: inherit; text-decoration: none; }
 .row-mahjong     { --row-accent: #D1458B; }
 .row-fab-four    { --row-accent: #e6b34d; }
 .row-leadership  { --row-accent: #A0A4B0; }
+
+
+/* ── PROJECT CARDS ── */
+.cards-section { padding: 48px 0 80px; border-top: 1px solid var(--fg-border); }
+.cards-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px; }
+.card {
+  border: 1px solid var(--fg-border);
+  background: var(--elev-1);
+  padding: 28px;
+  display: flex; flex-direction: column;
+  position: relative;
+  scroll-margin-top: 80px;
+}
+.card::before {
+  content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px;
+  background: var(--card-accent, var(--fg-15)); opacity: 0.85;
+}
+.card-header { display: flex; align-items: flex-start; gap: 12px; margin-bottom: 16px; }
+.card-dot {
+  width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; margin-top: 7px;
+  background: var(--card-accent, var(--fg));
+  box-shadow: 0 0 12px var(--card-accent, var(--fg)); opacity: 0.9;
+}
+.card-title-block { flex: 1; min-width: 0; }
+.card-title { font-size: 22px; font-weight: 400; letter-spacing: -0.01em; color: var(--fg); margin: 0; line-height: 1.2; }
+.card-title a { color: inherit; display: inline-flex; align-items: baseline; gap: 8px; transition: color 0.15s; }
+.card-title a:hover { color: var(--card-accent, var(--fg)); }
+.card-title .ext { font-family: var(--font-mono); font-size: 13px; color: var(--fg-50); display: inline-block; transition: color 0.15s, transform 0.15s; }
+.card-title a:hover .ext { color: var(--card-accent, var(--fg)); transform: translate(2px,-2px); }
+.card-tagline { font-size: 13px; color: var(--fg-70); margin: 4px 0 0; line-height: 1.5; }
+.card-meta {
+  display: flex; flex-wrap: wrap; gap: 8px 16px;
+  margin-bottom: 18px; padding-bottom: 16px; border-bottom: 1px solid var(--fg-border);
+  font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--fg-50);
+}
+.card-meta strong { color: var(--fg-70); font-weight: 400; }
+.card-meta a { color: var(--fg-70); border-bottom: 1px dotted var(--fg-30); transition: color 0.15s; }
+.card-meta a:hover { color: var(--card-accent, var(--fg)); }
+.sub-label { font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--fg-50); margin-bottom: 8px; }
+.sub-label-top { margin-top: 20px; padding-top: 16px; border-top: 1px solid var(--fg-border); }
+.epic-table { width: 100%; border-collapse: collapse; font-size: 13px; }
+.epic-table th, .epic-table td { text-align: left; padding: 8px; border-bottom: 1px solid var(--fg-border); vertical-align: top; }
+.epic-table th { font-family: var(--font-mono); font-weight: 400; font-size: 10px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--fg-50); border-bottom: 1px solid var(--border-strong); padding-top: 0; }
+.epic-table tr:last-child td { border-bottom: none; }
+.epic-table tbody tr:hover td { background: var(--elev-2); }
+.col-n { font-family: var(--font-mono); font-size: 11px; color: var(--fg-50); width: 24px; }
+.col-e { color: var(--fg); }
+.col-p { font-family: var(--font-mono); font-size: 14px; letter-spacing: 0.04em; white-space: nowrap; width: 80px; }
+.col-pct { text-align: right; font-family: var(--font-mono); font-size: 12px; color: var(--fg-70); width: 44px; }
+.col-b { text-align: right; font-family: var(--font-mono); font-size: 12px; width: 80px; color: var(--fg-50); }
+.col-b.ob { color: var(--magenta); }
+.col-b.cb { color: var(--mint); }
+.no-agents { font-size: 13px; color: var(--fg-50); font-style: italic; padding: 14px 0; border-bottom: 1px solid var(--fg-border); }
+.col-sched { width: 110px; font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.06em; text-transform: uppercase; color: var(--fg-70); white-space: nowrap; }
+.col-ctx { font-size: 12px; }
+.col-ctx code { font-family: var(--font-mono); font-size: 11px; color: var(--fg-70); display: inline-block; margin-right: 6px; word-break: break-all; line-height: 1.7; }
+.card-foot {
+  margin-top: 16px; padding-top: 14px; border-top: 1px solid var(--fg-border);
+  display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px;
+  font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.06em; color: var(--fg-50);
+}
+.card-foot .ob { color: var(--magenta); }
+.card-foot .cb { color: var(--mint); }
+.card-note { margin-top: 28px; padding: 18px 22px; border: 1px dashed var(--fg-border); background: var(--elev-1); font-size: 13px; color: var(--fg-70); line-height: 1.6; }
+.card-note strong { color: var(--fg); font-weight: 500; }
+/* card accents */
+.cc-caio       { --card-accent: #6FF2C1; }
+.cc-forever    { --card-accent: #D1458B; }
+.cc-longevity  { --card-accent: #6FF2C1; }
+.cc-mahjong    { --card-accent: #D1458B; }
+.cc-aio        { --card-accent: #287BE8; }
+.cc-aio-pad    { --card-accent: #4FBDB8; }
+.cc-infinite   { --card-accent: #9D4DFF; }
+.cc-dave       { --card-accent: #ffffff; }
+.cc-bhutan     { --card-accent: #FFCC00; }
+.cc-edge8      { --card-accent: #E63329; }
+.cc-eo-vietnam { --card-accent: #287BE8; }
+.cc-fab-four   { --card-accent: #e6b34d; }
+.cc-leadership { --card-accent: #A0A4B0; }
+@media (max-width: 980px) { .cards-grid { grid-template-columns: 1fr; } }
 
 /* ── FOOTER ── */
 .page-footer {
@@ -546,6 +631,7 @@ a { color: inherit; text-decoration: none; }
   <div class="wrap">
     <div class="section-header">
       <span class="section-title">// Portfolio</span>
+      <span class="section-hint">Click any row to jump to full epic breakdown</span>
     </div>
 
     <div class="legend">
@@ -561,170 +647,419 @@ a { color: inherit; text-decoration: none; }
         <div>Project</div>
         <div>Epics</div>
         <div>Phase</div>
-        <div>Links</div>
+        <div></div>
       </div>
 
       <!-- ACTIVE -->
       <div class="pt-group">Active &mdash; Building Now</div>
 
-      <div class="pt-row row-longevity">
+      <a class="pt-row row-longevity" href="#longevity-coach">
         <div class="pt-name">longevity-coach<small>janet.care</small></div>
-        <div class="pt-pipeline">
-          <span class="dot-pass">●</span><span class="dot-pass">●</span><span class="dot-pass">●</span><span class="dot-pass">●</span><span class="dot-partial">◐</span><span class="dot-partial">◐</span><span class="dot-open">○</span><span class="dot-open">○</span>
-        </div>
+        <div class="pt-pipeline"><span class="dot-pass">●</span><span class="dot-pass">●</span><span class="dot-pass">●</span><span class="dot-pass">●</span><span class="dot-partial">◐</span><span class="dot-partial">◐</span><span class="dot-open">○</span><span class="dot-open">○</span></div>
         <div class="pt-phase">Phase 2 &mdash; AI</div>
-        <div class="pt-links">
-          <a class="pt-link" href="https://janet.care" target="_blank">janet.care <span class="arrow">↗</span></a>
-          <a class="pt-link" href="https://janet.care/project-status.html" target="_blank">status page</a>
-        </div>
-      </div>
+        <div class="pt-go">→</div>
+      </a>
 
-      <div class="pt-row row-forever">
+      <a class="pt-row row-forever" href="#forever-app">
         <div class="pt-name">forever-app<small>forever-8.com</small></div>
-        <div class="pt-pipeline">
-          <span class="dot-partial">◐</span><span class="dot-partial">◐</span><span class="dot-partial">◐</span><span class="dot-partial">◐</span><span class="dot-partial">◐</span><span class="dot-partial">◐</span><span class="dot-partial">◐</span><span class="dot-blocked">↻</span>
-        </div>
+        <div class="pt-pipeline"><span class="dot-partial">◐</span><span class="dot-partial">◐</span><span class="dot-partial">◐</span><span class="dot-partial">◐</span><span class="dot-partial">◐</span><span class="dot-partial">◐</span><span class="dot-partial">◐</span><span class="dot-blocked">↻</span></div>
         <div class="pt-phase">Phase 1 &mdash; Build</div>
-        <div class="pt-links">
-          <a class="pt-link" href="https://forever-8.com" target="_blank">forever-8.com <span class="arrow">↗</span></a>
-          <a class="pt-link" href="https://forever-8.com/project-status.html" target="_blank">status page</a>
-        </div>
-      </div>
+        <div class="pt-go">→</div>
+      </a>
 
-      <div class="pt-row row-eo-vietnam">
+      <a class="pt-row row-eo-vietnam" href="#eo-vietnam">
         <div class="pt-name">eo-vietnam<small>eovietnamboard.com</small></div>
-        <div class="pt-pipeline">
-          <span class="dot-partial">◐</span><span class="dot-partial">◐</span><span class="dot-open">○</span><span class="dot-open">○</span><span class="dot-open">○</span><span class="dot-open">○</span><span class="dot-open">○</span><span class="dot-open">○</span><span class="dot-open">○</span><span class="dot-open">○</span>
-        </div>
+        <div class="pt-pipeline"><span class="dot-partial">◐</span><span class="dot-partial">◐</span><span class="dot-open">○</span><span class="dot-open">○</span><span class="dot-open">○</span><span class="dot-open">○</span><span class="dot-open">○</span><span class="dot-open">○</span><span class="dot-open">○</span><span class="dot-open">○</span></div>
         <div class="pt-phase">Phase 1 &mdash; Build</div>
-        <div class="pt-links">
-          <a class="pt-link" href="https://eovietnamboard.com" target="_blank">eovietnamboard.com <span class="arrow">↗</span></a>
-          <a class="pt-link" href="https://eovietnamboard.com/project-status.html" target="_blank">status page</a>
-        </div>
-      </div>
+        <div class="pt-go">→</div>
+      </a>
 
-      <div class="pt-row row-bhutan">
+      <div class="pt-row row-bhutan" style="cursor:default">
         <div class="pt-name">bhutan<small>domain TBD</small></div>
-        <div class="pt-pipeline">
-          <span class="dot-open">○</span><span class="dot-open">○</span><span class="dot-open">○</span><span class="dot-open">○</span>
-        </div>
+        <div class="pt-pipeline"><span class="dot-open">○</span><span class="dot-open">○</span><span class="dot-open">○</span><span class="dot-open">○</span></div>
         <div class="pt-phase">Pre-launch</div>
-        <div class="pt-links">
-          <span class="pt-link" style="color:var(--fg-30)">TBD</span>
-        </div>
+        <div class="pt-go" style="color:var(--fg-30)">—</div>
       </div>
 
       <!-- LIVE -->
       <div class="pt-group">Live &mdash; In Production</div>
 
-      <div class="pt-row row-caio">
+      <a class="pt-row row-caio" href="#caio-coach">
         <div class="pt-name">caio-coach<small>caiocoach.com</small></div>
-        <div class="pt-pipeline">
-          <span class="dot-pass">●</span><span class="dot-pass">●</span><span class="dot-pass">●</span><span class="dot-pass">●</span><span class="dot-partial">◐</span><span class="dot-pass">●</span>
-        </div>
+        <div class="pt-pipeline"><span class="dot-pass">●</span><span class="dot-pass">●</span><span class="dot-pass">●</span><span class="dot-pass">●</span><span class="dot-partial">◐</span><span class="dot-pass">●</span></div>
         <div class="pt-phase">Live</div>
-        <div class="pt-links">
-          <a class="pt-link" href="https://caiocoach.com" target="_blank">caiocoach.com <span class="arrow">↗</span></a>
-          <a class="pt-link" href="/project-status.html">status page</a>
-        </div>
-      </div>
+        <div class="pt-go">→</div>
+      </a>
 
-      <div class="pt-row row-aio-website">
+      <a class="pt-row row-aio-website" href="#aio-website">
         <div class="pt-name">aio-website<small>ai-officer.com</small></div>
-        <div class="pt-pipeline">
-          <span class="dot-pass">●</span><span class="dot-pass">●</span><span class="dot-partial">◐</span><span class="dot-partial">◐</span><span class="dot-open">○</span>
-        </div>
+        <div class="pt-pipeline"><span class="dot-pass">●</span><span class="dot-pass">●</span><span class="dot-partial">◐</span><span class="dot-partial">◐</span><span class="dot-open">○</span></div>
         <div class="pt-phase">Live</div>
-        <div class="pt-links">
-          <a class="pt-link" href="https://ai-officer.com" target="_blank">ai-officer.com <span class="arrow">↗</span></a>
-          <a class="pt-link" href="https://ai-officer.com/project-status.html" target="_blank">status page</a>
-        </div>
+        <div class="pt-go">→</div>
+      </a>
+
+      <div class="pt-row row-aio-pad" style="cursor:default">
+        <div class="pt-name">aio-pad<small>internal</small></div>
+        <div class="pt-pipeline"><span class="dot-pass">●</span><span class="dot-pass">●</span><span class="dot-pass">●</span><span class="dot-partial">◐</span><span class="dot-open">○</span></div>
+        <div class="pt-phase">Live</div>
+        <div class="pt-go" style="color:var(--fg-30)">—</div>
       </div>
 
-      <div class="pt-row row-aio-pad">
-        <div class="pt-name">aio-pad<small>live</small></div>
-        <div class="pt-pipeline">
-          <span class="dot-pass">●</span><span class="dot-pass">●</span><span class="dot-pass">●</span><span class="dot-partial">◐</span><span class="dot-open">○</span>
-        </div>
-        <div class="pt-phase">Live</div>
-        <div class="pt-links">
-          <span class="pt-link" style="color:var(--fg-30)">Internal</span>
-        </div>
-      </div>
-
-      <div class="pt-row row-infinite">
+      <a class="pt-row row-infinite" href="#infinite-leverage">
         <div class="pt-name">infinite-leverage<small>infiniteleverage.ai</small></div>
-        <div class="pt-pipeline">
-          <span class="dot-pass">●</span><span class="dot-pass">●</span><span class="dot-partial">◐</span><span class="dot-open">○</span><span class="dot-open">○</span>
-        </div>
+        <div class="pt-pipeline"><span class="dot-pass">●</span><span class="dot-pass">●</span><span class="dot-partial">◐</span><span class="dot-open">○</span><span class="dot-open">○</span></div>
         <div class="pt-phase">Live</div>
-        <div class="pt-links">
-          <a class="pt-link" href="https://infiniteleverage.ai" target="_blank">infiniteleverage.ai <span class="arrow">↗</span></a>
-          <a class="pt-link" href="https://infiniteleverage.ai/project-status.html" target="_blank">status page</a>
-        </div>
-      </div>
+        <div class="pt-go">→</div>
+      </a>
 
-      <div class="pt-row row-dave">
+      <a class="pt-row row-dave" href="#dave-hajdu">
         <div class="pt-name">dave-hajdu<small>davehajdu.com</small></div>
-        <div class="pt-pipeline">
-          <span class="dot-partial">◐</span><span class="dot-partial">◐</span><span class="dot-open">○</span>
-        </div>
+        <div class="pt-pipeline"><span class="dot-partial">◐</span><span class="dot-partial">◐</span><span class="dot-open">○</span></div>
         <div class="pt-phase">Live</div>
-        <div class="pt-links">
-          <a class="pt-link" href="https://davehajdu.com" target="_blank">davehajdu.com <span class="arrow">↗</span></a>
-          <a class="pt-link" href="https://davehajdu.com/project-status.html" target="_blank">status page</a>
-        </div>
-      </div>
+        <div class="pt-go">→</div>
+      </a>
 
-      <div class="pt-row row-edge8">
+      <a class="pt-row row-edge8" href="#edge8">
         <div class="pt-name">edge8<small>edge8.co</small></div>
-        <div class="pt-pipeline">
-          <span class="dot-pass">●</span><span class="dot-partial">◐</span><span class="dot-open">○</span><span class="dot-open">○</span>
-        </div>
+        <div class="pt-pipeline"><span class="dot-pass">●</span><span class="dot-partial">◐</span><span class="dot-open">○</span><span class="dot-open">○</span></div>
         <div class="pt-phase">Live</div>
-        <div class="pt-links">
-          <a class="pt-link" href="https://edge8.co" target="_blank">edge8.co <span class="arrow">↗</span></a>
-          <a class="pt-link" href="https://edge8.co/project-status.html" target="_blank">status page</a>
-        </div>
-      </div>
+        <div class="pt-go">→</div>
+      </a>
 
       <!-- EARLY -->
       <div class="pt-group">Early &mdash; Pre-build</div>
 
-      <div class="pt-row row-mahjong">
+      <div class="pt-row row-mahjong" style="cursor:default">
         <div class="pt-name">mahjong-tarot<small>domain TBD</small></div>
-        <div class="pt-pipeline">
-          <span class="dot-partial">◐</span><span class="dot-open">○</span><span class="dot-open">○</span><span class="dot-open">○</span><span class="dot-open">○</span><span class="dot-open">○</span><span class="dot-open">○</span><span class="dot-open">○</span><span class="dot-open">○</span><span class="dot-open">○</span>
-        </div>
+        <div class="pt-pipeline"><span class="dot-partial">◐</span><span class="dot-open">○</span><span class="dot-open">○</span><span class="dot-open">○</span><span class="dot-open">○</span><span class="dot-open">○</span><span class="dot-open">○</span><span class="dot-open">○</span><span class="dot-open">○</span><span class="dot-open">○</span></div>
         <div class="pt-phase">Early</div>
-        <div class="pt-links">
-          <span class="pt-link" style="color:var(--fg-30)">TBD</span>
-        </div>
+        <div class="pt-go" style="color:var(--fg-30)">—</div>
       </div>
 
-      <div class="pt-row row-fab-four">
-        <div class="pt-name">fab-four<small>domain TBD</small></div>
-        <div class="pt-pipeline">
-          <span class="dot-open">○</span><span class="dot-open">○</span><span class="dot-open">○</span>
-        </div>
-        <div class="pt-phase">Concept</div>
-        <div class="pt-links">
-          <span class="pt-link" style="color:var(--fg-30)">TBD</span>
-        </div>
+      <div class="pt-row row-fab-four" style="cursor:default">
+        <div class="pt-name">fab-four<small>fabfouracademy.com</small></div>
+        <div class="pt-pipeline"><span class="dot-partial">◐</span><span class="dot-open">○</span><span class="dot-open">○</span><span class="dot-open">○</span><span class="dot-open">○</span><span class="dot-open">○</span></div>
+        <div class="pt-phase">Pre-build</div>
+        <div class="pt-go" style="color:var(--fg-30)">—</div>
       </div>
 
-      <div class="pt-row row-leadership">
-        <div class="pt-name">leadership-coach<small>domain TBD</small></div>
-        <div class="pt-pipeline">
-          <span class="dot-open">○</span><span class="dot-open">○</span><span class="dot-open">○</span>
-        </div>
-        <div class="pt-phase">Concept</div>
-        <div class="pt-links">
-          <span class="pt-link" style="color:var(--fg-30)">TBD</span>
-        </div>
+      <div class="pt-row row-leadership" style="cursor:default">
+        <div class="pt-name">leadership-coach<small>internal</small></div>
+        <div class="pt-pipeline"><span class="dot-pass">●</span><span class="dot-pass">●</span><span class="dot-pass">●</span><span class="dot-pass">●</span><span class="dot-pass">●</span><span class="dot-partial">◐</span></div>
+        <div class="pt-phase">Operational</div>
+        <div class="pt-go" style="color:var(--fg-30)">—</div>
       </div>
 
     </div><!-- /pt-table -->
+  </div>
+</section>
+
+<!-- PROJECT CARDS -->
+<section class="cards-section" id="projects">
+  <div class="wrap">
+    <div class="section-header" style="margin-bottom:28px">
+      <span class="section-title">// Epic Breakdown</span>
+      <span class="section-hint">Pipeline: Planned · Feature Complete · Unit Tested · Regression · User Reviewed</span>
+    </div>
+    <div class="cards-grid">
+
+      <!-- LONGEVITY COACH -->
+      <article class="card cc-longevity" id="longevity-coach">
+        <div class="card-header"><span class="card-dot"></span><div class="card-title-block">
+          <h2 class="card-title"><a href="https://janet.care" target="_blank">Longevity Coach <span class="ext">↗</span></a></h2>
+          <p class="card-tagline">Live longer, on purpose. · biological-age platform</p>
+        </div></div>
+        <div class="card-meta"><span><strong>Phase:</strong> Sprint 2 · Engineering Completeness</span><a href="https://janet.care" target="_blank">janet.care →</a></div>
+        <div class="sub-label">Epics</div>
+        <table class="epic-table"><thead><tr><th class="col-n">#</th><th>Epic</th><th class="col-p">Pipeline</th><th class="col-pct">Est.</th><th class="col-b">Open</th><th class="col-b">Closed</th></tr></thead><tbody>
+          <tr><td class="col-n">1</td><td class="col-e">The Front Door</td><td class="col-p">●●●●●</td><td class="col-pct">100%</td><td class="col-b">0</td><td class="col-b cb">3</td></tr>
+          <tr><td class="col-n">2</td><td class="col-e">The Intake</td><td class="col-p">●●●◐○</td><td class="col-pct">99%</td><td class="col-b">0</td><td class="col-b">0</td></tr>
+          <tr><td class="col-n">3</td><td class="col-e">The Number</td><td class="col-p">●●●○○</td><td class="col-pct">85%</td><td class="col-b">0</td><td class="col-b cb">1</td></tr>
+          <tr><td class="col-n">4</td><td class="col-e">The Protocol</td><td class="col-p">●●●○○</td><td class="col-pct">80%</td><td class="col-b">0</td><td class="col-b">0</td></tr>
+          <tr><td class="col-n">5</td><td class="col-e">The Report</td><td class="col-p">●●●○○</td><td class="col-pct">80%</td><td class="col-b">0</td><td class="col-b cb">1</td></tr>
+          <tr><td class="col-n">6</td><td class="col-e">The Coach</td><td class="col-p">●●●○○</td><td class="col-pct">95%</td><td class="col-b">0</td><td class="col-b cb">1</td></tr>
+          <tr><td class="col-n">7</td><td class="col-e">The Daily Return</td><td class="col-p">●●●○○</td><td class="col-pct">90%</td><td class="col-b">0</td><td class="col-b">0</td></tr>
+          <tr><td class="col-n">8</td><td class="col-e">The Living Record</td><td class="col-p">●●●○○</td><td class="col-pct">85%</td><td class="col-b">0</td><td class="col-b">0</td></tr>
+          <tr><td class="col-n">9</td><td class="col-e">The Care Team</td><td class="col-p">●●●◐○</td><td class="col-pct">75%</td><td class="col-b">0</td><td class="col-b">0</td></tr>
+          <tr><td class="col-n">10</td><td class="col-e">The Knowledge Engine</td><td class="col-p">●◐◐○○</td><td class="col-pct">60%</td><td class="col-b">0</td><td class="col-b cb">1</td></tr>
+          <tr><td class="col-n">11</td><td class="col-e">The Trust Layer</td><td class="col-p">●●●○○</td><td class="col-pct">95%</td><td class="col-b">0</td><td class="col-b cb">1</td></tr>
+          <tr><td class="col-n">12</td><td class="col-e">The Distribution</td><td class="col-p">●●◐○○</td><td class="col-pct">55%</td><td class="col-b">0</td><td class="col-b">0</td></tr>
+          <tr><td class="col-n">13</td><td class="col-e">The Business Model</td><td class="col-p">●●◐○○</td><td class="col-pct">45%</td><td class="col-b">0</td><td class="col-b">0</td></tr>
+          <tr><td class="col-n">14</td><td class="col-e">The Platform Foundation</td><td class="col-p">●●○○○</td><td class="col-pct">65%</td><td class="col-b">0</td><td class="col-b">0</td></tr>
+        </tbody></table>
+        <div class="sub-label sub-label-top">Agents</div>
+        <table class="epic-table"><thead><tr><th>Agent</th><th>Job</th><th class="col-sched">Schedule</th></tr></thead><tbody>
+          <tr><td class="col-e">Sage</td><td>Supplement protocol pipeline worker</td><td class="col-sched">Async</td></tr>
+          <tr><td class="col-e">Atlas</td><td>Risk scores and biological age pipeline worker</td><td class="col-sched">Async</td></tr>
+          <tr><td class="col-e">Janet</td><td>Real-time health coach</td><td class="col-sched">Ad-hoc</td></tr>
+          <tr><td class="col-e">Janet-Clinician Brief</td><td>Clinician handoff pipeline worker</td><td class="col-sched">Planned</td></tr>
+          <tr><td class="col-e">PT Coach</td><td>Live coaching + monthly plan</td><td class="col-sched">Planned</td></tr>
+          <tr><td class="col-e">Alex</td><td>Patient support agent</td><td class="col-sched">Planned</td></tr>
+          <tr><td class="col-e">Marco</td><td>Meal plan pipeline worker</td><td class="col-sched">Planned</td></tr>
+          <tr><td class="col-e">Nova</td><td>RAG knowledge base pipeline worker</td><td class="col-sched">Planned</td></tr>
+        </tbody></table>
+        <div class="card-foot"><span>Bugs: <span>0 open</span> · <span class="cb">8 closed</span></span></div>
+      </article>
+
+      <!-- FOREVER APP -->
+      <article class="card cc-forever" id="forever-app">
+        <div class="card-header"><span class="card-dot"></span><div class="card-title-block">
+          <h2 class="card-title"><a href="https://forever-8.com" target="_blank">Forever <span class="ext">↗</span></a></h2>
+          <p class="card-tagline">The 8-minute capture loop · memoir engine</p>
+        </div></div>
+        <div class="card-meta"><span><strong>Phase:</strong> Pilot</span><a href="https://forever-8.com" target="_blank">forever-8.com →</a></div>
+        <div class="sub-label">Epics</div>
+        <table class="epic-table"><thead><tr><th class="col-n">#</th><th>Epic</th><th class="col-p">Pipeline</th><th class="col-pct">Est.</th><th class="col-b">Open</th><th class="col-b">Closed</th></tr></thead><tbody>
+          <tr><td class="col-n">1</td><td class="col-e">The Ritual</td><td class="col-p">●●◐○○</td><td class="col-pct">60%</td><td class="col-b">0</td><td class="col-b">0</td></tr>
+          <tr><td class="col-n">2</td><td class="col-e">The Catalyst</td><td class="col-p">●●○○◐</td><td class="col-pct">70%</td><td class="col-b">0</td><td class="col-b">0</td></tr>
+          <tr><td class="col-n">3</td><td class="col-e">The Living Archive</td><td class="col-p">●◐○○◐</td><td class="col-pct">55%</td><td class="col-b ob">1 (P1)</td><td class="col-b">0</td></tr>
+          <tr><td class="col-n">4</td><td class="col-e">The Memoir Engine</td><td class="col-p">●●○○◐</td><td class="col-pct">60%</td><td class="col-b ob">5</td><td class="col-b">0</td></tr>
+          <tr><td class="col-n">5</td><td class="col-e">The Family Circle</td><td class="col-p">●○○○○</td><td class="col-pct">10%</td><td class="col-b ob">1 (P3)</td><td class="col-b">0</td></tr>
+          <tr><td class="col-n">6</td><td class="col-e">The Caregiver Toolkit</td><td class="col-p">●○○○○</td><td class="col-pct">10%</td><td class="col-b">0</td><td class="col-b">0</td></tr>
+          <tr><td class="col-n">7</td><td class="col-e">The Trust Foundation</td><td class="col-p">●◐○○○</td><td class="col-pct">25%</td><td class="col-b ob">2 (P1, P3)</td><td class="col-b">0</td></tr>
+          <tr><td class="col-n">8</td><td class="col-e">The First Five Minutes</td><td class="col-p">●●○○◐</td><td class="col-pct">65%</td><td class="col-b ob">4 (P1×3, P2)</td><td class="col-b">0</td></tr>
+          <tr><td class="col-n">9</td><td class="col-e">The Voice That Stays</td><td class="col-p">●○○○○</td><td class="col-pct">5%</td><td class="col-b">0</td><td class="col-b">0</td></tr>
+        </tbody></table>
+        <div class="sub-label sub-label-top">Agents</div>
+        <div class="no-agents">No agents defined yet.</div>
+        <div class="card-foot"><span>Bugs: <span class="ob">12 open</span> · <span>0 closed</span></span></div>
+      </article>
+
+      <!-- EO VIETNAM -->
+      <article class="card cc-eo-vietnam" id="eo-vietnam">
+        <div class="card-header"><span class="card-dot"></span><div class="card-title-block">
+          <h2 class="card-title"><a href="https://eovietnamboard.com" target="_blank">EO Vietnam <span class="ext">↗</span></a></h2>
+          <p class="card-tagline">EO Vietnam chapter platform · membership &amp; events</p>
+        </div></div>
+        <div class="card-meta"><span><strong>Phase:</strong> Phase 1 · Build</span><a href="https://eovietnamboard.com" target="_blank">eovietnamboard.com →</a></div>
+        <div class="sub-label">Epics</div>
+        <table class="epic-table"><thead><tr><th class="col-n">#</th><th>Epic</th><th class="col-p">Pipeline</th><th class="col-pct">Est.</th><th class="col-b">Open</th><th class="col-b">Closed</th></tr></thead><tbody>
+          <tr><td class="col-n">1</td><td class="col-e">Public site</td><td class="col-p">●●◐○○</td><td class="col-pct">60%</td><td class="col-b">0</td><td class="col-b">0</td></tr>
+          <tr><td class="col-n">2</td><td class="col-e">Member inquiry</td><td class="col-p">●●◐○○</td><td class="col-pct">50%</td><td class="col-b">0</td><td class="col-b">0</td></tr>
+          <tr><td class="col-n">3</td><td class="col-e">Staff pipeline (RLS + auth)</td><td class="col-p">○○○○○</td><td class="col-pct">0%</td><td class="col-b ob">P0</td><td class="col-b">0</td></tr>
+          <tr><td class="col-n">4</td><td class="col-e">Application review</td><td class="col-p">○○○○○</td><td class="col-pct">0%</td><td class="col-b">0</td><td class="col-b">0</td></tr>
+          <tr><td class="col-n">5</td><td class="col-e">Email notifications</td><td class="col-p">○○○○○</td><td class="col-pct">0%</td><td class="col-b">0</td><td class="col-b">0</td></tr>
+          <tr><td class="col-n">6</td><td class="col-e">Events</td><td class="col-p">○○○○○</td><td class="col-pct">0%</td><td class="col-b">0</td><td class="col-b">0</td></tr>
+          <tr><td class="col-n">7</td><td class="col-e">Member directory</td><td class="col-p">○○○○○</td><td class="col-pct">0%</td><td class="col-b">0</td><td class="col-b">0</td></tr>
+          <tr><td class="col-n">8</td><td class="col-e">HubSpot CRM sync</td><td class="col-p">○○○○○</td><td class="col-pct">0%</td><td class="col-b">0</td><td class="col-b">0</td></tr>
+          <tr><td class="col-n">9</td><td class="col-e">Analytics</td><td class="col-p">○○○○○</td><td class="col-pct">0%</td><td class="col-b">0</td><td class="col-b">0</td></tr>
+          <tr><td class="col-n">10</td><td class="col-e">Forum / community</td><td class="col-p">○○○○○</td><td class="col-pct">0%</td><td class="col-b">0</td><td class="col-b">0</td></tr>
+        </tbody></table>
+        <div class="sub-label sub-label-top">Agents</div>
+        <div class="no-agents">No agents defined yet.</div>
+        <div class="card-foot"><span>Bugs: <span>0 open</span> · <span>0 closed</span></span></div>
+      </article>
+
+      <!-- CAIO COACH -->
+      <article class="card cc-caio" id="caio-coach">
+        <div class="card-header"><span class="card-dot"></span><div class="card-title-block">
+          <h2 class="card-title"><a href="https://caiocoach.com" target="_blank">CAIO Coach <span class="ext">↗</span></a></h2>
+          <p class="card-tagline">AI leadership coaching practice · content-led marketing</p>
+        </div></div>
+        <div class="card-meta"><span><strong>Phase:</strong> Live, iterating</span><a href="https://caiocoach.com" target="_blank">caiocoach.com →</a></div>
+        <div class="sub-label">Epics</div>
+        <table class="epic-table"><thead><tr><th class="col-n">#</th><th>Epic</th><th class="col-p">Pipeline</th><th class="col-pct">Est.</th><th class="col-b">Open</th><th class="col-b">Closed</th></tr></thead><tbody>
+          <tr><td class="col-n">1</td><td class="col-e">Content publishing</td><td class="col-p">●●●○○</td><td class="col-pct">80%</td><td class="col-b">0</td><td class="col-b">0</td></tr>
+          <tr><td class="col-n">2</td><td class="col-e">Coaching marketplace</td><td class="col-p">●●●○○</td><td class="col-pct">75%</td><td class="col-b">0</td><td class="col-b">0</td></tr>
+          <tr><td class="col-n">3</td><td class="col-e">Newsletter funnel</td><td class="col-p">●●○○○</td><td class="col-pct">50%</td><td class="col-b">0</td><td class="col-b">0</td></tr>
+          <tr><td class="col-n">4</td><td class="col-e">Multi-site CRM sync</td><td class="col-p">●●●○○</td><td class="col-pct">80%</td><td class="col-b">0</td><td class="col-b">0</td></tr>
+          <tr><td class="col-n">5</td><td class="col-e">Blueprint library</td><td class="col-p">●●◐○○</td><td class="col-pct">60%</td><td class="col-b">0</td><td class="col-b">0</td></tr>
+          <tr><td class="col-n">6</td><td class="col-e">Retreat landing &amp; redirect</td><td class="col-p">●◐○○○</td><td class="col-pct">40%</td><td class="col-b">0</td><td class="col-b">0</td></tr>
+        </tbody></table>
+        <div class="sub-label sub-label-top">Agents</div>
+        <div class="no-agents">No agents defined yet.</div>
+        <div class="card-foot"><span>Bugs: <span>0 open</span> · <span>0 closed</span></span></div>
+      </article>
+
+      <!-- AIO WEBSITE -->
+      <article class="card cc-aio" id="aio-website">
+        <div class="card-header"><span class="card-dot"></span><div class="card-title-block">
+          <h2 class="card-title"><a href="https://ai-officer.com" target="_blank">AI Officer Institute <span class="ext">↗</span></a></h2>
+          <p class="card-tagline">Train and certify senior leaders as AI Officers</p>
+        </div></div>
+        <div class="card-meta"><span><strong>Phase:</strong> Commerce live</span><a href="https://ai-officer.com" target="_blank">ai-officer.com →</a></div>
+        <div class="sub-label">Epics</div>
+        <table class="epic-table"><thead><tr><th class="col-n">#</th><th>Epic</th><th class="col-p">Pipeline</th><th class="col-pct">Est.</th><th class="col-b">Open</th><th class="col-b">Closed</th></tr></thead><tbody>
+          <tr><td class="col-n">1</td><td class="col-e">Public marketing site</td><td class="col-p">○○○○○</td><td class="col-pct">5%</td><td class="col-b">0</td><td class="col-b">0</td></tr>
+          <tr><td class="col-n">2</td><td class="col-e">Events commerce</td><td class="col-p">●●●●◐</td><td class="col-pct">95%</td><td class="col-b">0</td><td class="col-b">0</td></tr>
+          <tr><td class="col-n">3</td><td class="col-e">Vietnam offline-pay path</td><td class="col-p">●●◐○○</td><td class="col-pct">60%</td><td class="col-b">0</td><td class="col-b">0</td></tr>
+          <tr><td class="col-n">4</td><td class="col-e">Membership commerce</td><td class="col-p">●●●●○</td><td class="col-pct">90%</td><td class="col-b">0</td><td class="col-b">0</td></tr>
+          <tr><td class="col-n">5</td><td class="col-e">Member experience handoff</td><td class="col-p">●◐○○○</td><td class="col-pct">40%</td><td class="col-b">0</td><td class="col-b">0</td></tr>
+          <tr><td class="col-n">6</td><td class="col-e">Lead capture and inquiry CRM</td><td class="col-p">●●●◐○</td><td class="col-pct">85%</td><td class="col-b">0</td><td class="col-b">0</td></tr>
+          <tr><td class="col-n">7</td><td class="col-e">Admin operations console</td><td class="col-p">●●●●○</td><td class="col-pct">90%</td><td class="col-b">0</td><td class="col-b">0</td></tr>
+          <tr><td class="col-n">8</td><td class="col-e">Newsletter list management</td><td class="col-p">●●●○○</td><td class="col-pct">80%</td><td class="col-b">0</td><td class="col-b">0</td></tr>
+          <tr><td class="col-n">9</td><td class="col-e">Operational notifications</td><td class="col-p">●●●◐○</td><td class="col-pct">85%</td><td class="col-b">0</td><td class="col-b">0</td></tr>
+          <tr><td class="col-n">10</td><td class="col-e">Analytics and instrumentation</td><td class="col-p">●◐○○○</td><td class="col-pct">30%</td><td class="col-b">0</td><td class="col-b">0</td></tr>
+        </tbody></table>
+        <div class="sub-label sub-label-top">Agents</div>
+        <div class="no-agents">No agents defined yet.</div>
+        <div class="card-foot"><span>Bugs: <span>0 open</span> · <span>0 closed</span></span></div>
+      </article>
+
+      <!-- AIO PAD -->
+      <article class="card cc-aio-pad" id="aio-pad">
+        <div class="card-header"><span class="card-dot"></span><div class="card-title-block">
+          <h2 class="card-title"><a href="https://aio-pad.com" target="_blank">AIO Pad <span class="ext">↗</span></a></h2>
+          <p class="card-tagline">2BR Saigon apartment · $80/night · car-driver service</p>
+        </div></div>
+        <div class="card-meta"><span><strong>Phase:</strong> Live, iterating</span><a href="https://aio-pad.com" target="_blank">aio-pad.com →</a></div>
+        <div class="sub-label">Epics</div>
+        <table class="epic-table"><thead><tr><th class="col-n">#</th><th>Epic</th><th class="col-p">Pipeline</th><th class="col-pct">Est.</th><th class="col-b">Open</th><th class="col-b">Closed</th></tr></thead><tbody>
+          <tr><td class="col-n">1</td><td class="col-e">Apartment booking flow</td><td class="col-p">●●●◐○</td><td class="col-pct">80%</td><td class="col-b">0</td><td class="col-b">0</td></tr>
+          <tr><td class="col-n">2</td><td class="col-e">Availability calendar</td><td class="col-p">●●●◐○</td><td class="col-pct">80%</td><td class="col-b">0</td><td class="col-b">0</td></tr>
+          <tr><td class="col-n">3</td><td class="col-e">Car-driver service</td><td class="col-p">●●●○○</td><td class="col-pct">75%</td><td class="col-b">0</td><td class="col-b">0</td></tr>
+          <tr><td class="col-n">4</td><td class="col-e">Stripe webhook resilience</td><td class="col-p">●●◐○○</td><td class="col-pct">75%</td><td class="col-b">0</td><td class="col-b">0</td></tr>
+          <tr><td class="col-n">5</td><td class="col-e">Transactional email</td><td class="col-p">●●◐○○</td><td class="col-pct">70%</td><td class="col-b">0</td><td class="col-b">0</td></tr>
+          <tr><td class="col-n">6</td><td class="col-e">Multi-brand CRM integration</td><td class="col-p">●●◐○○</td><td class="col-pct">60%</td><td class="col-b">0</td><td class="col-b">0</td></tr>
+        </tbody></table>
+        <div class="sub-label sub-label-top">Agents</div>
+        <div class="no-agents">No agents defined yet.</div>
+        <div class="card-foot"><span>Bugs: <span>0 open</span> · <span>0 closed</span></span></div>
+      </article>
+
+      <!-- INFINITE LEVERAGE -->
+      <article class="card cc-infinite" id="infinite-leverage">
+        <div class="card-header"><span class="card-dot"></span><div class="card-title-block">
+          <h2 class="card-title"><a href="https://infiniteleverage.ai" target="_blank">Infinite Leverage <span class="ext">↗</span></a></h2>
+          <p class="card-tagline">AI leverage content series</p>
+        </div></div>
+        <div class="card-meta"><span><strong>Phase:</strong> Live</span><a href="https://infiniteleverage.ai" target="_blank">infiniteleverage.ai →</a></div>
+        <div class="sub-label">Epics</div>
+        <table class="epic-table"><thead><tr><th class="col-n">#</th><th>Epic</th><th class="col-p">Pipeline</th><th class="col-pct">Est.</th><th class="col-b">Open</th><th class="col-b">Closed</th></tr></thead><tbody>
+          <tr><td class="col-n">1</td><td class="col-e">14-day content series</td><td class="col-p">●●●●●</td><td class="col-pct">100%</td><td class="col-b">0</td><td class="col-b">0</td></tr>
+          <tr><td class="col-n">2</td><td class="col-e">Newsletter funnel</td><td class="col-p">●●●○○</td><td class="col-pct">75%</td><td class="col-b">0</td><td class="col-b">0</td></tr>
+          <tr><td class="col-n">3</td><td class="col-e">Coaching CTA</td><td class="col-p">●●◐○○</td><td class="col-pct">60%</td><td class="col-b">0</td><td class="col-b">0</td></tr>
+          <tr><td class="col-n">4</td><td class="col-e">SEO and distribution</td><td class="col-p">●◐○○○</td><td class="col-pct">30%</td><td class="col-b">0</td><td class="col-b">0</td></tr>
+          <tr><td class="col-n">5</td><td class="col-e">Analytics</td><td class="col-p">○○○○○</td><td class="col-pct">0%</td><td class="col-b">0</td><td class="col-b">0</td></tr>
+        </tbody></table>
+        <div class="sub-label sub-label-top">Agents</div>
+        <div class="no-agents">No agents defined yet.</div>
+        <div class="card-foot"><span>Bugs: <span>0 open</span> · <span>0 closed</span></span></div>
+      </article>
+
+      <!-- DAVE HAJDU -->
+      <article class="card cc-dave" id="dave-hajdu">
+        <div class="card-header"><span class="card-dot"></span><div class="card-title-block">
+          <h2 class="card-title"><a href="https://davehajdu.com" target="_blank">Dave Hajdu <span class="ext">↗</span></a></h2>
+          <p class="card-tagline">Senior-leader personal site · speaking, consulting, books</p>
+        </div></div>
+        <div class="card-meta"><span><strong>Phase:</strong> Live, iterating</span><a href="https://davehajdu.com" target="_blank">davehajdu.com →</a></div>
+        <div class="sub-label">Epics</div>
+        <table class="epic-table"><thead><tr><th class="col-n">#</th><th>Epic</th><th class="col-p">Pipeline</th><th class="col-pct">Est.</th><th class="col-b">Open</th><th class="col-b">Closed</th></tr></thead><tbody>
+          <tr><td class="col-n">1</td><td class="col-e">Landing and hero</td><td class="col-p">●●●●●</td><td class="col-pct">100%</td><td class="col-b">0</td><td class="col-b">0</td></tr>
+          <tr><td class="col-n">2</td><td class="col-e">Speaking and booking</td><td class="col-p">●●●●●</td><td class="col-pct">100%</td><td class="col-b">0</td><td class="col-b">0</td></tr>
+          <tr><td class="col-n">3</td><td class="col-e">Consulting sales</td><td class="col-p">●●●●●</td><td class="col-pct">100%</td><td class="col-b">0</td><td class="col-b">0</td></tr>
+          <tr><td class="col-n">4</td><td class="col-e">Content hub (blog)</td><td class="col-p">●●●●●</td><td class="col-pct">100%</td><td class="col-b">0</td><td class="col-b">0</td></tr>
+          <tr><td class="col-n">5</td><td class="col-e">Books and presales</td><td class="col-p">●◐○○○</td><td class="col-pct">30%</td><td class="col-b">0</td><td class="col-b">0</td></tr>
+          <tr><td class="col-n">6</td><td class="col-e">Lead capture and CRM sync</td><td class="col-p">●●●●●</td><td class="col-pct">100%</td><td class="col-b">0</td><td class="col-b">0</td></tr>
+          <tr><td class="col-n">7</td><td class="col-e">Email and onboarding</td><td class="col-p">○○○○○</td><td class="col-pct">0%</td><td class="col-b">0</td><td class="col-b">0</td></tr>
+          <tr><td class="col-n">8</td><td class="col-e">Newsletter</td><td class="col-p">○○○○○</td><td class="col-pct">0%</td><td class="col-b">0</td><td class="col-b">0</td></tr>
+        </tbody></table>
+        <div class="sub-label sub-label-top">Agents</div>
+        <div class="no-agents">No agents defined yet.</div>
+        <div class="card-foot"><span>Bugs: <span>0 open</span> · <span>0 closed</span></span></div>
+      </article>
+
+      <!-- EDGE8 -->
+      <article class="card cc-edge8" id="edge8">
+        <div class="card-header"><span class="card-dot"></span><div class="card-title-block">
+          <h2 class="card-title"><a href="https://edge8.co" target="_blank">Edge8 <span class="ext">↗</span></a></h2>
+          <p class="card-tagline">Edge8 USA · consulting + AI staffing</p>
+        </div></div>
+        <div class="card-meta"><span><strong>Phase:</strong> Live, iterating</span><a href="https://edge8.co" target="_blank">edge8.co →</a></div>
+        <div class="sub-label">Epics</div>
+        <table class="epic-table"><thead><tr><th class="col-n">#</th><th>Epic</th><th class="col-p">Pipeline</th><th class="col-pct">Est.</th><th class="col-b">Open</th><th class="col-b">Closed</th></tr></thead><tbody>
+          <tr><td class="col-n">1</td><td class="col-e">Marketing and service pages</td><td class="col-p">●●●●○</td><td class="col-pct">90%</td><td class="col-b">0</td><td class="col-b">0</td></tr>
+          <tr><td class="col-n">2</td><td class="col-e">Case studies</td><td class="col-p">●●●●○</td><td class="col-pct">90%</td><td class="col-b">0</td><td class="col-b">0</td></tr>
+          <tr><td class="col-n">3</td><td class="col-e">Blog</td><td class="col-p">●●●●○</td><td class="col-pct">85%</td><td class="col-b">0</td><td class="col-b">0</td></tr>
+          <tr><td class="col-n">4</td><td class="col-e">Brand discipline</td><td class="col-p">●●●○○</td><td class="col-pct">80%</td><td class="col-b">0</td><td class="col-b">0</td></tr>
+          <tr><td class="col-n">5</td><td class="col-e">Lead capture and multi-brand CRM</td><td class="col-p">○○○○○</td><td class="col-pct">0%</td><td class="col-b">0</td><td class="col-b">0</td></tr>
+          <tr><td class="col-n">6</td><td class="col-e">Analytics and SEO</td><td class="col-p">●◐○○○</td><td class="col-pct">25%</td><td class="col-b">0</td><td class="col-b">0</td></tr>
+        </tbody></table>
+        <div class="sub-label sub-label-top">Agents</div>
+        <div class="no-agents">No agents defined yet.</div>
+        <div class="card-foot"><span>Bugs: <span>0 open</span> · <span>0 closed</span></span></div>
+      </article>
+
+      <!-- MAHJONG TAROT -->
+      <article class="card cc-mahjong" id="mahjong-tarot">
+        <div class="card-header"><span class="card-dot"></span><div class="card-title-block">
+          <h2 class="card-title">The Mahjong Tarot</h2>
+          <p class="card-tagline">Eastern divination, treated seriously · daily almanac and readings</p>
+        </div></div>
+        <div class="card-meta"><span><strong>Phase:</strong> Phase 1 · Wedge</span><span style="color:var(--fg-30)">domain TBD</span></div>
+        <div class="sub-label">Epics</div>
+        <table class="epic-table"><thead><tr><th class="col-n">#</th><th>Epic</th><th class="col-p">Pipeline</th><th class="col-pct">Est.</th><th class="col-b">Open</th><th class="col-b">Closed</th></tr></thead><tbody>
+          <tr><td class="col-n">1</td><td class="col-e">Daily Almanac</td><td class="col-p">●●◐○○</td><td class="col-pct">60%</td><td class="col-b">0</td><td class="col-b">0</td></tr>
+          <tr><td class="col-n">2</td><td class="col-e">Find a Good Day</td><td class="col-p">●◐○○○</td><td class="col-pct">40%</td><td class="col-b">0</td><td class="col-b">0</td></tr>
+          <tr><td class="col-n">3</td><td class="col-e">Personal Pillar Layer</td><td class="col-p">●○○○○</td><td class="col-pct">5%</td><td class="col-b">0</td><td class="col-b">0</td></tr>
+          <tr><td class="col-n">4</td><td class="col-e">Readings Catalogue</td><td class="col-p">●○○○○</td><td class="col-pct">0%</td><td class="col-b">0</td><td class="col-b">0</td></tr>
+          <tr><td class="col-n">5</td><td class="col-e">Voice and Content Engine</td><td class="col-p">●●○○○</td><td class="col-pct">50%</td><td class="col-b">0</td><td class="col-b">0</td></tr>
+          <tr><td class="col-n">6</td><td class="col-e">Founder Cohort and Subscription</td><td class="col-p">●○○○○</td><td class="col-pct">10%</td><td class="col-b">0</td><td class="col-b">0</td></tr>
+          <tr><td class="col-n">7</td><td class="col-e">Book Integration</td><td class="col-p">●○○○○</td><td class="col-pct">0%</td><td class="col-b">0</td><td class="col-b">0</td></tr>
+          <tr><td class="col-n">8</td><td class="col-e">1-on-1 Practice Layer</td><td class="col-p">●○○○○</td><td class="col-pct">5%</td><td class="col-b">0</td><td class="col-b">0</td></tr>
+          <tr><td class="col-n">9</td><td class="col-e">Share and Acquisition Loop</td><td class="col-p">●○○○○</td><td class="col-pct">5%</td><td class="col-b">0</td><td class="col-b">0</td></tr>
+          <tr><td class="col-n">10</td><td class="col-e">Member Dashboard</td><td class="col-p">●◐○○○</td><td class="col-pct">30%</td><td class="col-b">0</td><td class="col-b">0</td></tr>
+        </tbody></table>
+        <div class="sub-label sub-label-top">Agents</div>
+        <table class="epic-table"><thead><tr><th>Agent</th><th>Job</th><th class="col-sched">Schedule</th></tr></thead><tbody>
+          <tr><td class="col-e">Writer</td><td>Produces written content in Bill Hajdu's voice</td><td class="col-sched">Ad-hoc</td></tr>
+          <tr><td class="col-e">Designer</td><td>Hero and channel image generation via Gemini</td><td class="col-sched">Ad-hoc</td></tr>
+          <tr><td class="col-e">Web Developer</td><td>Markdown to Next.js JSX, publishes to site</td><td class="col-sched">Ad-hoc</td></tr>
+          <tr><td class="col-e">Product Manager</td><td>PM artifacts — epics, personas, vision reports</td><td class="col-sched">Ad-hoc</td></tr>
+          <tr><td class="col-e">Project Manager</td><td>Delivery — scope, schedule, risk, stand-ups</td><td class="col-sched">Daily</td></tr>
+        </tbody></table>
+        <div class="card-foot"><span>Bugs: <span>0 open</span> · <span>0 closed</span></span></div>
+      </article>
+
+      <!-- FAB FOUR -->
+      <article class="card cc-fab-four" id="fab-four">
+        <div class="card-header"><span class="card-dot"></span><div class="card-title-block">
+          <h2 class="card-title"><a href="https://fabfouracademy.com" target="_blank">Fab Four Academy <span class="ext">↗</span></a></h2>
+          <p class="card-tagline">Leadership through The Beatles · Dan Absher's daily wisdom and book platform</p>
+        </div></div>
+        <div class="card-meta"><span><strong>Phase:</strong> Pre-build</span><a href="https://fabfouracademy.com" target="_blank">fabfouracademy.com →</a></div>
+        <div class="sub-label">Epics</div>
+        <table class="epic-table"><thead><tr><th class="col-n">#</th><th>Epic</th><th class="col-p">Pipeline</th><th class="col-pct">Est.</th><th class="col-b">Open</th><th class="col-b">Closed</th></tr></thead><tbody>
+          <tr><td class="col-n">1</td><td class="col-e">Daily Words of Wisdom</td><td class="col-p">●◐○○○</td><td class="col-pct">15%</td><td class="col-b">0</td><td class="col-b">0</td></tr>
+          <tr><td class="col-n">2</td><td class="col-e">Book promotion and conversion</td><td class="col-p">○○○○○</td><td class="col-pct">0%</td><td class="col-b">0</td><td class="col-b">0</td></tr>
+          <tr><td class="col-n">3</td><td class="col-e">Speaking and consulting funnel</td><td class="col-p">●○○○○</td><td class="col-pct">5%</td><td class="col-b">0</td><td class="col-b">0</td></tr>
+          <tr><td class="col-n">4</td><td class="col-e">Blog</td><td class="col-p">○○○○○</td><td class="col-pct">0%</td><td class="col-b">0</td><td class="col-b">0</td></tr>
+          <tr><td class="col-n">5</td><td class="col-e">Email signup and community</td><td class="col-p">●○○○○</td><td class="col-pct">10%</td><td class="col-b">0</td><td class="col-b">0</td></tr>
+          <tr><td class="col-n">6</td><td class="col-e">Brand-led layout, polish, SEO</td><td class="col-p">○○○○○</td><td class="col-pct">0%</td><td class="col-b">0</td><td class="col-b">0</td></tr>
+        </tbody></table>
+        <div class="sub-label sub-label-top">Agents</div>
+        <div class="no-agents">No agents defined yet.</div>
+        <div class="card-foot"><span>Bugs: <span>0 open</span> · <span>0 closed</span></span></div>
+      </article>
+
+      <!-- LEADERSHIP COACH -->
+      <article class="card cc-leadership" id="leadership-coach">
+        <div class="card-header"><span class="card-dot"></span><div class="card-title-block">
+          <h2 class="card-title">Leadership Coach</h2>
+          <p class="card-tagline">Operator knowledge base · used by leadership-coach skill</p>
+        </div></div>
+        <div class="card-meta"><span><strong>Phase:</strong> Operational</span><span style="color:var(--fg-30)">internal — knowledge base</span></div>
+        <div class="sub-label">Epics</div>
+        <table class="epic-table"><thead><tr><th class="col-n">#</th><th>Epic</th><th class="col-p">Pipeline</th><th class="col-pct">Est.</th><th class="col-b">Open</th><th class="col-b">Closed</th></tr></thead><tbody>
+          <tr><td class="col-n">1</td><td class="col-e">Foundation: Operating System</td><td class="col-p">●●●●●</td><td class="col-pct">100%</td><td class="col-b">0</td><td class="col-b">0</td></tr>
+          <tr><td class="col-n">2</td><td class="col-e">Foundation: Leadership brand identity</td><td class="col-p">●●●●●</td><td class="col-pct">100%</td><td class="col-b">0</td><td class="col-b">0</td></tr>
+          <tr><td class="col-n">3</td><td class="col-e">Foundation: Communication style</td><td class="col-p">●●●●●</td><td class="col-pct">100%</td><td class="col-b">0</td><td class="col-b">0</td></tr>
+          <tr><td class="col-n">4</td><td class="col-e">Foundation: Emotional intelligence</td><td class="col-p">●●●●●</td><td class="col-pct">100%</td><td class="col-b">0</td><td class="col-b">0</td></tr>
+          <tr><td class="col-n">5</td><td class="col-e">Foundation: 2026 OKRs</td><td class="col-p">●●●●●</td><td class="col-pct">100%</td><td class="col-b">0</td><td class="col-b">0</td></tr>
+          <tr><td class="col-n">6</td><td class="col-e">Workflows: 1-1 and communications</td><td class="col-p">●●●◐○</td><td class="col-pct">70%</td><td class="col-b">0</td><td class="col-b">0</td></tr>
+        </tbody></table>
+        <div class="sub-label sub-label-top">Agents</div>
+        <div class="no-agents">No agents defined yet.</div>
+        <div class="card-foot"><span>Bugs: <span>0 open</span> · <span>0 closed</span></span></div>
+      </article>
+
+    </div><!-- /cards-grid -->
+
+    <div class="card-note">
+      <strong>Note on inferred values.</strong> Pipeline glyphs for projects without explicit tracking are inferred from status and percent-done in each project's epic-status.md. When those sources are updated to track real pipeline state, the values here are replaced verbatim.
+    </div>
+
   </div>
 </section>
 

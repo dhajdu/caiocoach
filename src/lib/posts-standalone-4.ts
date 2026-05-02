@@ -61,6 +61,7 @@ export const BLOCKS_STANDALONE_4: Record<string, Block[]> = {
     { tag: 'p', text: 'You have been handed a quote. There is a comma in the number. Maybe two. You read it twice, hoping the second pass softens the figure. It does not. You have not started anything yet, and you already feel behind.' },
     { tag: 'p', text: 'A founder named James knows that feeling. He runs Janet.Care, a longevity coach that tracks people\'s health data and helps them plan for a longer life through supplement protocols, exercise, and diet. He has spent ten years in the domain. An Australian company quoted him $300,000 AUD and three to six months for the next phase of the build.' },
     { tag: 'p', text: 'He booked a flight to Vietnam instead.' },
+    { tag: 'image', src: '/blog/images/founder-built-james-coding.webp', alt: 'James coding at the dinner table during the five-day Vietnam sprint' },
 
     // Five days versus six months
     { tag: 'h2', text: 'Five days versus six months' },
@@ -73,6 +74,9 @@ export const BLOCKS_STANDALONE_4: Record<string, Block[]> = {
     ] },
     { tag: 'p', text: 'That is the headline. Sit with it for a second before we get to how.' },
     { tag: 'p', text: 'Three to six months collapsed into about five weeks of total elapsed time. One agency invoice replaced by a tiny pod and a lot of focus. The cost difference is not the point of this post. The leverage difference is. This is what it actually looks like to build software with AI instead of an agency.' },
+    { tag: 'image', src: '/blog/images/founder-built-janet-dashboard.webp', alt: 'Janet.Care dashboard built during the five-day sprint' },
+    { tag: 'image', src: '/blog/images/founder-built-janet-coach.webp', alt: 'Janet.Care coaching view built during the sprint' },
+    { tag: 'image', src: '/blog/images/founder-built-janet-labs.webp', alt: 'Janet.Care labs view built during the sprint' },
 
     // Day two
     { tag: 'h2', text: 'Day two is when it broke open' },
@@ -98,6 +102,7 @@ export const BLOCKS_STANDALONE_4: Record<string, Block[]> = {
     { tag: 'p', text: 'If you watched James through the week, he was coding. He was shipping commits. He was pairing with the agents. He was not sitting in a corner approving things while someone else did the work. By the back half of the week, James was moving through the codebase at roughly the same pace as the full-time engineer.' },
     { tag: 'p', text: 'So why was the engineer there?' },
     { tag: 'p', text: 'The engineer was there to clear the runway. To unblock James the moment James got stuck. To handle the gnarly hour of debugging that would have cost James half a day. To take the threads that needed deep technical context and move them quietly, so James could keep building the parts only he could build.' },
+    { tag: 'image', src: '/blog/images/founder-built-james-trac.webp', alt: 'James pairing with the engineer during the five-day sprint' },
     { tag: 'pull-quote', text: 'A developer is not there to do your work for you. A developer is there to unblock your creativity.' },
     { tag: 'p', text: 'That is a different deal. It is the deal almost no leader I coach is currently making.' },
 
@@ -108,6 +113,7 @@ export const BLOCKS_STANDALONE_4: Record<string, Block[]> = {
     { tag: 'p', text: 'The second ingredient is <a href="/blog/day-12-two-track-business-model">a small pod that can ship</a>. One product manager part time. One engineer full time. <a href="https://www.anthropic.com/claude-code" target="_blank" rel="noopener noreferrer">AI agents</a> doing the kind of work that <a href="/blog/day-14-world-has-moved">used to need a team of five</a>.' },
     { tag: 'p', text: 'Either alone gets you nothing. Knowledge without execution is a slide deck nobody reads. Execution without knowledge ships the wrong product faster than anyone can correct it. Pair them, and the output curve bends in a way that does not look like a 10 percent improvement. It looks like an order of magnitude.' },
     { tag: 'p', text: 'That is the leverage. When you build software with AI instead of an agency, the ceiling is no longer set by your team\'s headcount. It is set by <a href="/blog/founder-stack-you-dont-need-to-become-technical">how much you, the leader, are willing to bring to the table</a>.' },
+    { tag: 'image', src: '/blog/images/founder-built-team-selfie.webp', alt: 'James with the Vietnam team at the end of the five-day sprint' },
 
     // Conclusion
     { tag: 'conclusion-box', title: 'The question I would ask you', paragraphs: [

@@ -4,360 +4,425 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex,nofollow">
-<title>Claude Code Monitor — Dave Hajdu Portfolio</title>
+<title>Claude Code Monitor</title>
 <style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&family=JetBrains+Mono:wght@300;400&display=swap');
+
 :root {
-  --primary:        #2B4A6B;
-  --primary-700:    #1E3550;
-  --primary-100:    #D8E4F0;
-  --primary-50:     #EBF1F7;
-  --accent:         #C8923A;
-  --accent-50:      #FBF0E0;
-  --ink:            #1E1E1E;
-  --ink-soft:       #444444;
-  --grey:           #7A8A95;
-  --grey-soft:      #B0BCC5;
-  --line:           #E0E6EC;
-  --line-soft:      #EDF1F4;
-  --bg:             #F2F5F7;
-  --surface:        #FFFFFF;
-  --success:        #2E7D52;
-  --success-bg:     #E4F2EA;
-  --warning:        #9A6120;
-  --warning-bg:     #FBE9CC;
-  --danger:         #B03A2A;
-  --danger-bg:      #F5DDD8;
-  --info:           #2B6CB0;
-  --info-bg:        #DBE9F7;
-  --serif: "Iowan Old Style", Georgia, "Times New Roman", serif;
-  --sans:  ui-sans-serif, system-ui, -apple-system, "Segoe UI", Helvetica, Arial, sans-serif;
-  --mono:  ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  --navy:        #04102D;
+  --elev-1:      rgba(255,255,255,0.03);
+  --elev-2:      rgba(255,255,255,0.05);
+  --elev-3:      rgba(255,255,255,0.08);
+  --fg:          #ffffff;
+  --fg-70:       rgba(255,255,255,0.70);
+  --fg-50:       rgba(255,255,255,0.55);
+  --fg-30:       rgba(255,255,255,0.45);
+  --fg-15:       rgba(255,255,255,0.15);
+  --fg-10:       rgba(255,255,255,0.10);
+  --fg-border:   rgba(255,255,255,0.10);
+  --border-strong: rgba(255,255,255,0.20);
+  --blue:        #287BE8;
+  --mint:        #6FF2C1;
+  --magenta:     #D1458B;
+  --font-sans:   'Inter', ui-sans-serif, system-ui, -apple-system, sans-serif;
+  --font-mono:   'JetBrains Mono', ui-monospace, 'SF Mono', Menlo, Consolas, monospace;
 }
 
 * { box-sizing: border-box; }
 html, body { margin: 0; padding: 0; }
 body {
-  font-family: var(--sans);
-  font-size: 15px;
+  font-family: var(--font-sans);
+  font-size: 14px;
   line-height: 1.55;
-  color: var(--ink);
-  background: var(--bg);
+  color: var(--fg);
+  background: var(--navy);
   -webkit-font-smoothing: antialiased;
-  text-rendering: optimizeLegibility;
 }
+a { color: inherit; text-decoration: none; }
 
-/* NAV */
-.nav {
-  position: sticky; top: 0; z-index: 20;
-  background: rgba(242,245,247,0.9);
-  backdrop-filter: saturate(1.2) blur(12px);
-  -webkit-backdrop-filter: saturate(1.2) blur(12px);
-  border-bottom: 1px solid var(--line);
-}
-.nav-inner {
-  max-width: 1280px; margin: 0 auto;
-  padding: 14px 48px;
-  display: flex; align-items: center; gap: 32px;
-}
-.brand {
-  font-family: var(--serif);
-  font-size: 20px;
-  color: var(--primary);
-  letter-spacing: -0.01em;
-  margin-right: auto;
-  text-decoration: none;
-}
-.brand span { color: var(--accent); }
-.nav-meta {
-  font-size: 13px;
-  color: var(--grey);
-}
-.nav-links {
-  display: flex; gap: 24px;
-  font-size: 13px;
-}
-.nav-links a {
-  color: var(--ink-soft);
-  text-decoration: none;
-  padding: 4px 0;
-  border-bottom: 1px solid transparent;
-  transition: border-color 0.15s, color 0.15s;
-}
-.nav-links a:hover {
-  color: var(--primary);
-  border-bottom-color: var(--primary);
-}
-
-/* PAGE */
-.page {
+/* ── LAYOUT ── */
+.wrap {
   max-width: 1280px;
   margin: 0 auto;
-  padding: 48px;
+  padding: 0 48px;
 }
-.section { margin-bottom: 56px; }
-.section-title {
-  font-family: var(--serif);
-  font-size: 26px;
-  font-weight: 500;
-  letter-spacing: -0.012em;
-  margin: 0 0 6px;
-  color: var(--ink);
+@media (max-width: 720px) { .wrap { padding: 0 20px; } }
+
+/* ── NAV ── */
+.nav {
+  position: sticky; top: 0; z-index: 20;
+  border-bottom: 1px solid var(--fg-border);
+  background: rgba(4,16,45,0.85);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
 }
-.section-meta {
-  font-size: 13px;
-  color: var(--grey);
+.nav-inner {
+  display: flex; align-items: center; gap: 32px;
+  padding: 16px 48px;
+  max-width: 1280px; margin: 0 auto;
+}
+.brand {
+  font-family: var(--font-mono);
+  font-size: 14px;
+  letter-spacing: 0.04em;
+  color: var(--fg);
+  margin-right: auto;
+}
+.brand span { color: var(--mint); }
+.nav-meta {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--fg-50);
+}
+.nav-links {
+  display: flex; gap: 28px;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.10em;
+  text-transform: uppercase;
+}
+.nav-links a {
+  color: var(--fg-50);
+  transition: color 0.15s;
+}
+.nav-links a:hover { color: var(--fg); }
+
+/* ── HERO ── */
+.hero {
+  padding: 80px 0 56px;
+  border-bottom: 1px solid var(--fg-border);
+  position: relative;
+  overflow: hidden;
+}
+.hero::before {
+  content: '';
+  position: absolute; inset: 0;
+  pointer-events: none;
+  background-image:
+    linear-gradient(var(--fg-10) 1px, transparent 1px),
+    linear-gradient(90deg, var(--fg-10) 1px, transparent 1px);
+  background-size: 80px 80px;
+  mask-image: radial-gradient(ellipse at 70% 30%, black 0%, transparent 70%);
+  -webkit-mask-image: radial-gradient(ellipse at 70% 30%, black 0%, transparent 70%);
+  opacity: 0.4;
+}
+.hero-inner { position: relative; }
+.eyebrow {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--mint);
+  margin-bottom: 20px;
+}
+.display {
+  font-family: var(--font-mono);
+  font-weight: 300;
+  font-size: clamp(40px, 6vw, 72px);
+  line-height: 0.95;
+  letter-spacing: -0.02em;
+  color: var(--fg);
   margin: 0 0 20px;
 }
-
-/* HERO STATS */
-.hero {
-  background: var(--surface);
-  border: 1px solid var(--line);
-  border-radius: 14px;
-  padding: 36px 40px;
-  margin-bottom: 40px;
-  display: grid;
-  grid-template-columns: 2fr 1fr 1fr 1fr 1fr;
-  gap: 32px;
-  align-items: center;
-}
-.hero-brand h1 {
-  font-family: var(--serif);
-  font-size: 30px;
-  font-weight: 500;
-  letter-spacing: -0.015em;
-  margin: 0 0 4px;
-  color: var(--ink);
-}
-.hero-brand p {
+.lede {
+  max-width: 560px;
+  font-size: 16px;
+  line-height: 1.6;
+  color: var(--fg-70);
   margin: 0;
-  font-size: 14px;
-  color: var(--grey);
+}
+.meta-line {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--fg-50);
+  margin-top: 24px;
+}
+
+/* ── STATS ── */
+.stats {
+  padding: 40px 0;
+  border-bottom: 1px solid var(--fg-border);
+}
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
 }
 .stat {
-  text-align: center;
-  padding: 16px;
-  background: var(--bg);
-  border-radius: 10px;
+  border: 1px solid var(--fg-border);
+  background: var(--elev-1);
+  padding: 24px;
 }
-.stat-num {
-  font-family: var(--serif);
-  font-size: 36px;
-  font-weight: 500;
-  color: var(--primary);
-  line-height: 1;
-  margin-bottom: 6px;
-}
-.stat-num.danger { color: var(--danger); }
-.stat-num.warning { color: var(--warning); }
 .stat-label {
-  font-size: 12px;
-  color: var(--grey);
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.18em;
   text-transform: uppercase;
-  letter-spacing: 0.05em;
+  color: var(--fg-50);
+  margin-bottom: 10px;
+}
+.stat-value {
+  font-family: var(--font-mono);
+  font-weight: 300;
+  font-size: 44px;
+  line-height: 1;
+  letter-spacing: -0.02em;
+  color: var(--fg);
+}
+.stat-value.mint    { color: var(--mint); }
+.stat-value.magenta { color: var(--magenta); }
+.stat-value.blue    { color: var(--blue); }
+.stat-note {
+  font-size: 12px;
+  color: var(--fg-50);
+  margin-top: 8px;
 }
 
-/* NEEDS YOU QUEUE */
-.needs-you {
-  background: var(--surface);
-  border: 1px solid var(--line);
-  border-radius: 14px;
-  overflow: hidden;
-  margin-bottom: 40px;
+/* ── NEEDS YOU ── */
+.needs-section {
+  padding: 48px 0;
+  border-bottom: 1px solid var(--fg-border);
 }
-.needs-you-header {
-  padding: 20px 28px;
-  background: var(--warning-bg);
-  border-bottom: 1px solid var(--line);
+.section-header {
   display: flex;
-  align-items: center;
-  gap: 12px;
+  align-items: baseline;
+  justify-content: space-between;
+  margin-bottom: 24px;
+  gap: 16px;
 }
-.needs-you-header h2 {
-  font-family: var(--serif);
-  font-size: 20px;
-  font-weight: 500;
-  margin: 0;
-  color: var(--warning);
+.section-title {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--fg-50);
 }
-.needs-you-header p {
-  margin: 0;
-  font-size: 13px;
-  color: var(--ink-soft);
-  margin-left: auto;
+.section-hint {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  color: var(--fg-30);
 }
-.needs-list { padding: 0; margin: 0; list-style: none; }
+.needs-list {
+  border: 1px solid var(--fg-border);
+  background: var(--elev-1);
+}
 .needs-item {
   display: grid;
-  grid-template-columns: 56px 1fr auto;
-  gap: 16px;
+  grid-template-columns: 44px 1fr auto;
+  gap: 20px;
   align-items: center;
-  padding: 16px 28px;
-  border-bottom: 1px solid var(--line-soft);
+  padding: 16px 20px;
+  border-bottom: 1px solid var(--fg-border);
+  transition: background 0.1s;
 }
 .needs-item:last-child { border-bottom: none; }
-.needs-priority {
-  font-size: 11px;
-  font-weight: 700;
-  padding: 3px 8px;
-  border-radius: 4px;
+.needs-item:hover { background: var(--elev-2); }
+.priority {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  font-weight: 400;
+  letter-spacing: 0.12em;
   text-align: center;
+  padding: 3px 6px;
+  border: 1px solid currentColor;
   text-transform: uppercase;
-  letter-spacing: 0.04em;
 }
-.p1 { background: var(--danger-bg); color: var(--danger); }
-.p2 { background: var(--warning-bg); color: var(--warning); }
-.p3 { background: var(--primary-100); color: var(--primary); }
-.needs-body { font-size: 14px; }
-.needs-body strong { color: var(--ink); font-weight: 600; }
-.needs-body span { color: var(--ink-soft); }
+.p1 { color: var(--magenta); }
+.p2 { color: #e6b34d; }
+.p3 { color: var(--blue); }
+.needs-body {
+  font-size: 13px;
+  color: var(--fg-70);
+  line-height: 1.5;
+}
+.needs-body strong { color: var(--fg); font-weight: 400; }
 .needs-tag {
-  font-size: 11px;
-  font-weight: 600;
-  padding: 3px 8px;
-  border-radius: 4px;
-  background: var(--line);
-  color: var(--grey);
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.12em;
   text-transform: uppercase;
-  letter-spacing: 0.04em;
+  color: var(--fg-50);
+  border: 1px solid var(--fg-border);
+  padding: 3px 8px;
   white-space: nowrap;
 }
 
-/* PORTFOLIO TABLE */
-.group-label {
-  font-size: 11px;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
-  color: var(--grey);
-  padding: 12px 0 8px;
-  margin-top: 8px;
-  border-top: 1px solid var(--line);
+/* ── PORTFOLIO TABLE ── */
+.portfolio-section {
+  padding: 48px 0 80px;
 }
-.group-label:first-child { border-top: none; margin-top: 0; }
+.legend {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  padding: 12px 20px;
+  border: 1px solid var(--fg-border);
+  background: var(--elev-1);
+  margin-bottom: 24px;
+  font-size: 12px;
+  color: var(--fg-50);
+  flex-wrap: wrap;
+}
+.legend-label {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--fg);
+  margin-right: 8px;
+}
+.legend code {
+  font-family: var(--font-mono);
+  font-size: 14px;
+  margin-right: 4px;
+}
+.dot-pass    { color: var(--mint); }
+.dot-partial { color: #e6b34d; }
+.dot-open    { color: var(--fg-30); }
+.dot-blocked { color: var(--magenta); }
 
-.portfolio-table {
-  background: var(--surface);
-  border: 1px solid var(--line);
-  border-radius: 14px;
-  overflow: hidden;
+.pt-table {
+  border: 1px solid var(--fg-border);
+  background: var(--elev-1);
   width: 100%;
 }
 .pt-head {
   display: grid;
-  grid-template-columns: 220px 1fr 140px 80px 80px;
+  grid-template-columns: 200px 1fr 130px 130px;
   gap: 16px;
-  padding: 12px 24px;
-  background: var(--bg);
-  border-bottom: 1px solid var(--line);
-  font-size: 12px;
-  font-weight: 600;
+  padding: 10px 20px;
+  border-bottom: 1px solid var(--border-strong);
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.16em;
   text-transform: uppercase;
-  letter-spacing: 0.06em;
-  color: var(--grey);
+  color: var(--fg-50);
 }
-.pt-group-head {
-  padding: 10px 24px 6px;
-  font-size: 11px;
-  font-weight: 700;
+.pt-group {
+  padding: 8px 20px 4px;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.16em;
   text-transform: uppercase;
-  letter-spacing: 0.08em;
-  color: var(--grey);
-  background: var(--bg);
-  border-bottom: 1px solid var(--line-soft);
+  color: var(--fg-30);
+  background: var(--elev-1);
+  border-bottom: 1px solid var(--fg-border);
 }
-.pt-group-head + .pt-row { border-top: none; }
 .pt-row {
   display: grid;
-  grid-template-columns: 220px 1fr 140px 80px 80px;
+  grid-template-columns: 200px 1fr 130px 130px;
   gap: 16px;
   align-items: center;
-  padding: 16px 24px;
-  border-bottom: 1px solid var(--line-soft);
+  padding: 14px 20px;
+  border-bottom: 1px solid var(--fg-border);
   transition: background 0.1s;
+  position: relative;
+}
+.pt-row::before {
+  content: '';
+  position: absolute;
+  left: 0; top: 0; bottom: 0;
+  width: 2px;
+  background: var(--row-accent, transparent);
+  opacity: 0.7;
 }
 .pt-row:last-child { border-bottom: none; }
-.pt-row:hover { background: var(--primary-50); }
+.pt-row:hover { background: var(--elev-2); }
 
 .pt-name {
-  font-weight: 600;
   font-size: 14px;
-  color: var(--ink);
+  color: var(--fg);
+  font-weight: 400;
 }
 .pt-name small {
   display: block;
-  font-weight: 400;
-  font-size: 12px;
-  color: var(--grey);
-  margin-top: 1px;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--fg-50);
+  margin-top: 2px;
+  letter-spacing: 0.04em;
 }
 .pt-pipeline {
+  font-family: var(--font-mono);
   font-size: 16px;
   letter-spacing: 3px;
-  color: var(--ink-soft);
 }
-.dot-pass    { color: var(--success); }
-.dot-partial { color: var(--accent); }
-.dot-open    { color: var(--grey-soft); }
-.dot-regress { color: var(--danger); }
-
 .pt-phase {
-  font-size: 12px;
-}
-.pill {
-  display: inline-block;
-  padding: 3px 10px;
-  border-radius: 20px;
+  font-family: var(--font-mono);
   font-size: 11px;
-  font-weight: 600;
+  letter-spacing: 0.08em;
   text-transform: uppercase;
-  letter-spacing: 0.05em;
-  white-space: nowrap;
+  color: var(--fg-50);
 }
-.pill-live    { background: var(--success-bg); color: var(--success); }
-.pill-build   { background: var(--accent-50); color: var(--accent); }
-.pill-early   { background: var(--primary-100); color: var(--primary-700); }
-.pill-blocked { background: var(--danger-bg); color: var(--danger); }
-
 .pt-links {
   display: flex;
   flex-direction: column;
-  gap: 4px;
+  gap: 5px;
 }
 .pt-link {
-  font-size: 12px;
-  color: var(--primary);
-  text-decoration: none;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.06em;
+  color: var(--fg-50);
+  transition: color 0.15s;
   display: flex;
   align-items: center;
-  gap: 4px;
+  gap: 5px;
 }
-.pt-link:hover { text-decoration: underline; }
-.pt-link svg { flex-shrink: 0; }
-.pt-updated {
-  font-size: 12px;
-  color: var(--grey);
+.pt-link:hover { color: var(--fg); }
+.pt-link .arrow {
+  font-size: 10px;
+  transition: transform 0.15s;
 }
+.pt-link:hover .arrow { transform: translate(2px, -2px); }
 
-/* FOOTER */
-.footer {
-  border-top: 1px solid var(--line);
-  padding: 24px 0 0;
-  font-size: 12px;
-  color: var(--grey);
+/* row accent colors */
+.row-longevity   { --row-accent: #6FF2C1; }
+.row-forever     { --row-accent: #D1458B; }
+.row-eo-vietnam  { --row-accent: #287BE8; }
+.row-bhutan      { --row-accent: #FFCC00; }
+.row-caio        { --row-accent: #6FF2C1; }
+.row-aio-website { --row-accent: #287BE8; }
+.row-aio-pad     { --row-accent: #4FBDB8; }
+.row-infinite    { --row-accent: #9D4DFF; }
+.row-dave        { --row-accent: #ffffff; }
+.row-edge8       { --row-accent: #E63329; }
+.row-mahjong     { --row-accent: #D1458B; }
+.row-fab-four    { --row-accent: #e6b34d; }
+.row-leadership  { --row-accent: #A0A4B0; }
+
+/* ── FOOTER ── */
+.page-footer {
+  border-top: 1px solid var(--fg-border);
+  padding: 24px 0 40px;
   display: flex;
   justify-content: space-between;
   align-items: center;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  color: var(--fg-30);
+  flex-wrap: wrap;
+  gap: 8px;
 }
-.footer a { color: var(--grey); }
 
-/* RESPONSIVE */
-@media (max-width: 900px) {
-  .nav-inner, .page { padding: 20px; }
-  .hero { grid-template-columns: 1fr 1fr; gap: 16px; }
-  .hero-brand { grid-column: 1 / -1; }
-  .pt-head, .pt-row { grid-template-columns: 1fr; }
+/* ── RESPONSIVE ── */
+@media (max-width: 980px) {
+  .nav-inner { padding: 16px 20px; }
+  .stats-grid { grid-template-columns: repeat(2, 1fr); }
+  .pt-head, .pt-row { grid-template-columns: 160px 1fr 110px; }
+  .pt-head > *:last-child, .pt-row > *:last-child { display: none; }
+}
+@media (max-width: 640px) {
+  .display { font-size: 36px; }
+  .stats-grid { grid-template-columns: 1fr 1fr; }
   .pt-head { display: none; }
+  .pt-row { grid-template-columns: 1fr; }
 }
 </style>
 </head>
@@ -365,383 +430,310 @@ body {
 
 <nav class="nav">
   <div class="nav-inner">
-    <a class="brand" href="https://caiocoach.com">Claude Code <span>Monitor</span></a>
+    <span class="brand">claude<span>.</span>code <span>monitor</span></span>
     <span class="nav-meta">Updated 2026-05-02</span>
     <div class="nav-links">
       <a href="#needs-you">Needs You</a>
       <a href="#portfolio">Portfolio</a>
-      <a href="https://caiocoach.com">caiocoach.com</a>
+      <a href="https://caiocoach.com">caiocoach.com ↗</a>
     </div>
   </div>
 </nav>
 
-<div class="page">
-
-  <!-- HERO -->
-  <div class="hero">
-    <div class="hero-brand">
-      <h1>Dave Hajdu — Build Portfolio</h1>
-      <p>13 projects across AI coaching, health, travel, cultural intelligence, and tools.</p>
-    </div>
-    <div class="stat">
-      <div class="stat-num">13</div>
-      <div class="stat-label">Projects</div>
-    </div>
-    <div class="stat">
-      <div class="stat-num">4</div>
-      <div class="stat-label">Active Builds</div>
-    </div>
-    <div class="stat">
-      <div class="stat-num warning">6</div>
-      <div class="stat-label">Items Needing Review</div>
-    </div>
-    <div class="stat">
-      <div class="stat-num">10</div>
-      <div class="stat-label">Live in Production</div>
+<!-- HERO -->
+<section class="hero">
+  <div class="wrap">
+    <div class="hero-inner">
+      <div class="eyebrow">Dave Hajdu — Build Portfolio</div>
+      <h1 class="display">Claude Code<br>Monitor</h1>
+      <p class="lede">Live status across 13 active projects. Epic progress, open decisions, and links to every production URL and status page.</p>
+      <p class="meta-line">Source of truth: docs/product/epic-status.md per project &mdash; updated by agents</p>
     </div>
   </div>
+</section>
 
-  <!-- NEEDS YOU -->
-  <div class="needs-you" id="needs-you">
-    <div class="needs-you-header">
-      <h2>Needs Your Review</h2>
-      <p>Aggregated from all project epic-status.md files &mdash; updated by agents</p>
+<!-- STATS -->
+<section class="stats">
+  <div class="wrap">
+    <div class="stats-grid">
+      <div class="stat">
+        <div class="stat-label">Projects</div>
+        <div class="stat-value">13</div>
+        <div class="stat-note">Across all verticals</div>
+      </div>
+      <div class="stat">
+        <div class="stat-label">Active Builds</div>
+        <div class="stat-value mint">4</div>
+        <div class="stat-note">longevity · forever · eo-vietnam · bhutan</div>
+      </div>
+      <div class="stat">
+        <div class="stat-label">Needs Review</div>
+        <div class="stat-value magenta">6</div>
+        <div class="stat-note">Decisions, security, QA, content</div>
+      </div>
+      <div class="stat">
+        <div class="stat-label">Live in Production</div>
+        <div class="stat-value blue">10</div>
+        <div class="stat-note">caio · aio · longevity · edge8 · more</div>
+      </div>
     </div>
-    <ul class="needs-list">
+  </div>
+</section>
 
-      <li class="needs-item">
-        <span class="needs-priority p1">P1</span>
+<!-- NEEDS YOU -->
+<section class="needs-section" id="needs-you">
+  <div class="wrap">
+    <div class="section-header">
+      <span class="section-title">// Needs Your Review</span>
+      <span class="section-hint">Aggregated from all project epic-status.md files</span>
+    </div>
+    <div class="needs-list">
+
+      <div class="needs-item">
+        <span class="priority p1">P1</span>
         <div class="needs-body">
-          <strong>eo-vietnam</strong>
-          <span>&mdash; RLS enabled on all tables but zero policies exist. Live site: only service role can read/write. No real users can log in.</span>
+          <strong>eo-vietnam</strong> &mdash; RLS enabled on all tables but zero policies exist. Live site: only service role can read/write. No real users can access data.
         </div>
         <span class="needs-tag">Security</span>
-      </li>
+      </div>
 
-      <li class="needs-item">
-        <span class="needs-priority p1">P1</span>
+      <div class="needs-item">
+        <span class="priority p1">P1</span>
         <div class="needs-body">
-          <strong>forever-app</strong>
-          <span>&mdash; Epic 8 (Brand Intake) blocked. No brand direction defined. Affects typography, colour palette, logo, and voice across all marketing pages.</span>
+          <strong>forever-app</strong> &mdash; Epic 8 (Brand Intake) blocked. No brand direction defined. Affects typography, colour palette, logo, and voice across all marketing pages.
         </div>
         <span class="needs-tag">Decision</span>
-      </li>
+      </div>
 
-      <li class="needs-item">
-        <span class="needs-priority p2">P2</span>
+      <div class="needs-item">
+        <span class="priority p2">P2</span>
         <div class="needs-body">
-          <strong>forever-app</strong>
-          <span>&mdash; Epics 1&ndash;7 are code-complete but have not been end-to-end verified. QA pass required before marking complete.</span>
+          <strong>forever-app</strong> &mdash; Epics 1&ndash;7 are code-complete but have not been end-to-end verified. QA pass required before marking complete.
         </div>
         <span class="needs-tag">QA</span>
-      </li>
+      </div>
 
-      <li class="needs-item">
-        <span class="needs-priority p2">P2</span>
+      <div class="needs-item">
+        <span class="priority p2">P2</span>
         <div class="needs-body">
-          <strong>bhutan</strong>
-          <span>&mdash; Production domain not yet decided. Needed before any deployment or email links can be finalised.</span>
+          <strong>bhutan</strong> &mdash; Production domain not yet decided. Needed before any deployment or email confirmation links can be finalised.
         </div>
         <span class="needs-tag">Decision</span>
-      </li>
+      </div>
 
-      <li class="needs-item">
-        <span class="needs-priority p2">P2</span>
+      <div class="needs-item">
+        <span class="priority p2">P2</span>
         <div class="needs-body">
-          <strong>bhutan</strong>
-          <span>&mdash; Legal / liability disclaimer copy needed for the inquiry form. Requires review before launch.</span>
+          <strong>bhutan</strong> &mdash; Legal / liability disclaimer copy needed for the inquiry form before launch.
         </div>
         <span class="needs-tag">Content</span>
-      </li>
+      </div>
 
-      <li class="needs-item">
-        <span class="needs-priority p3">P3</span>
+      <div class="needs-item">
+        <span class="priority p3">P3</span>
         <div class="needs-body">
-          <strong>caio-coach</strong>
-          <span>&mdash; Epic 5 (Blueprint Library): ~60% of slugs render a "coming soon" stub. No download tracking. Content needed.</span>
+          <strong>caio-coach</strong> &mdash; Epic 5 (Blueprint Library): ~60% of slugs render a "coming soon" stub. No download tracking. Content needed.
         </div>
         <span class="needs-tag">Content</span>
-      </li>
+      </div>
 
-    </ul>
+    </div>
   </div>
+</section>
 
-  <!-- PORTFOLIO -->
-  <div class="section" id="portfolio">
-    <h2 class="section-title">Portfolio</h2>
-    <p class="section-meta">Pipeline: <strong style="color:var(--success)">●</strong> complete &nbsp; <strong style="color:var(--accent)">◐</strong> in progress &nbsp; <strong style="color:var(--grey-soft)">○</strong> planned &nbsp; <strong style="color:var(--danger)">↻</strong> blocked</p>
+<!-- PORTFOLIO -->
+<section class="portfolio-section" id="portfolio">
+  <div class="wrap">
+    <div class="section-header">
+      <span class="section-title">// Portfolio</span>
+    </div>
 
-    <div class="portfolio-table">
+    <div class="legend">
+      <span><span class="legend-label">Pipeline</span></span>
+      <span><code class="dot-pass">●</code> complete</span>
+      <span><code class="dot-partial">◐</code> in progress</span>
+      <span><code class="dot-open">○</code> planned</span>
+      <span><code class="dot-blocked">↻</code> blocked</span>
+    </div>
+
+    <div class="pt-table">
       <div class="pt-head">
         <div>Project</div>
         <div>Epics</div>
         <div>Phase</div>
-        <div>Production</div>
-        <div>Status</div>
+        <div>Links</div>
       </div>
 
-      <!-- ACTIVE BUILDS -->
-      <div class="pt-group-head">Active &mdash; Building Now</div>
+      <!-- ACTIVE -->
+      <div class="pt-group">Active &mdash; Building Now</div>
 
-      <div class="pt-row">
-        <div class="pt-name">
-          longevity-coach
-          <small>janet.care &mdash; Health optimisation platform</small>
-        </div>
+      <div class="pt-row row-longevity">
+        <div class="pt-name">longevity-coach<small>janet.care</small></div>
         <div class="pt-pipeline">
           <span class="dot-pass">●</span><span class="dot-pass">●</span><span class="dot-pass">●</span><span class="dot-pass">●</span><span class="dot-partial">◐</span><span class="dot-partial">◐</span><span class="dot-open">○</span><span class="dot-open">○</span>
         </div>
-        <div class="pt-phase"><span class="pill pill-build">Phase 2 &mdash; AI</span></div>
+        <div class="pt-phase">Phase 2 &mdash; AI</div>
         <div class="pt-links">
-          <a class="pt-link" href="https://janet.care" target="_blank">
-            <svg width="11" height="11" viewBox="0 0 12 12" fill="none"><path d="M2 10L10 2M10 2H4M10 2V8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
-            janet.care
-          </a>
-        </div>
-        <div class="pt-links">
-          <a class="pt-link" href="https://janet.care/project-status.html" target="_blank">status</a>
+          <a class="pt-link" href="https://janet.care" target="_blank">janet.care <span class="arrow">↗</span></a>
+          <a class="pt-link" href="https://janet.care/project-status.html" target="_blank">status page</a>
         </div>
       </div>
 
-      <div class="pt-row">
-        <div class="pt-name">
-          forever-app
-          <small>forever-8.com &mdash; 8 minutes a day, remembered forever</small>
-        </div>
+      <div class="pt-row row-forever">
+        <div class="pt-name">forever-app<small>forever-8.com</small></div>
         <div class="pt-pipeline">
-          <span class="dot-partial">◐</span><span class="dot-partial">◐</span><span class="dot-partial">◐</span><span class="dot-partial">◐</span><span class="dot-partial">◐</span><span class="dot-partial">◐</span><span class="dot-partial">◐</span><span class="dot-regress">↻</span>
+          <span class="dot-partial">◐</span><span class="dot-partial">◐</span><span class="dot-partial">◐</span><span class="dot-partial">◐</span><span class="dot-partial">◐</span><span class="dot-partial">◐</span><span class="dot-partial">◐</span><span class="dot-blocked">↻</span>
         </div>
-        <div class="pt-phase"><span class="pill pill-build">Phase 1 &mdash; Build</span></div>
+        <div class="pt-phase">Phase 1 &mdash; Build</div>
         <div class="pt-links">
-          <a class="pt-link" href="https://forever-8.com" target="_blank">
-            <svg width="11" height="11" viewBox="0 0 12 12" fill="none"><path d="M2 10L10 2M10 2H4M10 2V8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
-            forever-8.com
-          </a>
-        </div>
-        <div class="pt-links">
-          <a class="pt-link" href="https://forever-8.com/project-status.html" target="_blank">status</a>
+          <a class="pt-link" href="https://forever-8.com" target="_blank">forever-8.com <span class="arrow">↗</span></a>
+          <a class="pt-link" href="https://forever-8.com/project-status.html" target="_blank">status page</a>
         </div>
       </div>
 
-      <div class="pt-row">
-        <div class="pt-name">
-          eo-vietnam
-          <small>eovietnamboard.com &mdash; EO Vietnam chapter platform</small>
-        </div>
+      <div class="pt-row row-eo-vietnam">
+        <div class="pt-name">eo-vietnam<small>eovietnamboard.com</small></div>
         <div class="pt-pipeline">
           <span class="dot-partial">◐</span><span class="dot-partial">◐</span><span class="dot-open">○</span><span class="dot-open">○</span><span class="dot-open">○</span><span class="dot-open">○</span><span class="dot-open">○</span><span class="dot-open">○</span><span class="dot-open">○</span><span class="dot-open">○</span>
         </div>
-        <div class="pt-phase"><span class="pill pill-build">Phase 1 &mdash; Build</span></div>
+        <div class="pt-phase">Phase 1 &mdash; Build</div>
         <div class="pt-links">
-          <a class="pt-link" href="https://eovietnamboard.com" target="_blank">
-            <svg width="11" height="11" viewBox="0 0 12 12" fill="none"><path d="M2 10L10 2M10 2H4M10 2V8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
-            eovietnamboard.com
-          </a>
-        </div>
-        <div class="pt-links">
-          <a class="pt-link" href="https://eovietnamboard.com/project-status.html" target="_blank">status</a>
+          <a class="pt-link" href="https://eovietnamboard.com" target="_blank">eovietnamboard.com <span class="arrow">↗</span></a>
+          <a class="pt-link" href="https://eovietnamboard.com/project-status.html" target="_blank">status page</a>
         </div>
       </div>
 
-      <div class="pt-row">
-        <div class="pt-name">
-          bhutan
-          <small>domain TBD &mdash; Bhutan Luxe travel experiences</small>
-        </div>
+      <div class="pt-row row-bhutan">
+        <div class="pt-name">bhutan<small>domain TBD</small></div>
         <div class="pt-pipeline">
           <span class="dot-open">○</span><span class="dot-open">○</span><span class="dot-open">○</span><span class="dot-open">○</span>
         </div>
-        <div class="pt-phase"><span class="pill pill-early">Pre-launch</span></div>
+        <div class="pt-phase">Pre-launch</div>
         <div class="pt-links">
-          <span style="font-size:12px;color:var(--grey)">TBD</span>
-        </div>
-        <div class="pt-links">
-          <span style="font-size:12px;color:var(--grey)">&mdash;</span>
+          <span class="pt-link" style="color:var(--fg-30)">TBD</span>
         </div>
       </div>
 
-      <!-- LIVE IN PRODUCTION -->
-      <div class="pt-group-head">Live &mdash; In Production</div>
+      <!-- LIVE -->
+      <div class="pt-group">Live &mdash; In Production</div>
 
-      <div class="pt-row">
-        <div class="pt-name">
-          caio-coach
-          <small>caiocoach.com &mdash; AI leadership coaching</small>
-        </div>
+      <div class="pt-row row-caio">
+        <div class="pt-name">caio-coach<small>caiocoach.com</small></div>
         <div class="pt-pipeline">
           <span class="dot-pass">●</span><span class="dot-pass">●</span><span class="dot-pass">●</span><span class="dot-pass">●</span><span class="dot-partial">◐</span><span class="dot-pass">●</span>
         </div>
-        <div class="pt-phase"><span class="pill pill-live">Live</span></div>
+        <div class="pt-phase">Live</div>
         <div class="pt-links">
-          <a class="pt-link" href="https://caiocoach.com" target="_blank">
-            <svg width="11" height="11" viewBox="0 0 12 12" fill="none"><path d="M2 10L10 2M10 2H4M10 2V8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
-            caiocoach.com
-          </a>
-        </div>
-        <div class="pt-links">
-          <a class="pt-link" href="/project-status.html">status</a>
+          <a class="pt-link" href="https://caiocoach.com" target="_blank">caiocoach.com <span class="arrow">↗</span></a>
+          <a class="pt-link" href="/project-status.html">status page</a>
         </div>
       </div>
 
-      <div class="pt-row">
-        <div class="pt-name">
-          aio-website
-          <small>ai-officer.com &mdash; AI Officer brand hub</small>
-        </div>
+      <div class="pt-row row-aio-website">
+        <div class="pt-name">aio-website<small>ai-officer.com</small></div>
         <div class="pt-pipeline">
           <span class="dot-pass">●</span><span class="dot-pass">●</span><span class="dot-partial">◐</span><span class="dot-partial">◐</span><span class="dot-open">○</span>
         </div>
-        <div class="pt-phase"><span class="pill pill-live">Live</span></div>
+        <div class="pt-phase">Live</div>
         <div class="pt-links">
-          <a class="pt-link" href="https://ai-officer.com" target="_blank">
-            <svg width="11" height="11" viewBox="0 0 12 12" fill="none"><path d="M2 10L10 2M10 2H4M10 2V8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
-            ai-officer.com
-          </a>
-        </div>
-        <div class="pt-links">
-          <a class="pt-link" href="https://ai-officer.com/project-status.html" target="_blank">status</a>
+          <a class="pt-link" href="https://ai-officer.com" target="_blank">ai-officer.com <span class="arrow">↗</span></a>
+          <a class="pt-link" href="https://ai-officer.com/project-status.html" target="_blank">status page</a>
         </div>
       </div>
 
-      <div class="pt-row">
-        <div class="pt-name">
-          aio-pad
-          <small>Live &mdash; AI productivity pad</small>
-        </div>
+      <div class="pt-row row-aio-pad">
+        <div class="pt-name">aio-pad<small>live</small></div>
         <div class="pt-pipeline">
           <span class="dot-pass">●</span><span class="dot-pass">●</span><span class="dot-pass">●</span><span class="dot-partial">◐</span><span class="dot-open">○</span>
         </div>
-        <div class="pt-phase"><span class="pill pill-live">Live</span></div>
+        <div class="pt-phase">Live</div>
         <div class="pt-links">
-          <span style="font-size:12px;color:var(--grey)">Internal</span>
-        </div>
-        <div class="pt-links">
-          <span style="font-size:12px;color:var(--grey)">&mdash;</span>
+          <span class="pt-link" style="color:var(--fg-30)">Internal</span>
         </div>
       </div>
 
-      <div class="pt-row">
-        <div class="pt-name">
-          infinite-leverage
-          <small>infiniteleverage.ai &mdash; AI leverage content</small>
-        </div>
+      <div class="pt-row row-infinite">
+        <div class="pt-name">infinite-leverage<small>infiniteleverage.ai</small></div>
         <div class="pt-pipeline">
           <span class="dot-pass">●</span><span class="dot-pass">●</span><span class="dot-partial">◐</span><span class="dot-open">○</span><span class="dot-open">○</span>
         </div>
-        <div class="pt-phase"><span class="pill pill-live">Live</span></div>
+        <div class="pt-phase">Live</div>
         <div class="pt-links">
-          <a class="pt-link" href="https://infiniteleverage.ai" target="_blank">
-            <svg width="11" height="11" viewBox="0 0 12 12" fill="none"><path d="M2 10L10 2M10 2H4M10 2V8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
-            infiniteleverage.ai
-          </a>
-        </div>
-        <div class="pt-links">
-          <a class="pt-link" href="https://infiniteleverage.ai/project-status.html" target="_blank">status</a>
+          <a class="pt-link" href="https://infiniteleverage.ai" target="_blank">infiniteleverage.ai <span class="arrow">↗</span></a>
+          <a class="pt-link" href="https://infiniteleverage.ai/project-status.html" target="_blank">status page</a>
         </div>
       </div>
 
-      <div class="pt-row">
-        <div class="pt-name">
-          dave-hajdu
-          <small>davehajdu.com &mdash; Personal site</small>
-        </div>
+      <div class="pt-row row-dave">
+        <div class="pt-name">dave-hajdu<small>davehajdu.com</small></div>
         <div class="pt-pipeline">
           <span class="dot-partial">◐</span><span class="dot-partial">◐</span><span class="dot-open">○</span>
         </div>
-        <div class="pt-phase"><span class="pill pill-live">Live</span></div>
+        <div class="pt-phase">Live</div>
         <div class="pt-links">
-          <a class="pt-link" href="https://davehajdu.com" target="_blank">
-            <svg width="11" height="11" viewBox="0 0 12 12" fill="none"><path d="M2 10L10 2M10 2H4M10 2V8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
-            davehajdu.com
-          </a>
-        </div>
-        <div class="pt-links">
-          <a class="pt-link" href="https://davehajdu.com/project-status.html" target="_blank">status</a>
+          <a class="pt-link" href="https://davehajdu.com" target="_blank">davehajdu.com <span class="arrow">↗</span></a>
+          <a class="pt-link" href="https://davehajdu.com/project-status.html" target="_blank">status page</a>
         </div>
       </div>
 
-      <div class="pt-row">
-        <div class="pt-name">
-          edge8
-          <small>edge8.co &mdash; Edge 8 agency</small>
-        </div>
+      <div class="pt-row row-edge8">
+        <div class="pt-name">edge8<small>edge8.co</small></div>
         <div class="pt-pipeline">
           <span class="dot-pass">●</span><span class="dot-partial">◐</span><span class="dot-open">○</span><span class="dot-open">○</span>
         </div>
-        <div class="pt-phase"><span class="pill pill-live">Live</span></div>
+        <div class="pt-phase">Live</div>
         <div class="pt-links">
-          <a class="pt-link" href="https://edge8.co" target="_blank">
-            <svg width="11" height="11" viewBox="0 0 12 12" fill="none"><path d="M2 10L10 2M10 2H4M10 2V8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
-            edge8.co
-          </a>
-        </div>
-        <div class="pt-links">
-          <a class="pt-link" href="https://edge8.co/project-status.html" target="_blank">status</a>
+          <a class="pt-link" href="https://edge8.co" target="_blank">edge8.co <span class="arrow">↗</span></a>
+          <a class="pt-link" href="https://edge8.co/project-status.html" target="_blank">status page</a>
         </div>
       </div>
 
-      <!-- EARLY / PRE-BUILD -->
-      <div class="pt-group-head">Early &mdash; Pre-build</div>
+      <!-- EARLY -->
+      <div class="pt-group">Early &mdash; Pre-build</div>
 
-      <div class="pt-row">
-        <div class="pt-name">
-          mahjong-tarot
-          <small>domain TBD &mdash; Chinese astrology &amp; divination</small>
-        </div>
+      <div class="pt-row row-mahjong">
+        <div class="pt-name">mahjong-tarot<small>domain TBD</small></div>
         <div class="pt-pipeline">
           <span class="dot-partial">◐</span><span class="dot-open">○</span><span class="dot-open">○</span><span class="dot-open">○</span><span class="dot-open">○</span><span class="dot-open">○</span><span class="dot-open">○</span><span class="dot-open">○</span><span class="dot-open">○</span><span class="dot-open">○</span>
         </div>
-        <div class="pt-phase"><span class="pill pill-early">Early</span></div>
+        <div class="pt-phase">Early</div>
         <div class="pt-links">
-          <span style="font-size:12px;color:var(--grey)">TBD</span>
-        </div>
-        <div class="pt-links">
-          <span style="font-size:12px;color:var(--grey)">&mdash;</span>
+          <span class="pt-link" style="color:var(--fg-30)">TBD</span>
         </div>
       </div>
 
-      <div class="pt-row">
-        <div class="pt-name">
-          fab-four
-          <small>domain TBD &mdash; Concept stage</small>
-        </div>
+      <div class="pt-row row-fab-four">
+        <div class="pt-name">fab-four<small>domain TBD</small></div>
         <div class="pt-pipeline">
           <span class="dot-open">○</span><span class="dot-open">○</span><span class="dot-open">○</span>
         </div>
-        <div class="pt-phase"><span class="pill pill-early">Concept</span></div>
+        <div class="pt-phase">Concept</div>
         <div class="pt-links">
-          <span style="font-size:12px;color:var(--grey)">TBD</span>
-        </div>
-        <div class="pt-links">
-          <span style="font-size:12px;color:var(--grey)">&mdash;</span>
+          <span class="pt-link" style="color:var(--fg-30)">TBD</span>
         </div>
       </div>
 
-      <div class="pt-row">
-        <div class="pt-name">
-          leadership-coach
-          <small>domain TBD &mdash; Concept stage</small>
-        </div>
+      <div class="pt-row row-leadership">
+        <div class="pt-name">leadership-coach<small>domain TBD</small></div>
         <div class="pt-pipeline">
           <span class="dot-open">○</span><span class="dot-open">○</span><span class="dot-open">○</span>
         </div>
-        <div class="pt-phase"><span class="pill pill-early">Concept</span></div>
+        <div class="pt-phase">Concept</div>
         <div class="pt-links">
-          <span style="font-size:12px;color:var(--grey)">TBD</span>
-        </div>
-        <div class="pt-links">
-          <span style="font-size:12px;color:var(--grey)">&mdash;</span>
+          <span class="pt-link" style="color:var(--fg-30)">TBD</span>
         </div>
       </div>
 
-    </div><!-- /portfolio-table -->
-  </div><!-- /section -->
-
-  <div class="footer">
-    <span>Claude Code Monitor &mdash; Dave Hajdu Build Portfolio &mdash; 2026</span>
-    <span>Source of truth: <code>docs/product/epic-status.md</code> per project &mdash; updated by agents</span>
+    </div><!-- /pt-table -->
   </div>
+</section>
 
-</div><!-- /page -->
+<div class="wrap">
+  <div class="page-footer">
+    <span>Claude Code Monitor &mdash; Dave Hajdu Build Portfolio &mdash; 2026</span>
+    <span>Source: docs/product/epic-status.md per project &mdash; updated by agents</span>
+  </div>
+</div>
+
 </body>
 </html>

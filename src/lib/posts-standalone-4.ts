@@ -74,7 +74,7 @@ export const BLOCKS_STANDALONE_4: Record<string, Block[]> = {
     ] },
     { tag: 'p', text: 'That is the headline. Sit with it for a second before we get to how.' },
     { tag: 'p', text: 'Three to six months collapsed into about five weeks of total elapsed time. One agency invoice replaced by a tiny pod and a lot of focus. The cost difference is not the point of this post. The leverage difference is. This is what it actually looks like to build software with AI instead of an agency.' },
-    { tag: 'image', src: '/blog/images/founder-built-janet-dashboard.webp', alt: 'Janet.Care dashboard built during the five-day sprint', caption: 'The Janet.Care dashboard. Each user\'s longevity plan, at a glance.' },
+    { tag: 'image', src: '/blog/images/founder-built-janet-dashboard-today.webp', alt: 'Janet.Care Today dashboard built during the five-day sprint', caption: 'The Janet.Care Today view. Biological age, top risk, supplement adherence, check-in streak, at a glance.' },
     { tag: 'image', src: '/blog/images/founder-built-janet-coach.webp', alt: 'Janet.Care coaching view built during the sprint', caption: 'The coaching surface. The plan, walked through one step at a time.' },
     { tag: 'image', src: '/blog/images/founder-built-janet-labs.webp', alt: 'Janet.Care labs view built during the sprint', caption: 'The labs view. The data behind every protocol decision.' },
 
@@ -93,6 +93,7 @@ export const BLOCKS_STANDALONE_4: Record<string, Block[]> = {
       '<strong>The epics</strong> sit in the middle. Each epic is a chunk of work that moves the product doc forward. Not tasks, not tickets. The size of thing a small pod can ship in a week or two.',
       '<strong>The epic status board</strong> sits at the bottom, and this is the layer most teams miss. It is the live state of who is doing what, what is blocked, what is parallelizable, and which AI agents are mid-flight on which threads. It treats agents and humans as the same kind of resource, because for the leader running the day, they are.',
     ] },
+    { tag: 'image', src: '/blog/images/founder-built-epic-status.webp', alt: 'Janet.Care epic status board showing 14 epics with pipeline progress and dependencies', caption: 'The epic status board. Fourteen epics, dependencies surfaced, pipeline visible at a glance.' },
     { tag: 'p', text: 'The product manager runs the board every morning and surfaces two or three threads that do not depend on each other. The leader picks. Multi-delegation becomes a thirty second decision instead of a meeting.' },
     { tag: 'p', text: 'That is the Blueprint. Product doc, epics, status board with dependencies surfaced. Boring on paper. Transformative in practice.' },
 
@@ -103,6 +104,7 @@ export const BLOCKS_STANDALONE_4: Record<string, Block[]> = {
     { tag: 'p', text: 'So why was the engineer there?' },
     { tag: 'p', text: 'The engineer was there to clear the runway. To unblock James the moment James got stuck. To handle the gnarly hour of debugging that would have cost James half a day. To take the threads that needed deep technical context and move them quietly, so James could keep building the parts only he could build.' },
     { tag: 'image', src: '/blog/images/founder-built-james-trac.webp', alt: 'James pairing with the engineer during the five-day sprint', caption: 'James pairing with Trac. Two screens, one runway.' },
+    { tag: 'image', src: '/blog/images/founder-built-james-trac-2.webp', alt: 'Overhead view of James and Trac working together on laptops during the sprint', caption: 'Overhead view of the pair. James pointing, Trac in the code.' },
     { tag: 'pull-quote', text: 'A developer is not there to do your work for you. A developer is there to unblock your creativity.' },
     { tag: 'p', text: 'That is a different deal. It is the deal almost no leader I coach is currently making.' },
 

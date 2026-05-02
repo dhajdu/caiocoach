@@ -6,11 +6,11 @@ import type { Post, Block } from './types';
 
 export const POSTS_STANDALONE_4: Post[] = [
   {
-    slug: 'infinite-leverage-blueprint',
-    title: 'The Infinite Leverage Blueprint',
-    titleAccent: 'Infinite Leverage Blueprint',
-    subtitle: 'A founder got handed a $300,000 AUD agency quote and three to six months. He flew to Vietnam instead. Five days later he was 70% done. He coded it himself.',
-    excerpt: 'James was quoted $300,000 AUD and three to six months for the next phase of his longevity platform. He flew to Vietnam instead. Five days later he was 70% done. He coded it himself.',
+    slug: 'founder-built-product-5-days-instead-3-months',
+    title: 'How a Founder Built His Product in 5 Days Instead of 3 Months',
+    titleAccent: '5 Days Instead of 3 Months',
+    subtitle: 'James, the founder of Janet.Care, was quoted $300,000 AUD and three to six months by an agency. He flew to Vietnam instead. Five days later he was 70% done. He coded it himself.',
+    excerpt: 'James, the founder of Janet.Care, was quoted $300,000 AUD and three to six months for the next phase of his longevity platform. He flew to Vietnam instead. Five days later he was 70% done. He coded it himself.',
     date: 'May 2, 2026',
     readTime: '6 min read',
     category: 'AI Leadership',
@@ -25,7 +25,7 @@ export const POSTS_STANDALONE_4: Post[] = [
       'Janet.Care case study',
       'Infinite Leverage Blueprint',
     ],
-    image: '/blog/images/infinite-leverage-blueprint.webp',
+    image: '/blog/images/founder-built-product-5-days-instead-3-months.webp',
     author: 'Dave Hajdu',
   },
   {
@@ -56,7 +56,7 @@ export const POSTS_STANDALONE_4: Post[] = [
 ];
 
 export const BLOCKS_STANDALONE_4: Record<string, Block[]> = {
-  'infinite-leverage-blueprint': [
+  'founder-built-product-5-days-instead-3-months': [
     // Opening hook
     { tag: 'p', text: 'You have been handed a quote. There is a comma in the number. Maybe two. You read it twice, hoping the second pass softens the figure. It does not. You have not started anything yet, and you already feel behind.' },
     { tag: 'p', text: 'A founder named James knows that feeling. He runs Janet.Care, a longevity coach that tracks people\'s health data and helps them plan for a longer life through supplement protocols, exercise, and diet. He has spent ten years in the domain. An Australian company quoted him $300,000 AUD and three to six months for the next phase of the build.' },

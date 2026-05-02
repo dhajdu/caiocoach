@@ -7,7 +7,7 @@ export type Block =
   | { tag: 'callout'; label: string; text: string }
   | { tag: 'conclusion-box'; title: string; paragraphs: string[] }
   | { tag: 'faq'; question: string; answer: string }
-  | { tag: 'image'; src: string; alt: string }
+  | { tag: 'image'; src: string; alt: string; caption?: string }
   | { tag: 'shipped-list'; title: string; items: string[] }
   | { tag: 'ol-item'; text: string }
   | { tag: 'html'; html: string }

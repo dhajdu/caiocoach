@@ -212,15 +212,22 @@ export default function BlockRenderer({ blocks }: { blocks: Block[] }) {
             );
           case 'image':
             return (
-              <div key={i} className="my-10 border border-white/10 overflow-hidden">
-                <Image
-                  src={block.src}
-                  alt={block.alt}
-                  width={1200}
-                  height={600}
-                  className="w-full h-auto"
-                />
-              </div>
+              <figure key={i} className="my-10">
+                <div className="border border-white/10 overflow-hidden">
+                  <Image
+                    src={block.src}
+                    alt={block.alt}
+                    width={1200}
+                    height={600}
+                    className="w-full h-auto"
+                  />
+                </div>
+                {block.caption && (
+                  <figcaption className="mt-3 text-[13px] text-white/55 italic text-center leading-snug">
+                    {block.caption}
+                  </figcaption>
+                )}
+              </figure>
             );
           case 'html':
             return (

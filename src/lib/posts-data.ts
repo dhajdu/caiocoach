@@ -6,6 +6,7 @@ import { POSTS_STANDALONE_3, BLOCKS_STANDALONE_3 } from './posts-standalone-3';
 import { POSTS_STANDALONE_4, BLOCKS_STANDALONE_4 } from './posts-standalone-4';
 import { POSTS_STANDALONE_5, BLOCKS_STANDALONE_5 } from './posts-standalone-5';
 import { POSTS_STANDALONE_6, BLOCKS_STANDALONE_6 } from './posts-standalone-6';
+import { POSTS_STANDALONE_7, BLOCKS_STANDALONE_7 } from './posts-standalone-7';
 import { POSTS_DAY10_14, BLOCKS_DAY10_14 } from './posts-day10-14';
 
 const POSTS_DAY1_5: Post[] = [
@@ -91,6 +92,7 @@ export const POSTS: Post[] = [
   ...POSTS_STANDALONE_4,
   ...POSTS_STANDALONE_5,
   ...POSTS_STANDALONE_6,
+  ...POSTS_STANDALONE_7,
   ...POSTS_DAY10_14,
 ].sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
 
@@ -456,5 +458,6 @@ export const BLOCKS_BY_SLUG: Record<string, Block[]> = {
   ...BLOCKS_STANDALONE_4,
   ...BLOCKS_STANDALONE_5,
   ...BLOCKS_STANDALONE_6,
+  ...BLOCKS_STANDALONE_7,
   ...BLOCKS_DAY10_14,
 };

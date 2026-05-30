@@ -2,6 +2,7 @@
 
 import { useMemo, useState } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { POSTS } from '@/lib/posts-data';
 import NewsletterForm from '@/components/NewsletterForm';
 import styles from './page.module.css';
@@ -30,6 +31,11 @@ export default function BlogIndex() {
     if (filter === 'All essays') return standalonePosts;
     return standalonePosts.filter((p) => p.category === filter);
   }, [filter, standalonePosts]);
+
+  const featuredPost = useMemo(
+    () => standalonePosts.find((p) => p.featured) ?? null,
+    [standalonePosts]
+  );
 
   return (
     <>
@@ -71,39 +77,47 @@ export default function BlogIndex() {
         </div>
       </div>
 
-      {/* FEATURED: Infinite Leverage promo */}
-      <section className={styles.featured}>
-        <div className="page-container">
-          <Link href="/infinite-leverage" className={styles.featuredCard}>
-            <div className={styles.featuredBody}>
-              <div>
-                <div className={styles.eyebrowRow}>
-                  <span>The Blueprint</span>
-                  <span className={styles.sep}>/</span>
-                  <span>14-day series · complete</span>
-                  <span className={styles.sep}>/</span>
-                  <span>Apr 05 → Apr 18 · 2026</span>
+      {/* FEATURED: latest highlighted essay */}
+      {featuredPost && (
+        <section className={styles.featured}>
+          <div className="page-container">
+            <Link href={`/blog/${featuredPost.slug}`} className={styles.featuredCard}>
+              <div className={styles.featuredBody}>
+                <div>
+                  <div className={styles.eyebrowRow}>
+                    <span>Featured</span>
+                    <span className={styles.sep}>/</span>
+                    <span>{featuredPost.category}</span>
+                    <span className={styles.sep}>/</span>
+                    <span>{featuredPost.date}</span>
+                  </div>
+                  <h2 className={styles.featuredTitle} style={{ marginTop: 24 }}>
+                    {featuredPost.title}
+                  </h2>
+                  <p style={{ marginTop: 20 }}>{featuredPost.excerpt}</p>
                 </div>
-                <h2 className={styles.featuredTitle} style={{ marginTop: 24 }}>
-                  Looking for Infinite Leverage?
-                </h2>
-                <p style={{ marginTop: 20 }}>
-                  The 14-day serialized build of a one-person agentic company lives on its
-                  own page now. Start from Day 01 or jump to the day that matches your
-                  situation.
-                </p>
+                <div className={styles.featuredFoot}>
+                  <span className="read">Read the essay →</span>
+                  <span>{featuredPost.readTime}</span>
+                </div>
               </div>
-              <div className={styles.featuredFoot}>
-                <span className="read">Open the Blueprint →</span>
-                <span>14 days · 22k words</span>
+              <div className={styles.featuredVisual}>
+                {featuredPost.image ? (
+                  <Image
+                    src={featuredPost.image}
+                    alt={featuredPost.title}
+                    fill
+                    sizes="(max-width: 820px) 100vw, 40vw"
+                    style={{ objectFit: 'cover' }}
+                  />
+                ) : (
+                  <div className={styles.glyph}>50</div>
+                )}
               </div>
-            </div>
-            <div className={styles.featuredVisual}>
-              <div className={styles.glyph}>14</div>
-            </div>
-          </Link>
-        </div>
-      </section>
+            </Link>
+          </div>
+        </section>
+      )}
 
       {/* LIST */}
       <section className={styles.listSection}>

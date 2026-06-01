@@ -357,6 +357,33 @@
     color: var(--white);
     font-weight: 600;
   }
+  .team-stats {
+    display: flex;
+    gap: 14px;
+    margin-top: 18px;
+  }
+  .team-stat {
+    background: var(--white-08);
+    border: 1px solid var(--white-12);
+    border-radius: 12px;
+    padding: 12px 24px;
+    text-align: center;
+  }
+  .team-stat .ts-num {
+    font-size: 30px;
+    font-weight: 700;
+    color: var(--white);
+    letter-spacing: -0.02em;
+    line-height: 1;
+  }
+  .team-stat .ts-lbl {
+    font-size: 10.5px;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--white-60);
+    font-weight: 600;
+    margin-top: 6px;
+  }
 
   /* SLIDE 6 — Theme */
   .theme-list {
@@ -985,6 +1012,10 @@
     <div class="slide-inner">
       <div class="label">The Team</div>
       <h2 class="heading">Who you'll work with</h2>
+      <div class="team-stats">
+        <div class="team-stat"><div class="ts-num">23</div><div class="ts-lbl">Team members</div></div>
+        <div class="team-stat"><div class="ts-num">5</div><div class="ts-lbl">Partners &amp; Advisors</div></div>
+      </div>
       <div class="team-grid">
 
         <div>
@@ -1028,7 +1059,6 @@
             <h5>Entrepreneur Organization</h5>
             <ul>
               <li><span class="name">Ha Nguyen</span> : CRM + Project Mgmt</li>
-              <li><span class="name">Hoang Ha</span> : C# Engineer</li>
               <li><span class="name">Thanh Nguyen</span> : HubSpot Specialist</li>
               <li><span class="name">Khoi Le</span> : AI Engineer</li>
             </ul>
@@ -1041,7 +1071,7 @@
               <li><span class="name">Ginny Vo</span> : Design</li>
               <li><span class="name">Trac Nguyen</span> : AI Engineer</li>
               <li><span class="name">Khang Nguyen</span> : AI Engineer</li>
-              <li><span class="name">Kate Tran</span> : AI Officer</li>
+              <li><span class="name">Phuc Tran</span> : AI Engineer</li>
               <li><span class="name">Ethan Truong</span> : Video Producer</li>
             </ul>
           </div>
@@ -1193,10 +1223,11 @@
           <div class="tool-chip"><span class="num">02</span> Llama Index</div>
           <div class="tool-chip"><span class="num">03</span> Quickbooks</div>
           <div class="tool-chip"><span class="num">04</span> Perplexity.ai</div>
-          <div class="tool-chip"><span class="num">05</span> SEMrush, Ubersuggest</div>
+          <div class="tool-chip"><span class="num">05</span> Ubersuggest</div>
           <div class="tool-chip"><span class="num">06</span> Canva</div>
           <div class="tool-chip"><span class="num">07</span> HubSpot</div>
-          <div class="tool-chip highlight"><span class="num">08</span> Thoughtflow</div>
+          <div class="tool-chip"><span class="num">08</span> Thoughtflow</div>
+          <div class="tool-chip"><span class="num">09</span> AIOlabz.com</div>
         </div>
         <div class="power-stack">
           <h4>The Super Power Stack</h4>

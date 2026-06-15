@@ -59,12 +59,7 @@ export const BLOCKS_STANDALONE_8: Record<string, Block[]> = {
       tag: 'p',
       text: 'And here is what happened every single time. The moment I helped him get clear, he said something back that reorganized how I saw the same problem. The frame I handed over came back to me sharper. That is not a nice feeling. It is a working method.',
     },
-    {
-      tag: 'image',
-      src: '/blog/images/coach-learning.webp',
-      alt: 'Dave Hajdu coaching senior leaders in the room during the Leadership in the AI Era program in Dubai.',
-      caption: 'Coaching, and learning, in the room',
-    },
+    { tag: 'html', html: '<figure class="my-8"><div class="grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-4 items-start"><img src="/blog/images/coach-learning.webp" alt="Dave Hajdu coaching senior leaders in the room during the Leadership in the AI Era program in Dubai." loading="lazy" class="w-full h-auto rounded-xl border border-white/10" /><img src="/blog/images/coach-emba-cohort.webp" alt="Dave Hajdu with the Executive MBA cohort in Dubai during the Leadership in the AI Era program." loading="lazy" class="w-full h-auto rounded-xl border border-white/10" /><img src="/blog/images/coach-holtom-rigor.webp" alt="Dr. Brooks Holtom teaching in Dubai, bringing the academic rigor behind the leadership frameworks." loading="lazy" class="w-full h-auto rounded-xl border border-white/10" /></div><figcaption class="text-center text-xs text-white/55 italic mt-3 leading-snug">Coaching the Executive MBA cohort in Dubai</figcaption></figure>' },
 
     // What I actually learned
     { tag: 'h2', text: 'What I actually learned' },
@@ -77,20 +72,8 @@ export const BLOCKS_STANDALONE_8: Record<string, Block[]> = {
       text: 'What I learned from that room was how the genuinely high-caliber operator treats a hard, unglamorous task. The program has exercises that each end in a dataset, real information about your leadership, your team, your way of working. The hard part is not the AI. It is the thinking. People routinely spend six to twelve hours building a single dataset, because building it forces a level of honesty about yourself that you can usually avoid.',
     },
     {
-      tag: 'image',
-      src: '/blog/images/coach-emba-cohort.webp',
-      alt: 'Dave Hajdu with the EMBA cohort in Dubai during the Leadership in the AI Era program.',
-      caption: 'With the EMBA cohort in Dubai',
-    },
-    {
       tag: 'p',
       text: 'And the work is not freeform. Dr. Brooks Holtom brings the academic rigor that holds the whole thing up. Each dataset is built on a framework that has survived decades of scrutiny. <a href="https://en.wikipedia.org/wiki/Big_Five_personality_traits" target="_blank" rel="noopener noreferrer">OCEAN, the five-factor model of personality</a>, for personality. ADKAR for change. <a href="https://en.wikipedia.org/wiki/GROW_model" target="_blank" rel="noopener noreferrer">GROW, the coaching model</a>, for coaching. Jobs to Be Done for understanding what people actually want. I have come to believe this is the part everyone wants to skip and nobody can. Prompt frameworks are garbage. Prompt libraries are garbage. There is no clever phrase that does the thinking for you. You bring rigor and honesty inside frameworks that already work, or AI just gives you confident nonsense faster.',
-    },
-    {
-      tag: 'image',
-      src: '/blog/images/coach-holtom-rigor.webp',
-      alt: 'Dr. Brooks Holtom teaching in Dubai, bringing the academic rigor behind the leadership frameworks.',
-      caption: 'Dr. Brooks Holtom and the rigor behind the work',
     },
     {
       tag: 'p',

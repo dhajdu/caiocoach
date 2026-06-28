@@ -228,18 +228,20 @@ export const BLOCKS_STANDALONE_9: Record<string, Block[]> = {
     { tag: 'html', html: COACHING_SYSTEM_INFOGRAPHIC },
     { tag: 'p', text: `I did not buy a tool. I designed a system, on my own data, that does the half of the work AI can do, so I can spend my time on the half it cannot: the actual conversation, the relationship, the judgment.` },
 
-    // Section 6 - the eight pieces
-    { tag: 'h2', text: `Build your own coach in Lark: the eight pieces` },
-    { tag: 'p', text: `You do not need my curriculum to start. You need an AI that can actually reason over your world (I used Claude), your own data, and the honesty to act on what it shows you. If you run your team out of Lark, you can stand up a working version in an afternoon. Here are the eight pieces.` },
-    { tag: 'p', text: `<strong>1. Start with Claude as the engine.</strong> The foundation is not the database. It is the reasoning. Claude reads the curriculum, writes the recaps, scores the conversations, and reflects them back at you. Everything else is just where the data sits. Get this right and you have a coach. Skip it and you have a spreadsheet.` },
-    { tag: 'p', text: `<strong>2. Profile each person with OCEAN.</strong> Build a Big Five profile for every direct report: Openness, Conscientiousness, Extraversion, Agreeableness, Neuroticism. This is how each person is actually wired, and it is what lets the coach tell you that the question that opens one person up will shut another one down. The profile is the work. Without it you coach everyone the same way.` },
-    { tag: 'p', text: `<strong>3. Structure every conversation with GROW.</strong> Use the GROW model to shape the one-on-one: Goal, Reality, Options, Will. Agree what they want, face where they actually are, surface the options, commit to the next move. Claude preps your questions against this structure so you walk in with the right ones, not a blank page.` },
-    { tag: 'p', text: `<strong>4. Build the backbone in Lark.</strong> One Base, three tables: Company OKRs, FAST goals, and an accountability log. Do not build a people table. You already have one, your org directory, so point at it instead of duplicating it. One source of truth is worth more than a tidy schema.` },
-    { tag: 'p', text: `<strong>5. Set the two-view split.</strong> Your private coaching view holds the OCEAN read, what is loose, and the retention risk. The shared view, in a talent wiki, holds only the work: their FAST goal, how it ladders to a company objective, and a recap of each conversation. Same data, two lenses. The trust comes from the discipline of keeping them separate.` },
-    { tag: 'p', text: `<strong>6. Wire the recap engine.</strong> After each one-on-one, have Claude pull the transcript from Lark and produce two outputs. A private extraction for you: what they want, what is true, what they committed to, and the one signal of what is loose. A clean recap for them: what you covered and what they took on. Same conversation, separated automatically.` },
-    { tag: 'p', text: `<strong>7. Add the mirror.</strong> This is the piece most people skip, and it is the one that matters. Have Claude score each conversation on your Coach, Mentor, Direct mix against the target. Let it tell you when you are telling instead of asking. A coach that only agrees with you is not a coach.` },
-    { tag: 'p', text: `<strong>8. Put it on a schedule.</strong> Wire the rhythm so it runs without you. Before each cycle it preps you on each person. After, it writes the recaps. The day after, it follows up on commitments. On top, a command center: who is overdue, who has no goal yet, how your mode mix is trending.` },
-    { tag: 'p', text: `That is the whole system. None of it is exotic. The frameworks are the hard part and the whole point. The build is easy. Letting it tell you the truth is not.` },
+    // Section 6 - the eight pieces (high level + link to the full guide)
+    { tag: 'h2', text: `Build your own: the eight pieces` },
+    { tag: 'p', text: `You do not need my curriculum to start. You need an AI that can actually reason over your world (I used Claude), your own data, and the honesty to act on what it shows you. Here is the shape, top to bottom.` },
+    { tag: 'shipped-list', title: `The build, in eight pieces`, items: [
+      `<strong>Start with Claude as the engine.</strong> The reasoning is the foundation, not the database.`,
+      `<strong>Profile each person with OCEAN.</strong> The Big Five read on how each person is wired.`,
+      `<strong>Structure every conversation with GROW.</strong> Goal, Reality, Options, Will.`,
+      `<strong>Build the backbone in Lark.</strong> One Base: company OKRs, FAST goals, an accountability log.`,
+      `<strong>Set the two-view split.</strong> Your private coaching read, their shared view.`,
+      `<strong>Wire the recap engine.</strong> One meeting, two outputs.`,
+      `<strong>Add the mirror.</strong> Score your Coach, Mentor, Direct mix against the target.`,
+      `<strong>Put it on a schedule.</strong> Prep before, recap after, follow up the day after.`,
+    ] },
+    { tag: 'p', text: `That is the shape, and the frameworks are the hard part and the whole point. I wrote the whole build up step by step, every Lark command and every scope: <a href="https://www.ai-officer.com/post/how-to-build-your-ai-leadership-coach" target="_blank" rel="noopener noreferrer">the full guide is here</a>.` },
 
     // Close
     { tag: 'image', src: '/blog/images/ai-coach-ask-more-than-you-tell.webp', alt: 'Two chairs by a window at sunrise, set for a one-on-one conversation', caption: 'The half AI cannot do: the actual conversation.' },

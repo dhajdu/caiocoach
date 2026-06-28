@@ -189,6 +189,7 @@ export const BLOCKS_STANDALONE_9: Record<string, Block[]> = {
     { tag: 'p', text: `There has almost always been something running. A packaged tool with a limited routine. Automations I wired together by hand back in the old Make.com days, each one doing a single slice of the job. A folder called leadership-coach with my datasets in it. I teach a whole session for EO Vietnam and EO Perth on Leadership in the AI Era, built on concepts I teach with Dr. Brooks C. Holtom of Georgetown, on how to build an AI leadership coach for your team. I have always practiced what I teach. What I never had was a way to build it exactly the way I wanted.` },
     { tag: 'p', text: `This week I did. Claude plus Lark, and for the first time the tools did not fight me. I could build the system the way the teaching actually describes, apply Dr. Holtom's framework in full instead of a watered-down version, and run it on my real data. Start to finish, in a day.` },
     { tag: 'p', text: `Here is what we made, and the part I did not see coming.` },
+    { tag: 'image', src: '/blog/images/dave-coaching-one-on-one.webp', alt: 'Dave Hajdu coaching a leader one-on-one at a laptop', caption: 'A real one-on-one. The half of the work AI cannot do, and the reason the whole system exists.' },
 
     // Section 1
     { tag: 'h2', text: `Start with the way you already teach it` },

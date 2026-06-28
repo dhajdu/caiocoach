@@ -187,7 +187,7 @@ export const BLOCKS_STANDALONE_9: Record<string, Block[]> = {
     // Opening
     { tag: 'p', text: `I have been building a version of this coach for years.` },
     { tag: 'p', text: `There has almost always been something running. A packaged tool with a limited routine. Automations I wired together by hand back in the old Make.com days, each one doing a single slice of the job. A folder called leadership-coach with my datasets in it. I teach a whole session for EO Vietnam and EO Perth on Leadership in the AI Era, built on concepts I teach with Dr. Brooks C. Holtom of Georgetown, on how to build an AI leadership coach for your team. I have always practiced what I teach. What I never had was a way to build it exactly the way I wanted.` },
-    { tag: 'p', text: `This week I did. Claude plus Lark, and for the first time the tools did not fight me. I could build the system the way the teaching actually describes, apply Dr. Holtom's framework in full instead of a watered-down version, and run it on my real data. Start to finish, in a day.` },
+    { tag: 'p', text: `This week I did, and the how matters. I did not write code. I directed Claude Code to assemble it: it read the teaching, wired the whole system together in Lark, and ran it on my real data. For the first time the tools did not fight me. I could build it the way the teaching actually describes and apply Dr. Holtom's framework in full, not a watered-down version. Start to finish, in a day.` },
     { tag: 'p', text: `Here is what we made, and the part I did not see coming.` },
     { tag: 'image', src: '/blog/images/dave-coaching-one-on-one.webp', alt: 'Dave Hajdu coaching a leader one-on-one at a laptop', caption: 'A real one-on-one. The half of the work AI cannot do, and the reason the whole system exists.' },
 
@@ -241,7 +241,7 @@ export const BLOCKS_STANDALONE_9: Record<string, Block[]> = {
       `<strong>Add the mirror.</strong> Score your Coach, Mentor, Direct mix against the target.`,
       `<strong>Put it on a schedule.</strong> Prep before, recap after, follow up the day after.`,
     ] },
-    { tag: 'p', text: `That is the shape, and the frameworks are the hard part and the whole point. I wrote the whole build up step by step, every Lark command and every scope: <a href="https://www.ai-officer.com/post/how-to-build-your-ai-leadership-coach" target="_blank" rel="noopener noreferrer">the full guide is here</a>.` },
+    { tag: 'p', text: `That is the shape, and the frameworks are the hard part and the whole point. I wrote the whole build up step by step, every Lark command and every scope: <a href="https://www.ai-officer.com/post/how-to-build-your-ai-leadership-coach" target="_blank" rel="noopener noreferrer">the full AI Leadership Coach Assembly guide</a>.` },
 
     // Close
     { tag: 'image', src: '/blog/images/ai-coach-ask-more-than-you-tell.webp', alt: 'Two chairs by a window at sunrise, set for a one-on-one conversation', caption: 'The half AI cannot do: the actual conversation.' },

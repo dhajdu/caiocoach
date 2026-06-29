@@ -10,6 +10,7 @@ import { POSTS_STANDALONE_7, BLOCKS_STANDALONE_7 } from './posts-standalone-7';
 import { POSTS_STANDALONE_8, BLOCKS_STANDALONE_8 } from './posts-standalone-8';
 import { POSTS_DAY10_14, BLOCKS_DAY10_14 } from './posts-day10-14';
 import { POSTS_STANDALONE_9, BLOCKS_STANDALONE_9 } from './posts-standalone-9';
+import { POSTS_STANDALONE_10, BLOCKS_STANDALONE_10 } from './posts-standalone-10';
 
 const POSTS_DAY1_5: Post[] = [
   {
@@ -86,6 +87,7 @@ const POSTS_DAY1_5: Post[] = [
 
 // Merge all posts, sorted newest first
 export const POSTS: Post[] = [
+  ...POSTS_STANDALONE_10,
   ...POSTS_STANDALONE_9,
   ...POSTS_DAY1_5,
   ...POSTS_DAY6_9,
@@ -454,6 +456,7 @@ const BLOCKS_DAY1_5: Record<string, Block[]> = {
 
 // Merge all blocks
 export const BLOCKS_BY_SLUG: Record<string, Block[]> = {
+  ...BLOCKS_STANDALONE_10,
   ...BLOCKS_STANDALONE_9,
   ...BLOCKS_DAY1_5,
   ...BLOCKS_DAY6_9,

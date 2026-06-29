@@ -68,7 +68,12 @@ export default function Footer() {
           style={{ borderTop: '1px solid var(--fg-border)' }}
         >
           <span>© {new Date().getFullYear()} · AI Officer Institute LLC · USA</span>
-          <span>v0.1 · Navy system</span>
+          <div className="flex items-center gap-4">
+            <a href="/llms.txt" className="hover:text-white transition-colors">
+              llms.txt
+            </a>
+            <span>v0.1 · Navy system</span>
+          </div>
         </div>
       </div>
 

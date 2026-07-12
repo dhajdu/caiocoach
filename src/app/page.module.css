@@ -380,28 +380,6 @@
   .fieldNotes { grid-template-columns: 1fr; }
 }
 
-.band {
-  display: grid;
-  grid-template-columns: 1fr auto;
-  gap: 48px;
-  align-items: center;
-  padding: 64px 48px;
-  border: 1px solid var(--fg-border);
-  background: var(--elev-1);
-}
-.band h2 { max-width: 640px; }
-.band p {
-  max-width: 560px;
-  color: var(--fg-70);
-  margin-top: 20px;
-  font-size: 16px;
-  line-height: 1.6;
-}
-.bandCtas { display: flex; gap: 12px; flex-wrap: wrap; }
-@media (max-width: 820px) {
-  .band { grid-template-columns: 1fr; padding: 32px; }
-}
-
 .newsletterBox {
   display: grid;
 }

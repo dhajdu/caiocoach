@@ -26,6 +26,23 @@ const nextConfig: NextConfig = {
         destination: '/retreat/participants',
         permanent: true,
       },
+      // Discontinued AI training page
+      {
+        source: '/ai-training.html',
+        destination: 'https://www.ai-officer.com/certification',
+        permanent: true,
+      },
+      {
+        source: '/ai-training',
+        destination: 'https://www.ai-officer.com/certification',
+        permanent: true,
+      },
+      // Discontinued community cohort
+      {
+        source: '/community',
+        destination: 'https://www.ai-officer.com/membership',
+        permanent: true,
+      },
       // Legacy blueprint .html URLs
       {
         source: '/blueprints/index.html',

@@ -9,7 +9,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: baseUrl, lastModified: new Date(), changeFrequency: 'weekly' as const, priority: 1.0 },
     { url: `${baseUrl}/coaching`, lastModified: new Date(), changeFrequency: 'monthly' as const, priority: 0.9 },
     { url: `${baseUrl}/certification`, lastModified: new Date(), changeFrequency: 'monthly' as const, priority: 0.9 },
-    { url: `${baseUrl}/community`, lastModified: new Date(), changeFrequency: 'monthly' as const, priority: 0.8 },
     { url: `${baseUrl}/infinite-leverage`, lastModified: new Date(), changeFrequency: 'weekly' as const, priority: 0.9 },
     { url: `${baseUrl}/blog`, lastModified: new Date(), changeFrequency: 'weekly' as const, priority: 0.9 },
     { url: `${baseUrl}/blueprints`, lastModified: new Date(), changeFrequency: 'weekly' as const, priority: 0.9 },

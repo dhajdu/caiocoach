@@ -6,5 +6,5 @@ export const metadata = {
 };
 
 export default function RetreatPage() {
-  redirect('https://ai-officer.com/retreat');
+  redirect('https://infiniteleverage-8.com');
 }

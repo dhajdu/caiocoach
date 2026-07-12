@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Script from "next/script";
 import { Geist, Geist_Mono } from "next/font/google";
+import { Analytics } from "@vercel/analytics/next";
 
 // Script import retained for the Umami analytics tag below.
 import "./globals.css";
@@ -73,7 +74,7 @@ const ORG_JSONLD = {
   logo: `${SITE_URL}/favicon.svg`,
   email: "dave@edge8.ai",
   sameAs: [
-    "https://community.ai-officer.com/feed",
+    "https://www.ai-officer.com/membership",
     "https://www.linkedin.com/company/aiofficerinstitute/",
     "https://www.facebook.com/aiofficerinstitute",
     "https://www.instagram.com/aiofficerinstitute/",
@@ -166,6 +167,7 @@ export default function RootLayout({
           data-website-id="69abe0a5-ceba-4740-a90d-2bb2f198a4a9"
           strategy="afterInteractive"
         />
+        <Analytics />
       </body>
     </html>
   );

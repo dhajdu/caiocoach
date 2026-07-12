@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { cookies } from 'next/headers';
-import { supabase } from '@/lib/supabase';
+import { companyOs } from '@/lib/supabase';
+import { getOrCreatePerson } from '@/lib/company-os';
 import { sendLarkMessage } from '@/lib/lark';
 import { resolveAffiliate, AFF_REF_COOKIE } from '@/lib/affiliate';
 
@@ -59,24 +60,44 @@ export async function POST(request: NextRequest) {
     const cookieStore = await cookies();
     const resolved = await resolveAffiliate(manualCode ?? cookieStore.get(AFF_REF_COOKIE)?.value);
 
-    const { data: inquiryId, error } = await supabase.rpc('submit_inquiry', {
-      p_name: name,
-      p_email: email,
-      p_type: type,
-      p_phone: phone,
-      p_company: company,
-      p_role: role,
-      p_subject: subjectFor(type),
-      p_message: message,
-      p_source: 'contact_page_caiocoach',
-      p_source_site: 'caiocoach.com',
-      p_affiliate_id: resolved?.affiliate.id ?? null,
+    const person = await getOrCreatePerson({
+      email,
+      name,
+      phone,
+      source: 'caiocoach.com',
     });
+    if (!person.ok) {
+      console.error('[contact] getOrCreatePerson failed', person.error);
+      return NextResponse.json({ error: person.error }, { status: 500 });
+    }
+
+    const { data: inquiry, error } = await companyOs
+      .from('inquiries')
+      .insert({
+        person_id: person.id,
+        type,
+        subject: subjectFor(type),
+        message,
+        source: 'contact_page_caiocoach',
+        source_site: 'caiocoach.com',
+        status: 'new_lead',
+        metadata: {
+          company,
+          role,
+          // Affiliate codes aren't resolved to a company_os affiliate id yet
+          // (caio-coach's affiliate data hasn't been migrated there) -
+          // kept here as text so nothing is lost.
+          affiliate_code: resolved?.affiliate.code_discount ?? manualCode ?? null,
+        },
+      })
+      .select('id')
+      .single();
 
     if (error) {
-      console.error('[contact] submit_inquiry failed', error);
+      console.error('[contact] inquiries insert failed', error);
       return NextResponse.json({ error: error.message }, { status: 500 });
     }
+    const inquiryId = inquiry.id;
 
     const notification = [
       `📨 New contact inquiry (caiocoach.com · ${type})`,

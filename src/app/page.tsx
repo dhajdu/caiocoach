@@ -73,6 +73,25 @@ export default function Home() {
         </div>
       </section>
 
+      {/* INTRO VIDEO */}
+      <section className="sec">
+        <div className="page-container">
+          <div
+            className="w-full overflow-hidden border border-white/10"
+            style={{ aspectRatio: '16/9' }}
+          >
+            <iframe
+              src="https://www.youtube-nocookie.com/embed/zxTLyuiTfWk?rel=0&modestbranding=1"
+              title="Dave Hajdu introduction"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+              allowFullScreen
+              loading="lazy"
+              className="w-full h-full border-0"
+            />
+          </div>
+        </div>
+      </section>
+
       {/* ABOUT DAVE */}
       <section className="sec">
         <div className="page-container">

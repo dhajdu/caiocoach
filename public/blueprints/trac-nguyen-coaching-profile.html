@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>OCEAN Coaching Profile · Trac Nguyen</title>
+<style>
+  :root {
+    --ink: #1a2235;
+    --muted: #5a6b85;
+    --line: #e3e8f0;
+    --bg: #f4f6fb;
+    --card: #ffffff;
+    --accent: #2f6df0;
+    --accent-soft: #eaf1fe;
+    --high: #1f9d68;
+    --high-bg: #e7f6ee;
+    --med: #c98a16;
+    --med-bg: #fbf2dd;
+    --low: #6a7790;
+    --low-bg: #eef1f6;
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--ink);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .wrap {
+    max-width: 860px;
+    margin: 0 auto;
+    padding: 48px 24px 80px;
+  }
+
+  /* Header */
+  .hero {
+    background: linear-gradient(135deg, #1a2235 0%, #2a3a63 100%);
+    color: #fff;
+    border-radius: 18px;
+    padding: 40px 40px 34px;
+    margin-bottom: 28px;
+    box-shadow: 0 18px 40px -22px rgba(26,34,53,.55);
+  }
+  .hero .head {
+    display: flex;
+    align-items: center;
+    gap: 26px;
+  }
+  .hero .head .text { flex: 1; min-width: 0; }
+  .hero .avatar {
+    flex: 0 0 auto;
+    width: 116px;
+    height: 116px;
+    border-radius: 50%;
+    object-fit: cover;
+    object-position: center top;
+    border: 3px solid rgba(255,255,255,.22);
+    box-shadow: 0 10px 26px -12px rgba(0,0,0,.6);
+  }
+  .hero .eyebrow {
+    text-transform: uppercase;
+    letter-spacing: .14em;
+    font-size: 12px;
+    font-weight: 700;
+    color: #9db6f0;
+    margin: 0 0 10px;
+  }
+  .hero h1 {
+    margin: 0 0 8px;
+    font-size: 34px;
+    letter-spacing: -.02em;
+  }
+  .hero p.sub {
+    margin: 0;
+    color: #c7d2ea;
+    font-size: 15px;
+  }
+  .hero .meta {
+    margin-top: 20px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+  .hero .chip {
+    background: rgba(255,255,255,.1);
+    border: 1px solid rgba(255,255,255,.18);
+    border-radius: 999px;
+    padding: 6px 14px;
+    font-size: 13px;
+    color: #eaf0fb;
+  }
+  .hero .chip a { color: #cfe0ff; text-decoration: none; }
+
+  /* Cards */
+  .card {
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: 16px;
+    padding: 30px 32px;
+    margin-bottom: 24px;
+    box-shadow: 0 6px 24px -18px rgba(26,34,53,.4);
+  }
+  .card h2 {
+    margin: 0 0 4px;
+    font-size: 22px;
+    letter-spacing: -.01em;
+  }
+  .card h2 .num {
+    color: var(--accent);
+    font-weight: 800;
+    margin-right: 10px;
+  }
+  .section-note {
+    color: var(--muted);
+    font-size: 13px;
+    margin: 0 0 22px;
+    font-style: italic;
+  }
+
+  /* OCEAN rows */
+  .dim {
+    border-top: 1px solid var(--line);
+    padding: 18px 0;
+    display: grid;
+    grid-template-columns: 160px 1fr;
+    gap: 18px;
+    align-items: start;
+  }
+  .dim:first-of-type { border-top: none; padding-top: 4px; }
+  .dim .name {
+    font-weight: 700;
+    font-size: 16px;
+  }
+  .badge {
+    display: inline-block;
+    margin-top: 8px;
+    font-size: 12px;
+    font-weight: 700;
+    padding: 4px 11px;
+    border-radius: 999px;
+    text-transform: uppercase;
+    letter-spacing: .04em;
+  }
+  .badge.high { background: var(--high-bg); color: var(--high); }
+  .badge.med  { background: var(--med-bg);  color: var(--med); }
+  .badge.low  { background: var(--low-bg);  color: var(--low); }
+  .dim .evidence { color: var(--ink); font-size: 15px; }
+
+  /* Snapshot */
+  .snapshot {
+    border-left: 4px solid var(--accent);
+    background: var(--accent-soft);
+    padding: 22px 26px;
+    border-radius: 0 12px 12px 0;
+    font-size: 16px;
+  }
+  .snapshot p { margin: 0; }
+
+  /* Coaching implications */
+  .impl {
+    display: grid;
+    gap: 16px;
+  }
+  .impl .item {
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    padding: 18px 20px;
+  }
+  .impl .label {
+    font-weight: 700;
+    font-size: 14px;
+    color: var(--accent);
+    margin: 0 0 4px;
+    text-transform: uppercase;
+    letter-spacing: .05em;
+  }
+  .impl .item p { margin: 0; font-size: 15px; }
+
+  /* Goals */
+  .goal {
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    padding: 22px 24px;
+    margin-bottom: 18px;
+  }
+  .goal:last-child { margin-bottom: 0; }
+  .goal .tag {
+    display: inline-block;
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: .08em;
+    color: var(--accent);
+    background: var(--accent-soft);
+    padding: 4px 10px;
+    border-radius: 6px;
+    margin-bottom: 12px;
+  }
+  .goal .headline {
+    font-size: 17px;
+    font-weight: 700;
+    margin: 0 0 10px;
+    line-height: 1.45;
+  }
+  .goal .detail { margin: 0; color: var(--muted); font-size: 15px; }
+
+  footer {
+    text-align: center;
+    color: var(--muted);
+    font-size: 13px;
+    margin-top: 8px;
+  }
+
+  @media (max-width: 620px) {
+    .wrap { padding: 28px 14px 60px; }
+    .hero { padding: 28px 24px; }
+    .hero h1 { font-size: 24px; }
+    .hero .head { gap: 16px; }
+    .hero .avatar { width: 78px; height: 78px; }
+    .card { padding: 24px 20px; }
+    .dim { grid-template-columns: 1fr; gap: 6px; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header class="hero">
+    <div class="head">
+      <img class="avatar" src="/blueprints/trac-nguyen.webp" alt="Trac Nguyen">
+      <div class="text">
+        <p class="eyebrow">Coaching Profile · Big Five (OCEAN)</p>
+        <h1>Trac Nguyen</h1>
+        <p class="sub">Built from 1:1 coaching session transcripts.</p>
+      </div>
+    </div>
+    <div class="meta">
+      <span class="chip">Model · Big Five (OCEAN)</span>
+      <span class="chip">Email · <a href="mailto:trac.nguyen@edge8.ai">trac.nguyen@edge8.ai</a></span>
+    </div>
+  </header>
+
+  <!-- OCEAN Ratings -->
+  <section class="card">
+    <h2>OCEAN Ratings</h2>
+    <p class="section-note">Each dimension rated with behavioral evidence from the sessions.</p>
+
+    <div class="dim">
+      <div class="name">Openness<br><span class="badge med">Medium-High</span></div>
+      <div class="evidence">Spends personal weekend time exploring new tools (Claude.md, MCP patterns). Connects technical implementation to bigger-picture concepts. Eager to learn and apply emerging frameworks like Framer.</div>
+    </div>
+
+    <div class="dim">
+      <div class="name">Conscientiousness<br><span class="badge high">High</span></div>
+      <div class="evidence">Reports project status methodically; reviews and checks off his own todo lists; thinks ahead architecturally (structured the database from day one for future admin tooling).</div>
+    </div>
+
+    <div class="dim">
+      <div class="name">Extraversion<br><span class="badge low">Low</span></div>
+      <div class="evidence">Quiet and reserved in social and team settings. Brief, focused responses in 1:1s. Does not seek the spotlight or drive group energy.</div>
+    </div>
+
+    <div class="dim">
+      <div class="name">Agreeableness<br><span class="badge med">Medium</span></div>
+      <div class="evidence">Gives thoughtful opinions when asked and answers questions well, but not assertive or proactively vocal. Cooperative and a hard worker without needing recognition. Not conflict-avoidant, but not combative.</div>
+    </div>
+
+    <div class="dim">
+      <div class="name">Neuroticism<br><span class="badge low">Low</span></div>
+      <div class="evidence">Presents technical blockers calmly and analytically without emotional reactivity. Steady under shifting priorities and ambiguity.</div>
+    </div>
+  </section>
+
+  <!-- Snapshot -->
+  <section class="card">
+    <h2>Personality Snapshot</h2>
+    <div class="snapshot">
+      <p>Trac is a calm, self-directed technical contributor who does excellent work without needing recognition or close supervision. He thinks in systems, plans ahead, and stays steady under pressure - rare qualities in a fast-moving startup. He's genuinely curious and will explore new tools on his own time, but he doesn't volunteer opinions or flag concerns unless asked. His contributions can be invisible if you're not paying close attention, which means his value is easy to underestimate and his blockers are easy to miss.</p>
+    </div>
+  </section>
+
+  <!-- Coaching Implications -->
+  <section class="card">
+    <h2>Coaching Implications</h2>
+    <div class="impl">
+      <div class="item">
+        <p class="label">Tone</p>
+        <p>Keep it peer-level and technical. He doesn't need motivation or cheerleading - he needs intellectual engagement. Talk to him like a fellow problem-solver, not a direct report.</p>
+      </div>
+      <div class="item">
+        <p class="label">Feedback delivery</p>
+        <p>Be specific and concrete. He won't read between the lines or pick up on hints. If something needs to change, say it plainly. He'll receive it without defensiveness.</p>
+      </div>
+      <div class="item">
+        <p class="label">Pacing</p>
+        <p>Give him space to work - he doesn't need frequent check-ins. But build in explicit moments to surface blockers, because he won't raise them proactively. A direct "what's in your way?" in every 1:1 is more useful than waiting for him to bring it up.</p>
+      </div>
+      <div class="item">
+        <p class="label">Challenge level</p>
+        <p>Push him toward communication and visibility, not harder technical work. His growth edge isn't skill - it's making sure his work and concerns are seen. Encourage him to share progress and opinions before he's asked, and acknowledge it when he does.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAST Goals -->
+  <section class="card">
+    <h2>FAST Goals</h2>
+    <p class="section-note">Draft - to be polished. Reviewed in every 1:1.</p>
+
+    <div class="goal">
+      <span class="tag">Team Goal · aligned to company OKRs</span>
+      <p class="headline">50% of Infinite Leverage retreat participants actively using their Blueprint to run a business or business function within 90 days of each retreat - by December 31, 2026.</p>
+      <p class="detail">Directly owns OKR 3 / KR4. Track participant activation rate after each retreat cohort. Surface usage data and blockers in every 1:1 so issues are caught within the 90-day window, not after.</p>
+    </div>
+
+    <div class="goal">
+      <span class="tag">Individual Goal · personal development</span>
+      <p class="headline">Build an AI agent for every repetitive task in his role by December 31, 2026.</p>
+      <p class="detail">For every recurring engineering or delivery task - testing, reporting, code review prep, progress tracking - Trac identifies it, maps the workflow, and builds an agent to handle it. Target: at least one new automated workflow per month. Review in every 1:1: what's still manual that shouldn't be?</p>
+    </div>
+  </section>
+
+  <footer>OCEAN Coaching Profile &amp; FAST Goals · Trac Nguyen</footer>
+
+</div>
+</body>
+</html>

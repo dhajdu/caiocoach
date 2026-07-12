@@ -59,6 +59,7 @@ export const BLOCKS_STANDALONE_8: Record<string, Block[]> = {
       tag: 'p',
       text: 'And here is what happened every single time. The moment I helped him get clear, he said something back that reorganized how I saw the same problem. The frame I handed over came back to me sharper. That is not a nice feeling. It is a working method.',
     },
+    { tag: 'html', html: '<figure class="my-8"><div class="grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-4 items-start"><img src="/blog/images/coach-learning.webp" alt="Dave Hajdu coaching senior leaders in the room during the Leadership in the AI Era program in Dubai." loading="lazy" class="w-full h-auto rounded-xl border border-white/10" /><img src="/blog/images/coach-emba-cohort.webp" alt="Dave Hajdu with the Executive MBA cohort in Dubai during the Leadership in the AI Era program." loading="lazy" class="w-full h-auto rounded-xl border border-white/10" /><img src="/blog/images/coach-holtom-rigor.webp" alt="Dr. Brooks Holtom teaching in Dubai, bringing the academic rigor behind the leadership frameworks." loading="lazy" class="w-full h-auto rounded-xl border border-white/10" /></div><figcaption class="text-center text-xs text-white/55 italic mt-3 leading-snug">Coaching the Executive MBA cohort in Dubai</figcaption></figure>' },
 
     // What I actually learned
     { tag: 'h2', text: 'What I actually learned' },

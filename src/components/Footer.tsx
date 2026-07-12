@@ -26,10 +26,10 @@ export default function Footer() {
               { label: 'Infinite Leverage', href: '/infinite-leverage' },
               { label: 'Blog', href: '/blog' },
               { label: 'Certification', href: '/certification' },
-              { label: 'Community', href: '/community' },
+              { label: 'Community', href: 'https://www.ai-officer.com/membership', external: true },
               { label: 'Frameworks', href: '/resources/100-business-frameworks' },
               { label: 'Blueprints', href: '/blueprints' },
-              { label: 'Retreat', href: 'https://ai-officer.com/retreat', external: true },
+              { label: 'Retreat', href: 'https://infiniteleverage-8.com', external: true },
               { label: 'Contact', href: '/contact' },
             ]}
           />
@@ -55,7 +55,7 @@ export default function Footer() {
           <FooterCol
             title="Social"
             items={[
-              { label: 'Community', href: 'https://community.ai-officer.com/feed', external: true },
+              { label: 'Community', href: 'https://www.ai-officer.com/membership', external: true },
               { label: 'LinkedIn', href: 'https://www.linkedin.com/company/aiofficerinstitute/', external: true },
               { label: 'Facebook', href: 'https://www.facebook.com/aiofficerinstitute', external: true },
               { label: 'Instagram', href: 'https://www.instagram.com/aiofficerinstitute/', external: true },

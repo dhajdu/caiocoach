@@ -5,11 +5,11 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { Menu, X } from 'lucide-react';
 
-type NavItem = { label: string; href: string };
+type NavItem = { label: string; href: string; external?: boolean };
 
 const NAV_LINKS: NavItem[] = [
   { label: 'Coaching', href: '/coaching' },
-  { label: 'AI Training', href: '/ai-training.html' },
+  { label: 'AI Training', href: 'https://www.ai-officer.com/certification', external: true },
   { label: 'Infinite Leverage', href: '/infinite-leverage' },
   { label: 'Blog', href: '/blog' },
   { label: 'Contact', href: '/contact' },
@@ -47,6 +47,19 @@ export default function Navbar() {
       <nav className="hidden md:flex items-center gap-7">
         {NAV_LINKS.map((link) => {
           const active = isActive(link.href);
+          if (link.external) {
+            return (
+              <a
+                key={link.href}
+                href={link.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-[14px] whitespace-nowrap transition-colors text-white/70 hover:text-white"
+              >
+                {link.label}
+              </a>
+            );
+          }
           return (
             <Link
               key={link.href}
@@ -60,7 +73,7 @@ export default function Navbar() {
           );
         })}
         <a
-          href="https://ai-officer.com/retreat"
+          href="https://infiniteleverage-8.com"
           target="_blank"
           rel="noopener noreferrer"
           className="font-mono text-[12px] uppercase tracking-[0.14em] px-4 py-2.5 text-[#04102D] bg-white border border-white whitespace-nowrap hover:bg-white/90 transition-colors"
@@ -87,20 +100,33 @@ export default function Navbar() {
             borderBottom: '1px solid var(--fg-border)',
           }}
         >
-          {NAV_LINKS.map((link) => (
-            <Link
-              key={link.href}
-              href={link.href}
-              onClick={() => setIsOpen(false)}
-              className={`text-[15px] ${
-                isActive(link.href) ? 'text-white' : 'text-white/70'
-              }`}
-            >
-              {link.label}
-            </Link>
-          ))}
+          {NAV_LINKS.map((link) =>
+            link.external ? (
+              <a
+                key={link.href}
+                href={link.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={() => setIsOpen(false)}
+                className="text-[15px] text-white/70"
+              >
+                {link.label}
+              </a>
+            ) : (
+              <Link
+                key={link.href}
+                href={link.href}
+                onClick={() => setIsOpen(false)}
+                className={`text-[15px] ${
+                  isActive(link.href) ? 'text-white' : 'text-white/70'
+                }`}
+              >
+                {link.label}
+              </Link>
+            )
+          )}
           <a
-            href="https://ai-officer.com/retreat"
+            href="https://infiniteleverage-8.com"
             target="_blank"
             rel="noopener noreferrer"
             onClick={() => setIsOpen(false)}

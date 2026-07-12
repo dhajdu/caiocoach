@@ -380,7 +380,7 @@ export default function InfiniteLeveragePage() {
             <div style={{ display: 'flex', gap: 12, flexWrap: 'wrap' }}>
               <a
                 className="btn btn-primary"
-                href="https://ai-officer.com/retreat"
+                href="https://infiniteleverage-8.com"
                 target="_blank"
                 rel="noopener noreferrer"
               >

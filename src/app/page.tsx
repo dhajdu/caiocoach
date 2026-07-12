@@ -32,7 +32,7 @@ export default function Home() {
           <div className={styles.ctaRow}>
             <a
               className="btn btn-primary"
-              href="https://ai-officer.com/retreat"
+              href="https://infiniteleverage-8.com"
               target="_blank"
               rel="noopener noreferrer"
             >
@@ -141,9 +141,14 @@ export default function Home() {
                   Four Offices of the Future
                 </Link>{' '}
                 - Revenue, Talent, Operations, Innovation. Join the{' '}
-                <Link className={styles.aboutInline} href="/community">
-                  Leadership in the AI Era
-                </Link>{' '}
+                <a
+                  className={styles.aboutInline}
+                  href="https://www.ai-officer.com/membership"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  AI Officer membership
+                </a>{' '}
                 community and work through it with a global cohort of executives.
               </p>
               <div className={styles.credentials}>
@@ -304,43 +309,6 @@ export default function Home() {
                 <span className={styles.notesMetaRight}>7 essays · monthly</span>
               </div>
             </Link>
-          </div>
-        </div>
-      </section>
-
-      {/* COMMUNITY BAND */}
-      <section className="sec">
-        <div className="page-container">
-          <div className={styles.band}>
-            <div>
-              <div className="t-eyebrow" style={{ marginBottom: 20 }}>
-                Community
-              </div>
-              <h2 className="t-h1">Leadership in the AI Era - a global cohort.</h2>
-              <p>
-                A community of executives coaching each other through the Four Offices
-                framework. Weekly live sessions. A shared archive of what&apos;s working.
-                Apply to the Q3 cohort before enrollment closes.
-              </p>
-            </div>
-            <div className={styles.bandCtas}>
-              <a
-                className="btn btn-primary"
-                href="https://community.ai-officer.com/checkout/ai-officer-certification-program?affiliate_code=ab0cd6"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                Apply to cohort
-              </a>
-              <a
-                className="btn btn-ghost"
-                href="https://community.ai-officer.com/feed"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                Visit community
-              </a>
-            </div>
           </div>
         </div>
       </section>
